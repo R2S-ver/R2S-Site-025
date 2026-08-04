@@ -1,656 +1,296 @@
 <footer class="footer">
-
-
-<div class="footer-line">
-
+  <div class="footer-line">
     <div class="tri-color">
-        <span></span>
-        <span></span>
-        <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
 
-
-    <div class="system">
-        FOOTER_NODE // TERMINATION_SEQUENCE
-    </div>
-
+    <div class="system">FOOTER_NODE // TERMINATION_SEQUENCE</div>
 
     <div class="status">
-        SYS_STATUS:
-        <span>ONLINE</span>
+      SYS_STATUS:
+      <span>ONLINE</span>
+    </div>
+  </div>
+
+  <div class="footer-main">
+    <div class="identity">
+      <h3>R2S_STUDIO</h3>
+
+      <p>Industrial Design × Embedded Systems × Creative Making</p>
+
+      <div class="meta">
+        <div>
+          LOCATION:
+          <strong> ROTTERDAM // NL </strong>
+        </div>
+
+        <div>
+          STATUS:
+          <strong class="green"> OPERATIONAL </strong>
+        </div>
+
+        <div>
+          VERSION:
+          <strong> 2026.V5.5 </strong>
+        </div>
+      </div>
     </div>
 
-</div>
+    <div class="links">
+      <div class="title">DATA_UPLINK</div>
 
+      <a href="https://github.com/R2S-ver" target="_blank"> &gt; GitHub </a>
 
+      <a href="mailto:ranrsuika@gmail.com"> &gt; Email </a>
 
+      <a href="/about"> &gt; About </a>
+    </div>
 
+    <div class="barcode"></div>
+  </div>
 
-<div class="footer-main">
+  <div class="copyright">
+    <span>
+      © {new Date().getFullYear()} R2S Studio
+    </span>
 
-
-
-<div class="identity">
-
-
-<h3>
-R2S_STUDIO
-</h3>
-
-
-<p>
-Industrial Design × Embedded Systems × Creative Making
-</p>
-
-
-
-<div class="meta">
-
-<div>
-LOCATION:
-<strong>
-ROTTERDAM // NL
-</strong>
-</div>
-
-
-<div>
-STATUS:
-<strong class="green">
-OPERATIONAL
-</strong>
-</div>
-
-
-<div>
-VERSION:
-<strong>
-2026.V5.5
-</strong>
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<div class="links">
-
-
-<div class="title">
-
-DATA_UPLINK
-
-</div>
-
-
-
-<a 
-href="https://github.com/R2S-ver"
-target="_blank"
->
-&gt; GitHub
-</a>
-
-
-<a href="mailto:ranrsuika@gmail.com">
-&gt; Email
-</a>
-
-
-<a href="/about">
-&gt; About
-</a>
-
-
-</div>
-
-
-
-
-
-<div class="barcode"></div>
-
-
-
-</div>
-
-
-
-
-
-
-<div class="copyright">
-
-
-<span>
-
-© {new Date().getFullYear()} R2S Studio
-
-</span>
-
-
-<span>
-
-ALL CORE DATA PACKETS INTEGRATED
-
-</span>
-
-
-</div>
-
-
-
+    <span> ALL CORE DATA PACKETS INTEGRATED </span>
+  </div>
 </footer>
 
-
-
-
-
 <style>
+  .footer {
+    margin-top: 120px;
 
+    border-top: 1px solid var(--border);
 
-.footer{
+    background: rgba(5, 5, 7, 0.8);
 
+    font-family: var(--font-mono);
 
-margin-top:120px;
+    color: #aaa;
+  }
 
+  .footer-line {
+    height: 70px;
 
-border-top:
+    border-bottom: 1px solid var(--border);
 
-1px solid var(--border);
+    display: flex;
 
+    align-items: center;
 
-background:
+    justify-content: space-between;
 
-rgba(5,5,7,.8);
+    padding: 0 40px;
 
+    font-size: 11px;
 
-font-family:
+    letter-spacing: 1px;
+  }
 
-var(--font-mono);
+  .tri-color {
+    display: flex;
 
+    width: 90px;
 
-color:#aaa;
+    height: 8px;
+  }
 
+  .tri-color span {
+    flex: 1;
+  }
 
-}
+  .tri-color span:nth-child(1) {
+    background: var(--stripe-red);
+  }
 
+  .tri-color span:nth-child(2) {
+    background: var(--stripe-yellow);
+  }
 
+  .tri-color span:nth-child(3) {
+    background: var(--stripe-teal);
+  }
 
+  .system {
+    color: var(--accent);
 
+    font-weight: bold;
+  }
 
-.footer-line{
+  .status span {
+    color: var(--terminal-green);
 
+    font-weight: bold;
+  }
 
-height:70px;
+  .footer-main {
+    position: relative;
 
+    max-width: 1400px;
 
-border-bottom:
+    margin: auto;
 
-1px solid var(--border);
+    padding: 60px 40px;
 
+    display: flex;
 
-display:flex;
+    justify-content: space-between;
 
+    gap: 60px;
+  }
 
-align-items:center;
+  .identity h3 {
+    font-size: 32px;
 
+    font-weight: 900;
 
-justify-content:space-between;
+    letter-spacing: -1px;
 
+    color: white;
 
-padding:
+    margin-bottom: 12px;
+  }
 
-0 40px;
+  .identity p {
+    font-size: 13px;
 
+    color: #888;
+  }
 
-font-size:11px;
+  .meta {
+    margin-top: 30px;
 
+    display: flex;
 
-letter-spacing:1px;
+    flex-direction: column;
 
+    gap: 10px;
 
-}
+    font-size: 12px;
+  }
 
+  .meta strong {
+    color: white;
+  }
 
+  .green {
+    color: var(--terminal-green) !important;
+  }
 
+  .links {
+    display: flex;
 
-.tri-color{
+    flex-direction: column;
 
+    gap: 15px;
 
-display:flex;
+    min-width: 180px;
+  }
 
+  .links .title {
+    color: var(--accent);
 
-width:90px;
+    font-size: 12px;
 
+    font-weight: bold;
 
-height:8px;
+    margin-bottom: 10px;
+  }
 
+  .links a {
+    color: #ccc;
 
-}
+    font-size: 13px;
 
+    transition: 0.2s;
+  }
 
+  .links a:hover {
+    color: var(--accent);
 
-.tri-color span{
+    transform: translateX(5px);
+  }
 
-flex:1;
+  .barcode {
+    position: absolute;
 
-}
+    right: 40px;
 
+    bottom: 45px;
 
+    width: 120px;
 
-.tri-color span:nth-child(1){
+    height: 45px;
 
-background:
+    opacity: 0.3;
 
-var(--stripe-red);
+    background: repeating-linear-gradient(
+      90deg,
+      #fff 0px,
 
-}
+      #fff 2px,
 
+      transparent 2px,
 
-.tri-color span:nth-child(2){
+      transparent 5px
+    );
+  }
 
-background:
+  .copyright {
+    border-top: 1px dashed var(--border);
 
-var(--stripe-yellow);
+    max-width: 1400px;
 
-}
+    margin: auto;
 
+    padding: 25px 40px;
 
-.tri-color span:nth-child(3){
+    display: flex;
 
-background:
+    justify-content: space-between;
 
-var(--stripe-teal);
+    font-size: 11px;
 
-}
+    color: #666;
 
+    letter-spacing: 1px;
+  }
 
+  @media (max-width: 800px) {
+    .footer-line {
+      padding: 0 20px;
 
+      flex-direction: column;
 
+      height: auto;
 
-.system{
+      gap: 15px;
 
-color:
+      padding-top: 20px;
 
-var(--accent);
+      padding-bottom: 20px;
+    }
 
-font-weight:bold;
+    .footer-main {
+      padding: 40px 20px;
 
-}
+      flex-direction: column;
+    }
 
+    .barcode {
+      position: static;
+    }
 
+    .copyright {
+      padding: 20px;
 
+      flex-direction: column;
 
-.status span{
-
-color:
-
-var(--terminal-green);
-
-font-weight:bold;
-
-}
-
-
-
-
-
-
-.footer-main{
-
-
-position:relative;
-
-
-max-width:1400px;
-
-
-margin:auto;
-
-
-padding:
-
-60px 40px;
-
-
-display:flex;
-
-
-justify-content:space-between;
-
-
-gap:60px;
-
-
-}
-
-
-
-
-.identity h3{
-
-
-font-size:32px;
-
-
-font-weight:900;
-
-
-letter-spacing:-1px;
-
-
-color:white;
-
-
-margin-bottom:12px;
-
-
-}
-
-
-
-
-.identity p{
-
-
-font-size:13px;
-
-
-color:#888;
-
-
-}
-
-
-
-
-
-.meta{
-
-
-margin-top:30px;
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:10px;
-
-
-font-size:12px;
-
-
-}
-
-
-
-.meta strong{
-
-
-color:white;
-
-
-}
-
-
-
-.green{
-
-color:
-
-var(--terminal-green)!important;
-
-}
-
-
-
-
-
-.links{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-gap:15px;
-
-
-min-width:180px;
-
-
-}
-
-
-
-
-.links .title{
-
-
-color:
-
-var(--accent);
-
-
-font-size:12px;
-
-
-font-weight:bold;
-
-
-margin-bottom:10px;
-
-
-}
-
-
-
-
-.links a{
-
-
-color:#ccc;
-
-
-font-size:13px;
-
-
-transition:.2s;
-
-
-}
-
-
-
-.links a:hover{
-
-
-color:
-
-var(--accent);
-
-
-transform:translateX(5px);
-
-
-}
-
-
-
-
-
-.barcode{
-
-
-position:absolute;
-
-
-right:40px;
-
-
-bottom:45px;
-
-
-width:120px;
-
-
-height:45px;
-
-
-
-opacity:.3;
-
-
-
-background:
-
-repeating-linear-gradient(
-
-90deg,
-
-#fff 0px,
-
-#fff 2px,
-
-transparent 2px,
-
-transparent 5px
-
-);
-
-
-}
-
-
-
-
-
-.copyright{
-
-
-border-top:
-
-1px dashed var(--border);
-
-
-max-width:1400px;
-
-
-margin:auto;
-
-
-padding:
-
-25px 40px;
-
-
-display:flex;
-
-
-justify-content:space-between;
-
-
-font-size:11px;
-
-
-color:#666;
-
-
-letter-spacing:1px;
-
-
-}
-
-
-
-
-
-@media(max-width:800px){
-
-
-.footer-line{
-
-
-padding:0 20px;
-
-
-flex-direction:column;
-
-
-height:auto;
-
-
-gap:15px;
-
-
-padding-top:20px;
-
-
-padding-bottom:20px;
-
-
-}
-
-
-
-
-.footer-main{
-
-
-padding:
-
-40px 20px;
-
-
-flex-direction:column;
-
-
-}
-
-
-
-.barcode{
-
-
-position:static;
-
-
-}
-
-
-
-.copyright{
-
-
-padding:
-
-20px;
-
-
-flex-direction:column;
-
-
-gap:10px;
-
-
-}
-
-
-}
-
-
+      gap: 10px;
+    }
+  }
 </style>

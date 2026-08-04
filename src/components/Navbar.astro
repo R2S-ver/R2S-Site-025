@@ -1,627 +1,272 @@
 <nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="tri-color">
+        <span class="red"></span>
 
+        <span class="yellow"></span>
 
-<div class="nav-inner">
+        <span class="teal"></span>
+      </div>
 
+      <a href="/"> R2S // STUDIO </a>
+    </div>
 
+    <div class="links">
+      <a href="/"> HOME </a>
 
-<div class="brand">
+      <a href="/projects"> PROJECTS </a>
 
+      <a href="/lab"> LAB </a>
 
-<div class="tri-color">
+      <a href="/gallery"> ART </a>
 
-<span class="red"></span>
+      <a href="/notes"> NOTES </a>
 
-<span class="yellow"></span>
+      <a href="/about"> ABOUT </a>
+    </div>
 
-<span class="teal"></span>
+    <div class="status">
+      <span class="label"> SYS_STATUS: </span>
 
-</div>
+      <span class="online"> ONLINE </span>
 
+      <span class="separator"> // </span>
 
+      <span id="clock"> 00:00:00 </span>
+    </div>
+  </div>
 
-<a href="/">
-
-R2S // STUDIO
-
-</a>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="links">
-
-
-<a href="/">
-HOME
-</a>
-
-
-<a href="/projects">
-PROJECTS
-</a>
-
-
-<a href="/lab">
-LAB
-</a>
-
-
-<a href="/gallery">
-ART
-</a>
-
-
-<a href="/notes">
-NOTES
-</a>
-
-
-<a href="/about">
-ABOUT
-</a>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="status">
-
-
-<span class="label">
-SYS_STATUS:
-</span>
-
-
-<span class="online">
-ONLINE
-</span>
-
-
-<span class="separator">
-// 
-</span>
-
-
-<span id="clock">
-00:00:00
-</span>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-<div class="warning-stripe"></div>
-
-
-
+  <div class="warning-stripe"></div>
 </nav>
 
-
-
-
-
-
 <script>
+  function updateClock() {
+    const el = document.getElementById("clock");
 
-function updateClock(){
+    if (el) {
+      const now = new Date();
 
-const el =
-document.getElementById("clock");
+      el.textContent = now.toTimeString().split(" ")[0];
+    }
+  }
 
+  setInterval(updateClock, 1000);
 
-if(el){
-
-const now=new Date();
-
-
-el.textContent =
-now.toTimeString().split(" ")[0];
-
-}
-
-}
-
-
-setInterval(updateClock,1000);
-
-updateClock();
-
-
+  updateClock();
 </script>
 
-
-
-
-
-
-
 <style>
+  nav {
+    position: sticky;
 
+    top: 0;
 
-nav{
+    z-index: 100;
 
-    position:sticky;
+    background: rgba(5, 5, 7, 0.88);
 
-    top:0;
+    backdrop-filter: blur(10px);
 
-    z-index:100;
+    border-bottom: 1px solid var(--border);
+  }
 
+  .nav-inner {
+    height: 72px;
 
-    background:
+    padding: 0 40px;
 
-    rgba(5,5,7,.88);
+    display: flex;
 
+    align-items: center;
 
-    backdrop-filter:
+    justify-content: space-between;
+  }
 
-    blur(10px);
+  .brand {
+    display: flex;
 
+    align-items: center;
 
-    border-bottom:
+    gap: 15px;
 
-    1px solid var(--border);
+    font-weight: 900;
 
-}
+    line-height: 1;
 
+    font-size: 14px;
 
+    letter-spacing: 1px;
+  }
 
+  .brand a {
+    color: white;
+  }
 
+  .tri-color {
+    display: flex;
 
-.nav-inner{
+    width: 36px;
 
+    height: 18px;
 
-    height:72px;
+    overflow: hidden;
 
+    border-radius: 2px;
 
-    padding:
+    flex-shrink: 0;
+  }
 
-    0 40px;
+  .tri-color span {
+    display: block;
 
+    width: 12px;
 
-    display:flex;
+    height: 18px;
+  }
 
+  .tri-color .red {
+    background: var(--stripe-red);
+  }
 
-    align-items:center;
+  .tri-color .yellow {
+    background: var(--stripe-yellow);
+  }
 
+  .tri-color .teal {
+    background: var(--stripe-teal);
+  }
 
-    justify-content:space-between;
+  .links {
+    display: flex;
 
+    gap: 28px;
+  }
 
-}
+  .links a {
+    position: relative;
 
+    font-size: 12px;
 
+    letter-spacing: 1.5px;
 
+    color: #aaa;
 
+    padding: 8px 0;
 
-.brand{
+    transition: 0.25s;
+  }
 
+  .links a::after {
+    content: "";
 
-    display:flex;
+    position: absolute;
 
+    bottom: 0;
 
-    align-items:center;
+    left: 0;
 
+    height: 2px;
 
-    gap:15px;
+    width: 0;
 
+    background: var(--accent);
 
-    font-weight:900;
+    transition: 0.25s;
+  }
 
+  .links a:hover {
+    color: white;
+  }
 
-    line-height:1;
+  .links a:hover::after {
+    width: 100%;
+  }
 
+  .status {
+    font-size: 11px;
 
-    font-size:14px;
+    letter-spacing: 1px;
 
+    display: flex;
 
-    letter-spacing:1px;
+    gap: 8px;
 
+    align-items: center;
+  }
 
-}
+  .label {
+    color: #777;
+  }
 
+  .online {
+    color: var(--terminal-green);
 
+    font-weight: bold;
+  }
 
+  .separator {
+    color: #444;
+  }
 
+  #clock {
+    color: white;
+  }
 
-.brand a{
-
-    color:white;
-
-}
-
-
-
-
-
-.tri-color{
-
-
-    display:flex;
-
-
-    width:36px;
-
-
-    height:18px;
-
-
-    overflow:hidden;
-
-
-    border-radius:2px;
-
-
-    flex-shrink:0;
-
-
-}
-
-
-
-
-
-.tri-color span{
-
-
-    display:block;
-
-
-    width:12px;
-
-
-    height:18px;
-
-
-}
-
-
-
-
-
-.tri-color .red{
-
-    background:var(--stripe-red);
-
-}
-
-
-.tri-color .yellow{
-
-    background:var(--stripe-yellow);
-
-}
-
-
-.tri-color .teal{
-
-    background:var(--stripe-teal);
-
-}
-
-
-
-
-
-.links{
-
-
-    display:flex;
-
-
-    gap:28px;
-
-
-}
-
-
-
-
-
-.links a{
-
-
-    position:relative;
-
-
-    font-size:12px;
-
-
-    letter-spacing:1.5px;
-
-
-    color:#aaa;
-
-
-    padding:8px 0;
-
-
-    transition:.25s;
-
-
-}
-
-
-
-
-
-.links a::after{
-
-
-    content:"";
-
-
-    position:absolute;
-
-
-    bottom:0;
-
-
-    left:0;
-
-
-    height:2px;
-
-
-    width:0;
-
-
-    background:var(--accent);
-
-
-    transition:.25s;
-
-
-}
-
-
-
-
-
-.links a:hover{
-
-
-    color:white;
-
-
-}
-
-
-
-
-
-.links a:hover::after{
-
-
-    width:100%;
-
-
-}
-
-
-
-
-
-.status{
-
-
-    font-size:11px;
-
-
-    letter-spacing:1px;
-
-
-    display:flex;
-
-
-    gap:8px;
-
-
-    align-items:center;
-
-
-}
-
-
-
-
-
-.label{
-
-    color:#777;
-
-}
-
-
-
-
-
-.online{
-
-
-    color:var(--terminal-green);
-
-
-    font-weight:bold;
-
-
-}
-
-
-
-
-
-.separator{
-
-
-    color:#444;
-
-
-}
-
-
-
-
-
-#clock{
-
-
-    color:white;
-
-
-}
-
-
-
-
-
-/* =========================
+  /* =========================
    INDUSTRIAL WARNING STRIPE
 ========================= */
 
+  .warning-stripe {
+    height: 2px;
 
-.warning-stripe{
+    width: 100%;
 
+    background: #ff5f1f;
 
-    height:2px;
+    border-top: 1px solid rgba(255, 95, 31, 0.25);
 
+    border-bottom: 1px solid rgba(255, 95, 31, 0.25);
 
-    width:100%;
+    opacity: 0.35;
 
+    animation: warning-pulse 8s ease-in-out infinite;
+  }
 
-    background:#ff5f1f;
+  @keyframes warning-pulse {
+    0%,
+    100% {
+      opacity: 0.25;
 
-
-    border-top:
-
-    1px solid rgba(255,95,31,.25);
-
-
-    border-bottom:
-
-    1px solid rgba(255,95,31,.25);
-
-
-
-    opacity:.35;
-
-
-
-    animation:
-
-    warning-pulse 8s ease-in-out infinite;
-
-
-}
-
-
-
-
-
-@keyframes warning-pulse{
-
-
-    0%,100%{
-
-
-        opacity:.25;
-
-
-        filter:
-
-        brightness(.65);
-
-
+      filter: brightness(0.65);
     }
 
+    50% {
+      opacity: 0.85;
 
+      filter: brightness(1.15);
+    }
+  }
 
-    50%{
+  @media (max-width: 1000px) {
+    .nav-inner {
+      height: auto;
 
+      padding: 20px;
 
-        opacity:.85;
+      flex-direction: column;
 
-
-        filter:
-
-        brightness(1.15);
-
-
+      gap: 20px;
     }
 
+    .links {
+      flex-wrap: wrap;
 
-}
-
-
-
-
-
-
-@media(max-width:1000px){
-
-
-    .nav-inner{
-
-
-        height:auto;
-
-
-        padding:20px;
-
-
-        flex-direction:column;
-
-
-        gap:20px;
-
-
+      justify-content: center;
     }
 
-
-
-
-    .links{
-
-
-        flex-wrap:wrap;
-
-
-        justify-content:center;
-
-
+    .status {
+      display: none;
     }
-
-
-
-
-    .status{
-
-
-        display:none;
-
-
-    }
-
-
-}
-
-
-
+  }
 </style>

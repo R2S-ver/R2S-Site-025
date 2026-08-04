@@ -1,535 +1,215 @@
 <section class="about-preview">
-
-
-<div class="panel">
-
-
-<div class="header">
-
-PERSONNEL_DOSSIER // PROFILE_MODULE
-
-</div>
-
-
-
-<div class="content">
-
-
-<div class="id-block">
-
-
-<div class="label">
-
-OPERATOR
-
-</div>
-
-
-<h2>
-
-R2S Studio
-
-</h2>
-
-
-<div class="status">
-
-● ACTIVE DESIGNER // MAKER
-
-</div>
-
-
-</div>
-
-
-
-
-<div class="description">
-
-
-<p>
-
-A designer and maker exploring the connection between
-<strong>
-physical products,
-technology
-and art.
-</strong>
-
-</p>
-
-
-
-<p>
-
-Focused on turning concepts into reality through
-industrial design, embedded systems and experimental prototyping.
-
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<div class="footer">
-
-
-<span>
-
-LOCATION:
-ROTTERDAM // NL
-
-</span>
-
-
-<span>
-
-FIELD:
-DESIGN + TECHNOLOGY
-
-</span>
-
-
-
-<a href="/about">
-
-ACCESS FULL DOSSIER →
-
-</a>
-
-
-</div>
-
-
-
-</div>
-
-
+  <div class="panel">
+    <div class="header">PERSONNEL_DOSSIER // PROFILE_MODULE</div>
+
+    <div class="content">
+      <div class="id-block">
+        <div class="label">OPERATOR</div>
+
+        <h2>R2S Studio</h2>
+
+        <div class="status">● ACTIVE DESIGNER // MAKER</div>
+      </div>
+
+      <div class="description">
+        <p>
+          A designer and maker exploring the connection between
+          <strong> physical products, technology and art. </strong>
+        </p>
+
+        <p>
+          Focused on turning concepts into reality through industrial design,
+          embedded systems and experimental prototyping.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span> LOCATION: ROTTERDAM // NL </span>
+
+      <span> FIELD: DESIGN + TECHNOLOGY </span>
+
+      <a href="/about"> ACCESS FULL DOSSIER → </a>
+    </div>
+  </div>
 </section>
 
-
-
-
-
 <style>
+  .about-preview {
+    max-width: 1400px;
 
+    margin: 0 auto 120px;
 
-.about-preview{
+    padding: 0 40px;
 
+    font-family: var(--font-mono);
+  }
 
-max-width:1400px;
+  .panel {
+    background: rgba(8, 8, 12, 0.9);
 
+    border: 1px solid var(--border);
 
-margin:
+    position: relative;
 
-0 auto 120px;
+    overflow: hidden;
+  }
 
+  /* corner */
 
-padding:
+  .panel::before {
+    content: "";
 
-0 40px;
+    position: absolute;
 
+    right: 0;
 
-font-family:
+    top: 0;
 
-var(--font-mono);
+    width: 60px;
 
+    height: 60px;
 
-}
+    background: var(--stripe-yellow);
 
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+  }
 
+  .header {
+    padding: 18px 25px;
 
+    border-bottom: 1px dashed var(--border);
 
+    font-size: 11px;
 
-.panel{
+    letter-spacing: 2px;
 
+    color: var(--accent);
+  }
 
-background:
+  .content {
+    display: flex;
 
-rgba(8,8,12,.9);
+    gap: 80px;
 
+    padding: 50px;
 
-border:
+    align-items: center;
+  }
 
-1px solid var(--border);
+  .id-block {
+    min-width: 300px;
 
+    border-right: 1px solid var(--border);
+  }
 
-position:relative;
+  .label {
+    font-size: 11px;
 
+    color: #777;
 
-overflow:hidden;
+    margin-bottom: 15px;
+  }
 
+  h2 {
+    font-size: 48px;
 
-}
+    line-height: 1;
 
+    font-weight: 900;
 
+    color: white;
 
+    margin-bottom: 20px;
 
-/* corner */
+    letter-spacing: -2px;
+  }
 
+  .status {
+    font-size: 11px;
 
-.panel::before{
+    color: var(--terminal-green);
 
+    font-weight: bold;
+  }
 
-content:"";
+  .description {
+    max-width: 600px;
+  }
 
+  .description p {
+    color: #bbb;
 
-position:absolute;
+    font-size: 15px;
 
+    line-height: 1.9;
 
-right:0;
+    margin-bottom: 20px;
+  }
 
-top:0;
+  .description strong {
+    color: white;
+  }
 
+  .footer {
+    display: flex;
 
-width:60px;
+    justify-content: space-between;
 
-height:60px;
+    align-items: center;
 
+    padding: 20px 25px;
 
-background:
+    border-top: 1px solid var(--border);
 
-var(--stripe-yellow);
+    font-size: 11px;
 
+    color: #888;
+  }
 
-clip-path:
+  .footer a {
+    color: var(--terminal-green);
 
-polygon(
-100% 0,
-100% 100%,
-0 0
-);
+    font-weight: bold;
 
+    transition: 0.2s;
+  }
 
-}
+  .footer a:hover {
+    color: var(--accent);
+  }
 
+  @media (max-width: 900px) {
+    .content {
+      flex-direction: column;
 
+      gap: 30px;
 
+      padding: 35px;
 
+      align-items: flex-start;
+    }
 
+    .id-block {
+      border-right: none;
 
-.header{
+      border-bottom: 1px solid var(--border);
 
+      padding-bottom: 25px;
 
-padding:
+      width: 100%;
+    }
 
-18px 25px;
+    .footer {
+      flex-direction: column;
 
+      align-items: flex-start;
 
-border-bottom:
+      gap: 15px;
+    }
 
-1px dashed var(--border);
-
-
-font-size:11px;
-
-
-letter-spacing:2px;
-
-
-color:
-
-var(--accent);
-
-
-}
-
-
-
-
-
-.content{
-
-
-display:flex;
-
-
-gap:80px;
-
-
-padding:
-
-50px;
-
-
-align-items:center;
-
-
-}
-
-
-
-
-.id-block{
-
-
-min-width:300px;
-
-
-border-right:
-
-1px solid var(--border);
-
-
-}
-
-
-
-
-
-.label{
-
-
-font-size:11px;
-
-
-color:#777;
-
-
-margin-bottom:15px;
-
-
-}
-
-
-
-
-
-h2{
-
-
-font-size:
-
-48px;
-
-
-line-height:1;
-
-
-font-weight:900;
-
-
-color:white;
-
-
-margin-bottom:20px;
-
-
-letter-spacing:-2px;
-
-
-}
-
-
-
-
-.status{
-
-
-font-size:11px;
-
-
-color:
-
-var(--terminal-green);
-
-
-font-weight:bold;
-
-
-}
-
-
-
-
-
-.description{
-
-
-max-width:600px;
-
-
-}
-
-
-
-
-.description p{
-
-
-color:#bbb;
-
-
-font-size:15px;
-
-
-line-height:1.9;
-
-
-margin-bottom:20px;
-
-
-}
-
-
-
-
-
-.description strong{
-
-
-color:white;
-
-
-}
-
-
-
-
-
-.footer{
-
-
-display:flex;
-
-
-justify-content:space-between;
-
-
-align-items:center;
-
-
-padding:
-
-20px 25px;
-
-
-border-top:
-
-1px solid var(--border);
-
-
-font-size:11px;
-
-
-color:#888;
-
-
-}
-
-
-
-
-
-.footer a{
-
-
-color:
-
-var(--terminal-green);
-
-
-font-weight:bold;
-
-
-transition:.2s;
-
-
-}
-
-
-
-
-.footer a:hover{
-
-
-color:
-
-var(--accent);
-
-
-}
-
-
-
-
-
-@media(max-width:900px){
-
-
-
-.content{
-
-
-flex-direction:column;
-
-
-gap:30px;
-
-
-padding:35px;
-
-
-align-items:flex-start;
-
-
-}
-
-
-
-.id-block{
-
-
-border-right:none;
-
-
-border-bottom:1px solid var(--border);
-
-
-padding-bottom:25px;
-
-
-width:100%;
-
-
-}
-
-
-
-.footer{
-
-
-flex-direction:column;
-
-
-align-items:flex-start;
-
-
-gap:15px;
-
-
-}
-
-
-
-h2{
-
-
-font-size:38px;
-
-
-}
-
-
-
-}
-
+    h2 {
+      font-size: 38px;
+    }
+  }
 </style>

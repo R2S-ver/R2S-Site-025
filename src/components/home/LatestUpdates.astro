@@ -1,530 +1,214 @@
 ---
-const {
-    entries
-} = Astro.props;
-
-
+const { entries } = Astro.props;
 
 const routeMap = {
+  work: "projects",
 
-    work:"projects",
+  lab: "lab",
 
-    lab:"lab",
+  gallery: "gallery",
 
-    gallery:"gallery",
-
-    note:"notes"
-
+  note: "notes",
 };
-
 ---
 
-
 <section class="latest">
-
-
-<div class="panel">
-
-
-
-<div class="header">
-
-SYS.LOG // RECENT_ACTIVITY_STREAM
-
-</div>
-
-
-
-
-<div class="logs">
-
-
-{
-entries.map((entry,index)=>(
-
-
-<a
-href={`/${routeMap[entry.data.type]}/${entry.id}`}
-class="log"
->
-
-
-<div class="log-left">
-
-
-<div class="entry">
-
-ENTRY_{String(index+1).padStart(3,'0')}
-
-</div>
-
-
-
-<h3>
-
-{entry.data.title}
-
-</h3>
-
-
-
-<p>
-
-{entry.data.description}
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="meta">
-
-
-<span>
-
-TYPE:
-
-{entry.data.type.toUpperCase()}
-
-</span>
-
-
-
-<span>
-
-{
-entry.data.date.toLocaleDateString(
-'en-US',
-{
-year:'numeric',
-month:'short'
-}
-)
-}
-
-</span>
-
-
-</div>
-
-
-
-</a>
-
-
-))
-}
-
-
-</div>
-
-
-
-
-
-<div class="footer">
-
-&gt; DATABASE_STATUS:
-<span>
-
-UPDATED
-
-</span>
-
-</div>
-
-
-
-</div>
-
-
-
+  <div class="panel">
+    <div class="header">SYS.LOG // RECENT_ACTIVITY_STREAM</div>
+
+    <div class="logs">
+      {
+        entries.map((entry, index) => (
+          <a href={`/${routeMap[entry.data.type]}/${entry.id}`} class="log">
+            <div class="log-left">
+              <div class="entry">
+                ENTRY_{String(index + 1).padStart(3, "0")}
+              </div>
+
+              <h3>{entry.data.title}</h3>
+
+              <p>{entry.data.description}</p>
+            </div>
+
+            <div class="meta">
+              <span>
+                TYPE:
+                {entry.data.type.toUpperCase()}
+              </span>
+
+              <span>
+                {entry.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                })}
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="footer">
+      &gt; DATABASE_STATUS:
+      <span> UPDATED </span>
+    </div>
+  </div>
 </section>
 
-
-
-
-
-
 <style>
+  .latest {
+    max-width: 1400px;
 
+    margin: 0 auto 120px;
 
-.latest{
+    padding: 0 40px;
 
+    font-family: var(--font-mono);
+  }
 
-max-width:
+  .panel {
+    background: rgba(8, 8, 12, 0.9);
 
-1400px;
+    border: 1px solid var(--border);
+  }
 
+  .header {
+    padding: 18px 25px;
 
-margin:
+    border-bottom: 1px dashed var(--border);
 
-0 auto 120px;
+    font-size: 11px;
 
+    letter-spacing: 2px;
 
-padding:
+    color: var(--accent);
+  }
 
-0 40px;
+  .logs {
+    display: flex;
 
+    flex-direction: column;
+  }
 
-font-family:
+  .log {
+    display: flex;
 
-var(--font-mono);
+    justify-content: space-between;
 
+    gap: 40px;
 
-}
+    padding: 25px;
 
+    border-bottom: 1px solid var(--border);
 
+    text-decoration: none;
 
+    color: white;
 
-.panel{
+    transition: 0.25s;
 
+    position: relative;
+  }
 
-background:
+  .log::before {
+    content: "";
 
-rgba(8,8,12,.9);
+    position: absolute;
 
+    left: 0;
 
-border:
+    top: 0;
 
-1px solid var(--border);
+    height: 100%;
 
+    width: 4px;
 
-}
+    background: transparent;
 
+    transition: 0.25s;
+  }
 
+  .log:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
 
+  .log:hover::before {
+    background: var(--accent);
+  }
 
+  .entry {
+    font-size: 10px;
 
-.header{
+    color: var(--terminal-green);
 
+    letter-spacing: 2px;
 
-padding:
+    margin-bottom: 10px;
+  }
 
-18px 25px;
+  .log h3 {
+    font-size: 22px;
 
+    margin-bottom: 8px;
 
-border-bottom:
+    font-weight: 900;
+  }
 
-1px dashed var(--border);
+  .log p {
+    font-size: 12px;
 
+    color: #999;
 
-font-size:
+    max-width: 700px;
 
-11px;
+    line-height: 1.7;
+  }
 
+  .meta {
+    display: flex;
 
-letter-spacing:
+    flex-direction: column;
 
-2px;
+    justify-content: center;
 
+    align-items: flex-end;
 
-color:
+    gap: 10px;
 
-var(--accent);
+    font-size: 11px;
 
+    color: #777;
 
-}
+    white-space: nowrap;
+  }
 
+  .footer {
+    padding: 18px 25px;
 
+    font-size: 11px;
 
+    color: #777;
+  }
 
-.logs{
+  .footer span {
+    color: var(--terminal-green);
 
+    font-weight: bold;
+  }
 
-display:flex;
+  @media (max-width: 800px) {
+    .latest {
+      padding: 0 20px;
+    }
 
+    .log {
+      flex-direction: column;
 
-flex-direction:column;
+      gap: 20px;
+    }
 
-
-}
-
-
-
-
-
-.log{
-
-
-display:flex;
-
-
-justify-content:space-between;
-
-
-gap:40px;
-
-
-padding:
-
-25px;
-
-
-border-bottom:
-
-1px solid var(--border);
-
-
-text-decoration:none;
-
-
-color:white;
-
-
-transition:.25s;
-
-
-position:relative;
-
-
-}
-
-
-
-
-.log::before{
-
-
-content:"";
-
-
-position:absolute;
-
-
-left:0;
-
-
-top:0;
-
-
-height:100%;
-
-
-width:4px;
-
-
-background:
-
-transparent;
-
-
-transition:.25s;
-
-
-}
-
-
-
-
-
-.log:hover{
-
-
-background:
-
-rgba(255,255,255,.03);
-
-
-}
-
-
-
-
-.log:hover::before{
-
-
-background:
-
-var(--accent);
-
-
-}
-
-
-
-
-.entry{
-
-
-font-size:
-
-10px;
-
-
-color:
-
-var(--terminal-green);
-
-
-letter-spacing:2px;
-
-
-margin-bottom:10px;
-
-
-}
-
-
-
-
-
-.log h3{
-
-
-font-size:
-
-22px;
-
-
-margin-bottom:8px;
-
-
-font-weight:900;
-
-
-}
-
-
-
-
-
-.log p{
-
-
-font-size:
-
-12px;
-
-
-color:#999;
-
-
-max-width:700px;
-
-
-line-height:1.7;
-
-
-}
-
-
-
-
-.meta{
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-justify-content:center;
-
-
-align-items:flex-end;
-
-
-gap:10px;
-
-
-font-size:
-
-11px;
-
-
-color:#777;
-
-
-white-space:nowrap;
-
-
-}
-
-
-
-
-
-.footer{
-
-
-padding:
-
-18px 25px;
-
-
-font-size:
-
-11px;
-
-
-color:#777;
-
-
-}
-
-
-
-
-.footer span{
-
-
-color:
-
-var(--terminal-green);
-
-
-font-weight:bold;
-
-
-}
-
-
-
-
-
-@media(max-width:800px){
-
-
-
-.latest{
-
-
-padding:
-
-0 20px;
-
-
-}
-
-
-
-.log{
-
-
-flex-direction:column;
-
-
-gap:20px;
-
-
-}
-
-
-
-.meta{
-
-
-align-items:flex-start;
-
-
-}
-
-
-}
-
+    .meta {
+      align-items: flex-start;
+    }
+  }
 </style>

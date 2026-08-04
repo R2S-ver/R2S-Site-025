@@ -1,427 +1,157 @@
 ---
-import ProjectCard from '../ProjectCard.astro';
+import ProjectCard from "../ProjectCard.astro";
 
-
-const {
-    projects
-} = Astro.props;
-
+const { projects } = Astro.props;
 ---
 
-
-
 <section class="featured">
+  <div class="section-header">
+    <div class="data-tag">PROJECT_DATABASE // FEATURED_ARCHIVE</div>
 
+    <h2>Selected Projects</h2>
 
+    <p>&gt; ACCESSING_DESIGN_AND_ENGINEERING_RECORDS...</p>
+  </div>
 
-<div class="section-header">
+  <div class="project-count">
+    <span> TOTAL_FILES: </span>
 
+    <strong>
+      {projects.length}
+    </strong>
 
-<div class="data-tag">
+    <span> // ACTIVE </span>
+  </div>
 
-PROJECT_DATABASE // FEATURED_ARCHIVE
+  <div class="grid">
+    {
+      projects.map((project, index) => (
+        <div class="project-wrapper">
+          <div class="number">0{index + 1}</div>
 
-</div>
-
-
-
-<h2>
-
-Selected Projects
-
-</h2>
-
-
-
-<p>
-
-&gt; ACCESSING_DESIGN_AND_ENGINEERING_RECORDS...
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="project-count">
-
-
-<span>
-TOTAL_FILES:
-</span>
-
-
-<strong>
-{projects.length}
-</strong>
-
-
-<span>
-//
-ACTIVE
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="grid">
-
-
-{
-projects.map((project,index)=>(
-
-
-<div class="project-wrapper">
-
-
-<div class="number">
-
-
-0{index+1}
-
-</div>
-
-
-<ProjectCard project={project}/>
-
-
-</div>
-
-
-))
-}
-
-
-</div>
-
-
-
+          <ProjectCard project={project} />
+        </div>
+      ))
+    }
+  </div>
 </section>
 
-
-
-
-
-
 <style>
+  .featured {
+    max-width: 1400px;
 
+    margin: 0 auto 120px;
 
+    padding: 0 40px;
 
-.featured{
+    font-family: var(--font-mono);
+  }
 
+  .section-header {
+    margin-bottom: 45px;
+  }
 
-max-width:1400px;
+  .data-tag {
+    display: inline-block;
 
+    font-size: 11px;
 
-margin:
+    letter-spacing: 2px;
 
-0 auto 120px;
+    padding: 8px 15px;
 
+    border: 1px solid var(--accent);
 
-padding:
+    color: var(--accent);
 
-0 40px;
+    margin-bottom: 25px;
+  }
 
+  h2 {
+    font-size: clamp(36px, 5vw, 64px);
 
-font-family:
+    font-weight: 900;
 
-var(--font-mono);
+    letter-spacing: -3px;
 
+    margin-bottom: 15px;
 
-}
+    text-transform: uppercase;
+  }
 
+  .section-header p {
+    color: #777;
 
+    font-size: 12px;
 
+    letter-spacing: 1px;
+  }
 
+  .project-count {
+    display: flex;
 
-.section-header{
+    gap: 10px;
 
+    align-items: center;
 
-margin-bottom:45px;
+    margin-bottom: 35px;
 
+    font-size: 12px;
 
-}
+    color: #777;
 
+    border-bottom: 1px dashed #333;
 
+    padding-bottom: 15px;
+  }
 
+  .project-count strong {
+    color: var(--terminal-green);
+  }
 
+  .grid {
+    display: grid;
 
-.data-tag{
+    grid-template-columns: repeat(3, 1fr);
 
+    gap: 35px;
+  }
 
-display:inline-block;
+  .project-wrapper {
+    position: relative;
+  }
 
+  .number {
+    position: absolute;
 
-font-size:11px;
+    top: -18px;
 
+    left: 18px;
 
-letter-spacing:2px;
+    z-index: 5;
 
+    font-size: 42px;
 
-padding:
+    font-weight: 900;
 
-8px 15px;
+    color: rgba(255, 255, 255, 0.08);
 
-
-
-border:
-
-1px solid var(--accent);
-
-
-color:
-
-var(--accent);
-
-
-
-margin-bottom:25px;
-
-
-}
-
-
-
-
-
-h2{
-
-
-font-size:
-
-clamp(
-36px,
-5vw,
-64px
-);
-
-
-
-font-weight:900;
-
-
-
-letter-spacing:-3px;
-
-
-
-margin-bottom:15px;
-
-
-
-text-transform:uppercase;
-
-
-}
-
-
-
-
-
-.section-header p{
-
-
-color:#777;
-
-
-font-size:12px;
-
-
-letter-spacing:1px;
-
-
-}
-
-
-
-
-.project-count{
-
-
-display:flex;
-
-
-gap:10px;
-
-
-align-items:center;
-
-
-
-margin-bottom:35px;
-
-
-
-font-size:12px;
-
-
-
-color:#777;
-
-
-
-border-bottom:
-
-1px dashed #333;
-
-
-
-padding-bottom:15px;
-
-
-}
-
-
-
-.project-count strong{
-
-
-color:
-
-var(--terminal-green);
-
-
-}
-
-
-
-
-
-.grid{
-
-
-display:grid;
-
-
-grid-template-columns:
-
-repeat(
-3,
-1fr
-);
-
-
-
-gap:35px;
-
-
-}
-
-
-
-
-
-.project-wrapper{
-
-
-position:relative;
-
-
-}
-
-
-
-
-.number{
-
-
-position:absolute;
-
-
-top:-18px;
-
-
-left:18px;
-
-
-z-index:5;
-
-
-
-font-size:42px;
-
-
-font-weight:900;
-
-
-color:
-
-rgba(
-255,
-255,
-255,
-0.08
-);
-
-
-
-pointer-events:none;
-
-
-}
-
-
-
-
-
-@media(max-width:1100px){
-
-
-.grid{
-
-
-grid-template-columns:
-
-repeat(
-2,
-1fr
-);
-
-
-}
-
-
-
-}
-
-
-
-
-@media(max-width:800px){
-
-
-.featured{
-
-
-padding:
-
-0 20px;
-
-
-}
-
-
-
-.grid{
-
-
-grid-template-columns:
-
-1fr;
-
-
-}
-
-
-}
-
+    pointer-events: none;
+  }
+
+  @media (max-width: 1100px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 800px) {
+    .featured {
+      padding: 0 20px;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

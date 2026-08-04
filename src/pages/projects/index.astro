@@ -1,76 +1,37 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import ProjectCard from '../../components/ProjectCard.astro';
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "../../components/ProjectCard.astro";
 
+const entries = await getCollection("entries");
 
-const entries = await getCollection('entries');
-
-
-const projects = entries.filter(
-  (entry) => entry.data.type === "work"
-);
-
+const projects = entries.filter((entry) => entry.data.type === "work");
 ---
 
 <Layout title="Projects">
+  <main class="container">
+    <h1>My Projects</h1>
 
-
-<main class="container">
-
-
-<h1>
-    My Projects
-</h1>
-
-
-
-<div class="projects">
-
-
-{
-projects.map((project)=>(
-    <ProjectCard project={project}/>
-))
-}
-
-
-</div>
-
-
-</main>
-
-
+    <div class="projects">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </main>
 </Layout>
 
-
-
 <style>
+  .container {
+    max-width: 1000px;
 
+    margin: 0 auto;
 
-.container{
+    padding: 40px 20px;
+  }
 
-    max-width:1000px;
+  .projects {
+    display: grid;
 
-    margin:0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
-    padding:40px 20px;
-
-}
-
-
-
-.projects{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(280px,1fr));
-
-
-    gap:24px;
-
-}
-
-
+    gap: 24px;
+  }
 </style>

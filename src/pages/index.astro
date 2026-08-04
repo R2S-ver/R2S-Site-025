@@ -1,57 +1,32 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-import Hero from '../components/home/Hero.astro';
-import FeaturedProjects from '../components/home/FeaturedProjects.astro';
-import ExploreLinks from '../components/home/ExploreLinks.astro';
-import LatestUpdates from '../components/home/LatestUpdates.astro';
-import AboutPreview from '../components/home/AboutPreview.astro';
+import Hero from "../components/home/Hero.astro";
+import FeaturedProjects from "../components/home/FeaturedProjects.astro";
+import ExploreLinks from "../components/home/ExploreLinks.astro";
+import LatestUpdates from "../components/home/LatestUpdates.astro";
+import AboutPreview from "../components/home/AboutPreview.astro";
 
-
-const entries = await getCollection('entries');
-
+const entries = await getCollection("entries");
 
 const featuredEntries = entries
-    .filter(
-        (entry)=>entry.data.featured
-    )
-    .slice(0,3);
-
-
+  .filter((entry) => entry.data.featured)
+  .slice(0, 3);
 
 const latestEntries = [...entries]
-    .sort(
-        (a,b)=>
-        b.data.date.valueOf()
-        -
-        a.data.date.valueOf()
-    )
-    .slice(0,5);
-
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
 ---
 
-
 <Layout title="R2S Studio">
+  <Hero />
 
+  <FeaturedProjects projects={featuredEntries} />
 
-<Hero />
+  <ExploreLinks />
 
+  <LatestUpdates entries={latestEntries} />
 
-<FeaturedProjects 
-    projects={featuredEntries}
-/>
-
-
-<ExploreLinks />
-
-
-<LatestUpdates
-    entries={latestEntries}
-/>
-
-
-<AboutPreview />
-
-
+  <AboutPreview />
 </Layout>

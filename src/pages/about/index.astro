@@ -1,67 +1,38 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 ---
 
 <Layout title="About | R2S Studio">
+  <section class="about">
+    <h1>About R2S</h1>
 
+    <p>I like turning ideas into reality.</p>
 
-<section class="about">
+    <p>
+      I explore the connection between industrial design, embedded systems and
+      illustration.
+    </p>
+  </section>
 
+  <style>
+    .about {
+      max-width: 800px;
 
-<h1>
-About R2S
-</h1>
+      margin: auto;
+    }
 
+    h1 {
+      font-size: 64px;
 
-<p>
-I like turning ideas into reality.
-</p>
+      margin-bottom: 40px;
+    }
 
+    p {
+      font-size: 20px;
 
-<p>
-I explore the connection between
-industrial design, embedded systems
-and illustration.
-</p>
+      line-height: 1.8;
 
-
-</section>
-
-
-
-<style>
-
-
-.about{
-
-max-width:800px;
-
-margin:auto;
-
-}
-
-
-
-h1{
-
-font-size:64px;
-
-margin-bottom:40px;
-
-}
-
-
-p{
-
-font-size:20px;
-
-line-height:1.8;
-
-margin-bottom:20px;
-
-}
-
-
-</style>
-
+      margin-bottom: 20px;
+    }
+  </style>
 </Layout>
