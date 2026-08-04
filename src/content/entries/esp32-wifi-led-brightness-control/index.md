@@ -1,18 +1,29 @@
 ---
 title: ESP32 WiFi LED Brightness Control
 date: 2026-08-04
-description: Using ESP32 WiFi web server and PWM to control LED brightness through a browser interface.
+description: Using ESP32 WiFi web server and PWM to control build-in LED brightness through a browser interface.
+
+type: lab
+category: Embedded System
+cover: cover.png
 tags:
   - ESP32
   - Arduino
   - WiFi
   - PWM
   - Embedded System
+tools:
+  - ESP32
+  - Arduino IDE
+  - NeoPixelBus
+  - 3D Printing
+
+featured: true
 ---
 
-# ESP32 WiFi LED Brightness Control
 ## Overview
-A local web server on the ESP32 lets you adjust an LED’s brightness from any browser on the same WiFi network. It combines WiFi communication, a simple web interface, and PWM dimming.
+A local web server on the ESP32 lets you adjust an LED’s brightness from any browser on the same WiFi network. 
+It combines WiFi communication, a simple web interface, and PWM dimming.
 
 ## System Architecture
 The ESP32 acts as both a WiFi client and a web server.
@@ -24,16 +35,22 @@ The ESP32 acts as both a WiFi client and a web server.
 
 ## Software
 Environment: Arduino IDE with ESP32 Arduino Core
-Libraries:
-#include <WiFi.h>
+
+Libraries:		
+
+```cpp
+#include <WiFi.h>	
 #include <WebServer.h>
+```
 
 ## Implementation
 ### WiFi Web Server
-The ESP32 connects to your local WiFi and serves a control page. Devices on the same network can open the assigned IP address, e.g., http://192.168.x.x/.
+The ESP32 connects to your local WiFi and serves a control page. <br>
+Devices on the same network can open the assigned IP address, e.g., http://192.168.x.x/.
 
 ### PWM Brightness Control
-Brightness uses PWM with an 8-bit resolution (0–255 maps to 0%–100%). The web slider sends an HTTP request to change the duty cycle:
+Brightness uses PWM with an 8-bit resolution (0–255 maps to 0%–100%). <br>
+The web slider sends an HTTP request to change the duty cycle:
 
 Browser → /set?value=brightness → ESP32 PWM output
 
@@ -48,7 +65,7 @@ The ESP32 connects, serves the interface, receives HTTP brightness values, and d
 
 ## Full Code
 
-```
+```cpp
 #include <WiFi.h>
 #include <WebServer.h>
 

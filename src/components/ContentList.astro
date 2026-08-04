@@ -1,0 +1,116 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+
+const {
+    type,
+    title,
+    description
+} = Astro.props;
+
+
+const projects = await getCollection('entries');
+
+
+const items = projects.filter(
+    (project)=>
+    project.data.type === type
+);
+
+---
+
+<section>
+
+
+<header>
+
+<h1>
+{title}
+</h1>
+
+
+{
+description &&
+<p>
+{description}
+</p>
+}
+
+</header>
+
+
+
+<div class="grid">
+
+
+{
+items.map((project)=>(
+    <ProjectCard project={project}/>
+))
+}
+
+
+</div>
+
+
+</section>
+
+
+
+<style>
+
+
+header{
+
+margin-bottom:60px;
+
+}
+
+
+
+h1{
+
+font-size:64px;
+
+line-height:1.2;
+
+}
+
+
+
+header p{
+
+font-size:20px;
+
+color:#666;
+
+}
+
+
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:30px;
+
+}
+
+
+
+@media(max-width:800px){
+
+.grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
+</style>

@@ -1,0 +1,627 @@
+<nav>
+
+
+<div class="nav-inner">
+
+
+
+<div class="brand">
+
+
+<div class="tri-color">
+
+<span class="red"></span>
+
+<span class="yellow"></span>
+
+<span class="teal"></span>
+
+</div>
+
+
+
+<a href="/">
+
+R2S // STUDIO
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="links">
+
+
+<a href="/">
+HOME
+</a>
+
+
+<a href="/projects">
+PROJECTS
+</a>
+
+
+<a href="/lab">
+LAB
+</a>
+
+
+<a href="/gallery">
+ART
+</a>
+
+
+<a href="/notes">
+NOTES
+</a>
+
+
+<a href="/about">
+ABOUT
+</a>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="status">
+
+
+<span class="label">
+SYS_STATUS:
+</span>
+
+
+<span class="online">
+ONLINE
+</span>
+
+
+<span class="separator">
+// 
+</span>
+
+
+<span id="clock">
+00:00:00
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+<div class="warning-stripe"></div>
+
+
+
+</nav>
+
+
+
+
+
+
+<script>
+
+function updateClock(){
+
+const el =
+document.getElementById("clock");
+
+
+if(el){
+
+const now=new Date();
+
+
+el.textContent =
+now.toTimeString().split(" ")[0];
+
+}
+
+}
+
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+
+</script>
+
+
+
+
+
+
+
+<style>
+
+
+nav{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+
+    background:
+
+    rgba(5,5,7,.88);
+
+
+    backdrop-filter:
+
+    blur(10px);
+
+
+    border-bottom:
+
+    1px solid var(--border);
+
+}
+
+
+
+
+
+.nav-inner{
+
+
+    height:72px;
+
+
+    padding:
+
+    0 40px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:space-between;
+
+
+}
+
+
+
+
+
+.brand{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    font-weight:900;
+
+
+    line-height:1;
+
+
+    font-size:14px;
+
+
+    letter-spacing:1px;
+
+
+}
+
+
+
+
+
+.brand a{
+
+    color:white;
+
+}
+
+
+
+
+
+.tri-color{
+
+
+    display:flex;
+
+
+    width:36px;
+
+
+    height:18px;
+
+
+    overflow:hidden;
+
+
+    border-radius:2px;
+
+
+    flex-shrink:0;
+
+
+}
+
+
+
+
+
+.tri-color span{
+
+
+    display:block;
+
+
+    width:12px;
+
+
+    height:18px;
+
+
+}
+
+
+
+
+
+.tri-color .red{
+
+    background:var(--stripe-red);
+
+}
+
+
+.tri-color .yellow{
+
+    background:var(--stripe-yellow);
+
+}
+
+
+.tri-color .teal{
+
+    background:var(--stripe-teal);
+
+}
+
+
+
+
+
+.links{
+
+
+    display:flex;
+
+
+    gap:28px;
+
+
+}
+
+
+
+
+
+.links a{
+
+
+    position:relative;
+
+
+    font-size:12px;
+
+
+    letter-spacing:1.5px;
+
+
+    color:#aaa;
+
+
+    padding:8px 0;
+
+
+    transition:.25s;
+
+
+}
+
+
+
+
+
+.links a::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    bottom:0;
+
+
+    left:0;
+
+
+    height:2px;
+
+
+    width:0;
+
+
+    background:var(--accent);
+
+
+    transition:.25s;
+
+
+}
+
+
+
+
+
+.links a:hover{
+
+
+    color:white;
+
+
+}
+
+
+
+
+
+.links a:hover::after{
+
+
+    width:100%;
+
+
+}
+
+
+
+
+
+.status{
+
+
+    font-size:11px;
+
+
+    letter-spacing:1px;
+
+
+    display:flex;
+
+
+    gap:8px;
+
+
+    align-items:center;
+
+
+}
+
+
+
+
+
+.label{
+
+    color:#777;
+
+}
+
+
+
+
+
+.online{
+
+
+    color:var(--terminal-green);
+
+
+    font-weight:bold;
+
+
+}
+
+
+
+
+
+.separator{
+
+
+    color:#444;
+
+
+}
+
+
+
+
+
+#clock{
+
+
+    color:white;
+
+
+}
+
+
+
+
+
+/* =========================
+   INDUSTRIAL WARNING STRIPE
+========================= */
+
+
+.warning-stripe{
+
+
+    height:2px;
+
+
+    width:100%;
+
+
+    background:#ff5f1f;
+
+
+    border-top:
+
+    1px solid rgba(255,95,31,.25);
+
+
+    border-bottom:
+
+    1px solid rgba(255,95,31,.25);
+
+
+
+    opacity:.35;
+
+
+
+    animation:
+
+    warning-pulse 8s ease-in-out infinite;
+
+
+}
+
+
+
+
+
+@keyframes warning-pulse{
+
+
+    0%,100%{
+
+
+        opacity:.25;
+
+
+        filter:
+
+        brightness(.65);
+
+
+    }
+
+
+
+    50%{
+
+
+        opacity:.85;
+
+
+        filter:
+
+        brightness(1.15);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+@media(max-width:1000px){
+
+
+    .nav-inner{
+
+
+        height:auto;
+
+
+        padding:20px;
+
+
+        flex-direction:column;
+
+
+        gap:20px;
+
+
+    }
+
+
+
+
+    .links{
+
+
+        flex-wrap:wrap;
+
+
+        justify-content:center;
+
+
+    }
+
+
+
+
+    .status{
+
+
+        display:none;
+
+
+    }
+
+
+}
+
+
+
+</style>
