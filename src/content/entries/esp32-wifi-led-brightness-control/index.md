@@ -6,34 +6,35 @@ description: Using ESP32 WiFi web server and PWM to control build-in LED brightn
 type: lab
 category: Embedded System
 cover: cover.png
+
 tags:
   - ESP32
   - Arduino
   - WiFi
   - PWM
   - Embedded System
+
 tools:
   - ESP32
   - Arduino IDE
   - NeoPixelBus
-  - 3D Printing
 
 featured: true
 ---
 
-## Overview
+# Overview
 A local web server on the ESP32 lets you adjust an LED’s brightness from any browser on the same WiFi network. 
 It combines WiFi communication, a simple web interface, and PWM dimming.
 
-## System Architecture
+# System Architecture
 The ESP32 acts as both a WiFi client and a web server.
 
-## Hardware
+# Hardware
 - ESP32-WROOM-32 development board
 - Built-in LED (GPIO 2)
 - USB cable
 
-## Software
+# Software
 Environment: Arduino IDE with ESP32 Arduino Core
 
 Libraries:		
@@ -43,27 +44,27 @@ Libraries:
 #include <WebServer.h>
 ```
 
-## Implementation
-### WiFi Web Server
+# Implementation
+## WiFi Web Server
 The ESP32 connects to your local WiFi and serves a control page. <br>
 Devices on the same network can open the assigned IP address, e.g., http://192.168.x.x/.
 
-### PWM Brightness Control
+## PWM Brightness Control
 Brightness uses PWM with an 8-bit resolution (0–255 maps to 0%–100%). <br>
 The web slider sends an HTTP request to change the duty cycle:
 
 Browser → /set?value=brightness → ESP32 PWM output
 
-## Testing
+# Testing
 1. Upload the sketch.
 2. Open the Serial Monitor and note the IP shown after connection.
 3. Navigate to that IP in a browser.
 4. Move the slider to change LED brightness.
 
-## Result
+# Result
 The ESP32 connects, serves the interface, receives HTTP brightness values, and drives the LED via PWM. The whole chain—hardware, network, interface, physical output—works as expected and provides a base for more interactive IoT projects.
 
-## Full Code
+# Full Code
 
 ```cpp
 #include <WiFi.h>

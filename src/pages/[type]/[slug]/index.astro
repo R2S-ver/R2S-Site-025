@@ -61,6 +61,8 @@ const date = project.data.date.toLocaleDateString(
 );
 
 ---
+
+
 <Layout title={project.data.title}>
 
 
@@ -69,7 +71,6 @@ const date = project.data.date.toLocaleDateString(
 
 
 <section class="hero">
-
 
 
 <div class="cover">
@@ -112,9 +113,7 @@ alt={project.data.title}
 </div>
 
 
-
 </section>
-
 
 
 
@@ -189,10 +188,7 @@ project.data.tools?.join(" · ")
 </div>
 
 
-
 </section>
-
-
 
 
 
@@ -218,10 +214,27 @@ project.data.tags?.map((tag)=>(
 
 
 
-
-
 <hr />
 
+
+
+
+
+<div class="content-layout">
+
+
+<aside class="toc">
+
+
+<h3>
+Contents
+</h3>
+
+
+<nav id="toc-list" class="toc-list"></nav>
+
+
+</aside>
 
 
 
@@ -234,6 +247,7 @@ project.data.tags?.map((tag)=>(
 </article>
 
 
+</div>
 
 
 
@@ -242,6 +256,92 @@ project.data.tags?.map((tag)=>(
 
 </Layout>
 
+<script>
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+const article =
+document.querySelector("article");
+
+
+const toc =
+document.querySelector("#toc-list");
+
+
+
+if(!article || !toc)
+return;
+
+
+
+const headings =
+article.querySelectorAll(
+"h1"
+);
+
+
+
+headings.forEach(
+(heading,index)=>{
+
+
+if(!heading.id){
+
+heading.id =
+"section-" + index;
+
+}
+
+
+
+const link =
+document.createElement("a");
+
+
+
+link.href =
+"#" + heading.id;
+
+
+
+// 删除前面的数字编号
+let title =
+heading.innerText.replace(
+/^\d+(\.\d+)*[\.\s-]*/,
+""
+);
+
+
+
+link.textContent =
+title;
+
+
+
+if(
+heading.tagName==="h2"
+){
+
+link.classList.add("sub");
+
+}
+
+
+
+toc.appendChild(link);
+
+
+});
+
+
+}
+
+);
+
+</script>
 
 
 
@@ -253,11 +353,14 @@ project.data.tags?.map((tag)=>(
 
 .project{
 
-max-width:1100px;
+max-width:1200px;
 
 margin:auto;
 
+padding:0 40px;
+
 }
+
 
 
 
@@ -265,24 +368,36 @@ margin:auto;
 
 .hero{
 
-    display:grid;
 
-    grid-template-columns:
-    minmax(0,1fr)
-    minmax(0,1fr);
+display:grid;
 
 
-    gap:60px;
+grid-template-columns:
+
+minmax(0,1fr)
+
+minmax(0,1fr);
 
 
-    align-items:center;
+
+gap:60px;
 
 
-    margin-bottom:80px;
 
-    max-width:1000px;
+align-items:center;
+
+
+
+margin-bottom:80px;
+
+
+
+max-width:1000px;
+
 
 }
+
+
 
 
 
@@ -290,29 +405,46 @@ margin:auto;
 
 .cover{
 
-    width:100%;
 
-    aspect-ratio:4 / 3;
+width:100%;
 
-    overflow:hidden;
 
-    border-radius:24px;
+aspect-ratio:4 / 3;
+
+
+overflow:hidden;
+
+
+border-radius:24px;
+
+
+}
+
+
+
+
+
+
+.cover :global(img){
+
+
+width:100%;
+
+
+height:100%;
+
+
+object-fit:contain;
+
+
+display:block;
+
+
+background:#111;
+
 
 }
 
-
-
-.cover img{
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    display:block;
-
-}
 
 
 
@@ -338,6 +470,7 @@ margin-bottom:25px;
 
 
 
+
 .description{
 
 
@@ -357,6 +490,7 @@ color:#666;
 
 
 
+
 .info{
 
 
@@ -365,10 +499,13 @@ display:grid;
 
 grid-template-columns:
 
+
 repeat(4,1fr);
 
 
+
 gap:30px;
+
 
 
 margin-bottom:40px;
@@ -400,6 +537,7 @@ letter-spacing:1px;
 
 
 }
+
 
 
 
@@ -442,10 +580,24 @@ margin-bottom:60px;
 
 
 
+
 .tag{
 
 
-background:#f1f1f1;
+background:
+
+rgba(255,255,255,0.08);
+
+
+
+color:#ddd;
+
+
+
+border:
+
+1px solid rgba(255,255,255,0.2);
+
 
 
 padding:
@@ -453,14 +605,19 @@ padding:
 6px 14px;
 
 
+
 border-radius:999px;
 
 
-font-size:14px;
+
+font-size:13px;
+
+
+
+letter-spacing:.5px;
 
 
 }
-
 
 
 
@@ -478,6 +635,7 @@ border-top:
 1px solid #ddd;
 
 
+
 margin-bottom:60px;
 
 
@@ -489,10 +647,203 @@ margin-bottom:60px;
 
 
 
+/*
+========================
+
+CONTENT + TOC
+
+========================
+*/
+
+
+
+.content-layout{
+
+position:relative;
+
+padding-left:280px;
+}
+
+
+.toc{
+
+position:fixed;
+
+top:120px;
+
+left:40px;
+
+width:220px;
+
+box-sizing:border-box;
+
+border-left:
+
+1px solid rgba(255,255,255,.15);
+
+
+padding-left:20px;
+
+
+font-family:var(--font-mono);
+
+
+}
+
+
+
+.toc h3{
+
+
+font-size:14px;
+
+
+letter-spacing:2px;
+
+
+text-transform:uppercase;
+
+
+margin-bottom:25px;
+
+
+color:var(--accent);
+
+font-weight:900;
+
+}
+
+
+
+.content-layout article{
+
+
+max-width:900px;
+
+
+margin:
+
+0 auto;
+
+
+}
+
+
+.toc a{
+
+
+display:block;
+
+
+width:100%;
+
+
+font-size:13px;
+
+
+line-height:1.6;
+
+
+color:#888;
+
+
+text-decoration:none;
+
+
+margin-bottom:12px;
+
+
+padding:4px 0;
+
+
+transition:.2s;
+
+
+}
+
+
+.toc a::before{
+
+content:"→";
+
+
+margin-right:8px;
+
+
+opacity:.4;
+
+
+}
+
+.toc-list{
+
+display:flex;
+
+flex-direction:column;
+
+gap:4px;
+
+}
+
+.toc a:hover::before{
+
+opacity:1;
+
+
+}
+
+
+
+.toc a:hover{
+
+
+color:var(--stripe-teal);
+
+
+
+transform:
+
+translateX(5px);
+
+
+}
+
+
+
+
+
+
+.toc .sub{
+
+
+padding-left:15px;
+
+
+
+font-size:12px;
+
+
+}
+
+
+
+
+
+/*
+========================
+
+ARTICLE
+
+========================
+*/
+
+
+
 article{
 
 
 font-size:18px;
+
 
 
 line-height:1.8;
@@ -503,15 +854,113 @@ line-height:1.8;
 
 
 
+:global(article h1){
+
+    margin-top:80px;
+
+    margin-bottom:25px;
+
+    font-size:42px;
+
+    line-height:1.2;
+
+    color:var(--retro-red) !important;
+
+    font-weight:900;
+
+}
 
 
-article img{
+
+:global(article h2){
+
+    margin-top:60px;
+
+    margin-bottom:20px;
+
+    font-size:32px;
+
+    line-height:1.3;
+
+    color:var(--retro-yellow) !important;
+
+    font-weight:800;
+
+}
 
 
-max-width:100%;
+
+:global(article h3){
+
+    margin-top:40px;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+
+    line-height:1.4;
+
+    color:var(--retro-cyan) !important;
+
+    font-weight:700;
+
+}
 
 
-border-radius:16px;
+:global(article h2),
+:global(article h3){
+
+    position:relative;
+
+    padding-left:18px;
+
+}
+
+
+
+:global(article h2)::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:8px;
+
+    width:5px;
+
+    height:70%;
+
+    background:var(--retro-yellow);
+
+}
+
+
+
+:global(article h3)::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:7px;
+
+    width:4px;
+
+    height:70%;
+
+    background:var(--retro-cyan);
+
+}
+
+
+article p{
+
+
+margin-bottom:20px;
 
 
 }
@@ -520,17 +969,70 @@ border-radius:16px;
 
 
 
+article ul,
+article ol{
 
-pre{
+
+padding-left:30px;
+
+
+margin-bottom:20px;
+
+
+}
+
+
+
+
+article li{
+
+
+margin-bottom:8px;
+
+
+}
+
+
+
+
+
+article :global(img){
+
+width:auto !important;
+
+height:auto !important;
+
+max-width:850px !important;
+
+max-height:800px !important;
+
+object-fit:contain !important;
+
+display:block;
+
+margin:40px auto;
+
+border-radius:16px;
+
+}
+
+
+
+
+
+article pre{
 
 
 background:#f5f5f5;
 
 
+
 padding:20px;
 
 
+
 border-radius:12px;
+
 
 
 overflow-x:auto;
@@ -543,8 +1045,74 @@ overflow-x:auto;
 
 
 
+/*
+========================
 
-@media(max-width:800px){
+TABLE OF CONTENTS MOBILE
+
+========================
+*/
+
+
+
+@media(max-width:1100px){
+
+
+
+.content-layout{
+
+grid-template-columns:1fr;
+
+padding-left:0;
+
+
+}
+
+
+
+
+
+.toc{
+
+
+position:relative;
+
+
+
+top:auto;
+
+
+
+order:-1;
+
+
+
+margin-bottom:40px;
+
+
+
+padding:
+
+20px;
+
+
+
+border-left:none;
+
+
+
+border:
+
+1px solid rgba(255,255,255,.15);
+
+
+
+border-radius:12px;
+
+
+}
+
+
 
 
 
@@ -562,6 +1130,7 @@ grid-template-columns:
 
 
 
+
 .hero-text h1{
 
 
@@ -569,6 +1138,7 @@ font-size:40px;
 
 
 }
+
 
 
 
@@ -588,6 +1158,68 @@ grid-template-columns:
 
 
 }
+
+
+
+
+
+
+@media(max-width:600px){
+
+
+
+.project{
+
+
+padding:
+
+0 20px;
+
+
+}
+
+
+
+
+
+.info{
+
+
+grid-template-columns:
+
+1fr;
+
+
+}
+
+
+
+
+.description{
+
+
+font-size:18px;
+
+
+}
+
+
+
+
+article{
+
+
+font-size:16px;
+
+
+}
+
+
+
+}
+
+
+
 
 
 
