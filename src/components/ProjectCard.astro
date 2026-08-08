@@ -1,8 +1,13 @@
 ---
 import { getProjectImage } from "../utils/images";
 import { Image } from "astro:assets";
+import { getLanguageFromPath } from "../utils/i18n";
+import { getTranslations } from "../utils/translations";
 
 const { project } = Astro.props;
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
 
 // project.id:
 //
@@ -16,10 +21,13 @@ const image = project.data.cover
   ? getProjectImage(slug, project.data.cover)
   : null;
 
-const date = project.data.date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "short",
-});
+const date = project.data.date.toLocaleDateString(
+  language === "zh" ? "zh-CN" : "en-US",
+  {
+    year: "numeric",
+    month: "short",
+  },
+);
 
 const routeMap: Record<string, string> = {
   work: "projects",
@@ -41,17 +49,19 @@ const type = project.data.type.toUpperCase();
 
   <div class="card-header">
     <span>
-      PRJ_NODE //
+      {t.card.projectNode}
       {type}
     </span>
 
-    <span class="status"> ● ONLINE </span>
+    <span class="status">
+      {t.card.online}
+    </span>
   </div>
 
   {
     image && (
       <div class="image-wrapper">
-        <div class="image-label">IMAGE_STREAM // ACTIVE</div>
+        <div class="image-label">{t.card.imageStream}</div>
 
         <Image class="cover" src={image} alt={project.data.title} />
       </div>
@@ -79,12 +89,12 @@ const type = project.data.type.toUpperCase();
 
     <div class="footer">
       <span>
-        CATEGORY:
+        {t.card.category}
         {type}
       </span>
 
       <span>
-        ARCHIVE:
+        {t.card.archive}
         {date}
       </span>
     </div>

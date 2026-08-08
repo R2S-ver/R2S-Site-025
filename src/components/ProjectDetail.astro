@@ -16,22 +16,6 @@ const { project, projectId, Content, translation } = Astro.props;
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
 
-const translationSlug = translation ? translation.id.split("/")[0] : null;
-
-const routeMap: Record<string, string> = {
-  work: "projects",
-  lab: "lab",
-  note: "notes",
-  gallery: "gallery",
-};
-
-const translationPath =
-  translation && translationSlug
-    ? language === "en"
-      ? `/zh/${routeMap[project.data.type]}/${translationSlug}`
-      : `/${routeMap[project.data.type]}/${translationSlug}`
-    : null;
-
 const cover = project.data.cover
   ? getProjectImage(projectId, project.data.cover)
   : null;
@@ -43,6 +27,8 @@ const date = project.data.date.toLocaleDateString(
     month: "long",
   },
 );
+
+const translationAvailable = !!translation;
 ---
 
 <main class="project">
@@ -104,6 +90,18 @@ const date = project.data.date.toLocaleDateString(
 
   <hr />
 
+  {
+    !translationAvailable && (
+      <section class="translation-notice">
+        <div class="notice-code">{t.language.code}</div>
+
+        <div class="notice-title">{t.language.unavailable}</div>
+
+        <div class="notice-subtitle">{t.language.description}</div>
+      </section>
+    )
+  }
+
   <div class="content-layout">
     <aside class="toc">
       <h3>{t.common.contents}</h3>
@@ -135,13 +133,9 @@ const date = project.data.date.toLocaleDateString(
 
       link.href = "#" + heading.id;
 
-      let title = heading.innerText.replace(/^\d+(\.\d+)*[\.\s-]*/, "");
+      const title = heading.innerText.replace(/^\d+(\.\d+)*[\.\s-]*/, "");
 
       link.textContent = title;
-
-      if (heading.tagName === "h2") {
-        link.classList.add("sub");
-      }
 
       toc.appendChild(link);
     });
@@ -269,6 +263,62 @@ const date = project.data.date.toLocaleDateString(
     border-top: 1px solid #ddd;
 
     margin-bottom: 60px;
+  }
+
+  /*
+  ========================
+  TRANSLATION NOTICE
+  ========================
+  */
+
+  .translation-notice {
+    min-height: 55vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    font-family: var(--font-mono);
+
+    padding: 80px 20px;
+  }
+
+  .notice-code {
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    color: var(--accent);
+
+    margin-bottom: 25px;
+
+    opacity: 0.8;
+  }
+
+  .notice-title {
+    font-size: 48px;
+
+    font-weight: 900;
+
+    line-height: 1.2;
+
+    color: white;
+
+    margin-bottom: 18px;
+  }
+
+  .notice-subtitle {
+    font-size: 16px;
+
+    letter-spacing: 1px;
+
+    color: #777;
   }
 
   /*
@@ -511,7 +561,7 @@ const date = project.data.date.toLocaleDateString(
 
   /*
   ========================
-  TABLE OF CONTENTS MOBILE
+  MOBILE
   ========================
   */
 
@@ -568,6 +618,22 @@ const date = project.data.date.toLocaleDateString(
 
     article {
       font-size: 16px;
+    }
+
+    .translation-notice {
+      min-height: 60vh;
+    }
+
+    .notice-title {
+      font-size: 32px;
+    }
+
+    .notice-code {
+      font-size: 11px;
+    }
+
+    .notice-subtitle {
+      font-size: 14px;
     }
   }
 </style>

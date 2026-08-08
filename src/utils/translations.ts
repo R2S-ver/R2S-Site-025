@@ -20,6 +20,26 @@ export const translations = {
       contents: "Contents",
     },
 
+    language: {
+      code: "TRANSLATION // UNAVAILABLE",
+      unavailable: "暂无中文版本",
+      description: "当前项目仅提供英文版本",
+    },
+
+    /*
+    ========================
+    PROJECT CARD
+    ========================
+    */
+
+    card: {
+      projectNode: "PRJ_NODE //",
+      online: "● ONLINE",
+      imageStream: "IMAGE_STREAM // ACTIVE",
+      category: "CATEGORY:",
+      archive: "ARCHIVE:",
+    },
+
     sections: {
       lab: {
         title: "Lab",
@@ -70,6 +90,26 @@ export const translations = {
       category: "分类",
       tools: "工具",
       contents: "目录",
+    },
+
+    language: {
+      code: "TRANSLATION // UNAVAILABLE",
+      unavailable: "暂无英文版本",
+      description: "当前项目仅提供中文版本",
+    },
+
+    /*
+    ========================
+    PROJECT CARD
+    ========================
+    */
+
+    card: {
+      projectNode: "项目节点 //",
+      online: "● 在线",
+      imageStream: "图像流 // ACTIVE",
+      category: "分类:",
+      archive: "档案:",
     },
 
     sections: {
