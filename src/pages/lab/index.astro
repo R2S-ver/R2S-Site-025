@@ -1,12 +1,17 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ContentList from "../../components/ContentList.astro";
+import { getLanguageFromPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
 ---
 
-<Layout title="Lab | R2S Studio">
+<Layout title={`${t.sections.lab.title} | R2S Studio`}>
   <ContentList
     type="lab"
-    title="Lab"
-    description="Experiments, electronics and prototypes."
+    title={t.sections.lab.title}
+    description={t.sections.lab.description}
   />
 </Layout>

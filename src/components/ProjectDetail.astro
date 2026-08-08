@@ -1,23 +1,48 @@
 ---
 import { Image } from "astro:assets";
 import { getProjectImage } from "../utils/images";
+import { getLanguageFromPath } from "../utils/i18n";
+import { getTranslations } from "../utils/translations";
 
 interface Props {
   project: any;
   projectId: string;
   Content: any;
+  translation?: any;
 }
 
-const { project, projectId, Content } = Astro.props;
+const { project, projectId, Content, translation } = Astro.props;
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const translationSlug = translation ? translation.id.split("/")[0] : null;
+
+const routeMap: Record<string, string> = {
+  work: "projects",
+  lab: "lab",
+  note: "notes",
+  gallery: "gallery",
+};
+
+const translationPath =
+  translation && translationSlug
+    ? language === "en"
+      ? `/zh/${routeMap[project.data.type]}/${translationSlug}`
+      : `/${routeMap[project.data.type]}/${translationSlug}`
+    : null;
 
 const cover = project.data.cover
   ? getProjectImage(projectId, project.data.cover)
   : null;
 
-const date = project.data.date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-});
+const date = project.data.date.toLocaleDateString(
+  language === "zh" ? "zh-CN" : "en-US",
+  {
+    year: "numeric",
+    month: "long",
+  },
+);
 ---
 
 <main class="project">
@@ -41,7 +66,7 @@ const date = project.data.date.toLocaleDateString("en-US", {
 
   <section class="info">
     <div>
-      <h3>Year</h3>
+      <h3>{t.common.year}</h3>
 
       <p>
         {date}
@@ -49,7 +74,7 @@ const date = project.data.date.toLocaleDateString("en-US", {
     </div>
 
     <div>
-      <h3>Type</h3>
+      <h3>{t.common.type}</h3>
 
       <p>
         {project.data.type}
@@ -57,7 +82,7 @@ const date = project.data.date.toLocaleDateString("en-US", {
     </div>
 
     <div>
-      <h3>Category</h3>
+      <h3>{t.common.category}</h3>
 
       <p>
         {project.data.category}
@@ -65,7 +90,7 @@ const date = project.data.date.toLocaleDateString("en-US", {
     </div>
 
     <div>
-      <h3>Tools</h3>
+      <h3>{t.common.tools}</h3>
 
       <p>
         {project.data.tools?.join(" · ")}
@@ -81,7 +106,7 @@ const date = project.data.date.toLocaleDateString("en-US", {
 
   <div class="content-layout">
     <aside class="toc">
-      <h3>Contents</h3>
+      <h3>{t.common.contents}</h3>
 
       <nav id="toc-list" class="toc-list"></nav>
     </aside>

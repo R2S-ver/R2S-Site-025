@@ -1,24 +1,166 @@
 ---
+import { getCollection } from "astro:content";
 import { getLanguageFromPath, getLocalizedPath } from "../utils/i18n";
 
 const currentLanguage = getLanguageFromPath(Astro.url.pathname);
 
 const homePath = getLocalizedPath("/", currentLanguage);
+
 const projectsPath = getLocalizedPath("/projects", currentLanguage);
+
 const labPath = getLocalizedPath("/lab", currentLanguage);
+
 const galleryPath = getLocalizedPath("/gallery", currentLanguage);
+
 const notesPath = getLocalizedPath("/notes", currentLanguage);
+
 const aboutPath = getLocalizedPath("/about", currentLanguage);
 
-// 当前页面对应的另一种语言
-const languagePath = getLocalizedPath(
-  Astro.url.pathname,
-  currentLanguage === "en" ? "zh" : "en",
-);
+const targetLanguage = currentLanguage === "en" ? "zh" : "en";
+
+/*
+=========================================================
+LANGUAGE SWITCH
+=========================================================
+*/
+
+const entries = await getCollection("entries");
+
+const routeMap: Record<string, string> = {
+  work: "projects",
+  lab: "lab",
+  note: "notes",
+  gallery: "gallery",
+};
+
+const pathSegments = Astro.url.pathname
+  .replace(/^\/+|\/+$/g, "")
+  .split("/")
+  .filter(Boolean);
+
+const isChinesePath = pathSegments[0] === "zh";
+
+const pathWithoutLanguage = isChinesePath
+  ? pathSegments.slice(1)
+  : pathSegments;
+
+let languageAvailable = true;
+
+let languagePath = getLocalizedPath(Astro.url.pathname, targetLanguage);
+
+/*
+=========================================================
+PROJECT TRANSLATION CHECK
+=========================================================
+*/
+
+if (pathWithoutLanguage.length >= 2) {
+  const section = pathWithoutLanguage[0];
+  const slug = pathWithoutLanguage[1];
+
+  const type = Object.entries(routeMap).find(
+    ([, route]) => route === section,
+  )?.[0];
+
+  if (type) {
+    const translatedEntry = entries.find((entry) => {
+      /*
+       * Content Collection ID:
+       *
+       * 3d-printing-abs-material-test/en
+       * 3d-printing-abs-material-test/zh
+       *
+       * 项目 slug 是第一段
+       */
+      const entrySlug = entry.id.split("/")[0];
+
+      return (
+        entry.data.type === type &&
+        entry.data.lang === targetLanguage &&
+        entrySlug === slug
+      );
+    });
+
+    if (translatedEntry) {
+      /*
+       * 目标语言存在
+       */
+      languagePath =
+        targetLanguage === "zh"
+          ? `/zh/${section}/${slug}`
+          : `/${section}/${slug}`;
+
+      languageAvailable = true;
+    } else {
+      /*
+       * 目标语言不存在
+       *
+       * 不跳转，保持当前页面。
+       */
+      languageAvailable = false;
+
+      languagePath = Astro.url.pathname;
+    }
+  }
+}
+
+/*
+ * =========================================================
+ * TRANSLATIONS
+ * =========================================================
+ */
+
+const translations = {
+  en: {
+    nav: {
+      home: "HOME",
+      projects: "PROJECTS",
+      lab: "LAB",
+      art: "ART",
+      notes: "NOTES",
+      about: "ABOUT",
+      language: "中文",
+    },
+
+    system: {
+      status: "SYS_STATUS:",
+      online: "ONLINE",
+    },
+
+    language: {
+      unavailable: "暂无中文版本",
+    },
+  },
+
+  zh: {
+    nav: {
+      home: "首页",
+      projects: "项目",
+      lab: "实验室",
+      art: "艺术",
+      notes: "笔记",
+      about: "关于",
+      language: "EN",
+    },
+
+    system: {
+      status: "系统状态:",
+      online: "在线",
+    },
+
+    language: {
+      unavailable: "暂无英文版本",
+    },
+  },
+};
+
+const t = translations[currentLanguage];
 ---
 
 <nav>
   <div class="nav-inner">
+    <!-- BRAND -->
+
     <div class="brand">
       <div class="logo">
         <span class="red"></span>
@@ -26,41 +168,134 @@ const languagePath = getLocalizedPath(
         <span class="teal"></span>
       </div>
 
-      <a href={homePath}>R2S // STUDIO</a>
+      <a href={homePath}> R2S // STUDIO </a>
     </div>
 
+    <!-- NAVIGATION -->
+
     <div class="links">
-      <a href={homePath}>HOME</a>
+      <a href={homePath}>
+        {t.nav.home}
+      </a>
 
-      <a href={projectsPath}>PROJECTS</a>
+      <a href={projectsPath}>
+        {t.nav.projects}
+      </a>
 
-      <a href={labPath}>LAB</a>
+      <a href={labPath}>
+        {t.nav.lab}
+      </a>
 
-      <a href={galleryPath}>ART</a>
+      <a href={galleryPath}>
+        {t.nav.art}
+      </a>
 
-      <a href={notesPath}>NOTES</a>
+      <a href={notesPath}>
+        {t.nav.notes}
+      </a>
 
-      <a href={aboutPath}>ABOUT</a>
+      <a href={aboutPath}>
+        {t.nav.about}
+      </a>
 
-      <a href={languagePath} class="language">
-        {currentLanguage === "en" ? "中文" : "EN"}
+      <a
+        href={languagePath}
+        class="language"
+        data-language-available={languageAvailable}
+        data-language-message={t.language.unavailable}
+      >
+        {t.nav.language}
       </a>
     </div>
 
+    <!-- SYSTEM STATUS -->
+
     <div class="status">
-      <span class="label">SYS_STATUS:</span>
+      <span class="label">
+        {t.system.status}
+      </span>
 
-      <span class="online">ONLINE</span>
+      <span class="online">
+        {t.system.online}
+      </span>
 
-      <span class="separator">//</span>
+      <span class="separator"> // </span>
 
-      <span id="clock">00:00:00</span>
+      <span id="clock"> 00:00:00 </span>
     </div>
   </div>
 
+  <!-- WARNING STRIPE -->
+
   <div class="warning-stripe"></div>
 
+  <!-- =====================================================
+       LANGUAGE SYSTEM ALERT
+
+       注意：
+
+       这个元素虽然写在 Navbar 中，
+       JavaScript 会在页面加载后把它移动到 body。
+
+       因此它不会被 nav 的 stacking context 限制。
+       ===================================================== -->
+
+  <div id="language-toast" class="language-toast" aria-hidden="true">
+    <div class="target target-tl"></div>
+    <div class="target target-tr"></div>
+    <div class="target target-bl"></div>
+    <div class="target target-br"></div>
+
+    <div class="alert-panel">
+      <!-- HEADER -->
+
+      <div class="alert-header">
+        <span class="header-line"></span>
+
+        <span class="header-text"> SYSTEM // LANGUAGE // NOTICE </span>
+
+        <span class="header-line"></span>
+      </div>
+
+      <!-- ICON -->
+
+      <div class="alert-icon">!</div>
+
+      <!-- MESSAGE -->
+
+      <div class="alert-message"></div>
+
+      <!-- META -->
+
+      <div class="alert-meta">
+        <span class="status-dot"></span>
+
+        TRANSLATION // UNAVAILABLE
+      </div>
+
+      <!-- CORNERS -->
+
+      <span class="corner corner-tl"></span>
+
+      <span class="corner corner-tr"></span>
+
+      <span class="corner corner-bl"></span>
+
+      <span class="corner corner-br"></span>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
   <script>
+    /*
+    =========================================================
+    CLOCK
+    =========================================================
+    */
+
     function updateClock() {
       const el = document.getElementById("clock");
 
@@ -74,9 +309,140 @@ const languagePath = getLocalizedPath(
     setInterval(updateClock, 1000);
 
     updateClock();
+
+    /*
+    =========================================================
+    MOVE LANGUAGE TOAST TO BODY
+    =========================================================
+
+    这是整个修复的关键。
+
+    Navbar 本身存在自己的 stacking context：
+
+        nav
+          z-index: 100
+
+    如果 toast 留在 nav 里面，
+    即使 toast 写：
+
+        z-index: 2147483647
+
+    它依然不能真正超越 nav 外面的
+    更高层 stacking context。
+
+    所以直接把 toast 移到 body。
+
+    =========================================================
+    */
+
+    const toast = document.getElementById("language-toast");
+
+    if (toast && toast.parentElement !== document.body) {
+      document.body.appendChild(toast);
+    }
+
+    /*
+    =========================================================
+    LANGUAGE FALLBACK
+    =========================================================
+    */
+
+    const messageElement = toast?.querySelector(".alert-message");
+
+    let toastTimer: number | undefined;
+
+    /*
+    使用 document delegation。
+
+    这样即使 Astro 页面发生
+    client-side navigation，
+    语言按钮仍然可以工作。
+    */
+
+    document.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement;
+
+      const languageButton = target.closest(
+        ".language",
+      ) as HTMLAnchorElement | null;
+
+      if (!languageButton || !toast || !messageElement) {
+        return;
+      }
+
+      /*
+        =====================================================
+        AVAILABLE
+        =====================================================
+
+        有翻译：
+
+        让浏览器正常跳转。
+        */
+
+      const available = languageButton.dataset.languageAvailable === "true";
+
+      if (available) {
+        return;
+      }
+
+      /*
+        =====================================================
+        UNAVAILABLE
+        =====================================================
+
+        没有翻译：
+
+        阻止页面跳转，
+        显示提示框。
+        */
+
+      event.preventDefault();
+
+      const message =
+        languageButton.dataset.languageMessage || "Translation unavailable";
+
+      messageElement.textContent = message;
+
+      /*
+        显示
+        */
+
+      toast.classList.add("show");
+
+      toast.setAttribute("aria-hidden", "false");
+
+      /*
+        清除旧 timer
+        */
+
+      if (toastTimer) {
+        window.clearTimeout(toastTimer);
+      }
+
+      /*
+        3 秒后关闭
+        */
+
+      toastTimer = window.setTimeout(() => {
+        toast.classList.remove("show");
+
+        toast.setAttribute("aria-hidden", "true");
+      }, 3000);
+    });
   </script>
 
+  <!-- =====================================================
+       STYLE
+       ===================================================== -->
+
   <style>
+    /*
+    =========================================================
+    NAVBAR
+    =========================================================
+    */
+
     nav {
       position: sticky;
 
@@ -103,6 +469,12 @@ const languagePath = getLocalizedPath(
       justify-content: space-between;
     }
 
+    /*
+    =========================================================
+    BRAND
+    =========================================================
+    */
+
     .brand {
       display: flex;
 
@@ -121,20 +493,35 @@ const languagePath = getLocalizedPath(
 
     .brand a {
       color: white;
+
+      text-decoration: none;
     }
+
+    /*
+    =========================================================
+    LOGO
+    =========================================================
+    */
 
     .logo {
       display: flex;
+
       width: 36px;
+
       height: 18px;
+
       overflow: hidden;
+
       border-radius: 2px;
+
       flex-shrink: 0;
     }
 
     .logo span {
       display: block;
+
       width: 12px;
+
       height: 18px;
     }
 
@@ -150,10 +537,18 @@ const languagePath = getLocalizedPath(
       background: var(--stripe-teal);
     }
 
+    /*
+    =========================================================
+    NAV LINKS
+    =========================================================
+    */
+
     .links {
       display: flex;
 
       gap: 28px;
+
+      align-items: center;
     }
 
     .links a {
@@ -166,6 +561,8 @@ const languagePath = getLocalizedPath(
       color: #aaa;
 
       padding: 8px 0;
+
+      text-decoration: none;
 
       transition: 0.25s;
     }
@@ -195,6 +592,16 @@ const languagePath = getLocalizedPath(
     .links a:hover::after {
       width: 100%;
     }
+
+    .links .language {
+      color: var(--accent);
+    }
+
+    /*
+    =========================================================
+    SYSTEM STATUS
+    =========================================================
+    */
 
     .status {
       font-size: 11px;
@@ -226,9 +633,11 @@ const languagePath = getLocalizedPath(
       color: white;
     }
 
-    /* =========================
-   INDUSTRIAL WARNING STRIPE
-========================= */
+    /*
+    =========================================================
+    WARNING STRIPE
+    =========================================================
+    */
 
     .warning-stripe {
       height: 2px;
@@ -261,6 +670,455 @@ const languagePath = getLocalizedPath(
       }
     }
 
+    /*
+    =========================================================
+    LANGUAGE SYSTEM OVERLAY
+    =========================================================
+
+    这个元素最终会被移动到 body。
+
+    所以这里不再依赖 nav 的层级。
+
+    =========================================================
+    */
+
+    .language-toast {
+      position: fixed;
+
+      inset: 0;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 40px;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(232, 120, 53, 0.035),
+          transparent 45%
+        ),
+        rgba(0, 0, 0, 0.35);
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 100000;
+
+      isolation: isolate;
+
+      transition: opacity 0.25s ease;
+
+      backdrop-filter: blur(2px);
+    }
+
+    /*
+    =========================================================
+    SHOW
+    =========================================================
+    */
+
+    .language-toast.show {
+      opacity: 1;
+
+      pointer-events: auto;
+    }
+
+    /*
+    =========================================================
+    ALERT PANEL
+    =========================================================
+    */
+
+    .alert-panel {
+      position: relative;
+
+      width: min(760px, 90vw);
+
+      min-height: 360px;
+
+      padding: 80px 70px 65px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        rgba(5, 5, 7, 0.97);
+
+      background-size:
+        100% 6px,
+        6px 100%;
+
+      border: 1px solid var(--accent);
+
+      box-shadow:
+        0 0 0 1px rgba(232, 120, 53, 0.08),
+        0 0 40px rgba(232, 120, 53, 0.16),
+        0 0 120px rgba(232, 120, 53, 0.08),
+        0 40px 120px rgba(0, 0, 0, 0.8);
+
+      overflow: visible;
+    }
+
+    /*
+    =========================================================
+    TOP SYSTEM LABEL
+    =========================================================
+    */
+
+    .alert-header {
+      position: absolute;
+
+      top: -15px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+      padding: 5px 14px;
+
+      background: var(--bg);
+
+      border: 1px solid var(--accent);
+
+      white-space: nowrap;
+    }
+
+    .header-text {
+      color: var(--accent);
+
+      font-family: var(--font-mono);
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      letter-spacing: 2px;
+    }
+
+    .header-line {
+      width: 28px;
+
+      height: 1px;
+
+      background: var(--accent);
+
+      opacity: 0.6;
+    }
+
+    /*
+    =========================================================
+    ALERT ICON
+    =========================================================
+    */
+
+    .alert-icon {
+      width: 70px;
+
+      height: 70px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin-bottom: 35px;
+
+      border: 1px solid var(--accent);
+
+      color: var(--accent);
+
+      font-family: var(--font-mono);
+
+      font-size: 36px;
+
+      font-weight: 900;
+
+      box-shadow:
+        0 0 15px rgba(232, 120, 53, 0.2),
+        inset 0 0 15px rgba(232, 120, 53, 0.05);
+
+      position: relative;
+    }
+
+    .alert-icon::before,
+    .alert-icon::after {
+      content: "";
+
+      position: absolute;
+
+      background: var(--accent);
+    }
+
+    .alert-icon::before {
+      width: 100px;
+
+      height: 1px;
+
+      opacity: 0.35;
+    }
+
+    .alert-icon::after {
+      width: 1px;
+
+      height: 100px;
+
+      opacity: 0.35;
+    }
+
+    /*
+    =========================================================
+    MESSAGE
+    =========================================================
+    */
+
+    .alert-message {
+      position: relative;
+
+      z-index: 2;
+
+      color: white;
+
+      font-family: var(--font-mono);
+
+      font-size: 38px;
+
+      font-weight: 900;
+
+      letter-spacing: 3px;
+
+      line-height: 1.4;
+
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+    }
+
+    /*
+    =========================================================
+    META
+    =========================================================
+    */
+
+    .alert-meta {
+      position: absolute;
+
+      bottom: 25px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      color: #666;
+
+      font-family: var(--font-mono);
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 6px;
+
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--accent);
+
+      box-shadow: 0 0 10px var(--accent);
+
+      animation: alert-blink 1s infinite;
+    }
+
+    @keyframes alert-blink {
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.25;
+      }
+    }
+
+    /*
+    =========================================================
+    DECORATIVE CORNERS
+    =========================================================
+    */
+
+    .corner {
+      position: absolute;
+
+      width: 32px;
+
+      height: 32px;
+
+      pointer-events: none;
+    }
+
+    .corner::before,
+    .corner::after {
+      content: "";
+
+      position: absolute;
+
+      background: var(--accent);
+    }
+
+    .corner::before {
+      width: 32px;
+
+      height: 2px;
+    }
+
+    .corner::after {
+      width: 2px;
+
+      height: 32px;
+    }
+
+    .corner-tl {
+      top: -1px;
+
+      left: -1px;
+    }
+
+    .corner-tr {
+      top: -1px;
+
+      right: -1px;
+
+      transform: rotate(90deg);
+    }
+
+    .corner-br {
+      bottom: -1px;
+
+      right: -1px;
+
+      transform: rotate(180deg);
+    }
+
+    .corner-bl {
+      bottom: -1px;
+
+      left: -1px;
+
+      transform: rotate(270deg);
+    }
+
+    /*
+    =========================================================
+    OUTER TARGET MARKERS
+    =========================================================
+    */
+
+    .target {
+      position: absolute;
+
+      width: 26px;
+
+      height: 26px;
+
+      border: 1px solid rgba(232, 120, 53, 0.45);
+
+      pointer-events: none;
+    }
+
+    .target::before,
+    .target::after {
+      content: "";
+
+      position: absolute;
+
+      background: var(--accent);
+
+      opacity: 0.6;
+    }
+
+    .target::before {
+      left: 50%;
+
+      top: -8px;
+
+      width: 1px;
+
+      height: 42px;
+    }
+
+    .target::after {
+      top: 50%;
+
+      left: -8px;
+
+      width: 42px;
+
+      height: 1px;
+    }
+
+    .target-tl {
+      top: calc(50% - 210px);
+
+      left: calc(50% - 430px);
+    }
+
+    .target-tr {
+      top: calc(50% - 210px);
+
+      right: calc(50% - 430px);
+    }
+
+    .target-bl {
+      bottom: calc(50% - 210px);
+
+      left: calc(50% - 430px);
+    }
+
+    .target-br {
+      bottom: calc(50% - 210px);
+
+      right: calc(50% - 430px);
+    }
+
+    /*
+    =========================================================
+    MOBILE
+    =========================================================
+    */
+
     @media (max-width: 1000px) {
       .nav-inner {
         height: auto;
@@ -280,6 +1138,64 @@ const languagePath = getLocalizedPath(
 
       .status {
         display: none;
+      }
+
+      .alert-panel {
+        width: calc(100vw - 40px);
+
+        min-height: 280px;
+
+        padding: 70px 30px 60px;
+      }
+
+      .alert-message {
+        font-size: 30px;
+      }
+
+      .target {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .language-toast {
+        padding: 20px;
+      }
+
+      .alert-panel {
+        min-height: 240px;
+
+        padding: 65px 20px 55px;
+      }
+
+      .alert-message {
+        font-size: 22px;
+
+        letter-spacing: 1px;
+      }
+
+      .alert-icon {
+        width: 56px;
+
+        height: 56px;
+
+        font-size: 28px;
+
+        margin-bottom: 25px;
+      }
+
+      .header-text {
+        font-size: 8px;
+
+        letter-spacing: 1px;
+      }
+
+      .header-line {
+        width: 15px;
+      }
+
+      .alert-meta {
+        font-size: 8px;
       }
     }
   </style>

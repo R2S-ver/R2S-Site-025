@@ -2,10 +2,13 @@
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
+interface Props {
+  title?: string;
+}
+
 const { title = "R2S Studio" } = Astro.props;
 ---
 
-<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -25,15 +28,20 @@ const { title = "R2S Studio" } = Astro.props;
 
         --panel: #0d0d14;
         --panel-light: #151520;
+
         --text: #ffffff;
         --secondary: #999;
 
         --border: #303038;
+
         --accent: #e87835;
+
         --stripe-red: #ff3333;
         --stripe-yellow: #ffd400;
         --stripe-teal: #00b0ff;
+
         --terminal-green: #00ff88;
+
         --retro-red: #d65a4a;
         --retro-yellow: #f6c85f;
         --retro-cyan: #5edfff;
@@ -41,11 +49,15 @@ const { title = "R2S Studio" } = Astro.props;
         --font-mono: "JetBrains Mono", "Courier New", monospace;
       }
 
+      /*
+      =========================================================
+      RESET
+      =========================================================
+      */
+
       * {
         margin: 0;
-
         padding: 0;
-
         box-sizing: border-box;
       }
 
@@ -66,18 +78,32 @@ const { title = "R2S Studio" } = Astro.props;
       }
 
       /*
-CONTENT LAYER
-*/
+      =========================================================
+      CONTENT LAYER
+      =========================================================
 
-      body > *:not(#neural-canvas):not(#crt-overlay):not(.warning-stripe) {
+      所有普通页面内容处于基础层。
+
+      注意：
+
+      language-toast 被明确排除，
+      因为它需要成为真正的全局顶层 UI。
+      */
+
+      body
+        > *:not(#neural-canvas):not(#crt-overlay):not(.warning-stripe):not(
+          #language-toast
+        ) {
         position: relative;
 
         z-index: 1;
       }
 
       /*
-GRID BACKGROUND
-*/
+      =========================================================
+      GRID BACKGROUND
+      =========================================================
+      */
 
       body::before {
         content: "";
@@ -104,8 +130,10 @@ GRID BACKGROUND
       }
 
       /*
-CRT SCAN EFFECT
-*/
+      =========================================================
+      GLOBAL ELEMENTS
+      =========================================================
+      */
 
       a {
         color: inherit;
@@ -176,8 +204,10 @@ CRT SCAN EFFECT
       }
 
       /*
-PARTICLE SYSTEM
-*/
+      =========================================================
+      PARTICLE SYSTEM
+      =========================================================
+      */
 
       #neural-canvas {
         position: fixed;
@@ -194,6 +224,16 @@ PARTICLE SYSTEM
 
         opacity: 0.55;
       }
+
+      /*
+      =========================================================
+      CRT OVERLAY
+      =========================================================
+
+      CRT 在普通内容之上，
+      但必须低于 language-toast。
+
+      */
 
       #crt-overlay {
         position: fixed;
@@ -224,12 +264,46 @@ PARTICLE SYSTEM
 
         mix-blend-mode: screen;
       }
+
+      /*
+      =========================================================
+      LANGUAGE TOAST GLOBAL STACKING LAYER
+      =========================================================
+
+      非常重要。
+
+      language-toast 会被 Navbar 的 JavaScript
+      移动到 body 下面。
+
+      因此这里直接给它一个独立的全局层级。
+
+      层级关系：
+
+      normal content     → 1
+      neural canvas      → 1
+      navbar             → 100
+      CRT                 → 9999
+      language toast      → 100000
+
+      */
+
+      body > #language-toast {
+        position: fixed;
+
+        inset: 0;
+
+        width: 100vw;
+
+        height: 100vh;
+
+        z-index: 100000;
+
+        isolation: isolate;
+      }
     </style>
   </head>
 
   <body>
-    <canvas id="neural-canvas"></canvas>
-
     <Navbar />
 
     <main>
@@ -241,6 +315,12 @@ PARTICLE SYSTEM
     <div id="crt-overlay"></div>
 
     <script>
+      /*
+      =========================================================
+      PARTICLE SYSTEM
+      =========================================================
+      */
+
       (function () {
         const canvas = document.getElementById("neural-canvas");
 
@@ -254,9 +334,7 @@ PARTICLE SYSTEM
 
         const mouse = {
           x: null,
-
           y: null,
-
           radius: 180,
         };
 
@@ -264,13 +342,11 @@ PARTICLE SYSTEM
 
         window.addEventListener("mousemove", (e) => {
           mouse.x = e.clientX;
-
           mouse.y = e.clientY;
         });
 
         window.addEventListener("mouseout", () => {
           mouse.x = null;
-
           mouse.y = null;
         });
 
@@ -333,13 +409,17 @@ PARTICLE SYSTEM
           time += 0.007;
 
           particles.forEach((p, index) => {
-            // organic movement
+            /*
+              organic movement
+              */
 
             p.vx += Math.sin(time * 3 + p.phase) * 0.008;
 
             p.vy += Math.cos(time * 2.5 + p.phase) * 0.008;
 
-            // random drift
+            /*
+              random drift
+              */
 
             p.driftTimer--;
 
@@ -359,7 +439,9 @@ PARTICLE SYSTEM
 
             p.vy += p.driftVy * 0.07;
 
-            // mouse interaction
+            /*
+              mouse interaction
+              */
 
             if (mouse.x !== null) {
               const dx = p.x - mouse.x;
@@ -377,13 +459,17 @@ PARTICLE SYSTEM
               }
             }
 
-            // damping
+            /*
+              damping
+              */
 
             p.vx *= 0.992;
 
             p.vy *= 0.992;
 
-            // prevent stopping
+            /*
+              prevent stopping
+              */
 
             const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
 
@@ -393,13 +479,17 @@ PARTICLE SYSTEM
               p.vy += (Math.random() - 0.5) * 0.04;
             }
 
-            // position
+            /*
+              position
+              */
 
             p.x += p.vx;
 
             p.y += p.vy;
 
-            // boundary
+            /*
+              boundary
+              */
 
             if (p.x < 0) {
               p.x = 0;
@@ -425,7 +515,9 @@ PARTICLE SYSTEM
               p.vy *= -0.7;
             }
 
-            // draw particle
+            /*
+              draw particle
+              */
 
             ctx.fillStyle = p.color;
 
@@ -441,7 +533,9 @@ PARTICLE SYSTEM
 
             ctx.shadowBlur = 0;
 
-            // connections
+            /*
+              connections
+              */
 
             for (let j = index + 1; j < particles.length; j++) {
               const p2 = particles[j];
