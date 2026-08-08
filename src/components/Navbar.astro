@@ -10,7 +10,7 @@ const projectsPath = getLocalizedPath("/projects", currentLanguage);
 
 const labPath = getLocalizedPath("/lab", currentLanguage);
 
-const galleryPath = getLocalizedPath("/gallery", currentLanguage);
+const artPath = getLocalizedPath("/art", currentLanguage);
 
 const notesPath = getLocalizedPath("/notes", currentLanguage);
 
@@ -30,7 +30,7 @@ const routeMap: Record<string, string> = {
   work: "projects",
   lab: "lab",
   note: "notes",
-  gallery: "gallery",
+  art: "art",
 };
 
 const pathSegments = Astro.url.pathname
@@ -186,7 +186,7 @@ const t = translations[currentLanguage];
         {t.nav.lab}
       </a>
 
-      <a href={galleryPath}>
+      <a href={artPath}>
         {t.nav.art}
       </a>
 

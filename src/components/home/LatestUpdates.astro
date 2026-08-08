@@ -1,56 +1,73 @@
 ---
-const { entries } = Astro.props;
+import { getLanguageFromPath, getLocalizedPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
+
+const { entries = [] } = Astro.props;
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
 
 const routeMap = {
   work: "projects",
-
   lab: "lab",
-
-  gallery: "gallery",
-
+  art: "art",
   note: "notes",
 };
 ---
 
 <section class="latest">
   <div class="panel">
-    <div class="header">SYS.LOG // RECENT_ACTIVITY_STREAM</div>
+    <div class="header">
+      {t.latest.header}
+    </div>
 
     <div class="logs">
       {
-        entries.map((entry, index) => (
-          <a href={`/${routeMap[entry.data.type]}/${entry.id}`} class="log">
-            <div class="log-left">
-              <div class="entry">
-                ENTRY_{String(index + 1).padStart(3, "0")}
+        entries.map((entry, index) => {
+          const route = routeMap[entry.data.type];
+
+          const basePath = getLocalizedPath(`/${route}`, language);
+
+          const date = entry.data.date.toLocaleDateString(
+            language === "zh" ? "zh-CN" : "en-US",
+            {
+              year: "numeric",
+              month: "short",
+            },
+          );
+
+          return (
+            <a href={`${basePath}/${entry.id}`} class="log">
+              <div class="log-left">
+                <div class="entry">
+                  ENTRY_{String(index + 1).padStart(3, "0")}
+                </div>
+
+                <h3>{entry.data.title}</h3>
+
+                <p>{entry.data.description}</p>
               </div>
 
-              <h3>{entry.data.title}</h3>
+              <div class="meta">
+                <span>
+                  {t.latest.type}
+                  {entry.data.type.toUpperCase()}
+                </span>
 
-              <p>{entry.data.description}</p>
-            </div>
-
-            <div class="meta">
-              <span>
-                TYPE:
-                {entry.data.type.toUpperCase()}
-              </span>
-
-              <span>
-                {entry.data.date.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                })}
-              </span>
-            </div>
-          </a>
-        ))
+                <span>{date}</span>
+              </div>
+            </a>
+          );
+        })
       }
     </div>
 
     <div class="footer">
       &gt; DATABASE_STATUS:
-      <span> UPDATED </span>
+
+      <span>
+        {t.latest.updated}
+      </span>
     </div>
   </div>
 </section>

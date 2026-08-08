@@ -11,18 +11,22 @@ const t = getTranslations(language);
 
 <section class="featured">
   <div class="section-header">
-    <div class="data-tag">PROJECT_DATABASE // FEATURED_ARCHIVE</div>
+    <div class="data-tag">
+      {t.featured.tag}
+    </div>
 
     <h2>
-      {language === "zh" ? "精选项目" : "Selected Projects"}
+      {t.featured.title}
     </h2>
 
-    <p>&gt; ACCESSING_DESIGN_AND_ENGINEERING_RECORDS...</p>
+    <p>
+      {t.featured.description}
+    </p>
   </div>
 
   <div class="project-count">
     <span>
-      {language === "zh" ? "总文件:" : "TOTAL_FILES:"}
+      {t.featured.total}
     </span>
 
     <strong>
@@ -30,13 +34,13 @@ const t = getTranslations(language);
     </strong>
 
     <span>
-      // {language === "zh" ? "活动" : "ACTIVE"}
+      // {t.featured.active}
     </span>
   </div>
 
   <div class="grid">
     {
-      projects.map((project: any, index: number) => (
+      projects.map((project, index) => (
         <div class="project-wrapper">
           <div class="number">0{index + 1}</div>
 

@@ -1,14 +1,39 @@
+---
+import { getLanguageFromPath, getLocalizedPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const aboutPath = getLocalizedPath("/about", language);
+const projectsPath = getLocalizedPath("/projects", language);
+const artPath = getLocalizedPath("/art", language);
+const notesPath = getLocalizedPath("/notes", language);
+---
+
 <div class="explore-grid">
-  <a href="/about" class="explore-card">
-    <div class="header">MODULE_01 // PROFILE</div>
+  <!-- =========================
+       MODULE 01 // ABOUT
+  ========================== -->
 
-    <span class="number"> 01 </span>
+  <a href={aboutPath} class="explore-card">
+    <div class="header">
+      {t.explore.about.header}
+    </div>
 
-    <h3>ABOUT</h3>
+    <span class="number">01</span>
 
-    <p>PERSONNEL_DOSSIER</p>
+    <h3>
+      {t.explore.about.title}
+    </h3>
 
-    <div class="access">ACCESS_MODULE →</div>
+    <p>
+      {t.explore.about.description}
+    </p>
+
+    <div class="access">
+      {t.explore.about.access}
+    </div>
 
     <div class="stripe">
       <div></div>
@@ -17,16 +42,28 @@
     </div>
   </a>
 
-  <a href="/projects" class="explore-card">
-    <div class="header">MODULE_02 // WORKS</div>
+  <!-- =========================
+       MODULE 02 // PROJECTS
+  ========================== -->
 
-    <span class="number"> 02 </span>
+  <a href={projectsPath} class="explore-card">
+    <div class="header">
+      {t.explore.projects.header}
+    </div>
 
-    <h3>PROJECTS</h3>
+    <span class="number">02</span>
 
-    <p>FABRICATION_ARCHIVE</p>
+    <h3>
+      {t.explore.projects.title}
+    </h3>
 
-    <div class="access">ACCESS_DATABASE →</div>
+    <p>
+      {t.explore.projects.description}
+    </p>
+
+    <div class="access">
+      {t.explore.projects.access}
+    </div>
 
     <div class="stripe">
       <div></div>
@@ -35,16 +72,28 @@
     </div>
   </a>
 
-  <a href="/gallery" class="explore-card">
-    <div class="header">MODULE_03 // VISUAL</div>
+  <!-- =========================
+       MODULE 03 // ART
+  ========================== -->
 
-    <span class="number"> 03 </span>
+  <a href={artPath} class="explore-card">
+    <div class="header">
+      {t.explore.art.header}
+    </div>
 
-    <h3>ART</h3>
+    <span class="number">03</span>
 
-    <p>VISUAL_ASSET_MATRIX</p>
+    <h3>
+      {t.explore.art.title}
+    </h3>
 
-    <div class="access">OPEN_ARCHIVE →</div>
+    <p>
+      {t.explore.art.description}
+    </p>
+
+    <div class="access">
+      {t.explore.art.access}
+    </div>
 
     <div class="stripe">
       <div></div>
@@ -53,16 +102,28 @@
     </div>
   </a>
 
-  <a href="/notes" class="explore-card">
-    <div class="header">MODULE_04 // KNOWLEDGE</div>
+  <!-- =========================
+       MODULE 04 // NOTES
+  ========================== -->
 
-    <span class="number"> 04 </span>
+  <a href={notesPath} class="explore-card">
+    <div class="header">
+      {t.explore.notes.header}
+    </div>
 
-    <h3>NOTES</h3>
+    <span class="number">04</span>
 
-    <p>RESEARCH_DATABASE</p>
+    <h3>
+      {t.explore.notes.title}
+    </h3>
 
-    <div class="access">LOAD_DOCUMENTS →</div>
+    <p>
+      {t.explore.notes.description}
+    </p>
+
+    <div class="access">
+      {t.explore.notes.access}
+    </div>
 
     <div class="stripe">
       <div></div>
@@ -107,8 +168,6 @@
       border-color 0.3s,
       box-shadow 0.3s;
   }
-
-  /* corner */
 
   .explore-card::before {
     content: "";

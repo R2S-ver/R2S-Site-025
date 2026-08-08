@@ -65,6 +65,98 @@ export const translations = {
       button: "ACCESS PROJECT DATABASE →",
     },
 
+    /*
+    ========================
+    HOME / FEATURED
+    ========================
+    */
+
+    featured: {
+      tag: "PROJECT_DATABASE // FEATURED_ARCHIVE",
+      title: "Selected Projects",
+      description: "> ACCESSING_DESIGN_AND_ENGINEERING_RECORDS...",
+      total: "TOTAL_FILES:",
+      active: "ACTIVE",
+    },
+
+    /*
+    ========================
+    HOME / EXPLORE
+    ========================
+    */
+
+    explore: {
+      about: {
+        header: "MODULE_01 // PROFILE",
+        title: "ABOUT",
+        description: "PERSONNEL_DOSSIER",
+        access: "ACCESS_MODULE →",
+      },
+
+      projects: {
+        header: "MODULE_02 // WORKS",
+        title: "PROJECTS",
+        description: "FABRICATION_ARCHIVE",
+        access: "ACCESS_DATABASE →",
+      },
+
+      art: {
+        header: "MODULE_03 // VISUAL",
+        title: "ART",
+        description: "VISUAL_ASSET_MATRIX",
+        access: "OPEN_ARCHIVE →",
+      },
+
+      notes: {
+        header: "MODULE_04 // KNOWLEDGE",
+        title: "NOTES",
+        description: "RESEARCH_DATABASE",
+        access: "LOAD_DOCUMENTS →",
+      },
+    },
+
+    /*
+    ========================
+    HOME / LATEST
+    ========================
+    */
+
+    latest: {
+      header: "SYS.LOG // RECENT_ACTIVITY_STREAM",
+      type: "TYPE:",
+      updated: "UPDATED",
+    },
+
+    /*
+    ========================
+    HOME / ABOUT
+    ========================
+    */
+
+    aboutPreview: {
+      header: "PERSONNEL_DOSSIER // PROFILE_MODULE",
+      operator: "OPERATOR",
+      status: "● ACTIVE DESIGNER // MAKER",
+
+      description: {
+        line1:
+          "A designer and maker exploring the connection between physical products, technology and art.",
+
+        line2:
+          "Focused on turning concepts into reality through industrial design, embedded systems and experimental prototyping.",
+      },
+
+      location: "LOCATION: ROTTERDAM // NL",
+      field: "FIELD: DESIGN + TECHNOLOGY",
+      access: "ACCESS FULL DOSSIER →",
+    },
+
+    /*
+    ========================
+    GENERAL SECTIONS
+    ========================
+    */
+
     sections: {
       lab: {
         title: "Lab",
@@ -87,16 +179,44 @@ export const translations = {
       },
 
       about: {
-        title: "About",
-        description: "About R2S Studio.",
+        title: "About R2S",
+        subtitle: "I like turning ideas into reality.",
+
+        description:
+        "I explore the connection between industrial design, embedded systems and illustration.",
+
+        dossier: {
+        header: "PERSONNEL_DOSSIER // ABOUT_MODULE",
+        operator: "OPERATOR",
+        status: "● ACTIVE DESIGNER // MAKER",
+
+        location: "LOCATION: ROTTERDAM // NL",
+        field: "FIELD: DESIGN + TECHNOLOGY",
+
+        focus: "CURRENT_FOCUS",
+        focusText:
+      "Industrial design, embedded systems, experimental prototyping and visual communication.",
+        },
       },
     },
+
+    /*
+    ========================
+    SYSTEM
+    ========================
+    */
 
     system: {
       status: "SYS_STATUS:",
       online: "ONLINE",
     },
   },
+
+  /*
+  ========================================================
+  中文
+  ========================================================
+  */
 
   zh: {
     nav: {
@@ -162,6 +282,98 @@ export const translations = {
       button: "访问项目数据库 →",
     },
 
+    /*
+    ========================
+    HOME / FEATURED
+    ========================
+    */
+
+    featured: {
+      tag: "项目数据库 // 精选档案",
+      title: "精选项目",
+      description: "> 正在访问设计与工程记录...",
+      total: "文件总数:",
+      active: "活动",
+    },
+
+    /*
+    ========================
+    HOME / EXPLORE
+    ========================
+    */
+
+    explore: {
+      about: {
+        header: "模块_01 // 个人档案",
+        title: "关于",
+        description: "个人资料档案",
+        access: "访问模块 →",
+      },
+
+      projects: {
+        header: "模块_02 // 项目",
+        title: "项目",
+        description: "制造与设计档案",
+        access: "访问数据库 →",
+      },
+
+      art: {
+        header: "模块_03 // 视觉",
+        title: "艺术",
+        description: "视觉资产矩阵",
+        access: "打开档案 →",
+      },
+
+      notes: {
+        header: "模块_04 // 知识",
+        title: "笔记",
+        description: "研究数据库",
+        access: "加载文档 →",
+      },
+    },
+
+    /*
+    ========================
+    HOME / LATEST
+    ========================
+    */
+
+    latest: {
+      header: "系统日志 // 最近活动流",
+      type: "类型:",
+      updated: "已更新",
+    },
+
+    /*
+    ========================
+    HOME / ABOUT
+    ========================
+    */
+
+    aboutPreview: {
+      header: "个人档案 // 资料模块",
+      operator: "操作员",
+      status: "● 活跃设计师 // 创作者",
+
+      description: {
+        line1:
+          "一名探索实体产品、技术与艺术之间联系的设计师与创作者。",
+
+        line2:
+          "专注于通过工业设计、嵌入式系统与实验性原型，将概念转化为现实。",
+      },
+
+      location: "位置: 鹿特丹 // 荷兰",
+      field: "领域: 设计 + 技术",
+      access: "访问完整档案 →",
+    },
+
+    /*
+    ========================
+    GENERAL SECTIONS
+    ========================
+    */
+
     sections: {
       lab: {
         title: "实验室",
@@ -184,10 +396,32 @@ export const translations = {
       },
 
       about: {
-        title: "关于",
-        description: "关于 R2S Studio。",
-      },
+        title: "关于 R2S",
+        subtitle: "我喜欢将想法变成现实。",
+
+        description:
+        "我探索工业设计、嵌入式系统与插画之间的联系。",
+
+        dossier: {
+            header: "个人档案 // 关于模块",
+            operator: "操作员",
+            status: "● 活跃设计师 // 创作者",
+
+            location: "位置: 鹿特丹 // 荷兰",
+            field: "领域: 设计 + 技术",
+
+            focus: "当前方向",
+            focusText:
+                "工业设计、嵌入式系统、实验性原型制作与视觉表达。",
+            },
+        }
     },
+
+    /*
+    ========================
+    SYSTEM
+    ========================
+    */
 
     system: {
       status: "系统状态:",

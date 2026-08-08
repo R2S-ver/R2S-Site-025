@@ -1,7 +1,7 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { getLanguageFromPath } from "../../utils/i18n";
-import { getTranslations } from "../../utils/translations";
+import Layout from "../../../layouts/Layout.astro";
+import { getLanguageFromPath } from "../../../utils/i18n";
+import { getTranslations } from "../../../utils/translations";
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);

@@ -1,35 +1,55 @@
+---
+import { getLanguageFromPath, getLocalizedPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const aboutPath = getLocalizedPath("/about", language);
+---
+
 <section class="about-preview">
   <div class="panel">
-    <div class="header">PERSONNEL_DOSSIER // PROFILE_MODULE</div>
+    <div class="header">
+      {t.aboutPreview.header}
+    </div>
 
     <div class="content">
       <div class="id-block">
-        <div class="label">OPERATOR</div>
+        <div class="label">
+          {t.aboutPreview.operator}
+        </div>
 
         <h2>R2S Studio</h2>
 
-        <div class="status">● ACTIVE DESIGNER // MAKER</div>
+        <div class="status">
+          {t.aboutPreview.status}
+        </div>
       </div>
 
       <div class="description">
         <p>
-          A designer and maker exploring the connection between
-          <strong> physical products, technology and art. </strong>
+          {t.aboutPreview.description.line1}
         </p>
 
         <p>
-          Focused on turning concepts into reality through industrial design,
-          embedded systems and experimental prototyping.
+          {t.aboutPreview.description.line2}
         </p>
       </div>
     </div>
 
     <div class="footer">
-      <span> LOCATION: ROTTERDAM // NL </span>
+      <span>
+        {t.aboutPreview.location}
+      </span>
 
-      <span> FIELD: DESIGN + TECHNOLOGY </span>
+      <span>
+        {t.aboutPreview.field}
+      </span>
 
-      <a href="/about"> ACCESS FULL DOSSIER → </a>
+      <a href={aboutPath}>
+        {t.aboutPreview.access}
+      </a>
     </div>
   </div>
 </section>
@@ -54,8 +74,6 @@
 
     overflow: hidden;
   }
-
-  /* corner */
 
   .panel::before {
     content: "";

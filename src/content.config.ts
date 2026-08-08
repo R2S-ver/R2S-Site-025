@@ -22,7 +22,7 @@ const entries = defineCollection({
       'work',
       'lab',
       'note',
-      'gallery',
+      'art',
     ]),
 
     category: z.string().optional(),
