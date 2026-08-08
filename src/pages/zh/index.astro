@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+import Hero from "../../components/home/Hero.astro";
+import FeaturedProjects from "../../components/home/FeaturedProjects.astro";
+import ExploreLinks from "../../components/home/ExploreLinks.astro";
+import LatestUpdates from "../../components/home/LatestUpdates.astro";
+import AboutPreview from "../../components/home/AboutPreview.astro";
+
+import { getLanguageFromPath } from "../../utils/i18n";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+
+const entries = await getCollection("entries");
+
+const languageEntries = entries.filter((entry) => entry.data.lang === language);
+
+const featuredEntries = languageEntries
+  .filter((entry) => entry.data.featured)
+  .slice(0, 3);
+
+const latestEntries = [...languageEntries]
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 5);
+---
+
+<Layout title="R2S Studio">
+  <Hero />
+
+  <FeaturedProjects projects={featuredEntries} />
+
+  <ExploreLinks />
+
+  <LatestUpdates entries={latestEntries} />
+
+  <AboutPreview />
+</Layout>

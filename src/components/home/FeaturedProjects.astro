@@ -1,31 +1,42 @@
 ---
 import ProjectCard from "../ProjectCard.astro";
+import { getLanguageFromPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
 
-const { projects } = Astro.props;
+const { projects = [] } = Astro.props;
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
 ---
 
 <section class="featured">
   <div class="section-header">
     <div class="data-tag">PROJECT_DATABASE // FEATURED_ARCHIVE</div>
 
-    <h2>Selected Projects</h2>
+    <h2>
+      {language === "zh" ? "精选项目" : "Selected Projects"}
+    </h2>
 
     <p>&gt; ACCESSING_DESIGN_AND_ENGINEERING_RECORDS...</p>
   </div>
 
   <div class="project-count">
-    <span> TOTAL_FILES: </span>
+    <span>
+      {language === "zh" ? "总文件:" : "TOTAL_FILES:"}
+    </span>
 
     <strong>
       {projects.length}
     </strong>
 
-    <span> // ACTIVE </span>
+    <span>
+      // {language === "zh" ? "活动" : "ACTIVE"}
+    </span>
   </div>
 
   <div class="grid">
     {
-      projects.map((project, index) => (
+      projects.map((project: any, index: number) => (
         <div class="project-wrapper">
           <div class="number">0{index + 1}</div>
 

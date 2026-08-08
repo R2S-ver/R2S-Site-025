@@ -1,3 +1,14 @@
+---
+import { getLanguageFromPath, getLocalizedPath } from "../../utils/i18n";
+
+import { getTranslations } from "../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const projectsPath = getLocalizedPath("/projects", language);
+---
+
 <section class="hero">
   <div class="hero-left">
     <div class="data-tag">R2S_STUDIO // DESIGN_SYSTEM_v1.0</div>
@@ -10,31 +21,36 @@
       </div>
 
       <h1>
-        FUNCTIONAL
+        {t.hero.title.line1}
 
         <br />
 
-        <span> AESTHETICS </span>
+        <span>
+          {t.hero.title.line2}
+        </span>
       </h1>
     </div>
 
     <div class="cassette">
       <div class="barcode"></div>
 
-      <span> [ DESIGN_DATABASE // LOADED ] </span>
+      <span>
+        {t.hero.cassette}
+      </span>
     </div>
 
     <p class="description">
-      Bridge the gap between <strong>TECH</strong> and <strong>AESTHETIC</strong
-      > by pairing artistic intuition with a research-driven mindset.
+      {t.hero.description.line1}
 
-      <br /><br />
+      <br />
+      <br />
 
-      My goal is to ensure that visual elegance is always grounded in technical
-      rigor and practical execution.
+      {t.hero.description.line2}
     </p>
 
-    <a href="/projects" class="button"> ACCESS PROJECT DATABASE → </a>
+    <a href={projectsPath} class="button">
+      {t.hero.button}
+    </a>
   </div>
 
   <div class="terminal">
@@ -212,11 +228,8 @@
     background: repeating-linear-gradient(
       90deg,
       white 0px,
-
       white 2px,
-
       transparent 2px,
-
       transparent 6px
     );
 

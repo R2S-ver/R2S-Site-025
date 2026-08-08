@@ -12,7 +12,6 @@ const { title = "R2S Studio" } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link
@@ -21,289 +20,11 @@ const { title = "R2S Studio" } = Astro.props;
     />
 
     <title>{title}</title>
-
-    <style is:global>
-      :root {
-        --bg: #050507;
-
-        --panel: #0d0d14;
-        --panel-light: #151520;
-
-        --text: #ffffff;
-        --secondary: #999;
-
-        --border: #303038;
-
-        --accent: #e87835;
-
-        --stripe-red: #ff3333;
-        --stripe-yellow: #ffd400;
-        --stripe-teal: #00b0ff;
-
-        --terminal-green: #00ff88;
-
-        --retro-red: #d65a4a;
-        --retro-yellow: #f6c85f;
-        --retro-cyan: #5edfff;
-
-        --font-mono: "JetBrains Mono", "Courier New", monospace;
-      }
-
-      /*
-      =========================================================
-      RESET
-      =========================================================
-      */
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        min-height: 100vh;
-
-        background: #050507;
-
-        color: white;
-
-        font-family: Arial, Helvetica, sans-serif;
-
-        overflow-x: hidden;
-      }
-
-      /*
-      =========================================================
-      CONTENT LAYER
-      =========================================================
-
-      所有普通页面内容处于基础层。
-
-      注意：
-
-      language-toast 被明确排除，
-      因为它需要成为真正的全局顶层 UI。
-      */
-
-      body
-        > *:not(#neural-canvas):not(#crt-overlay):not(.warning-stripe):not(
-          #language-toast
-        ) {
-        position: relative;
-
-        z-index: 1;
-      }
-
-      /*
-      =========================================================
-      GRID BACKGROUND
-      =========================================================
-      */
-
-      body::before {
-        content: "";
-
-        position: fixed;
-
-        inset: 0;
-
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-          linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.035) 1px,
-            transparent 1px
-          );
-
-        background-size: 45px 45px;
-
-        pointer-events: none;
-
-        z-index: 0;
-
-        opacity: 0.25;
-      }
-
-      /*
-      =========================================================
-      GLOBAL ELEMENTS
-      =========================================================
-      */
-
-      a {
-        color: inherit;
-
-        text-decoration: none;
-      }
-
-      img {
-        max-width: 100%;
-
-        display: block;
-      }
-
-      main {
-        width: 100%;
-      }
-
-      .container {
-        width: min(1400px, 90%);
-
-        margin: auto;
-      }
-
-      .chamfer-box {
-        background: rgba(13, 13, 20, 0.85);
-
-        border: 1px solid var(--border);
-
-        position: relative;
-      }
-
-      .chamfer-box::before {
-        content: "";
-
-        position: absolute;
-
-        top: -1px;
-
-        left: -1px;
-
-        width: 35px;
-
-        height: 2px;
-
-        background: var(--accent);
-      }
-
-      .mono {
-        font-family: var(--font-mono);
-      }
-
-      .data-tag {
-        font-family: var(--font-mono);
-
-        font-size: 11px;
-
-        letter-spacing: 2px;
-
-        color: var(--accent);
-
-        text-transform: uppercase;
-      }
-
-      ::selection {
-        background: var(--accent);
-
-        color: black;
-      }
-
-      /*
-      =========================================================
-      PARTICLE SYSTEM
-      =========================================================
-      */
-
-      #neural-canvas {
-        position: fixed;
-
-        inset: 0;
-
-        width: 100%;
-
-        height: 100%;
-
-        pointer-events: none;
-
-        z-index: 1;
-
-        opacity: 0.55;
-      }
-
-      /*
-      =========================================================
-      CRT OVERLAY
-      =========================================================
-
-      CRT 在普通内容之上，
-      但必须低于 language-toast。
-
-      */
-
-      #crt-overlay {
-        position: fixed;
-
-        top: 0;
-        left: 0;
-
-        width: 100vw;
-        height: 100vh;
-
-        background: repeating-linear-gradient(
-          to bottom,
-
-          rgba(255, 255, 255, 0.06) 0px,
-
-          rgba(255, 255, 255, 0.06) 1px,
-
-          transparent 1px,
-
-          transparent 4px
-        );
-
-        pointer-events: none;
-
-        z-index: 9999;
-
-        opacity: 0.35;
-
-        mix-blend-mode: screen;
-      }
-
-      /*
-      =========================================================
-      LANGUAGE TOAST GLOBAL STACKING LAYER
-      =========================================================
-
-      非常重要。
-
-      language-toast 会被 Navbar 的 JavaScript
-      移动到 body 下面。
-
-      因此这里直接给它一个独立的全局层级。
-
-      层级关系：
-
-      normal content     → 1
-      neural canvas      → 1
-      navbar             → 100
-      CRT                 → 9999
-      language toast      → 100000
-
-      */
-
-      body > #language-toast {
-        position: fixed;
-
-        inset: 0;
-
-        width: 100vw;
-
-        height: 100vh;
-
-        z-index: 100000;
-
-        isolation: isolate;
-      }
-    </style>
   </head>
 
   <body>
+    <canvas id="neural-canvas"></canvas>
+
     <Navbar />
 
     <main>
@@ -317,12 +38,14 @@ const { title = "R2S Studio" } = Astro.props;
     <script>
       /*
       =========================================================
-      PARTICLE SYSTEM
+      PARTICLE / NEURAL NETWORK SYSTEM
       =========================================================
       */
 
-      (function () {
-        const canvas = document.getElementById("neural-canvas");
+      (() => {
+        const canvas = document.getElementById(
+          "neural-canvas",
+        ) as HTMLCanvasElement | null;
 
         if (!canvas) return;
 
@@ -330,19 +53,19 @@ const { title = "R2S Studio" } = Astro.props;
 
         if (!ctx) return;
 
-        let particles = [];
+        let particles: any[] = [];
 
         const mouse = {
-          x: null,
-          y: null,
+          x: null as number | null,
+          y: null as number | null,
           radius: 180,
         };
 
         let time = 0;
 
-        window.addEventListener("mousemove", (e) => {
-          mouse.x = e.clientX;
-          mouse.y = e.clientY;
+        window.addEventListener("mousemove", (event) => {
+          mouse.x = event.clientX;
+          mouse.y = event.clientY;
         });
 
         window.addEventListener("mouseout", () => {
@@ -352,17 +75,8 @@ const { title = "R2S Studio" } = Astro.props;
 
         function resize() {
           canvas.width = window.innerWidth;
-
           canvas.height = window.innerHeight;
         }
-
-        resize();
-
-        window.addEventListener("resize", () => {
-          resize();
-
-          initParticles();
-        });
 
         function initParticles() {
           particles = [];
@@ -372,11 +86,9 @@ const { title = "R2S Studio" } = Astro.props;
           for (let i = 0; i < density; i++) {
             particles.push({
               x: Math.random() * canvas.width,
-
               y: Math.random() * canvas.height,
 
               vx: (Math.random() - 0.5) * 0.4,
-
               vy: (Math.random() - 0.5) * 0.4,
 
               size: Math.random() * 2.2 + 1,
@@ -389,11 +101,9 @@ const { title = "R2S Studio" } = Astro.props;
               phase: Math.random() * Math.PI * 2,
 
               driftVx: 0,
-
               driftVy: 0,
 
               targetDriftVx: 0,
-
               targetDriftVy: 0,
 
               driftTimer: Math.random() * 100,
@@ -401,161 +111,160 @@ const { title = "R2S Studio" } = Astro.props;
           }
         }
 
+        resize();
         initParticles();
+
+        window.addEventListener("resize", () => {
+          resize();
+          initParticles();
+        });
 
         function animate() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
           time += 0.007;
 
-          particles.forEach((p, index) => {
+          particles.forEach((particle, index) => {
             /*
-              organic movement
-              */
+            Organic movement
+            */
 
-            p.vx += Math.sin(time * 3 + p.phase) * 0.008;
+            particle.vx += Math.sin(time * 3 + particle.phase) * 0.008;
 
-            p.vy += Math.cos(time * 2.5 + p.phase) * 0.008;
+            particle.vy += Math.cos(time * 2.5 + particle.phase) * 0.008;
 
             /*
-              random drift
-              */
+            Random drift
+            */
 
-            p.driftTimer--;
+            particle.driftTimer--;
 
-            if (p.driftTimer <= 0) {
-              p.targetDriftVx = (Math.random() - 0.5) * 0.2;
+            if (particle.driftTimer <= 0) {
+              particle.targetDriftVx = (Math.random() - 0.5) * 0.2;
 
-              p.targetDriftVy = (Math.random() - 0.5) * 0.2;
+              particle.targetDriftVy = (Math.random() - 0.5) * 0.2;
 
-              p.driftTimer = 120 + Math.random() * 80;
+              particle.driftTimer = 120 + Math.random() * 80;
             }
 
-            p.driftVx += (p.targetDriftVx - p.driftVx) * 0.02;
+            particle.driftVx +=
+              (particle.targetDriftVx - particle.driftVx) * 0.02;
 
-            p.driftVy += (p.targetDriftVy - p.driftVy) * 0.02;
+            particle.driftVy +=
+              (particle.targetDriftVy - particle.driftVy) * 0.02;
 
-            p.vx += p.driftVx * 0.07;
-
-            p.vy += p.driftVy * 0.07;
+            particle.vx += particle.driftVx * 0.07;
+            particle.vy += particle.driftVy * 0.07;
 
             /*
-              mouse interaction
-              */
+            Mouse interaction
+            */
 
-            if (mouse.x !== null) {
-              const dx = p.x - mouse.x;
+            if (mouse.x !== null && mouse.y !== null) {
+              const dx = particle.x - mouse.x;
+              const dy = particle.y - mouse.y;
 
-              const dy = p.y - mouse.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
 
-              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (distance < mouse.radius && distance > 0.1) {
+                const force = (1 - distance / mouse.radius) * 0.12;
 
-              if (dist < mouse.radius && dist > 0.1) {
-                const force = (1 - dist / mouse.radius) * 0.12;
+                particle.vx += (dx / distance) * force;
 
-                p.vx += (dx / dist) * force;
-
-                p.vy += (dy / dist) * force;
+                particle.vy += (dy / distance) * force;
               }
             }
 
             /*
-              damping
-              */
+            Damping
+            */
 
-            p.vx *= 0.992;
-
-            p.vy *= 0.992;
+            particle.vx *= 0.992;
+            particle.vy *= 0.992;
 
             /*
-              prevent stopping
-              */
+            Prevent stopping
+            */
 
-            const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+            const speed = Math.sqrt(
+              particle.vx * particle.vx + particle.vy * particle.vy,
+            );
 
             if (speed < 0.15) {
-              p.vx += (Math.random() - 0.5) * 0.04;
+              particle.vx += (Math.random() - 0.5) * 0.04;
 
-              p.vy += (Math.random() - 0.5) * 0.04;
+              particle.vy += (Math.random() - 0.5) * 0.04;
             }
 
             /*
-              position
-              */
+            Position
+            */
 
-            p.x += p.vx;
-
-            p.y += p.vy;
+            particle.x += particle.vx;
+            particle.y += particle.vy;
 
             /*
-              boundary
-              */
+            Boundaries
+            */
 
-            if (p.x < 0) {
-              p.x = 0;
-
-              p.vx *= -0.7;
+            if (particle.x < 0) {
+              particle.x = 0;
+              particle.vx *= -0.7;
             }
 
-            if (p.x > canvas.width) {
-              p.x = canvas.width;
-
-              p.vx *= -0.7;
+            if (particle.x > canvas.width) {
+              particle.x = canvas.width;
+              particle.vx *= -0.7;
             }
 
-            if (p.y < 0) {
-              p.y = 0;
-
-              p.vy *= -0.7;
+            if (particle.y < 0) {
+              particle.y = 0;
+              particle.vy *= -0.7;
             }
 
-            if (p.y > canvas.height) {
-              p.y = canvas.height;
-
-              p.vy *= -0.7;
+            if (particle.y > canvas.height) {
+              particle.y = canvas.height;
+              particle.vy *= -0.7;
             }
 
             /*
-              draw particle
-              */
+            Draw particle
+            */
 
-            ctx.fillStyle = p.color;
-
-            ctx.shadowColor = p.color;
-
+            ctx.fillStyle = particle.color;
+            ctx.shadowColor = particle.color;
             ctx.shadowBlur = 12;
 
             ctx.beginPath();
 
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
 
             ctx.fill();
 
             ctx.shadowBlur = 0;
 
             /*
-              connections
-              */
+            Connections
+            */
 
             for (let j = index + 1; j < particles.length; j++) {
-              const p2 = particles[j];
+              const other = particles[j];
 
-              const dx = p.x - p2.x;
+              const dx = particle.x - other.x;
+              const dy = particle.y - other.y;
 
-              const dy = p.y - p2.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
 
-              const dist = Math.sqrt(dx * dx + dy * dy);
-
-              if (dist < 140) {
+              if (distance < 140) {
                 ctx.beginPath();
 
-                ctx.strokeStyle = `rgba(255,255,255,${0.35 - dist / 500})`;
+                ctx.strokeStyle = `rgba(255,255,255,${0.35 - distance / 500})`;
 
                 ctx.lineWidth = 1;
 
-                ctx.moveTo(p.x, p.y);
+                ctx.moveTo(particle.x, particle.y);
 
-                ctx.lineTo(p2.x, p2.y);
+                ctx.lineTo(other.x, other.y);
 
                 ctx.stroke();
               }
@@ -570,3 +279,524 @@ const { title = "R2S Studio" } = Astro.props;
     </script>
   </body>
 </html>
+
+<style is:global>
+  :root {
+    --bg: #050507;
+
+    --panel: #0d0d14;
+    --panel-light: #151520;
+
+    --text: #ffffff;
+    --secondary: #999;
+
+    --border: #303038;
+
+    --accent: #e87835;
+
+    --stripe-red: #ff3333;
+    --stripe-yellow: #ffd400;
+    --stripe-teal: #00b0ff;
+
+    --terminal-green: #00ff88;
+
+    --retro-red: #d65a4a;
+    --retro-yellow: #f6c85f;
+    --retro-cyan: #5edfff;
+
+    --font-mono: "JetBrains Mono", "Courier New", monospace;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+
+    background: #050507;
+
+    color: white;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    overflow-x: hidden;
+  }
+
+  /*
+  =========================================================
+  CONTENT LAYER
+  =========================================================
+  */
+
+  body
+    > *:not(#neural-canvas):not(#crt-overlay):not(.warning-stripe):not(
+      #language-toast
+    ) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /*
+  =========================================================
+  GRID BACKGROUND
+  =========================================================
+  */
+
+  body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    opacity: 0.25;
+  }
+
+  /*
+  =========================================================
+  GLOBAL
+  =========================================================
+  */
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  .container {
+    width: min(1400px, 90%);
+    margin: auto;
+  }
+
+  .chamfer-box {
+    background: rgba(13, 13, 20, 0.85);
+
+    border: 1px solid var(--border);
+
+    position: relative;
+  }
+
+  .chamfer-box::before {
+    content: "";
+
+    position: absolute;
+
+    top: -1px;
+    left: -1px;
+
+    width: 35px;
+    height: 2px;
+
+    background: var(--accent);
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  .data-tag {
+    font-family: var(--font-mono);
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: var(--accent);
+
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: black;
+  }
+
+  /*
+  =========================================================
+  NEURAL CANVAS
+  =========================================================
+  */
+
+  #neural-canvas {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    opacity: 0.55;
+  }
+
+  /*
+  =========================================================
+  CRT OVERLAY
+  =========================================================
+  */
+
+  #crt-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    opacity: 0.35;
+
+    mix-blend-mode: screen;
+  }
+
+  /*
+  =========================================================
+  CRT VIGNETTE
+  =========================================================
+  */
+
+  #crt-overlay::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      rgba(0, 0, 0, 0.18) 75%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
+
+    pointer-events: none;
+  }
+
+  /*
+  =========================================================
+  LANGUAGE TOAST
+  =========================================================
+  */
+
+  body > #language-toast {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 100000;
+
+    isolation: isolate;
+  }
+</style>
+
+<body>
+  <Navbar />
+
+  <canvas id="neural-canvas"></canvas>
+
+  <main>
+    <slot />
+  </main>
+
+  <Footer />
+
+  <div id="crt-overlay"></div>
+
+  <script>
+    /*
+      =========================================================
+      PARTICLE SYSTEM
+      =========================================================
+      */
+
+    (function () {
+      const canvas = document.getElementById("neural-canvas");
+
+      if (!canvas) return;
+
+      const ctx = canvas.getContext("2d");
+
+      if (!ctx) return;
+
+      let particles = [];
+
+      const mouse = {
+        x: null,
+        y: null,
+        radius: 180,
+      };
+
+      let time = 0;
+
+      window.addEventListener("mousemove", (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+
+      window.addEventListener("mouseout", () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      function resize() {
+        canvas.width = window.innerWidth;
+
+        canvas.height = window.innerHeight;
+      }
+
+      resize();
+
+      window.addEventListener("resize", () => {
+        resize();
+
+        initParticles();
+      });
+
+      function initParticles() {
+        particles = [];
+
+        const density = window.innerWidth < 900 ? 80 : 160;
+
+        for (let i = 0; i < density; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+
+            y: Math.random() * canvas.height,
+
+            vx: (Math.random() - 0.5) * 0.4,
+
+            vy: (Math.random() - 0.5) * 0.4,
+
+            size: Math.random() * 2.2 + 1,
+
+            color:
+              Math.random() > 0.45
+                ? "rgba(255,95,31,0.9)"
+                : "rgba(0,176,255,0.9)",
+
+            phase: Math.random() * Math.PI * 2,
+
+            driftVx: 0,
+
+            driftVy: 0,
+
+            targetDriftVx: 0,
+
+            targetDriftVy: 0,
+
+            driftTimer: Math.random() * 100,
+          });
+        }
+      }
+
+      initParticles();
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        time += 0.007;
+
+        particles.forEach((p, index) => {
+          /*
+              organic movement
+              */
+
+          p.vx += Math.sin(time * 3 + p.phase) * 0.008;
+
+          p.vy += Math.cos(time * 2.5 + p.phase) * 0.008;
+
+          /*
+              random drift
+              */
+
+          p.driftTimer--;
+
+          if (p.driftTimer <= 0) {
+            p.targetDriftVx = (Math.random() - 0.5) * 0.2;
+
+            p.targetDriftVy = (Math.random() - 0.5) * 0.2;
+
+            p.driftTimer = 120 + Math.random() * 80;
+          }
+
+          p.driftVx += (p.targetDriftVx - p.driftVx) * 0.02;
+
+          p.driftVy += (p.targetDriftVy - p.driftVy) * 0.02;
+
+          p.vx += p.driftVx * 0.07;
+
+          p.vy += p.driftVy * 0.07;
+
+          /*
+              mouse interaction
+              */
+
+          if (mouse.x !== null) {
+            const dx = p.x - mouse.x;
+
+            const dy = p.y - mouse.y;
+
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < mouse.radius && dist > 0.1) {
+              const force = (1 - dist / mouse.radius) * 0.12;
+
+              p.vx += (dx / dist) * force;
+
+              p.vy += (dy / dist) * force;
+            }
+          }
+
+          /*
+              damping
+              */
+
+          p.vx *= 0.992;
+
+          p.vy *= 0.992;
+
+          /*
+              prevent stopping
+              */
+
+          const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+
+          if (speed < 0.15) {
+            p.vx += (Math.random() - 0.5) * 0.04;
+
+            p.vy += (Math.random() - 0.5) * 0.04;
+          }
+
+          /*
+              position
+              */
+
+          p.x += p.vx;
+
+          p.y += p.vy;
+
+          /*
+              boundary
+              */
+
+          if (p.x < 0) {
+            p.x = 0;
+
+            p.vx *= -0.7;
+          }
+
+          if (p.x > canvas.width) {
+            p.x = canvas.width;
+
+            p.vx *= -0.7;
+          }
+
+          if (p.y < 0) {
+            p.y = 0;
+
+            p.vy *= -0.7;
+          }
+
+          if (p.y > canvas.height) {
+            p.y = canvas.height;
+
+            p.vy *= -0.7;
+          }
+
+          /*
+              draw particle
+              */
+
+          ctx.fillStyle = p.color;
+
+          ctx.shadowColor = p.color;
+
+          ctx.shadowBlur = 12;
+
+          ctx.beginPath();
+
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+
+          /*
+              connections
+              */
+
+          for (let j = index + 1; j < particles.length; j++) {
+            const p2 = particles[j];
+
+            const dx = p.x - p2.x;
+
+            const dy = p.y - p2.y;
+
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 140) {
+              ctx.beginPath();
+
+              ctx.strokeStyle = `rgba(255,255,255,${0.35 - dist / 500})`;
+
+              ctx.lineWidth = 1;
+
+              ctx.moveTo(p.x, p.y);
+
+              ctx.lineTo(p2.x, p2.y);
+
+              ctx.stroke();
+            }
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+  </script>
+</body>

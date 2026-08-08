@@ -40,6 +40,31 @@ export const translations = {
       archive: "ARCHIVE:",
     },
 
+    /*
+    ========================
+    HOME / HERO
+    ========================
+    */
+
+    hero: {
+      title: {
+        line1: "FUNCTIONAL",
+        line2: "AESTHETICS",
+      },
+
+      cassette: "[ DESIGN_DATABASE // LOADED ]",
+
+      description: {
+        line1:
+          "Bridge the gap between TECH and AESTHETIC by pairing artistic intuition with a research-driven mindset.",
+
+        line2:
+          "My goal is to ensure that visual elegance is always grounded in technical rigor and practical execution.",
+      },
+
+      button: "ACCESS PROJECT DATABASE →",
+    },
+
     sections: {
       lab: {
         title: "Lab",
@@ -110,6 +135,31 @@ export const translations = {
       imageStream: "图像流 // ACTIVE",
       category: "分类:",
       archive: "档案:",
+    },
+
+    /*
+    ========================
+    HOME / HERO
+    ========================
+    */
+
+    hero: {
+      title: {
+        line1: "FUNCTIONAL",
+        line2: "AESTHETICS",
+      },
+
+      cassette: "[ 设计数据库 // 已加载 ]",
+
+      description: {
+        line1:
+          "通过将艺术直觉与研究驱动的思维相结合，在技术与美学之间建立连接。",
+
+        line2:
+          "我的目标是让视觉上的优雅始终建立在严谨的技术与切实可行的执行之上。",
+      },
+
+      button: "访问项目数据库 →",
     },
 
     sections: {
