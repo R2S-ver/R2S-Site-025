@@ -36,7 +36,7 @@ translationKey: 3d-printing-abs-material-test
 
 Welcome to this research log.
 
-This repository documents my experimental journey to understand **ABS filament printing**.
+This page documents my experimental journey to understand **ABS filament printing**.
 
 ABS is known for its difficulty compared with PLA and PETG, mainly because of:
 
