@@ -1,3 +1,13 @@
+---
+import { getLanguageFromPath, getLocalizedPath } from "../utils/i18n";
+import { getTranslations } from "../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const aboutPath = getLocalizedPath("/about", language);
+---
+
 <footer class="footer">
   <div class="footer-line">
     <div class="tri-color">
@@ -6,11 +16,13 @@
       <span></span>
     </div>
 
-    <div class="system">FOOTER_NODE // TERMINATION_SEQUENCE</div>
+    <div class="system">
+      {t.footer.system}
+    </div>
 
     <div class="status">
-      SYS_STATUS:
-      <span>ONLINE</span>
+      {t.footer.status}
+      <span>{t.footer.online}</span>
     </div>
   </div>
 
@@ -18,34 +30,50 @@
     <div class="identity">
       <h3>R2S_STUDIO</h3>
 
-      <p>Industrial Design × Embedded Systems × Creative Making</p>
+      <p>
+        {t.footer.identity}
+      </p>
 
       <div class="meta">
         <div>
-          LOCATION:
+          {t.footer.location}
           <strong> ROTTERDAM // NL </strong>
         </div>
 
         <div>
-          STATUS:
-          <strong class="green"> OPERATIONAL </strong>
+          {t.footer.statusLabel}
+          <strong class="green">
+            {t.footer.operational}
+          </strong>
         </div>
 
         <div>
-          VERSION:
+          {t.footer.version}
           <strong> 2026.V5.5 </strong>
         </div>
       </div>
     </div>
 
     <div class="links">
-      <div class="title">DATA_UPLINK</div>
+      <div class="title">
+        {t.footer.uplink}
+      </div>
 
-      <a href="https://github.com/R2S-ver" target="_blank"> &gt; GitHub </a>
+      <a
+        href="https://github.com/R2S-ver"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        &gt; {t.footer.github}
+      </a>
 
-      <a href="mailto:ranrsuika@gmail.com"> &gt; Email </a>
+      <a href="mailto:ranrsuika@gmail.com">
+        &gt; {t.footer.email}
+      </a>
 
-      <a href="/about"> &gt; About </a>
+      <a href={aboutPath}>
+        &gt; {t.footer.about}
+      </a>
     </div>
 
     <div class="barcode"></div>
@@ -56,7 +84,9 @@
       © {new Date().getFullYear()} R2S Studio
     </span>
 
-    <span> ALL CORE DATA PACKETS INTEGRATED </span>
+    <span>
+      {t.footer.copyright}
+    </span>
   </div>
 </footer>
 
@@ -231,11 +261,8 @@
     background: repeating-linear-gradient(
       90deg,
       #fff 0px,
-
       #fff 2px,
-
       transparent 2px,
-
       transparent 5px
     );
   }

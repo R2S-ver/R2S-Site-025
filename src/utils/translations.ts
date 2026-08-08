@@ -153,10 +153,34 @@ export const translations = {
 
     /*
     ========================
+    FOOTER
+    ========================
+    */
+    footer: {
+      system: "FOOTER_NODE // TERMINATION_SEQUENCE",
+      status: "SYS_STATUS:",
+      online: "ONLINE",
+
+      identity:
+        "Industrial Design × Embedded Systems × Creative Making",
+
+      location: "LOCATION:",
+      statusLabel: "STATUS:",
+      operational: "OPERATIONAL",
+      version: "VERSION:",
+
+      uplink: "DATA_UPLINK",
+      github: "GitHub",
+      email: "Email",
+      about: "About",
+
+      copyright: "ALL CORE DATA PACKETS INTEGRATED",
+    },
+    /*
+    ========================
     GENERAL SECTIONS
     ========================
     */
-
     sections: {
       lab: {
         title: "Lab",
@@ -370,10 +394,34 @@ export const translations = {
 
     /*
     ========================
+    FOOTER
+    ========================
+    */
+    footer: {
+      system: "页脚节点 // 终止序列",
+      status: "系统状态:",
+      online: "在线",
+
+      identity:
+        "工业设计 × 嵌入式系统 × 创意制造",
+
+      location: "位置:",
+      statusLabel: "状态:",
+      operational: "运行中",
+      version: "版本:",
+
+      uplink: "数据上行链路",
+      github: "GitHub",
+      email: "邮箱",
+      about: "关于",
+
+      copyright: "所有核心数据包已整合",
+    },
+    /*
+    ========================
     GENERAL SECTIONS
     ========================
     */
-
     sections: {
       lab: {
         title: "实验室",
