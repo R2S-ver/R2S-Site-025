@@ -203,25 +203,105 @@ export const translations = {
       },
 
       about: {
+        pageTag: "PERSONNEL_DOSSIER // PROFILE_MODULE",
+        pageStatus: "● SYSTEM_ACTIVE",
+
+        eyebrow: "R2S STUDIO // DESIGNER + MAKER",
+
         title: "About R2S",
-        subtitle: "I like turning ideas into reality.",
+
+        subtitle:
+          "I like turning ideas into reality.",
+
+        introTitle: "DESIGN THROUGH MAKING",
 
         description:
-        "I explore the connection between industrial design, embedded systems and illustration.",
+          "I explore the connection between industrial design, embedded systems and visual communication.",
+
+        introText:
+          "My work moves between physical products, electronics, digital tools and visual experimentation. I enjoy taking an idea from an early concept, through prototyping and iteration, toward something that can actually exist in the real world.",
 
         dossier: {
-        header: "PERSONNEL_DOSSIER // ABOUT_MODULE",
-        operator: "OPERATOR",
-        status: "● ACTIVE DESIGNER // MAKER",
+          header: "PERSONNEL_DOSSIER // ABOUT_MODULE",
 
-        location: "LOCATION: ROTTERDAM // NL",
-        field: "FIELD: DESIGN + TECHNOLOGY",
+          operator: "OPERATOR",
 
-        focus: "CURRENT_FOCUS",
-        focusText:
-      "Industrial design, embedded systems, experimental prototyping and visual communication.",
+          role: "DESIGNER // MAKER",
+
+          status: "● ACTIVE DESIGNER // MAKER",
+
+          locationLabel: "LOCATION",
+
+          location: "ROTTERDAM // NL",
+
+          fieldLabel: "FIELD",
+
+          field: "DESIGN + TECHNOLOGY",
+
+          focusLabel: "CURRENT_FOCUS",
+
+          focus:
+            "Industrial design, embedded systems, experimental prototyping and visual communication.",
         },
-      },
+
+        approach: {
+          research: {
+            title: "Research",
+
+            description:
+              "Understand the problem, explore the constraints and build a strong foundation before committing to a solution.",
+          },
+
+          build: {
+            title: "Build",
+
+            description:
+              "Turn ideas into physical experiments, prototypes and working systems as early as possible.",
+          },
+
+          refine: {
+            title: "Refine",
+
+            description:
+              "Test, iterate and improve until function, usability and visual language work together.",
+          },
+        },
+
+        capabilities: {
+          header: "R2S_CAPABILITY_MATRIX",
+
+          industrial: {
+            title: "Industrial Design",
+
+            description:
+              "Product development, form exploration, CAD modelling, material thinking and physical prototyping.",
+          },
+
+          embedded: {
+            title: "Embedded Systems",
+
+            description:
+              "Microcontrollers, electronics, sensors, actuators and software-driven physical interaction.",
+          },
+
+          prototype: {
+            title: "Prototyping",
+
+            description:
+              "Rapid experimentation through 3D printing, fabrication, electronics and iterative physical testing.",
+          },
+
+          visual: {
+            title: "Visual Communication",
+
+            description:
+              "Illustration, visual design and digital presentation used to communicate concepts and ideas.",
+    },
+  },
+
+  closing:
+    "The goal is simple: make ideas tangible, functional and worth experiencing.",
+},
     },
 
     /*
@@ -444,25 +524,105 @@ export const translations = {
       },
 
       about: {
+        pageTag: "个人档案 // 资料模块",
+        pageStatus: "● 系统运行中",
+
+        eyebrow: "R2S STUDIO // 设计师 + 创作者",
+
         title: "关于 R2S",
-        subtitle: "我喜欢将想法变成现实。",
+
+        subtitle:
+          "我喜欢将想法变成现实。",
+
+        introTitle: "通过实践进行设计",
 
         description:
-        "我探索工业设计、嵌入式系统与插画之间的联系。",
+          "我探索工业设计、嵌入式系统与视觉表达之间的联系。",
+
+        introText:
+          "我的创作横跨实体产品、电子系统、数字工具与视觉实验。我喜欢将一个早期概念逐步转化为原型，通过不断测试与迭代，最终让它真正存在于现实世界中。",
 
         dossier: {
-            header: "个人档案 // 关于模块",
-            operator: "操作员",
-            status: "● 活跃设计师 // 创作者",
+          header: "个人档案 // 关于模块",
 
-            location: "位置: 鹿特丹 // 荷兰",
-            field: "领域: 设计 + 技术",
+          operator: "操作员",
 
-            focus: "当前方向",
-            focusText:
-                "工业设计、嵌入式系统、实验性原型制作与视觉表达。",
-            },
-        }
+          role: "设计师 // 创作者",
+
+          status: "● 活跃设计师 // 创作者",
+
+          locationLabel: "位置",
+
+          location: "鹿特丹 // 荷兰",
+
+          fieldLabel: "领域",
+
+          field: "设计 + 技术",
+
+          focusLabel: "当前方向",
+
+          focus:
+            "工业设计、嵌入式系统、实验性原型制作与视觉表达。",
+        },
+
+        approach: {
+          research: {
+            title: "研究",
+
+            description:
+              "理解问题、探索限制，并在确定解决方案之前建立可靠的设计基础。",
+          },
+
+          build: {
+            title: "构建",
+
+            description:
+              "尽早将想法转化为实体实验、原型与能够实际运行的系统。",
+          },
+
+          refine: {
+            title: "迭代",
+
+            description:
+              "通过测试、迭代与改进，让功能、使用体验与视觉语言最终形成统一。",
+          },
+        },
+
+        capabilities: {
+          header: "R2S_能力矩阵",
+
+          industrial: {
+            title: "工业设计",
+
+            description:
+              "产品开发、造型探索、CAD 建模、材料思考与实体原型制作。",
+          },
+
+          embedded: {
+            title: "嵌入式系统",
+
+            description:
+              "微控制器、电子系统、传感器、执行器以及软件驱动的实体交互。",
+          },
+
+          prototype: {
+            title: "原型制作",
+
+            description:
+              "通过 3D 打印、加工制造、电子系统与实体测试进行快速实验。",
+          },
+
+          visual: {
+            title: "视觉表达",
+
+            description:
+              "通过插画、视觉设计与数字化展示来表达概念与想法。",
+          },
+        },
+
+        closing:
+          "目标其实很简单：让想法变得真实、可用，并值得被体验。",
+      },
     },
 
     /*

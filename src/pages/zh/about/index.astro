@@ -5,34 +5,616 @@ import { getTranslations } from "../../../utils/translations";
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
-
-const about = t.sections.about;
 ---
 
-<Layout title={`${about.title} | R2S Studio`}>
-  <section class="about">
-    <h1>{about.title}</h1>
+<Layout title={`${t.sections.about.title} | R2S Studio`}>
+  <main class="about-page">
+    <section class="about-hero">
+      <div class="hero-meta">
+        <span>{t.sections.about.pageTag}</span>
+        <span>{t.sections.about.pageStatus}</span>
+      </div>
 
-    <p>{about.subtitle}</p>
+      <div class="hero-content">
+        <div>
+          <div class="eyebrow">
+            {t.sections.about.eyebrow}
+          </div>
 
-    <p>{about.description}</p>
-  </section>
+          <h1>
+            {t.sections.about.title}
+          </h1>
+
+          <p class="subtitle">
+            {t.sections.about.subtitle}
+          </p>
+        </div>
+
+        <div class="hero-index">
+          <span>MODULE</span>
+          <strong>01</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro-section">
+      <div class="section-label">// 01 — INTRODUCTION</div>
+
+      <div class="intro-grid">
+        <div class="intro-heading">
+          <h2>
+            {t.sections.about.introTitle}
+          </h2>
+        </div>
+
+        <div class="intro-text">
+          <p>
+            {t.sections.about.description}
+          </p>
+
+          <p>
+            {t.sections.about.introText}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dossier-section">
+      <div class="section-label">// 02 — PERSONNEL DOSSIER</div>
+
+      <div class="dossier">
+        <div class="dossier-header">
+          <span>
+            {t.sections.about.dossier.header}
+          </span>
+
+          <span class="online">
+            {t.sections.about.dossier.status}
+          </span>
+        </div>
+
+        <div class="dossier-body">
+          <div class="identity">
+            <div class="identity-label">
+              {t.sections.about.dossier.operator}
+            </div>
+
+            <h2>R2S Studio</h2>
+
+            <p>
+              {t.sections.about.dossier.role}
+            </p>
+          </div>
+
+          <div class="dossier-data">
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.locationLabel}
+              </span>
+
+              <span>
+                {t.sections.about.dossier.location}
+              </span>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.fieldLabel}
+              </span>
+
+              <span>
+                {t.sections.about.dossier.field}
+              </span>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.focusLabel}
+              </span>
+
+              <span>
+                {t.sections.about.dossier.focus}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="approach-section">
+      <div class="section-label">// 03 — DESIGN APPROACH</div>
+
+      <div class="approach-grid">
+        <article class="approach-card">
+          <span class="card-number">01</span>
+
+          <h3>
+            {t.sections.about.approach.research.title}
+          </h3>
+
+          <p>
+            {t.sections.about.approach.research.description}
+          </p>
+        </article>
+
+        <article class="approach-card">
+          <span class="card-number">02</span>
+
+          <h3>
+            {t.sections.about.approach.build.title}
+          </h3>
+
+          <p>
+            {t.sections.about.approach.build.description}
+          </p>
+        </article>
+
+        <article class="approach-card">
+          <span class="card-number">03</span>
+
+          <h3>
+            {t.sections.about.approach.refine.title}
+          </h3>
+
+          <p>
+            {t.sections.about.approach.refine.description}
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="capabilities-section">
+      <div class="section-label">// 04 — CAPABILITY MATRIX</div>
+
+      <div class="capability-panel">
+        <div class="capability-header">
+          <span>
+            {t.sections.about.capabilities.header}
+          </span>
+
+          <span>
+            STATUS: <strong>ACTIVE</strong>
+          </span>
+        </div>
+
+        <div class="capability-grid">
+          <div class="capability">
+            <span class="cap-index">01</span>
+
+            <h3>
+              {t.sections.about.capabilities.industrial.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.industrial.description}
+            </p>
+          </div>
+
+          <div class="capability">
+            <span class="cap-index">02</span>
+
+            <h3>
+              {t.sections.about.capabilities.embedded.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.embedded.description}
+            </p>
+          </div>
+
+          <div class="capability">
+            <span class="cap-index">03</span>
+
+            <h3>
+              {t.sections.about.capabilities.prototype.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.prototype.description}
+            </p>
+          </div>
+
+          <div class="capability">
+            <span class="cap-index">04</span>
+
+            <h3>
+              {t.sections.about.capabilities.visual.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.visual.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-section">
+      <div class="closing-line"></div>
+
+      <p>
+        {t.sections.about.closing}
+      </p>
+
+      <div class="closing-status">&gt; SYSTEM_READY_</div>
+    </section>
+  </main>
 </Layout>
 
 <style>
-  .about {
-    max-width: 800px;
-    margin: auto;
+  .about-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+    font-family: var(--font-mono);
+  }
+
+  .section-label {
+    margin-bottom: 30px;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .about-hero {
+    margin-bottom: 120px;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border);
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .hero-meta span:last-child {
+    color: var(--terminal-green);
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 60px;
+  }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
   }
 
   h1 {
-    font-size: 64px;
-    margin-bottom: 40px;
+    margin: 0;
+    font-size: clamp(64px, 10vw, 140px);
+    line-height: 0.85;
+    letter-spacing: -7px;
+    font-weight: 900;
   }
 
-  p {
-    font-size: 20px;
+  .subtitle {
+    margin-top: 35px;
+    max-width: 700px;
+    color: #aaa;
+    font-size: 18px;
     line-height: 1.8;
-    margin-bottom: 20px;
+  }
+
+  .hero-index {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #555;
+  }
+
+  .hero-index span {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .hero-index strong {
+    color: var(--accent);
+    font-size: 72px;
+    line-height: 1;
+  }
+
+  .intro-section,
+  .dossier-section,
+  .approach-section,
+  .capabilities-section {
+    margin-bottom: 120px;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+  }
+
+  .intro-heading h2 {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 60px);
+    line-height: 1;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+  }
+
+  .intro-text {
+    max-width: 700px;
+  }
+
+  .intro-text p {
+    margin: 0 0 25px;
+    color: #aaa;
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  .intro-text p:first-child {
+    color: white;
+    font-size: 20px;
+  }
+
+  .dossier,
+  .capability-panel,
+  .approach-card {
+    background: rgba(8, 8, 12, 0.9);
+    border: 1px solid var(--border);
+  }
+
+  .dossier-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 25px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .dossier-header .online {
+    color: var(--terminal-green);
+  }
+
+  .dossier-body {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  .identity {
+    padding: 55px;
+    border-right: 1px solid var(--border);
+  }
+
+  .identity-label {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+  }
+
+  .identity h2 {
+    margin: 0 0 15px;
+    font-size: 44px;
+    letter-spacing: -2px;
+  }
+
+  .identity p {
+    margin: 0;
+    color: var(--terminal-green);
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .dossier-data {
+    padding: 35px 45px;
+  }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    color: #bbb;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .data-row:last-child {
+    border-bottom: none;
+  }
+
+  .data-label {
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+
+  .approach-card {
+    position: relative;
+    min-height: 280px;
+    padding: 35px;
+    overflow: hidden;
+  }
+
+  .approach-card::after {
+    content: "";
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 90px;
+    height: 90px;
+    border: 1px solid var(--border);
+    transform: rotate(45deg);
+  }
+
+  .card-number {
+    display: block;
+    margin-bottom: 60px;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .approach-card h3 {
+    margin: 0 0 15px;
+    font-size: 25px;
+    text-transform: uppercase;
+  }
+
+  .approach-card p {
+    max-width: 400px;
+    color: #888;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .capability-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 25px;
+    border-bottom: 1px dashed var(--border);
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .capability-header strong {
+    color: var(--terminal-green);
+  }
+
+  .capability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .capability {
+    min-height: 200px;
+    padding: 35px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .capability:nth-child(odd) {
+    border-right: 1px solid var(--border);
+  }
+
+  .capability:nth-child(3),
+  .capability:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .cap-index {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .capability h3 {
+    margin: 30px 0 12px;
+    font-size: 22px;
+  }
+
+  .capability p {
+    max-width: 500px;
+    color: #888;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .closing-line {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 35px;
+    background: var(--border);
+  }
+
+  .closing-section p {
+    max-width: 850px;
+    margin: 0 0 25px;
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .closing-status {
+    color: var(--terminal-green);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 900px) {
+    .about-page {
+      padding: 60px 20px 100px;
+    }
+
+    .hero-content {
+      align-items: flex-start;
+    }
+
+    .hero-index {
+      display: none;
+    }
+
+    .intro-grid,
+    .dossier-body,
+    .approach-grid,
+    .capability-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .identity {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .capability:nth-child(odd) {
+      border-right: none;
+    }
+
+    .capability {
+      border-bottom: 1px solid var(--border) !important;
+    }
+
+    .capability:last-child {
+      border-bottom: none !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      letter-spacing: -4px;
+    }
+
+    .hero-meta {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .identity {
+      padding: 35px;
+    }
+
+    .dossier-data {
+      padding: 25px;
+    }
+
+    .data-row {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+
+    .approach-card {
+      min-height: 240px;
+    }
   }
 </style>
