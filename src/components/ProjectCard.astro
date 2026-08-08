@@ -4,7 +4,13 @@ import { Image } from "astro:assets";
 
 const { project } = Astro.props;
 
-const slug = project.id;
+// project.id:
+//
+// 3d-printing-abs-material-test/en
+// 3d-printing-abs-material-test/zh
+//
+// URL 只使用项目 slug
+const slug = project.id.split("/")[0];
 
 const image = project.data.cover
   ? getProjectImage(slug, project.data.cover)
@@ -22,7 +28,10 @@ const routeMap: Record<string, string> = {
   gallery: "gallery",
 };
 
-const url = `/${routeMap[project.data.type]}/${project.id}`;
+// 中文页面统一使用 /zh 前缀
+const languagePrefix = project.data.lang === "zh" ? "/zh" : "";
+
+const url = `${languagePrefix}/${routeMap[project.data.type]}/${slug}`;
 
 const type = project.data.type.toUpperCase();
 ---

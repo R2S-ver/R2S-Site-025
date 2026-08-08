@@ -1,10 +1,14 @@
 ---
 title: ABS 3D Printing Material Research
+
 date: 2026-04-29
+
 description: Experimental research on ABS FDM printing, enclosure temperature control, thermal stability and extrusion reliability.
 
 type: lab
+
 category: Material Research
+
 cover: cover.png
 
 tags:
@@ -20,6 +24,10 @@ tools:
   - Thermostat
 
 featured: true
+
+lang: en
+
+translationKey: 3d-printing-abs-material-test
 ---
 
 ![ABS 3D Printing Research](./ABS-3D-Printing-Guide-0.png)

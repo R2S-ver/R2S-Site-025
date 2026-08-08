@@ -20,6 +20,10 @@ tools:
   - NeoPixelBus
 
 featured: true
+
+lang: en
+
+translationKey: esp32-wifi-led-brightness-control
 ---
 
 # Overview

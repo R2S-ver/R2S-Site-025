@@ -1,31 +1,17 @@
 ---
-import { getCollection, render } from "astro:content";
-import Layout from "../../../layouts/Layout.astro";
-import { getProjectImage } from "../../../utils/images";
 import { Image } from "astro:assets";
+import { getProjectImage } from "../utils/images";
 
-export async function getStaticPaths() {
-  const entries = await getCollection("entries");
-
-  return entries.map((entry) => ({
-    params: {
-      type: entry.data.type,
-
-      slug: entry.id,
-    },
-
-    props: {
-      project: entry,
-    },
-  }));
+interface Props {
+  project: any;
+  projectId: string;
+  Content: any;
 }
 
-const { project } = Astro.props;
-
-const { Content } = await render(project);
+const { project, projectId, Content } = Astro.props;
 
 const cover = project.data.cover
-  ? getProjectImage(project.id, project.data.cover)
+  ? getProjectImage(projectId, project.data.cover)
   : null;
 
 const date = project.data.date.toLocaleDateString("en-US", {
@@ -34,82 +20,81 @@ const date = project.data.date.toLocaleDateString("en-US", {
 });
 ---
 
-<Layout title={project.data.title}>
-  <main class="project">
-    <section class="hero">
-      <div class="cover">
-        {cover && <Image src={cover} alt={project.data.title} />}
-      </div>
-
-      <div class="hero-text">
-        <h1>
-          {project.data.title}
-        </h1>
-
-        <p class="description">
-          {project.data.description}
-        </p>
-      </div>
-    </section>
-
-    <section class="info">
-      <div>
-        <h3>Year</h3>
-
-        <p>
-          {date}
-        </p>
-      </div>
-
-      <div>
-        <h3>Type</h3>
-
-        <p>
-          {project.data.type}
-        </p>
-      </div>
-
-      <div>
-        <h3>Category</h3>
-
-        <p>
-          {project.data.category}
-        </p>
-      </div>
-
-      <div>
-        <h3>Tools</h3>
-
-        <p>
-          {project.data.tools?.join(" · ")}
-        </p>
-      </div>
-    </section>
-
-    <div class="tags">
-      {project.data.tags?.map((tag) => <span class="tag">#{tag}</span>)}
+<main class="project">
+  <section class="hero">
+    <div class="cover">
+      {cover && <Image src={cover} alt={project.data.title} />}
     </div>
 
-    <hr />
+    <div class="hero-text">
+      <h1>
+        {project.data.title}
+      </h1>
 
-    <div class="content-layout">
-      <aside class="toc">
-        <h3>Contents</h3>
-
-        <nav id="toc-list" class="toc-list"></nav>
-      </aside>
-
-      <article>
-        <Content />
-      </article>
+      {
+        project.data.description && (
+          <p class="description">{project.data.description}</p>
+        )
+      }
     </div>
-  </main>
-</Layout>
+  </section>
+
+  <section class="info">
+    <div>
+      <h3>Year</h3>
+
+      <p>
+        {date}
+      </p>
+    </div>
+
+    <div>
+      <h3>Type</h3>
+
+      <p>
+        {project.data.type}
+      </p>
+    </div>
+
+    <div>
+      <h3>Category</h3>
+
+      <p>
+        {project.data.category}
+      </p>
+    </div>
+
+    <div>
+      <h3>Tools</h3>
+
+      <p>
+        {project.data.tools?.join(" · ")}
+      </p>
+    </div>
+  </section>
+
+  <div class="tags">
+    {project.data.tags?.map((tag: string) => <span class="tag">#{tag}</span>)}
+  </div>
+
+  <hr />
+
+  <div class="content-layout">
+    <aside class="toc">
+      <h3>Contents</h3>
+
+      <nav id="toc-list" class="toc-list"></nav>
+    </aside>
+
+    <article>
+      <Content />
+    </article>
+  </div>
+</main>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const article = document.querySelector("article");
-
     const toc = document.querySelector("#toc-list");
 
     if (!article || !toc) return;
@@ -125,7 +110,6 @@ const date = project.data.date.toLocaleDateString("en-US", {
 
       link.href = "#" + heading.id;
 
-      // 删除前面的数字编号
       let title = heading.innerText.replace(/^\d+(\.\d+)*[\.\s-]*/, "");
 
       link.textContent = title;
@@ -263,12 +247,10 @@ const date = project.data.date.toLocaleDateString("en-US", {
   }
 
   /*
-========================
-
-CONTENT + TOC
-
-========================
-*/
+  ========================
+  CONTENT + TOC
+  ========================
+  */
 
   .content-layout {
     position: relative;
@@ -367,12 +349,10 @@ CONTENT + TOC
   }
 
   /*
-========================
-
-ARTICLE
-
-========================
-*/
+  ========================
+  ARTICLE
+  ========================
+  */
 
   article {
     font-size: 18px;
@@ -505,12 +485,10 @@ ARTICLE
   }
 
   /*
-========================
-
-TABLE OF CONTENTS MOBILE
-
-========================
-*/
+  ========================
+  TABLE OF CONTENTS MOBILE
+  ========================
+  */
 
   @media (max-width: 1100px) {
     .content-layout {

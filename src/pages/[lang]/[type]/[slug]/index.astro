@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../../../layouts/Layout.astro";
+import ProjectDetail from "../../../../components/ProjectDetail.astro";
+import { findTranslation } from "../../../../utils/i18n";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("entries");
+
+  const translatedEntries = entries.filter((entry) => entry.data.lang === "zh");
+
+  return translatedEntries.map((entry) => {
+    const projectSlug = entry.id.split("/")[0];
+
+    const translation = findTranslation(entries, entry, "en");
+
+    return {
+      params: {
+        lang: "zh",
+        type: entry.data.type,
+        slug: projectSlug,
+      },
+
+      props: {
+        project: entry,
+        projectId: projectSlug,
+        translation,
+      },
+    };
+  });
+}
+
+const { project, projectId, translation } = Astro.props;
+
+const { Content } = await render(project);
+---
+
+<Layout title={project.data.title}>
+  <ProjectDetail
+    project={project}
+    projectId={projectId}
+    Content={Content}
+    translation={translation}
+  />
+</Layout>
