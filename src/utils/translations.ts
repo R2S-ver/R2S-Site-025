@@ -144,8 +144,7 @@ export const translations = {
         pageStatus: "● SYSTEM_ACTIVE",
         eyebrow: "R2S STUDIO // DESIGNER + MAKER + ARTIST",
         title: "About R2S",
-        subtitle: "Turning ideas into reality",
-        introTitle: "BETWEEN DESIGN, MAKING AND ART",
+        introTitle: "BETWEEN DESIGN\nMAKING\nART",
         description:
           "I am an industrial product designer and digital artist with a strong interest in making things real.",
         introText:
@@ -153,7 +152,7 @@ export const translations = {
         identity: {
           title: "DESIGNER // MAKER // ARTIST",
           text:
-            "I am most comfortable somewhere between a designer and a maker. I care deeply about aesthetics, but I also want to understand how things work, how they are made and how separate technologies can be combined into a complete object.",
+            "Most comfortable somewhere between a designer and a maker; Care deeply about aesthetics, but also want to understand how things work, how they are made and how separate technologies can be combined into a complete object.",
           second:
             "Industrial design is my main professional direction, while illustration and visual creation remain an important part of who I am.",
         },
@@ -165,7 +164,7 @@ export const translations = {
           locationLabel: "LOCATION",
           location: "ROTTERDAM // NL",
           fieldLabel: "FIELD",
-          field: "DESIGN + TECHNOLOGY",
+          field: "AESTHETICS + DESIGN + TECHNOLOGY",
           focusLabel: "CURRENT_FOCUS",
           focus:
             "Industrial design, embedded systems, electronics, prototyping, visual communication and experimental making.",
@@ -236,7 +235,7 @@ export const translations = {
         capabilities: {
           header: "R2S_CAPABILITY_MATRIX",
           industrial: {
-            title: "Industrial + Product Design",
+            title: "Industrial\nProduct Design",
             description:
               "Product development, form exploration, CAD modelling, material research, CMF and physical prototyping.",
           },
@@ -261,7 +260,7 @@ export const translations = {
               "FDM 3D printing, material testing, laser cutting, basic welding and hands-on fabrication.",
           },
           visual: {
-            title: "Illustration + Visual Design",
+            title: "Illustration\nVisual Design",
             description:
               "Digital illustration, concept art, poster design, visual communication and aesthetic development.",
           },
@@ -271,7 +270,7 @@ export const translations = {
               "SolidWorks, KeyShot, Photoshop and Clip Studio Paint, with previous experience in Blender.",
           },
           teaching: {
-            title: "Teaching",
+            title: "Teaching Art",
             description:
               "I sometimes teach beginners how to draw. Teaching helps me organise knowledge into clearer systems while revisiting and strengthening my own understanding.",
           },
@@ -279,7 +278,7 @@ export const translations = {
         journey: {
           header: "PROCESS_LOG // DEVELOPMENT_PATH",
           title:
-            "FROM HARDWARE TO INDUSTRIAL DESIGN — AND BACK TOWARD TECHNOLOGY",
+            "TO THE GALAXY AND\u00A0BEYOND",
           nodes: {
             hardware: "START",
             design: "INTERSECTION",
@@ -291,7 +290,7 @@ export const translations = {
           second:
             "Industrial and product design became a natural middle ground: a discipline where form, function, materials, manufacturing and visual communication are all part of the same process.",
           third:
-            "Today, I am gradually moving toward the technical side again. Electronics, embedded systems, mechanical structures, material testing and fabrication have become increasingly important parts of my learning and personal projects.",
+            "Today, I am gradually moving toward the technical side again. Electronics, embedded systems, mechanical properties, material testing and fabrication have become increasingly important parts of my learning and personal projects.",
           fourth:
             "The goal is not to become the specialist who knows every component parameter by heart. I am more interested in understanding how different technologies fit together and how they can become part of a complete, usable product.",
         },
@@ -323,19 +322,19 @@ export const translations = {
           visual:
             "Illustration, character drawing, concept design and visual communication.",
           ai:
-            "AI-assisted creative and technical workflows, using AI as an implementation tool while keeping human judgement, taste and direction at the centre.",
+            "AI-assisted coding and technical workflows, using AI as an implementation tool while keeping human judgement, taste and direction at the centre.",
         },
         future: {
           header: "NEXT_ITERATION // FUTURE_DIRECTION",
           text:
             "I want industrial design to remain my main professional direction while continuing to develop as a maker and illustrator.",
           second:
-            "Long term, I want to become increasingly capable of taking an idea all the way from concept and visual development to electronics, software, mechanical structure, sourcing and a finished physical prototype.",
+            "Become increasingly capable of taking an idea all the way from concept and visual development to electronics, software, mechanical structure, sourcing and a finished physical prototype in the long term.",
           third:
-            "At the same time, I want to keep drawing and visual creation as a second identity rather than letting technical work replace it.",
+            "At the same time, keep drawing and visual creation as a second identity rather than letting technical work replace it.",
         },
         closing:
-          "The goal is simple: take ideas seriously enough to build them, and stay curious enough to keep making new ones.",
+          "The goal is simple: take ideas seriously enough to build them, and stay curious enough to keep making new ones...",
       },
     },
 
@@ -592,13 +591,13 @@ export const translations = {
           teaching: {
             title: "绘画教学",
             description:
-              "平时也会教新手画画教学能够帮助我快速整理理论体系，同时重新回顾并巩固自己已经掌握的知识"
+              "平时也会教新手画画; 教学能够帮助我快速整理理论体系，同时重新回顾并巩固自己已经掌握的知识"
           },
         },
 
         journey: {
           header: "PROCESS_LOG // DEVELOPMENT_PATH",
-          title: "从硬件工程到工业设计，再重新走向技术",
+          title: "学习经历",
           nodes: {
             hardware: "起点",
             design: "交汇点",
