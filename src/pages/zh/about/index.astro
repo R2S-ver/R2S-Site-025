@@ -57,9 +57,9 @@ const t = getTranslations(lang);
           </h2>
 
           <div class="intro-marker">
-            <span>DESIGN</span>
-            <span>ENGINEERING</span>
-            <span>VISUAL ART</span>
+            <span>设计</span>
+            <span>工程</span>
+            <span>视觉艺术</span>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ const t = getTranslations(lang);
           </p>
 
           <div class="intro-statement">
-            <span>// PRINCIPLE</span>
+            <span>// 途径</span>
 
             <strong>
               {t.sections.about.identity.title}
@@ -92,7 +92,7 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="dossier-section">
-      <div class="section-label">// 02 — PERSONNEL DOSSIER</div>
+      <div class="section-label">// 02 — 人员档案</div>
 
       <div class="dossier">
         <div class="dossier-header">
@@ -158,7 +158,7 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="philosophy-section">
-      <div class="section-label">// 03 — PERSONAL PROTOCOL</div>
+      <div class="section-label">// 03 — 个人协议</div>
 
       <div class="philosophy-layout">
         <div class="philosophy-main">
@@ -206,16 +206,30 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="process-section">
-      <div class="section-label">// 04 — DESIGN PROCESS</div>
+      <div class="section-label">// 04 — 设计流程</div>
 
       <div class="process-header">
         <div class="process-heading">
-          <span class="system-tag"> CREATIVE_PIPELINE </span>
+          <span class="system-tag"> 创意管道 </span>
 
           <h2>
-            IDEA
-            <span class="process-arrow">→</span>
-            OBJECT
+            创意
+            <span class="process-arrow" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="100%"
+                height="100%"
+              >
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <polyline points="14 6 20 12 14 18"></polyline>
+              </svg>
+            </span>
+            实物
           </h2>
         </div>
 
@@ -239,9 +253,9 @@ const t = getTranslations(lang);
           <div class="station-number">01</div>
 
           <div class="station-content">
-            <span class="station-state"> ACTIVE </span>
+            <span class="station-state"> 运行中 </span>
 
-            <div class="station-code">RESEARCH</div>
+            <div class="station-code">调研</div>
 
             <h3>
               {t.sections.about.approach.research.title}
@@ -263,9 +277,9 @@ const t = getTranslations(lang);
           <div class="station-number">02</div>
 
           <div class="station-content">
-            <span class="station-state"> WAITING </span>
+            <span class="station-state"> 等待中 </span>
 
-            <div class="station-code">CONCEPT</div>
+            <div class="station-code">概念</div>
 
             <h3>
               {t.sections.about.approach.concept.title}
@@ -287,9 +301,9 @@ const t = getTranslations(lang);
           <div class="station-number">03</div>
 
           <div class="station-content">
-            <span class="station-state"> WAITING </span>
+            <span class="station-state"> 等待中 </span>
 
-            <div class="station-code">FABRICATION</div>
+            <div class="station-code">制造</div>
 
             <h3>
               {t.sections.about.approach.build.title}
@@ -311,9 +325,9 @@ const t = getTranslations(lang);
           <div class="station-number">04</div>
 
           <div class="station-content">
-            <span class="station-state"> WAITING </span>
+            <span class="station-state"> 等待中 </span>
 
-            <div class="station-code">ITERATION</div>
+            <div class="station-code">迭代</div>
 
             <h3>
               {t.sections.about.approach.refine.title}
@@ -332,8 +346,8 @@ const t = getTranslations(lang);
         </div>
 
         <div class="pipeline-progress-label">
-          <span>PROCESS_SEQUENCE</span>
-          <span>01 → 02 → 03 → 04 → REPEAT</span>
+          <span>流程序列</span>
+          <span>01 → 02 → 03 → 04 → 重复</span>
         </div>
       </div>
     </section>
@@ -343,15 +357,15 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="capabilities-section">
-      <div class="section-label">// 05 — CAPABILITY MATRIX</div>
+      <div class="section-label">// 05 — 能力矩阵</div>
 
       <div class="capability-console">
         <div class="console-top">
-          <span> R2S_CAPABILITY_MATRIX </span>
+          <span> R2S_能力矩阵 </span>
 
           <span>
-            INPUT:
-            <b>SELECT_MODULE</b>
+            输入:
+            <b>选择模块</b>
           </span>
         </div>
 
@@ -416,9 +430,9 @@ const t = getTranslations(lang);
 
           <div class="capability-display">
             <div class="display-header">
-              <span id="cap-status"> MODULE_01 </span>
+              <span id="cap-status"> 模块_01 </span>
 
-              <span class="display-light"> ● ACTIVE </span>
+              <span class="display-light"> ● 运行中 </span>
             </div>
 
             <div class="display-visual">
@@ -426,15 +440,13 @@ const t = getTranslations(lang);
 
               <div class="cap-scanlines"></div>
 
-              <div class="cap-corner cap-corner-tl">
-                R2S // VISUAL TELEMETRY
-              </div>
+              <div class="cap-corner cap-corner-tl">R2S // 视觉遥测</div>
 
-              <div class="cap-corner cap-corner-br">LIVE</div>
+              <div class="cap-corner cap-corner-br">实时</div>
             </div>
 
             <div class="display-body">
-              <span class="display-kicker"> CAPABILITY </span>
+              <span class="display-kicker"> 能力 </span>
 
               <h3 id="cap-title">
                 {t.sections.about.capabilities.industrial.title}
@@ -446,9 +458,9 @@ const t = getTranslations(lang);
             </div>
 
             <div class="display-footer">
-              <span> AUTO_SEQUENCE </span>
+              <span> 自动序列 </span>
 
-              <span> SELECT ANOTHER MODULE → </span>
+              <span> 选择其他模块 → </span>
             </div>
           </div>
         </div>
@@ -460,10 +472,10 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="journey-section">
-      <div class="section-label">// 06 — DEVELOPMENT PATH</div>
+      <div class="section-label">// 06 — 发展路径</div>
 
       <div class="journey-header">
-        <span class="system-tag"> PROCESS_LOG // DEVELOPMENT_PATH </span>
+        <span class="system-tag"> 过程日志 // 发展路径 </span>
 
         <h2>
           {t.sections.about.journey.title}
@@ -476,8 +488,8 @@ const t = getTranslations(lang);
         <div class="skill-grid"></div>
 
         <div class="skill-tree-label">
-          <span>KNOWLEDGE ACCUMULATION</span>
-          <span>TIME →</span>
+          <span>知识积累</span>
+          <span>时间 →</span>
         </div>
 
         <!-- MAIN DEVELOPMENT PATH -->
@@ -494,11 +506,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 01 / FOUNDATION </span>
+            <span class="skill-index"> 01 / 基础 </span>
 
-            <strong> MAKING </strong>
+            <strong> 制作 </strong>
 
-            <small> Learning how things are made. </small>
+            <small> 学习事物是如何制造的 </small>
           </div>
         </div>
 
@@ -510,11 +522,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 02 / FORM </span>
+            <span class="skill-index"> 02 / 形态 </span>
 
             <strong> CAD </strong>
 
-            <small> 3D modeling · geometry · structure </small>
+            <small> 三维建模 · 几何 · 结构 </small>
           </div>
         </div>
 
@@ -522,11 +534,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 02 / VISUAL </span>
+            <span class="skill-index"> 02 / 视觉 </span>
 
-            <strong> DRAWING </strong>
+            <strong> 绘画 </strong>
 
-            <small> Observation · composition · form </small>
+            <small> 观察 · 构图 · 形态 </small>
           </div>
         </div>
 
@@ -538,11 +550,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 03 / VISUALIZATION </span>
+            <span class="skill-index"> 03 / 可视化 </span>
 
-            <strong> 3D RENDERING </strong>
+            <strong> 三维渲染 </strong>
 
-            <small> Materials · lighting · visual communication </small>
+            <small> 材质 · 光照 · 视觉传达 </small>
           </div>
         </div>
 
@@ -550,11 +562,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 03 / FABRICATION </span>
+            <span class="skill-index"> 03 / 制造 </span>
 
-            <strong> 3D PRINTING </strong>
+            <strong> 3D打印 </strong>
 
-            <small> Prototype · iteration · additive manufacturing </small>
+            <small> 原型 · 迭代 · 增材制造 </small>
           </div>
         </div>
 
@@ -562,11 +574,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 03 / GRAPHICS </span>
+            <span class="skill-index"> 03 / 图形 </span>
 
-            <strong> GRAPHIC DESIGN </strong>
+            <strong> 平面设计 </strong>
 
-            <small> Typography · layout · visual systems </small>
+            <small> 字体排印 · 布局 · 视觉系统 </small>
           </div>
         </div>
 
@@ -578,11 +590,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 04 / MATERIAL </span>
+            <span class="skill-index"> 04 / 材料 </span>
 
             <strong> CMF </strong>
 
-            <small> Color · material · finish · surface </small>
+            <small> 颜色 · 材料 · 表面处理 · 表面 </small>
           </div>
         </div>
 
@@ -590,11 +602,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 04 / OBJECT </span>
+            <span class="skill-index"> 04 / 物体 </span>
 
-            <strong> PROTOTYPING </strong>
+            <strong> 原型制作 </strong>
 
-            <small> From digital geometry to physical object </small>
+            <small> 从数字几何到物理实体 </small>
           </div>
         </div>
 
@@ -602,11 +614,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 04 / ART </span>
+            <span class="skill-index"> 04 / 艺术 </span>
 
-            <strong> CHARACTER ART </strong>
+            <strong> 角色艺术 </strong>
 
-            <small> Anatomy · expression · visual storytelling </small>
+            <small> 解剖 · 表现 · 视觉叙事 </small>
           </div>
         </div>
 
@@ -614,11 +626,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 04 / SYSTEM </span>
+            <span class="skill-index"> 04 / 系统 </span>
 
-            <strong> ELECTRONICS </strong>
+            <strong> 电子学 </strong>
 
-            <small> Circuits · components · signals </small>
+            <small> 电路 · 元件 · 信号 </small>
           </div>
         </div>
 
@@ -630,11 +642,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 05 / FABRICATION </span>
+            <span class="skill-index"> 05 / 制造 </span>
 
-            <strong> WELDING </strong>
+            <strong> 焊接 </strong>
 
-            <small> Metal joining · structure · fabrication </small>
+            <small> 金属连接 · 结构 · 制造 </small>
           </div>
         </div>
 
@@ -642,11 +654,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 05 / HARDWARE </span>
+            <span class="skill-index"> 05 / 硬件 </span>
 
-            <strong> SOLDERING </strong>
+            <strong> 电子焊接 </strong>
 
-            <small> Electronics assembly · repair · modification </small>
+            <small> 电子组装 · 维修 · 改装 </small>
           </div>
         </div>
 
@@ -654,11 +666,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 05 / COMPUTATION </span>
+            <span class="skill-index"> 05 / 计算 </span>
 
-            <strong> EMBEDDED SYSTEMS </strong>
+            <strong> 嵌入式系统 </strong>
 
-            <small> Microcontrollers · sensors · control </small>
+            <small> 微控制器 · 传感器 · 控制 </small>
           </div>
         </div>
 
@@ -666,11 +678,11 @@ const t = getTranslations(lang);
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 05 / MATERIAL </span>
+            <span class="skill-index"> 05 / 材料 </span>
 
-            <strong> MATERIAL RESEARCH </strong>
+            <strong> 材料研究 </strong>
 
-            <small> Properties · processes · behavior </small>
+            <small> 属性 · 工艺 · 行为 </small>
           </div>
         </div>
 
@@ -678,27 +690,17 @@ const t = getTranslations(lang);
         LEVEL 06
         ================================================== -->
 
+        <!-- 交换位置：创意 → 实物 移动到左侧，系统设计 移动到右侧 -->
+
         <div class="skill-node skill-integration">
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 06 / INTEGRATION </span>
+            <span class="skill-index"> 06 / 实现 </span>
 
-            <strong> SYSTEM DESIGN </strong>
+            <strong> 创意 → 实物 </strong>
 
-            <small> Hardware · software · object · interaction </small>
-          </div>
-        </div>
-
-        <div class="skill-node skill-realization">
-          <div class="skill-node-dot"></div>
-
-          <div class="skill-node-content">
-            <span class="skill-index"> 06 / REALIZATION </span>
-
-            <strong> IDEA → OBJECT </strong>
-
-            <small> Turning concepts into tangible things. </small>
+            <small> 将概念转化为有形之物 </small>
           </div>
         </div>
 
@@ -740,18 +742,18 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="current-section">
-      <div class="section-label">// 07 — CURRENT RESEARCH</div>
+      <div class="section-label">// 07 — 当前研究</div>
 
       <div class="research-terminal">
         <div class="terminal-bar">
-          <span> CURRENT_RESEARCH.EXE </span>
+          <span> 当前研究.exe </span>
 
           <span> 2026 </span>
         </div>
 
         <div class="research-screen">
           <div class="research-column">
-            <span> DESIGN_01 </span>
+            <span> 设计_01 </span>
 
             <strong>
               {t.sections.about.current.modules.design.title}
@@ -763,7 +765,7 @@ const t = getTranslations(lang);
           </div>
 
           <div class="research-column">
-            <span> TECH_02 </span>
+            <span> 技术_02 </span>
 
             <strong>
               {t.sections.about.current.modules.technology.title}
@@ -775,7 +777,7 @@ const t = getTranslations(lang);
           </div>
 
           <div class="research-column">
-            <span> MAKE_03 </span>
+            <span> 制造_03 </span>
 
             <strong>
               {t.sections.about.current.modules.making.title}
@@ -787,7 +789,7 @@ const t = getTranslations(lang);
           </div>
 
           <div class="research-column">
-            <span> ART_04 </span>
+            <span> 艺术_04 </span>
 
             <strong>
               {t.sections.about.current.modules.visual.title}
@@ -818,7 +820,7 @@ const t = getTranslations(lang);
     ====================================================== -->
 
     <section class="future-section">
-      <div class="section-label">// 08 — NEXT ITERATION</div>
+      <div class="section-label">// 08 — 下一次迭代</div>
 
       <div class="future-panel">
         <div class="future-heading">
@@ -854,19 +856,19 @@ const t = getTranslations(lang);
 
       <div class="closing-grid">
         <div class="closing-copy">
-          <span class="closing-kicker"> // FINAL_PROTOCOL </span>
+          <span class="closing-kicker"> // 最终协议 </span>
 
+          <!-- 个人理念表述 -->
           <p>
-            认真对待每一个值得实现的想法， 同时保持足够的好奇心，
-            继续创造新的东西。
+            设计是一个不断迭代的过程，技术与艺术的结合是我一直追求的目标。我希望在未来的工作中，能够在设计、技术和艺术之间找到更多的交集，创造出既有美感又有实用性的作品。
           </p>
         </div>
 
         <div class="closing-terminal">
-          <div class="closing-status">&gt; SYSTEM_READY_</div>
+          <div class="closing-status">&gt; 系统就绪_</div>
 
-          <button class="enter-key" type="button" aria-label="Continue">
-            <span>ENTER</span>
+          <button class="enter-key" type="button" aria-label="继续">
+            <span>进入</span>
             <b>↵</b>
           </button>
         </div>
@@ -881,37 +883,30 @@ const t = getTranslations(lang);
       title: t.sections.about.capabilities.industrial.title,
       description: t.sections.about.capabilities.industrial.description,
     },
-
     mechanical: {
       title: t.sections.about.capabilities.mechanical.title,
       description: t.sections.about.capabilities.mechanical.description,
     },
-
     electronics: {
       title: t.sections.about.capabilities.electronics.title,
       description: t.sections.about.capabilities.electronics.description,
     },
-
     embedded: {
       title: t.sections.about.capabilities.embedded.title,
       description: t.sections.about.capabilities.embedded.description,
     },
-
     fabrication: {
       title: t.sections.about.capabilities.fabrication.title,
       description: t.sections.about.capabilities.fabrication.description,
     },
-
     visual: {
       title: t.sections.about.capabilities.visual.title,
       description: t.sections.about.capabilities.visual.description,
     },
-
     software: {
       title: t.sections.about.capabilities.software.title,
       description: t.sections.about.capabilities.software.description,
     },
-
     teaching: {
       title: t.sections.about.capabilities.teaching.title,
       description: t.sections.about.capabilities.teaching.description,
@@ -920,16 +915,12 @@ const t = getTranslations(lang);
 >
   /* =====================================================
   04 — SEQUENTIAL DESIGN PROCESS
-
-  This is intentionally independent from 05.
   ====================================================== */
 
   const processStation = document.querySelector("[data-process-sequence]");
-
   const processItems = processStation
     ? Array.from(processStation.querySelectorAll("[data-process-step]"))
     : [];
-
   const processProgress = document.querySelector(".station-track-progress");
 
   let processIndex = 0;
@@ -938,58 +929,39 @@ const t = getTranslations(lang);
 
   function updateProcess(index) {
     if (!processItems.length) return;
-
     processIndex = index;
 
     processItems.forEach((item, i) => {
       item.classList.remove("process-active", "process-complete");
-
       const state = item.querySelector(".station-state");
-
       if (i < index) {
         item.classList.add("process-complete");
-
-        if (state) {
-          state.textContent = "COMPLETE";
-        }
+        if (state) state.textContent = "完成";
       } else if (i === index) {
         item.classList.add("process-active");
-
-        if (state) {
-          state.textContent = "ACTIVE";
-        }
+        if (state) state.textContent = "运行中";
       } else {
-        if (state) {
-          state.textContent = "WAITING";
-        }
+        if (state) state.textContent = "等待中";
       }
     });
 
     if (processProgress) {
       const progress =
         processItems.length <= 1 ? 0 : index / (processItems.length - 1);
-
       processProgress.style.width = `${progress * 100}%`;
     }
   }
 
   function nextProcessStation() {
     if (!processStarted) return;
-
     processIndex = (processIndex + 1) % processItems.length;
-
     updateProcess(processIndex);
   }
 
   function startProcessSequence() {
-    if (processStarted || !processItems.length) {
-      return;
-    }
-
+    if (processStarted || !processItems.length) return;
     processStarted = true;
-
     updateProcess(0);
-
     processTimer = window.setInterval(nextProcessStation, 1500);
   }
 
@@ -1002,18 +974,13 @@ const t = getTranslations(lang);
           }
         });
       },
-      {
-        threshold: [0.2],
-      },
+      { threshold: [0.2] },
     );
-
     processObserver.observe(processStation);
   }
 
   /* =====================================================
   05 — CAPABILITY MATRIX
-
-  ORIGINAL CODE — intentionally preserved
   ====================================================== */
 
   const modules = {
@@ -1028,15 +995,10 @@ const t = getTranslations(lang);
   };
 
   const buttons = Array.from(document.querySelectorAll(".cap-button"));
-
   const title = document.querySelector("#cap-title");
-
   const description = document.querySelector("#cap-description");
-
   const status = document.querySelector("#cap-status");
-
   const canvas = document.querySelector("#capabilityCanvas");
-
   const ctx = canvas?.getContext("2d");
 
   let activeIndex = 0;
@@ -1045,47 +1007,33 @@ const t = getTranslations(lang);
 
   let mouseX = 0.5;
   let mouseY = 0.5;
-
   let W = 0;
   let H = 0;
   let time = 0;
-
   let manualInteraction = false;
 
   function resizeCanvas() {
     if (!canvas || !ctx) return;
-
     const rect = canvas.getBoundingClientRect();
-
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
     W = rect.width;
     H = rect.height;
-
     canvas.width = W * dpr;
     canvas.height = H * dpr;
-
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   function updateMouse(e) {
     if (!canvas) return;
-
     const rect = canvas.getBoundingClientRect();
-
     mouseX = (e.clientX - rect.left) / rect.width;
-
     mouseY = (e.clientY - rect.top) / rect.height;
-
     mouseX = Math.max(0, Math.min(1, mouseX));
-
     mouseY = Math.max(0, Math.min(1, mouseY));
-
     manualInteraction = true;
   }
 
   canvas?.addEventListener("mousemove", updateMouse);
-
   canvas?.addEventListener("mouseleave", () => {
     mouseX = 0.5;
     mouseY = 0.5;
@@ -1093,295 +1041,550 @@ const t = getTranslations(lang);
 
   function roundedRect(x, y, w, h, r) {
     ctx.beginPath();
-
     ctx.moveTo(x + r, y);
-
     ctx.lineTo(x + w - r, y);
-
     ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-
     ctx.lineTo(x + w, y + h - r);
-
     ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-
     ctx.lineTo(x + r, y + h);
-
     ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-
     ctx.lineTo(x, y + r);
-
     ctx.quadraticCurveTo(x, y, x + r, y);
-
     ctx.closePath();
   }
 
   function drawGrid() {
     ctx.strokeStyle = "rgba(255,255,255,0.035)";
-
     ctx.lineWidth = 0.5;
-
     const spacing = 38;
-
     for (let x = 0; x < W; x += spacing) {
       ctx.beginPath();
-
       ctx.moveTo(x, 0);
-
       ctx.lineTo(x, H);
-
       ctx.stroke();
     }
-
     for (let y = 0; y < H; y += spacing) {
       ctx.beginPath();
-
       ctx.moveTo(0, y);
-
       ctx.lineTo(W, y);
-
       ctx.stroke();
     }
   }
 
-  function drawIndustrial() {
-    const cx = W * 0.5 + (mouseX - 0.5) * 45;
-
-    const cy = H * 0.5 + (mouseY - 0.5) * 25;
-
-    const size = Math.min(W, H) * 0.23;
-
-    const angle = time * 0.6;
-
-    ctx.save();
-
-    ctx.translate(cx, cy);
-
-    ctx.rotate(angle);
-
-    const colors = [
-      "#2a1820",
-      "#6b3026",
-      "#c06b36",
-      "#e89a40",
-      "#d5b06a",
-      "#7b5c72",
-      "#304b4b",
-      "#171b1d",
-    ];
-
-    const sides = 6;
-
-    for (let i = 0; i < sides; i++) {
-      const a = ((Math.PI * 2) / sides) * i;
-
-      const x = Math.cos(a) * size * 0.65;
-
-      const y = Math.sin(a) * size * 0.65;
-
-      ctx.save();
-
-      ctx.translate(x, y);
-
-      ctx.rotate(-angle * 1.4);
-
-      ctx.fillStyle = colors[i % colors.length];
-
-      ctx.strokeStyle = "rgba(255,190,100,0.35)";
-
-      ctx.lineWidth = 1;
-
-      roundedRect(-size * 0.28, -size * 0.28, size * 0.56, size * 0.56, 8);
-
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.restore();
-    }
-
-    ctx.fillStyle = "#090909";
-
-    ctx.beginPath();
-
-    ctx.arc(0, 0, size * 0.36, 0, Math.PI * 2);
-
-    ctx.fill();
-
-    ctx.strokeStyle = "#e8a040";
-
-    ctx.lineWidth = 1.5;
-
-    ctx.beginPath();
-
-    ctx.arc(0, 0, size * 0.36, 0, Math.PI * 2);
-
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function drawMechanical() {
+  /* =====================================================
+  DRAW: 工业及产品设计 — 3D 环面模型
+  ====================================================== */
+  function draw3DModel() {
     const cx = W / 2;
     const cy = H / 2;
+    const R = Math.min(W, H) * 0.28;
+    const r = R * 0.4;
 
-    const base = Math.min(W, H) * 0.23;
+    const rotX = time * 0.6;
+    const rotY = time * 0.9;
 
-    ctx.save();
+    ctx.strokeStyle = "rgba(232,160,64,0.55)";
+    ctx.lineWidth = 1.2;
+    ctx.shadowColor = "rgba(232,160,64,0.25)";
+    ctx.shadowBlur = 6;
 
-    ctx.translate(cx, cy);
+    const stepU = (Math.PI * 2) / 16;
+    const stepV = (Math.PI * 2) / 20;
 
-    for (let i = 0; i < 4; i++) {
-      const radius = base * (0.45 + i * 0.25);
-
-      ctx.save();
-
-      ctx.rotate(time * (i % 2 ? -0.25 : 0.18));
-
-      ctx.strokeStyle = i === 2 ? "#e8a040" : "rgba(220,220,220,0.28)";
-
-      ctx.lineWidth = i === 2 ? 2 : 1;
-
+    // 横向环线
+    for (let v = 0; v < Math.PI * 2; v += stepV) {
       ctx.beginPath();
-
-      ctx.arc(0, 0, radius, 0, Math.PI * 2);
-
-      ctx.stroke();
-
-      for (let j = 0; j < 12; j++) {
-        const a = (j * Math.PI * 2) / 12;
-
-        const x = Math.cos(a) * radius;
-
-        const y = Math.sin(a) * radius;
-
-        ctx.beginPath();
-
-        ctx.moveTo(x * 0.9, y * 0.9);
-
-        ctx.lineTo(x, y);
-
-        ctx.stroke();
+      for (let u = 0; u <= Math.PI * 2; u += 0.1) {
+        const px = (R + r * Math.cos(v)) * Math.cos(u);
+        const py = (R + r * Math.cos(v)) * Math.sin(u);
+        const pz = r * Math.sin(v);
+        const x1 = px * Math.cos(rotY) - pz * Math.sin(rotY);
+        const z1 = px * Math.sin(rotY) + pz * Math.cos(rotY);
+        const y1 = py * Math.cos(rotX) - z1 * Math.sin(rotX);
+        const z2 = py * Math.sin(rotX) + z1 * Math.cos(rotX);
+        const scale = 400 / (400 + z2);
+        const sx = cx + x1 * scale;
+        const sy = cy - y1 * scale;
+        if (u === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
       }
+      ctx.stroke();
+    }
 
+    // 纵向环线
+    for (let u = 0; u < Math.PI * 2; u += stepU) {
+      ctx.beginPath();
+      for (let v = 0; v <= Math.PI * 2; v += 0.1) {
+        const px = (R + r * Math.cos(v)) * Math.cos(u);
+        const py = (R + r * Math.cos(v)) * Math.sin(u);
+        const pz = r * Math.sin(v);
+        const x1 = px * Math.cos(rotY) - pz * Math.sin(rotY);
+        const z1 = px * Math.sin(rotY) + pz * Math.cos(rotY);
+        const y1 = py * Math.cos(rotX) - z1 * Math.sin(rotX);
+        const z2 = py * Math.sin(rotX) + z1 * Math.cos(rotX);
+        const scale = 400 / (400 + z2);
+        const sx = cx + x1 * scale;
+        const sy = cy - y1 * scale;
+        if (v === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.stroke();
+    }
+
+    ctx.shadowBlur = 0;
+  }
+
+  /* =====================================================
+  DRAW: 机械设计 (CMF) — 巨大旋转方块色环
+  ====================================================== */
+  function drawCMF() {
+    const cols = 8;
+    const rows = 6;
+    const pad = 6;
+    const cellW = (W - pad * (cols + 1)) / cols;
+    const cellH = (H - pad * (rows + 1)) / rows;
+    const totalW = cellW * cols + pad * (cols - 1);
+    const totalH = cellH * rows + pad * (rows - 1);
+    const startX = (W - totalW) / 2;
+    const startY = (H - totalH) / 2;
+
+    // ---- 材质绘制函数 ----
+
+    // 高光材质：顶部强烈高光条 + 柔光渐变
+    function drawGlossy(cx, cy, w, h, hue, sat, light) {
+      // 底色渐变（上亮下暗）
+      const grad = ctx.createLinearGradient(cx, cy - h / 2, cx, cy + h / 2);
+      grad.addColorStop(0, `hsl(${hue},${sat}%,${light + 20}%)`);
+      grad.addColorStop(0.3, `hsl(${hue},${sat}%,${light}%)`);
+      grad.addColorStop(1, `hsl(${hue},${sat * 0.8}%,${light - 10}%)`);
+      ctx.fillStyle = grad;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 4);
+      ctx.fill();
+
+      // 强烈高光条（仿油漆光泽）
+      ctx.fillStyle = `rgba(255,255,255,0.55)`;
+      ctx.beginPath();
+      roundedRect(cx - w / 2 + 2, cy - h / 2 + 2, w - 4, h * 0.28, 4);
+      ctx.fill();
+    }
+
+    // 哑光材质：低反差 + 细微磨砂颗粒
+    function drawMatte(cx, cy, w, h, hue, sat, light) {
+      ctx.fillStyle = `hsl(${hue},${sat * 0.6}%,${light * 0.9}%)`;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 4);
+      ctx.fill();
+
+      // 添加细微噪点模拟磨砂
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 4);
+      ctx.clip();
+      const dotCount = Math.floor(w * h * 0.25);
+      for (let i = 0; i < dotCount; i++) {
+        const dx = cx - w / 2 + Math.random() * w;
+        const dy = cy - h / 2 + Math.random() * h;
+        const alpha = 0.05 + Math.random() * 0.08;
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.beginPath();
+        ctx.arc(dx, dy, 0.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `rgba(0,0,0,${alpha * 0.8})`;
+        ctx.beginPath();
+        ctx.arc(dx + 0.5, dy + 0.5, 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
       ctx.restore();
     }
 
-    ctx.fillStyle = "#e8a040";
+    // 金属材质：强烈的对角线渐变 + 边缘细光
+    function drawMetallic(cx, cy, w, h, hue, sat, light) {
+      const grad = ctx.createLinearGradient(
+        cx - w / 2,
+        cy - h / 2,
+        cx + w / 2,
+        cy + h / 2,
+      );
+      grad.addColorStop(0, `hsl(${hue},${sat}%,${light + 25}%)`);
+      grad.addColorStop(0.3, `hsl(${hue},${sat * 0.6}%,${light}%)`);
+      grad.addColorStop(0.6, `hsl(${hue},${sat}%,${light - 5}%)`);
+      grad.addColorStop(1, `hsl(${hue},${sat * 0.7}%,${light - 18}%)`);
+      ctx.fillStyle = grad;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 2);
+      ctx.fill();
 
-    ctx.beginPath();
-
-    ctx.arc(0, 0, base * 0.08, 0, Math.PI * 2);
-
-    ctx.fill();
-
-    ctx.restore();
-  }
-
-  function drawElectronics() {
-    const lines = 5;
-
-    for (let l = 0; l < lines; l++) {
-      ctx.beginPath();
-
-      const baseY = H * 0.25 + l * H * 0.12;
-
-      for (let x = 0; x <= W; x += 5) {
-        const wave = Math.sin(x * 0.025 + time * 2 + l) * 12;
-
-        const y = baseY + wave;
-
-        if (x === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-
-      ctx.strokeStyle = l === 2 ? "#e8a040" : "rgba(220,220,220,0.22)";
-
-      ctx.lineWidth = l === 2 ? 2 : 1;
-
+      // 边缘高光线
+      ctx.strokeStyle = `hsla(${hue},80%,75%,0.45)`;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
     }
 
-    for (let i = 0; i < 8; i++) {
-      const x = ((i + 1) * W) / 9;
+    // 塑料材质：明快色块 + 左上角柔和反光 + 边缘亮线
+    function drawPlastic(cx, cy, w, h, hue, sat, light) {
+      ctx.fillStyle = `hsl(${hue},${sat}%,${light}%)`;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 5);
+      ctx.fill();
 
-      const y = H * 0.5 + Math.sin(time * 2 + i) * 60;
+      // 边缘亮边（上半部分更亮）
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 5);
+      ctx.clip();
+      ctx.strokeStyle = `rgba(255,255,255,0.6)`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
-      ctx.fillStyle = "#e8a040";
+      // 左上角大面积柔光（非点状，而是椭圆高光）
+      const glowGrad = ctx.createRadialGradient(
+        cx - w * 0.2,
+        cy - h * 0.25,
+        0,
+        cx,
+        cy,
+        w * 0.5,
+      );
+      glowGrad.addColorStop(0, `rgba(255,255,255,0.4)`);
+      glowGrad.addColorStop(1, `rgba(255,255,255,0)`);
+      ctx.fillStyle = glowGrad;
+      ctx.fillRect(cx - w / 2, cy - h / 2, w, h);
+      ctx.restore();
+    }
 
-      ctx.fillRect(x - 2, y - 2, 4, 4);
+    // 皮革材质：深色纹理 + 细微颗粒 + 压制纹路
+    function drawLeather(cx, cy, w, h, hue, sat, light) {
+      const baseColor = `hsl(${hue},${sat * 0.5}%,${light * 0.7}%)`;
+      ctx.fillStyle = baseColor;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.fill();
+
+      // 细小颗粒纹理（不再出现大黑点）
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.clip();
+      for (let i = 0; i < 15; i++) {
+        const dx = cx - w / 2 + 4 + ((i * 6.7) % (w - 8));
+        const dy = cy - h / 2 + 3 + ((i * 8.3) % (h - 6));
+        ctx.fillStyle = `rgba(0,0,0,0.15)`;
+        ctx.beginPath();
+        ctx.arc(dx, dy, 0.6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `rgba(255,255,255,0.1)`;
+        ctx.beginPath();
+        ctx.arc(dx + 1.2, dy - 0.8, 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // 纹理材质：细腻交叉斜线 + 轻微凹凸感
+    function drawTextured(cx, cy, w, h, hue, sat, light) {
+      ctx.fillStyle = `hsl(${hue},${sat}%,${light}%)`;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.fill();
+
+      // 双方向斜线纹理
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.clip();
+      ctx.strokeStyle = `rgba(255,255,255,0.18)`;
+      ctx.lineWidth = 0.6;
+      for (let lx = -w; lx < w; lx += 5) {
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2 + lx, cy - h / 2);
+        ctx.lineTo(cx - w / 2 + lx + h, cy + h / 2);
+        ctx.stroke();
+      }
+      for (let lx = -w; lx < w; lx += 5) {
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2 + lx + h, cy - h / 2);
+        ctx.lineTo(cx - w / 2 + lx, cy + h / 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    const materialDraw = [
+      drawGlossy,
+      drawMatte,
+      drawMetallic,
+      drawPlastic,
+      drawLeather,
+      drawTextured,
+    ];
+
+    for (let r = 0; r < rows; r++) {
+      const drawFn = materialDraw[r];
+      for (let c = 0; c < cols; c++) {
+        const x = startX + pad + c * (cellW + pad) + cellW / 2;
+        const y = startY + pad + r * (cellH + pad) + cellH / 2;
+        const hue = ((c / cols) * 360 + (r / rows) * 40 + time * 8) % 360;
+        const sat = 55 + 20 * Math.sin(time * 0.5 + r + c);
+        const light = 25 + 15 * Math.cos(time * 0.4 + c);
+        drawFn(x, y, cellW, cellH, hue, sat, light);
+      }
     }
   }
 
+  /* =====================================================
+  DRAW: 电子 — 不变
+  ====================================================== */
+  function drawElectronics() {
+    ctx.strokeStyle = "rgba(30,50,40,0.35)";
+    ctx.lineWidth = 0.4;
+    const gridSize = 20;
+    for (let x = 0; x < W; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = 0; y < H; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
+
+    const numLines = 7;
+    const lineSpacing = H / (numLines + 1);
+    for (let l = 0; l < numLines; l++) {
+      const baseY = lineSpacing * (l + 0.5);
+      ctx.strokeStyle =
+        l === 3 ? "rgba(232,160,64,0.65)" : "rgba(100,180,140,0.3)";
+      ctx.lineWidth = l === 3 ? 2 : 1.2;
+      ctx.beginPath();
+      const leftX = W * 0.08;
+      const midX1 = W * 0.28;
+      const midX2 = W * 0.58;
+      const rightX = W * 0.92;
+      ctx.moveTo(leftX, baseY);
+      ctx.lineTo(midX1, baseY);
+      ctx.lineTo(
+        midX1 + gridSize,
+        baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6),
+      );
+      ctx.lineTo(
+        midX2,
+        baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6),
+      );
+      ctx.lineTo(midX2 + gridSize, baseY);
+      ctx.lineTo(rightX, baseY);
+      ctx.stroke();
+
+      const solderPoints = [leftX, midX1, midX2, rightX];
+      solderPoints.forEach((sx) => {
+        const sy =
+          sx === midX1 || sx === midX2
+            ? baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6)
+            : baseY;
+        ctx.fillStyle = "rgba(200,200,210,0.6)";
+        ctx.beginPath();
+        ctx.arc(sx, sy, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "rgba(255,255,255,0.25)";
+        ctx.beginPath();
+        ctx.arc(sx - 1, sy - 1, 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      const pulsePos = (time * 1.8 + l * 0.7) % 1;
+      const pulseX = leftX + pulsePos * (rightX - leftX);
+      let pulseY = baseY;
+      if (pulseX > midX1 && pulseX < midX1 + gridSize) {
+        const t = (pulseX - midX1) / gridSize;
+        pulseY = baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6) * t;
+      } else if (pulseX >= midX1 + gridSize && pulseX <= midX2) {
+        pulseY = baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6);
+      } else if (pulseX > midX2 && pulseX < midX2 + gridSize) {
+        const t = (pulseX - midX2) / gridSize;
+        pulseY =
+          baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6) * (1 - t);
+      }
+      const glow = ctx.createRadialGradient(
+        pulseX,
+        pulseY,
+        0,
+        pulseX,
+        pulseY,
+        8,
+      );
+      glow.addColorStop(0, "rgba(232,200,100,0.9)");
+      glow.addColorStop(0.5, "rgba(232,160,64,0.3)");
+      glow.addColorStop(1, "rgba(232,160,64,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(pulseX, pulseY, 8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const chipX = W * 0.4;
+    const chipY = H * 0.32;
+    const chipW = W * 0.2;
+    const chipH = H * 0.36;
+    ctx.fillStyle = "#0a0a0f";
+    ctx.strokeStyle = "rgba(180,180,180,0.5)";
+    ctx.lineWidth = 1.5;
+    roundedRect(chipX, chipY, chipW, chipH, 3);
+    ctx.fill();
+    ctx.stroke();
+
+    const pinCount = 8;
+    const pinSpacing = chipH / (pinCount + 1);
+    for (let i = 0; i < pinCount; i++) {
+      const py = chipY + pinSpacing * (i + 1);
+      ctx.fillStyle = "rgba(200,200,210,0.5)";
+      ctx.fillRect(chipX - 8, py - 1.5, 10, 3);
+      ctx.fillRect(chipX + chipW - 2, py - 1.5, 10, 3);
+    }
+    ctx.fillStyle = "rgba(232,160,64,0.7)";
+    ctx.font = "8px monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("IC-01", chipX + chipW / 2, chipY + chipH / 2 + 3);
+    ctx.fillStyle = "rgba(255,255,255,0.3)";
+    ctx.beginPath();
+    ctx.arc(chipX + 8, chipY + 8, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  /* =====================================================
+  DRAW: 嵌入式系统 — 不变
+  ====================================================== */
   function drawEmbedded() {
     for (let i = 0; i < 18; i++) {
       ctx.beginPath();
-
       const y = H * 0.18 + i * H * 0.035;
-
       for (let x = 0; x <= W; x += 5) {
         const distance = Math.abs(x - W * 0.5) / W;
-
         const amplitude = (1 - distance) * 30;
-
         const wave = Math.sin(x * 0.035 + time * 1.8 + i * 0.35) * amplitude;
-
         const yy = y + wave;
-
-        if (x === 0) {
-          ctx.moveTo(x, yy);
-        } else {
-          ctx.lineTo(x, yy);
-        }
+        if (x === 0) ctx.moveTo(x, yy);
+        else ctx.lineTo(x, yy);
       }
-
       ctx.strokeStyle =
         i === 9 ? "#e8a040" : `rgba(220,220,220,${0.08 + i * 0.005})`;
-
       ctx.stroke();
     }
   }
 
+  /* =====================================================
+  DRAW: 制造与加工 — 精致化流水线
+  ====================================================== */
   function drawFabrication() {
-    const layers = 9;
+    const beltCount = 5; // 5 条传送带
+    const beltHeight = 14;
+    const beltGap = 18;
+    const startY = H * 0.15;
+    const totalHeight = beltCount * beltHeight + (beltCount - 1) * beltGap;
 
-    for (let i = 0; i < layers; i++) {
-      const offset = Math.sin(time * 0.7 + i) * 5;
+    // 调整起始 Y 使整体居中
+    const offsetY = startY + (H - startY - totalHeight) / 2;
 
-      const w = W * 0.45 - i * 12;
+    for (let b = 0; b < beltCount; b++) {
+      const beltY = offsetY + b * (beltHeight + beltGap);
 
-      const h = H * 0.34 - i * 5;
+      // 传送带轨道
+      ctx.fillStyle = "#1a1a20";
+      ctx.fillRect(0, beltY, W, beltHeight);
+      ctx.strokeStyle = "rgba(255,255,255,0.08)";
+      ctx.lineWidth = 0.5;
+      ctx.strokeRect(0, beltY, W, beltHeight);
 
-      const x = W / 2 - w / 2 + offset;
+      // 滚轮效果（短线）
+      const rollerSpacing = 32;
+      const rollerShift = (time * 50 + b * 7) % rollerSpacing;
+      ctx.strokeStyle = "rgba(180,180,180,0.25)";
+      ctx.lineWidth = 0.6;
+      for (
+        let rx = -rollerSpacing + rollerShift;
+        rx < W + rollerSpacing;
+        rx += rollerSpacing
+      ) {
+        ctx.beginPath();
+        ctx.moveTo(rx, beltY + 2);
+        ctx.lineTo(rx, beltY + beltHeight - 2);
+        ctx.stroke();
+      }
 
-      const y = H / 2 - h / 2 + i * 3;
+      // 包裹参数：每条带子上包裹数量不同
+      const parcelCount = 4 + b;
+      const baseSpeed = 0.12 + b * 0.02;
 
-      ctx.strokeStyle = i === 0 ? "#e8a040" : "rgba(220,220,220,0.18)";
+      for (let p = 0; p < parcelCount; p++) {
+        // 计算每个包裹的相位（位置百分比）
+        const phase = (((time * baseSpeed * 0.7 + p * 0.25) % 1) + 1) % 1;
+        const px = phase * W;
+        const py = beltY + beltHeight / 2;
 
-      ctx.strokeRect(x, y, w, h);
+        // 随机颜色（根据包裹序号和带子编号生成稳定颜色）
+        const hue = (b * 45 + p * 30 + time * 2) % 360;
+        const sat = 60 + 20 * Math.sin(p * 1.7 + b);
+        const light = 40 + 15 * Math.cos(p * 1.2 + b);
+
+        // 随机形状：方、圆、三角
+        const shapeType = (p + b) % 3;
+        const size = 7 + (p % 3) * 3;
+
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.fillStyle = `hsl(${hue},${sat}%,${light}%)`;
+        ctx.strokeStyle = `hsla(${hue},${sat}%,${light + 20}%,0.6)`;
+        ctx.lineWidth = 1;
+
+        // 投影
+        ctx.shadowColor = `hsla(${hue},70%,60%,0.3)`;
+        ctx.shadowBlur = 4;
+
+        switch (shapeType) {
+          case 0: // 方形
+            roundedRect(-size / 2, -size / 2, size, size, 2);
+            ctx.fill();
+            ctx.stroke();
+            break;
+          case 1: // 圆形
+            ctx.beginPath();
+            ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            break;
+          case 2: // 三角形
+            ctx.beginPath();
+            ctx.moveTo(0, -size / 2);
+            ctx.lineTo(-size / 2, size / 2);
+            ctx.lineTo(size / 2, size / 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            break;
+        }
+
+        // 高光点
+        ctx.fillStyle = "rgba(255,255,255,0.5)";
+        ctx.beginPath();
+        ctx.arc(-size * 0.2, -size * 0.2, 1.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
     }
   }
 
+  /* =====================================================
+  DRAW: 插画与视觉设计 — 不变
+  ====================================================== */
   function drawVisual() {
     const cols = 10;
     const rows = 6;
-
     const cw = W / cols;
     const ch = H / rows;
-
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const nx = (c + 0.5) / cols;
-
         const ny = (r + 0.5) / rows;
-
         const dx = nx - mouseX;
-
         const dy = ny - mouseY;
-
         const dist = Math.hypot(dx, dy);
-
         const hue =
           (330 +
             nx * 70 +
@@ -1389,47 +1592,27 @@ const t = getTranslations(lang);
             time * 12 +
             Math.sin(dist * 12 - time) * 35) %
           360;
-
         const sat = 55 + 35 * (1 - Math.min(1, dist * 1.8));
-
         const light = 18 + 32 * (1 - Math.min(1, dist * 1.5));
-
         const pad = 4 + 6 * (1 - Math.min(1, dist * 1.6));
-
         const x = c * cw + pad;
-
         const y = r * ch + pad;
-
         const w = cw - pad * 2;
-
         const h = ch - pad * 2;
-
         ctx.fillStyle = `hsla(${hue},${sat}%,${light}%,0.82)`;
-
         ctx.shadowColor = `hsla(${hue},80%,60%,0.18)`;
-
         ctx.shadowBlur = 12;
-
         roundedRect(x, y, w, h, 4);
-
         ctx.fill();
-
         ctx.shadowBlur = 0;
-
         ctx.fillStyle = "rgba(255,255,255,0.035)";
-
         ctx.fillRect(x + w * 0.22, y + h * 0.34, w * 0.56, h * 0.2);
-
         ctx.fillStyle = "rgba(255,190,100,0.18)";
-
         ctx.beginPath();
-
         ctx.arc(x + w * 0.18, y + h * 0.78, 1.4, 0, Math.PI * 2);
-
         ctx.fill();
       }
     }
-
     const glow = ctx.createRadialGradient(
       mouseX * W,
       mouseY * H,
@@ -1438,183 +1621,154 @@ const t = getTranslations(lang);
       mouseY * H,
       100,
     );
-
     glow.addColorStop(0, "rgba(232,160,64,0.13)");
-
     glow.addColorStop(1, "rgba(232,160,64,0)");
-
     ctx.fillStyle = glow;
-
     ctx.beginPath();
-
     ctx.arc(mouseX * W, mouseY * H, 100, 0, Math.PI * 2);
-
     ctx.fill();
   }
 
+  /* =====================================================
+  DRAW: 数字工具 — 不变
+  ====================================================== */
   function drawSoftware() {
     ctx.font = "10px monospace";
-
     ctx.textAlign = "left";
-
     const lines = [
-      "> initialize_r2s();",
-      "> load_design_system();",
-      "> compile_geometry();",
-      "> build.prototype();",
-      "> test();",
-      "> iterate();",
-      "> system_ready_",
+      "> 初始化_r2s();",
+      "> 加载_设计系统();",
+      "> 编译_几何();",
+      "> 构建.原型();",
+      "> 测试();",
+      "> 迭代();",
+      "> 系统就绪_",
     ];
-
     lines.forEach((line, i) => {
       const alpha = 0.15 + 0.1 * Math.sin(time * 2 - i);
-
       ctx.fillStyle = i === 6 ? "#e8a040" : `rgba(220,220,220,${alpha})`;
-
       ctx.fillText(line, W * 0.2, H * 0.22 + i * 25);
     });
-
     ctx.strokeStyle = "rgba(232,160,64,0.35)";
-
     ctx.beginPath();
-
     ctx.moveTo(W * 0.18, H * 0.82);
-
     ctx.lineTo(W * 0.82, H * 0.82);
-
     ctx.stroke();
-
     const progress = (Math.sin(time) + 1) / 2;
-
     ctx.fillStyle = "#e8a040";
-
     ctx.fillRect(W * 0.18, H * 0.82 - 2, W * 0.64 * progress, 4);
   }
 
+  /* =====================================================
+  DRAW: 绘画教学 — 双DNA螺旋
+  ====================================================== */
   function drawTeaching() {
-    const cx = W / 2;
-    const cy = H / 2;
+    const amplitude = Math.min(W, H) * 0.22;
+    const helixLength = W * 0.7;
+    const startX = W * 0.15;
+    const centerY = H / 2;
+    const turns = 7;
+    const waveSpeed = 0.5;
 
-    ctx.strokeStyle = "rgba(220,220,220,0.2)";
+    /* ---- 碱基对横线 ---- */
+    const pairSteps = turns * 18;
+    for (let i = 0; i <= pairSteps; i++) {
+      const t = (i / pairSteps) * turns * Math.PI * 2;
+      const progress = t / (turns * Math.PI * 2);
+      const x = startX + progress * helixLength;
+      const offset = Math.sin(t + time * waveSpeed) * amplitude;
+      const y1 = centerY + offset;
+      const y2 = centerY - offset;
 
-    ctx.lineWidth = 1;
-
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * Math.PI * 2) / 8;
-
-      const pulse = (Math.sin(time * 1.5 + i) + 1) / 2;
-
-      const radius = 35 + pulse * 75;
-
-      const x = cx + Math.cos(angle) * radius;
-
-      const y = cy + Math.sin(angle) * radius;
-
+      const hue = 180 + progress * 120;
+      const alpha = 0.3 + 0.2 * Math.sin(time * 2 + i * 0.3);
+      ctx.strokeStyle = `hsla(${hue},70%,60%,${alpha})`;
+      ctx.lineWidth = 0.8;
       ctx.beginPath();
-
-      ctx.moveTo(cx, cy);
-
-      ctx.lineTo(x, y);
-
+      ctx.moveTo(x, y1);
+      ctx.lineTo(x, y2);
       ctx.stroke();
-
-      ctx.fillStyle = i === 0 ? "#e8a040" : "rgba(220,220,220,0.3)";
-
-      ctx.beginPath();
-
-      ctx.arc(x, y, 4 + pulse * 3, 0, Math.PI * 2);
-
-      ctx.fill();
     }
 
-    ctx.fillStyle = "#e8a040";
+    /* ---- 双螺旋主线 ---- */
+    for (let strand = 0; strand < 2; strand++) {
+      const phase = strand * Math.PI;
+      ctx.strokeStyle =
+        strand === 0 ? "rgba(100,220,180,0.7)" : "rgba(232,160,64,0.7)";
+      ctx.lineWidth = 2;
+      ctx.shadowColor =
+        strand === 0 ? "rgba(100,220,180,0.3)" : "rgba(232,160,64,0.3)";
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
 
-    ctx.beginPath();
-
-    ctx.arc(cx, cy, 12 + Math.sin(time * 2) * 2, 0, Math.PI * 2);
-
-    ctx.fill();
+      const steps = 200;
+      for (let i = 0; i <= steps; i++) {
+        const t = (i / steps) * turns * Math.PI * 2;
+        const progress = t / (turns * Math.PI * 2);
+        const x = startX + progress * helixLength;
+        const y = centerY + Math.sin(t + phase + time * waveSpeed) * amplitude;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.shadowBlur = 0;
   }
 
+  /* =====================================================
+  CAPABILITY DISPATCH
+  ====================================================== */
   function drawCapability() {
     if (!ctx) return;
-
     ctx.clearRect(0, 0, W, H);
-
     ctx.fillStyle = "#09090b";
-
     ctx.fillRect(0, 0, W, H);
-
     drawGrid();
 
     const key = buttons[activeIndex]?.dataset.cap;
-
     switch (key) {
       case "industrial":
-        drawIndustrial();
+        draw3DModel();
         break;
-
       case "mechanical":
-        drawMechanical();
+        drawCMF();
         break;
-
       case "electronics":
         drawElectronics();
         break;
-
       case "embedded":
         drawEmbedded();
         break;
-
       case "fabrication":
         drawFabrication();
         break;
-
       case "visual":
         drawVisual();
         break;
-
       case "software":
         drawSoftware();
         break;
-
       case "teaching":
         drawTeaching();
         break;
     }
 
     time += 0.016;
-
     animationFrame = requestAnimationFrame(drawCapability);
   }
 
   function activateModule(index, manual = false) {
-    if (index < 0 || index >= buttons.length) {
-      return;
-    }
-
+    if (index < 0 || index >= buttons.length) return;
     activeIndex = index;
-
     const button = buttons[index];
-
     const key = button.dataset.cap;
+    if (!key || !modules[key]) return;
 
-    if (!key || !modules[key]) {
-      return;
-    }
-
-    buttons.forEach((item) => {
-      item.classList.remove("active");
-    });
-
+    buttons.forEach((item) => item.classList.remove("active"));
     button.classList.add("active");
-
     title.textContent = modules[key].title;
-
     description.textContent = modules[key].description;
-
-    status.textContent = `MODULE_${String(index + 1).padStart(2, "0")}`;
+    status.textContent = `模块_${String(index + 1).padStart(2, "0")}`;
 
     if (manual) {
       manualInteraction = true;
@@ -1624,31 +1778,24 @@ const t = getTranslations(lang);
   buttons.forEach((button, index) => {
     button.addEventListener("click", () => {
       activateModule(index, true);
-
       clearInterval(moduleTimer);
-
       moduleTimer = setInterval(nextModule, 4200);
     });
   });
 
   function nextModule() {
     activeIndex = (activeIndex + 1) % buttons.length;
-
     activateModule(activeIndex);
   }
 
   function initCapability() {
     resizeCanvas();
-
     activateModule(0);
-
     drawCapability();
-
     moduleTimer = setInterval(nextModule, 4200);
   }
 
   window.addEventListener("resize", resizeCanvas);
-
   initCapability();
 </script>
 
@@ -1656,6 +1803,9 @@ const t = getTranslations(lang);
   /* =====================================================
   BASE
   ====================================================== */
+  .philosophy-main h2 {
+    white-space: pre-line;
+  }
 
   .about-page {
     max-width: 1400px;
@@ -1999,12 +2149,11 @@ const t = getTranslations(lang);
   .process-arrow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 0.95em;
-    height: 0.8em;
+    width: 1.2em;
+    height: 1.2em;
     color: var(--accent);
-    font-size: 0.8em;
-    line-height: 1;
+    margin: 0 0.1em;
+    vertical-align: middle;
   }
 
   .process-header p {
@@ -2014,10 +2163,6 @@ const t = getTranslations(lang);
     font-size: 15px;
     line-height: 1.9;
   }
-
-  /* =====================================================
-  04 — TRUE SEQUENTIAL STATIONS
-  ====================================================== */
 
   .process-station {
     position: relative;
@@ -2217,8 +2362,6 @@ const t = getTranslations(lang);
 
   /* =====================================================
   05 — CAPABILITY
-
-  UNCHANGED
   ====================================================== */
 
   .capability-console {
@@ -2464,8 +2607,6 @@ const t = getTranslations(lang);
     z-index: 5;
   }
 
-  /* Main horizontal growth axis */
-
   .skill-main-line {
     position: absolute;
     left: 7%;
@@ -2497,8 +2638,6 @@ const t = getTranslations(lang);
     opacity: 0.65;
   }
 
-  /* Skill nodes */
-
   .skill-node {
     position: absolute;
     z-index: 4;
@@ -2510,7 +2649,7 @@ const t = getTranslations(lang);
     height: 11px;
     border: 1px solid var(--accent);
     background: #08080c;
-    transform: rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
     box-shadow: 0 0 0 5px #08080c;
     transition:
       transform 0.25s ease,
@@ -2520,7 +2659,7 @@ const t = getTranslations(lang);
 
   .skill-node:hover .skill-node-dot {
     background: var(--accent);
-    transform: rotate(45deg) scale(1.35);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.35);
     box-shadow:
       0 0 0 5px #08080c,
       0 0 18px rgba(232, 160, 64, 0.45);
@@ -2554,179 +2693,150 @@ const t = getTranslations(lang);
     line-height: 1.6;
   }
 
-  /* =====================================================
-  NODE POSITIONS
-
-  Growth direction:
-  LEFT → RIGHT
-
-  Few skills → many skills
-  ====================================================== */
-
   .skill-origin {
     left: 7%;
     top: 51%;
   }
-
   .skill-origin .skill-node-content {
-    left: -5px;
-    top: 25px;
+    left: 15px;
+    top: 20px;
   }
 
   .skill-cad {
     left: 20%;
     top: 51%;
   }
-
   .skill-cad .skill-node-content {
-    left: -5px;
-    top: 28px;
+    left: 15px;
+    top: 23px;
   }
 
   .skill-drawing {
     left: 20%;
     top: 32%;
   }
-
   .skill-drawing .skill-node-content {
-    left: -5px;
-    bottom: 24px;
+    left: 15px;
+    bottom: 20px;
   }
 
   .skill-render {
     left: 34%;
     top: 51%;
   }
-
   .skill-render .skill-node-content {
-    left: -5px;
-    top: 28px;
+    left: 15px;
+    top: 23px;
   }
 
   .skill-print {
     left: 34%;
     top: 69%;
   }
-
   .skill-print .skill-node-content {
-    left: -5px;
-    top: 25px;
+    left: 15px;
+    top: 20px;
   }
 
   .skill-graphic {
     left: 34%;
     top: 30%;
   }
-
   .skill-graphic .skill-node-content {
-    left: -5px;
-    bottom: 25px;
+    left: 15px;
+    bottom: 20px;
   }
 
   .skill-cmf {
     left: 49%;
     top: 51%;
   }
-
   .skill-cmf .skill-node-content {
-    left: -5px;
-    top: 28px;
+    left: 15px;
+    top: 23px;
   }
 
   .skill-prototype {
     left: 49%;
-    top: 30%;
+    top: 40%;
   }
-
   .skill-prototype .skill-node-content {
-    left: -5px;
-    bottom: 25px;
+    left: 15px;
+    bottom: 20px;
   }
 
   .skill-character {
     left: 49%;
     top: 73%;
   }
-
   .skill-character .skill-node-content {
-    left: -5px;
-    top: 25px;
+    left: 15px;
+    top: 20px;
   }
 
   .skill-electronics {
     left: 49%;
     top: 18%;
   }
-
   .skill-electronics .skill-node-content {
-    left: -5px;
-    bottom: 25px;
+    left: 15px;
+    bottom: 20px;
   }
 
   .skill-welding {
     left: 65%;
     top: 51%;
   }
-
   .skill-welding .skill-node-content {
-    left: -5px;
-    top: 28px;
+    left: 15px;
+    top: 23px;
   }
 
   .skill-soldering {
     left: 65%;
-    top: 25%;
+    top: 22%;
   }
-
   .skill-soldering .skill-node-content {
-    left: -5px;
-    bottom: 25px;
+    left: 15px;
+    bottom: 20px;
   }
 
   .skill-embedded {
     left: 65%;
     top: 75%;
   }
-
   .skill-embedded .skill-node-content {
-    left: -5px;
-    top: 25px;
+    left: 15px;
+    top: 20px;
   }
 
   .skill-materials {
     left: 65%;
-    top: 39%;
+    top: 42%;
   }
-
   .skill-materials .skill-node-content {
-    left: -5px;
-    bottom: 25px;
+    left: 15px;
+    bottom: 20px;
   }
 
   .skill-integration {
     left: 82%;
     top: 51%;
   }
-
   .skill-integration .skill-node-content {
-    left: -5px;
-    top: 28px;
+    left: 15px;
+    top: 23px;
   }
 
   .skill-realization {
     left: 93%;
-    top: 51%;
+    top: 55%;
   }
-
   .skill-realization .skill-node-content {
-    right: -10px;
-    top: 28px;
+    right: 15px;
+    top: 23px;
     text-align: right;
   }
-
-  /* =====================================================
-  TREE BRANCHES
-  ====================================================== */
 
   .skill-branch {
     position: absolute;
@@ -2778,37 +2888,12 @@ const t = getTranslations(lang);
     width: 11%;
   }
 
-  .branch-g {
-    left: 20%;
-    top: 51%;
-    width: 70px;
-    transform: rotate(-90deg);
-  }
-
-  .branch-h {
-    left: 34%;
-    top: 51%;
-    width: 105px;
-    transform: rotate(-90deg);
-  }
-
-  .branch-i {
-    left: 49%;
-    top: 51%;
-    width: 150px;
-    transform: rotate(-90deg);
-  }
-
+  .branch-g,
+  .branch-h,
+  .branch-i,
   .branch-j {
-    left: 65%;
-    top: 51%;
-    width: 135px;
-    transform: rotate(90deg);
+    display: none;
   }
-
-  /* =====================================================
-  JOURNEY COPY
-  ====================================================== */
 
   .journey-copy {
     max-width: 800px;
@@ -2993,10 +3078,6 @@ const t = getTranslations(lang);
     letter-spacing: 2px;
   }
 
-  /* =====================================================
-  ENTER KEY
-  ====================================================== */
-
   .enter-key {
     position: relative;
     min-width: 170px;
@@ -3135,18 +3216,10 @@ const t = getTranslations(lang);
       grid-column: auto;
     }
 
-    /* ================================================
-    Mobile process
-    ================================================ */
-
     .process-station {
       grid-template-columns: repeat(2, 1fr);
       gap: 60px 25px;
     }
-
-    /* ================================================
-    Mobile skill tree
-    ================================================ */
 
     .skill-tree {
       height: auto;
@@ -3173,6 +3246,7 @@ const t = getTranslations(lang);
     .skill-node-dot {
       left: 0;
       top: 4px;
+      transform: rotate(45deg);
     }
 
     .skill-node-content {
