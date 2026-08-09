@@ -925,6 +925,7 @@ const t = getTranslations(lang);
   let processIndex = 0;
   let processTimer = null;
   let processStarted = false;
+  let processVisible = false;
 
   function updateProcess(index) {
     if (!processItems.length) return;
@@ -952,7 +953,7 @@ const t = getTranslations(lang);
   }
 
   function nextProcessStation() {
-    if (!processStarted) return;
+    if (!processStarted || !processVisible) return;
     processIndex = (processIndex + 1) % processItems.length;
     updateProcess(processIndex);
   }
@@ -961,19 +962,38 @@ const t = getTranslations(lang);
     if (processStarted || !processItems.length) return;
     processStarted = true;
     updateProcess(0);
-    processTimer = window.setInterval(nextProcessStation, 1500);
+  }
+
+  function pauseProcess() {
+    if (processTimer) {
+      clearInterval(processTimer);
+      processTimer = null;
+    }
+  }
+
+  function resumeProcess() {
+    if (!processVisible || !processStarted) return;
+    if (!processTimer) {
+      processTimer = setInterval(nextProcessStation, 1500);
+    }
   }
 
   if (processStation) {
     const processObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
-            startProcessSequence();
+          processVisible = entry.isIntersecting;
+          if (processVisible) {
+            if (!processStarted) {
+              startProcessSequence();
+            }
+            resumeProcess();
+          } else {
+            pauseProcess();
           }
         });
       },
-      { threshold: [0.2] },
+      { threshold: 0.1 }, // 露出 10% 就激活
     );
     processObserver.observe(processStation);
   }
@@ -1001,8 +1021,9 @@ const t = getTranslations(lang);
   const ctx = canvas?.getContext("2d");
 
   let activeIndex = 0;
-  let animationFrame = null;
+  let animationId = null;
   let moduleTimer = null;
+  let canvasVisible = false;
 
   let mouseX = 0.5;
   let mouseY = 0.5;
@@ -1014,7 +1035,7 @@ const t = getTranslations(lang);
   function resizeCanvas() {
     if (!canvas || !ctx) return;
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // 限制像素比，降低压力
     W = rect.width;
     H = rect.height;
     canvas.width = W * dpr;
@@ -1691,7 +1712,7 @@ const t = getTranslations(lang);
   CAPABILITY DISPATCH
   ====================================================== */
   function drawCapability() {
-    if (!ctx) return;
+    if (!ctx || !canvasVisible) return; // 不可见时直接退出
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = "#09090b";
     ctx.fillRect(0, 0, W, H);
@@ -1726,7 +1747,7 @@ const t = getTranslations(lang);
     }
 
     time += 0.016;
-    animationFrame = requestAnimationFrame(drawCapability);
+    animationId = requestAnimationFrame(drawCapability);
   }
 
   function activateModule(index, manual = false) {
@@ -1760,15 +1781,60 @@ const t = getTranslations(lang);
     activateModule(activeIndex);
   }
 
-  function initCapability() {
-    resizeCanvas();
-    activateModule(0);
-    drawCapability();
+  // 自动轮播定时器控制
+  function startModuleAutoRotate() {
+    if (moduleTimer) return;
     moduleTimer = setInterval(nextModule, 4200);
   }
 
-  window.addEventListener("resize", resizeCanvas);
-  initCapability();
+  function stopModuleAutoRotate() {
+    clearInterval(moduleTimer);
+    moduleTimer = null;
+  }
+
+  // Canvas 可见性控制
+  function startCanvas() {
+    if (!canvasVisible || animationId) return;
+    resizeCanvas();
+    drawCapability();
+    startModuleAutoRotate();
+  }
+
+  function stopCanvas() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+    stopModuleAutoRotate();
+  }
+
+  // 监听 Canvas 所在容器是否进入视口
+  const displayVisual = document.querySelector(".display-visual");
+  if (displayVisual && canvas) {
+    const canvasObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          canvasVisible = entry.isIntersecting;
+          if (canvasVisible) {
+            startCanvas();
+          } else {
+            stopCanvas();
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+    canvasObserver.observe(displayVisual);
+  }
+
+  // 窗口大小变化时重绘 Canvas（如果可见）
+  window.addEventListener("resize", () => {
+    resizeCanvas();
+  });
+
+  // 初始激活第一个模块并准备 Canvas（但不要自动开始动画，等进入视口）
+  activateModule(0);
+  // 注意：不再直接调用 drawCapability()，由 Observer 触发
 </script>
 
 <style>
@@ -1784,6 +1850,7 @@ const t = getTranslations(lang);
     margin: 0 auto;
     padding: 80px 40px 120px;
     font-family: var(--font-mono);
+    will-change: scroll-position;
   }
 
   .section-label {
