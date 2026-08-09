@@ -9,7 +9,10 @@ const t = getTranslations(language);
 
 <Layout title={`${t.sections.about.title} | R2S Studio`}>
   <main class="about-page">
-    <!-- HERO -->
+    <!-- ========================
+    HERO
+    ======================== -->
+
     <section class="about-hero">
       <div class="hero-meta">
         <span>{t.sections.about.pageTag}</span>
@@ -17,7 +20,7 @@ const t = getTranslations(language);
       </div>
 
       <div class="hero-content">
-        <div>
+        <div class="hero-main">
           <div class="eyebrow">
             {t.sections.about.eyebrow}
           </div>
@@ -38,7 +41,10 @@ const t = getTranslations(language);
       </div>
     </section>
 
-    <!-- INTRO -->
+    <!-- ========================
+    INTRODUCTION
+    ======================== -->
+
     <section class="intro-section">
       <div class="section-label">// 01 — INTRODUCTION</div>
 
@@ -50,7 +56,7 @@ const t = getTranslations(language);
         </div>
 
         <div class="intro-text">
-          <p>
+          <p class="intro-lead">
             {t.sections.about.description}
           </p>
 
@@ -61,9 +67,40 @@ const t = getTranslations(language);
       </div>
     </section>
 
-    <!-- DOSSIER -->
+    <!-- ========================
+    IDENTITY
+    ======================== -->
+
+    <section class="identity-section">
+      <div class="section-label">// 02 — IDENTITY</div>
+
+      <div class="identity-grid">
+        <div class="identity-title">
+          <span>R2S_STUDIO</span>
+
+          <h2>
+            {t.sections.about.identity.title}
+          </h2>
+        </div>
+
+        <div class="identity-text">
+          <p>
+            {t.sections.about.identity.text}
+          </p>
+
+          <p>
+            {t.sections.about.identity.second}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+    DOSSIER
+    ======================== -->
+
     <section class="dossier-section">
-      <div class="section-label">// 02 — PERSONNEL DOSSIER</div>
+      <div class="section-label">// 03 — PERSONNEL DOSSIER</div>
 
       <div class="dossier">
         <div class="dossier-header">
@@ -124,9 +161,56 @@ const t = getTranslations(language);
       </div>
     </section>
 
-    <!-- APPROACH -->
+    <!-- ========================
+    PHILOSOPHY
+    ======================== -->
+
+    <section class="philosophy-section">
+      <div class="section-label">// 04 — PERSONAL PROTOCOL</div>
+
+      <div class="philosophy-grid">
+        <div class="philosophy-heading">
+          <span class="small-label">
+            {t.sections.about.philosophy.header}
+          </span>
+
+          <h2>
+            {t.sections.about.philosophy.title}
+          </h2>
+        </div>
+
+        <div class="philosophy-text">
+          <p class="lead">
+            {t.sections.about.philosophy.text}
+          </p>
+
+          <p>
+            {t.sections.about.philosophy.second}
+          </p>
+
+          <div class="motto">
+            <span>
+              {t.sections.about.philosophy.mottoLabel}
+            </span>
+
+            <strong>
+              {t.sections.about.philosophy.motto}
+            </strong>
+
+            <p>
+              {t.sections.about.philosophy.mottoText}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+    APPROACH
+    ======================== -->
+
     <section class="approach-section">
-      <div class="section-label">// 03 — DESIGN APPROACH</div>
+      <div class="section-label">// 05 — DESIGN APPROACH</div>
 
       <div class="approach-grid">
         <article class="approach-card">
@@ -145,6 +229,18 @@ const t = getTranslations(language);
           <span class="card-number">02</span>
 
           <h3>
+            {t.sections.about.approach.concept.title}
+          </h3>
+
+          <p>
+            {t.sections.about.approach.concept.description}
+          </p>
+        </article>
+
+        <article class="approach-card">
+          <span class="card-number">03</span>
+
+          <h3>
             {t.sections.about.approach.build.title}
           </h3>
 
@@ -154,7 +250,7 @@ const t = getTranslations(language);
         </article>
 
         <article class="approach-card">
-          <span class="card-number">03</span>
+          <span class="card-number">04</span>
 
           <h3>
             {t.sections.about.approach.refine.title}
@@ -167,9 +263,92 @@ const t = getTranslations(language);
       </div>
     </section>
 
-    <!-- CAPABILITIES -->
+    <!-- ========================
+    WORKFLOW
+    ======================== -->
+
+    <section class="workflow-section">
+      <div class="section-label">// 06 — CREATIVE PIPELINE</div>
+
+      <div class="workflow-panel">
+        <div class="workflow-header">
+          <span>
+            {t.sections.about.workflow.header}
+          </span>
+
+          <span> 05_STAGES </span>
+        </div>
+
+        <div class="workflow-grid">
+          <div class="workflow-step">
+            <span>01</span>
+
+            <h3>
+              {t.sections.about.workflow.concept.title}
+            </h3>
+
+            <p>
+              {t.sections.about.workflow.concept.description}
+            </p>
+          </div>
+
+          <div class="workflow-step">
+            <span>02</span>
+
+            <h3>
+              {t.sections.about.workflow.design.title}
+            </h3>
+
+            <p>
+              {t.sections.about.workflow.design.description}
+            </p>
+          </div>
+
+          <div class="workflow-step">
+            <span>03</span>
+
+            <h3>
+              {t.sections.about.workflow.prototype.title}
+            </h3>
+
+            <p>
+              {t.sections.about.workflow.prototype.description}
+            </p>
+          </div>
+
+          <div class="workflow-step">
+            <span>04</span>
+
+            <h3>
+              {t.sections.about.workflow.system.title}
+            </h3>
+
+            <p>
+              {t.sections.about.workflow.system.description}
+            </p>
+          </div>
+
+          <div class="workflow-step">
+            <span>05</span>
+
+            <h3>
+              {t.sections.about.workflow.iteration.title}
+            </h3>
+
+            <p>
+              {t.sections.about.workflow.iteration.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+    CAPABILITIES
+    ======================== -->
+
     <section class="capabilities-section">
-      <div class="section-label">// 04 — CAPABILITY MATRIX</div>
+      <div class="section-label">// 07 — CAPABILITY MATRIX</div>
 
       <div class="capability-panel">
         <div class="capability-header">
@@ -178,7 +357,8 @@ const t = getTranslations(language);
           </span>
 
           <span>
-            STATUS: <strong>ACTIVE</strong>
+            STATUS:
+            <strong>ACTIVE</strong>
           </span>
         </div>
 
@@ -199,6 +379,30 @@ const t = getTranslations(language);
             <span class="cap-index">02</span>
 
             <h3>
+              {t.sections.about.capabilities.mechanical.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.mechanical.description}
+            </p>
+          </div>
+
+          <div class="capability">
+            <span class="cap-index">03</span>
+
+            <h3>
+              {t.sections.about.capabilities.electronics.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.electronics.description}
+            </p>
+          </div>
+
+          <div class="capability">
+            <span class="cap-index">04</span>
+
+            <h3>
               {t.sections.about.capabilities.embedded.title}
             </h3>
 
@@ -208,19 +412,19 @@ const t = getTranslations(language);
           </div>
 
           <div class="capability">
-            <span class="cap-index">03</span>
+            <span class="cap-index">05</span>
 
             <h3>
-              {t.sections.about.capabilities.prototype.title}
+              {t.sections.about.capabilities.fabrication.title}
             </h3>
 
             <p>
-              {t.sections.about.capabilities.prototype.description}
+              {t.sections.about.capabilities.fabrication.description}
             </p>
           </div>
 
           <div class="capability">
-            <span class="cap-index">04</span>
+            <span class="cap-index">06</span>
 
             <h3>
               {t.sections.about.capabilities.visual.title}
@@ -230,11 +434,143 @@ const t = getTranslations(language);
               {t.sections.about.capabilities.visual.description}
             </p>
           </div>
+
+          <div class="capability">
+            <span class="cap-index">07</span>
+
+            <h3>
+              {t.sections.about.capabilities.software.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.software.description}
+            </p>
+          </div>
+
+          <div class="capability">
+            <span class="cap-index">08</span>
+
+            <h3>
+              {t.sections.about.capabilities.teaching.title}
+            </h3>
+
+            <p>
+              {t.sections.about.capabilities.teaching.description}
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CLOSING -->
+    <!-- ========================
+    JOURNEY
+    ======================== -->
+
+    <section class="journey-section">
+      <div class="section-label">// 08 — DEVELOPMENT PATH</div>
+
+      <div class="journey-grid">
+        <div class="journey-heading">
+          <span>
+            {t.sections.about.journey.header}
+          </span>
+
+          <h2>
+            {t.sections.about.journey.title}
+          </h2>
+        </div>
+
+        <div class="journey-text">
+          <p class="lead">
+            {t.sections.about.journey.text}
+          </p>
+
+          <p>
+            {t.sections.about.journey.second}
+          </p>
+
+          <p>
+            {t.sections.about.journey.third}
+          </p>
+
+          <p>
+            {t.sections.about.journey.fourth}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+    CURRENT RESEARCH
+    ======================== -->
+
+    <section class="current-section">
+      <div class="section-label">// 09 — CURRENT RESEARCH</div>
+
+      <div class="current-grid">
+        <div class="current-item">
+          <span>01</span>
+          <p>{t.sections.about.current.design}</p>
+        </div>
+
+        <div class="current-item">
+          <span>02</span>
+          <p>{t.sections.about.current.technology}</p>
+        </div>
+
+        <div class="current-item">
+          <span>03</span>
+          <p>{t.sections.about.current.making}</p>
+        </div>
+
+        <div class="current-item">
+          <span>04</span>
+          <p>{t.sections.about.current.visual}</p>
+        </div>
+
+        <div class="current-item current-ai">
+          <span>05</span>
+          <p>{t.sections.about.current.ai}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+    FUTURE
+    ======================== -->
+
+    <section class="future-section">
+      <div class="section-label">// 10 — NEXT ITERATION</div>
+
+      <div class="future-grid">
+        <div class="future-heading">
+          <span>
+            {t.sections.about.future.header}
+          </span>
+
+          <div class="future-symbol">→</div>
+        </div>
+
+        <div class="future-text">
+          <p class="lead">
+            {t.sections.about.future.text}
+          </p>
+
+          <p>
+            {t.sections.about.future.second}
+          </p>
+
+          <p>
+            {t.sections.about.future.third}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================
+    CLOSING
+    ======================== -->
+
     <section class="closing-section">
       <div class="closing-line"></div>
 
@@ -262,9 +598,7 @@ const t = getTranslations(language);
     letter-spacing: 2px;
   }
 
-  /* ========================
-     HERO
-  ======================== */
+  /* HERO */
 
   .about-hero {
     margin-bottom: 120px;
@@ -275,7 +609,6 @@ const t = getTranslations(language);
     justify-content: space-between;
     padding-bottom: 15px;
     border-bottom: 1px dashed var(--border);
-
     color: #777;
     font-size: 10px;
     letter-spacing: 2px;
@@ -289,15 +622,14 @@ const t = getTranslations(language);
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-
     padding-top: 60px;
   }
 
   .eyebrow {
+    margin-bottom: 20px;
     color: var(--accent);
     font-size: 11px;
     letter-spacing: 3px;
-    margin-bottom: 20px;
   }
 
   h1 {
@@ -309,9 +641,8 @@ const t = getTranslations(language);
   }
 
   .subtitle {
-    margin-top: 35px;
     max-width: 700px;
-
+    margin-top: 35px;
     color: #aaa;
     font-size: 18px;
     line-height: 1.8;
@@ -321,7 +652,6 @@ const t = getTranslations(language);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-
     color: #555;
   }
 
@@ -333,76 +663,109 @@ const t = getTranslations(language);
   .hero-index strong {
     color: var(--accent);
     font-size: 72px;
-    line-height: 1;
   }
 
-  /* ========================
-     INTRO
-  ======================== */
+  /* INTRO */
 
-  .intro-section {
+  .intro-section,
+  .identity-section,
+  .dossier-section,
+  .philosophy-section,
+  .approach-section,
+  .workflow-section,
+  .capabilities-section,
+  .journey-section,
+  .current-section,
+  .future-section {
     margin-bottom: 120px;
   }
 
-  .intro-grid {
+  .intro-grid,
+  .identity-grid,
+  .philosophy-grid,
+  .journey-grid,
+  .future-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 80px;
   }
 
-  .intro-heading h2 {
+  .intro-heading h2,
+  .philosophy-heading h2,
+  .journey-heading h2 {
     margin: 0;
-
     font-size: clamp(32px, 5vw, 60px);
     line-height: 1;
     letter-spacing: -3px;
     text-transform: uppercase;
   }
 
-  .intro-text {
-    max-width: 700px;
+  .intro-text,
+  .identity-text,
+  .philosophy-text,
+  .journey-text,
+  .future-text {
+    max-width: 750px;
   }
 
-  .intro-text p {
+  .intro-text p,
+  .identity-text p,
+  .philosophy-text p,
+  .journey-text p,
+  .future-text p {
     margin: 0 0 25px;
-
-    color: #aaa;
+    color: #999;
     font-size: 16px;
     line-height: 1.9;
   }
 
-  .intro-text p:first-child {
+  .intro-text .intro-lead,
+  .philosophy-text .lead,
+  .journey-text .lead,
+  .future-text .lead {
     color: white;
     font-size: 20px;
   }
 
-  /* ========================
-     DOSSIER
-  ======================== */
+  /* IDENTITY */
 
-  .dossier-section {
-    margin-bottom: 120px;
-  }
-
-  .dossier {
-    background: rgba(8, 8, 12, 0.9);
-    border: 1px solid var(--border);
-  }
-
-  .dossier-header {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 18px 25px;
-
-    border-bottom: 1px dashed var(--border);
-
+  .identity-title span,
+  .journey-heading span,
+  .future-heading span {
     color: var(--accent);
     font-size: 11px;
     letter-spacing: 2px;
   }
 
-  .dossier-header .online {
+  .identity-title h2 {
+    margin-top: 20px;
+    font-size: clamp(30px, 4vw, 55px);
+    line-height: 1;
+  }
+
+  /* DOSSIER */
+
+  .dossier,
+  .capability-panel,
+  .workflow-panel {
+    background: rgba(8, 8, 12, 0.9);
+    border: 1px solid var(--border);
+  }
+
+  .dossier-header,
+  .capability-header,
+  .workflow-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 25px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .dossier-header .online,
+  .capability-header strong {
     color: var(--terminal-green);
   }
 
@@ -413,27 +776,24 @@ const t = getTranslations(language);
 
   .identity {
     padding: 55px;
-
     border-right: 1px solid var(--border);
   }
 
   .identity-label {
+    margin-bottom: 15px;
     color: #777;
     font-size: 10px;
     letter-spacing: 2px;
-    margin-bottom: 15px;
   }
 
   .identity h2 {
     margin: 0 0 15px;
-
     font-size: 44px;
     letter-spacing: -2px;
   }
 
   .identity p {
     margin: 0;
-
     color: var(--terminal-green);
     font-size: 11px;
     font-weight: bold;
@@ -447,11 +807,8 @@ const t = getTranslations(language);
     display: grid;
     grid-template-columns: 180px 1fr;
     gap: 20px;
-
     padding: 18px 0;
-
     border-bottom: 1px solid var(--border);
-
     color: #bbb;
     font-size: 12px;
     line-height: 1.6;
@@ -466,51 +823,73 @@ const t = getTranslations(language);
     letter-spacing: 1px;
   }
 
-  /* ========================
-     APPROACH
-  ======================== */
+  /* PHILOSOPHY */
 
-  .approach-section {
-    margin-bottom: 120px;
+  .small-label {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 2px;
   }
+
+  .motto {
+    margin-top: 45px;
+    padding: 30px;
+    border-left: 2px solid var(--accent);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .motto span {
+    display: block;
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .motto strong {
+    display: block;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  .motto p {
+    margin: 0 !important;
+    font-size: 13px !important;
+  }
+
+  /* APPROACH */
 
   .approach-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
   }
 
   .approach-card {
     position: relative;
-
-    min-height: 280px;
-    padding: 35px;
-
-    background: rgba(8, 8, 12, 0.9);
-    border: 1px solid var(--border);
-
+    min-height: 260px;
+    padding: 30px;
     overflow: hidden;
+    border: 1px solid var(--border);
+    background: rgba(8, 8, 12, 0.9);
   }
 
   .approach-card::after {
     content: "";
-
     position: absolute;
     right: -20px;
     bottom: -20px;
-
     width: 90px;
     height: 90px;
-
     border: 1px solid var(--border);
     transform: rotate(45deg);
   }
 
   .card-number {
     display: block;
-
-    margin-bottom: 60px;
-
+    margin-bottom: 55px;
     color: var(--accent);
     font-size: 11px;
     letter-spacing: 2px;
@@ -518,47 +897,59 @@ const t = getTranslations(language);
 
   .approach-card h3 {
     margin: 0 0 15px;
-
-    font-size: 25px;
+    font-size: 22px;
     text-transform: uppercase;
   }
 
   .approach-card p {
-    max-width: 400px;
-
     color: #888;
     font-size: 12px;
     line-height: 1.8;
   }
 
-  /* ========================
-     CAPABILITIES
-  ======================== */
+  /* WORKFLOW */
 
-  .capabilities-section {
-    margin-bottom: 120px;
-  }
-
-  .capability-panel {
-    background: rgba(8, 8, 12, 0.9);
-    border: 1px solid var(--border);
-  }
-
-  .capability-header {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 18px 25px;
-
-    border-bottom: 1px dashed var(--border);
-
+  .workflow-header {
     color: #777;
-    font-size: 10px;
+  }
+
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .workflow-step {
+    min-height: 220px;
+    padding: 30px;
+    border-right: 1px solid var(--border);
+  }
+
+  .workflow-step:last-child {
+    border-right: none;
+  }
+
+  .workflow-step > span {
+    color: var(--accent);
+    font-size: 11px;
     letter-spacing: 2px;
   }
 
-  .capability-header strong {
-    color: var(--terminal-green);
+  .workflow-step h3 {
+    margin: 35px 0 15px;
+    font-size: 17px;
+  }
+
+  .workflow-step p {
+    margin: 0;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  /* CAPABILITIES */
+
+  .capability-header {
+    color: #777;
   }
 
   .capability-grid {
@@ -567,11 +958,8 @@ const t = getTranslations(language);
   }
 
   .capability {
-    position: relative;
-
-    min-height: 200px;
+    min-height: 190px;
     padding: 35px;
-
     border-bottom: 1px solid var(--border);
   }
 
@@ -579,8 +967,7 @@ const t = getTranslations(language);
     border-right: 1px solid var(--border);
   }
 
-  .capability:nth-child(3),
-  .capability:nth-child(4) {
+  .capability:nth-last-child(-n + 2) {
     border-bottom: none;
   }
 
@@ -591,40 +978,88 @@ const t = getTranslations(language);
   }
 
   .capability h3 {
-    margin: 30px 0 12px;
-
-    font-size: 22px;
+    margin: 25px 0 12px;
+    font-size: 21px;
   }
 
   .capability p {
-    max-width: 500px;
-
+    max-width: 550px;
     color: #888;
     font-size: 12px;
     line-height: 1.8;
   }
 
-  /* ========================
-     CLOSING
-  ======================== */
+  /* JOURNEY */
 
-  .closing-section {
-    padding-top: 20px;
+  .journey-heading h2 {
+    margin-top: 25px;
   }
+
+  .journey-text p {
+    border-left: 1px solid var(--border);
+    padding-left: 25px;
+  }
+
+  /* CURRENT */
+
+  .current-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+
+  .current-item {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 20px;
+    min-height: 130px;
+    padding: 30px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .current-item span {
+    color: var(--accent);
+    font-size: 11px;
+  }
+
+  .current-item p {
+    margin: 0;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .current-ai {
+    grid-column: span 2;
+  }
+
+  /* FUTURE */
+
+  .future-heading {
+    position: relative;
+  }
+
+  .future-symbol {
+    margin-top: 40px;
+    color: var(--accent);
+    font-size: 80px;
+    line-height: 1;
+  }
+
+  /* CLOSING */
 
   .closing-line {
     width: 100%;
     height: 1px;
     margin-bottom: 35px;
-
     background: var(--border);
   }
 
   .closing-section p {
     max-width: 850px;
-
     margin: 0 0 25px;
-
     color: #aaa;
     font-size: 18px;
     line-height: 1.8;
@@ -636,9 +1071,29 @@ const t = getTranslations(language);
     letter-spacing: 2px;
   }
 
-  /* ========================
-     RESPONSIVE
-  ======================== */
+  /* RESPONSIVE */
+
+  @media (max-width: 1000px) {
+    .approach-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .workflow-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .workflow-step:nth-child(2n) {
+      border-right: none;
+    }
+
+    .workflow-step {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .workflow-step:last-child {
+      grid-column: span 2;
+    }
+  }
 
   @media (max-width: 900px) {
     .about-page {
@@ -653,12 +1108,12 @@ const t = getTranslations(language);
       display: none;
     }
 
-    .intro-grid {
-      grid-template-columns: 1fr;
-      gap: 35px;
-    }
-
-    .dossier-body {
+    .intro-grid,
+    .identity-grid,
+    .philosophy-grid,
+    .dossier-body,
+    .journey-grid,
+    .future-grid {
       grid-template-columns: 1fr;
     }
 
@@ -667,24 +1122,12 @@ const t = getTranslations(language);
       border-bottom: 1px solid var(--border);
     }
 
-    .approach-grid {
+    .current-grid {
       grid-template-columns: 1fr;
     }
 
-    .capability-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .capability:nth-child(odd) {
-      border-right: none;
-    }
-
-    .capability {
-      border-bottom: 1px solid var(--border) !important;
-    }
-
-    .capability:last-child {
-      border-bottom: none !important;
+    .current-ai {
+      grid-column: auto;
     }
   }
 
@@ -696,6 +1139,30 @@ const t = getTranslations(language);
     .hero-meta {
       flex-direction: column;
       gap: 10px;
+    }
+
+    .approach-grid,
+    .workflow-grid,
+    .capability-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-step,
+    .workflow-step:last-child {
+      grid-column: auto;
+      border-right: none;
+    }
+
+    .capability:nth-child(odd) {
+      border-right: none;
+    }
+
+    .capability:nth-last-child(-n + 2) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .capability:last-child {
+      border-bottom: none;
     }
 
     .identity {
@@ -711,8 +1178,8 @@ const t = getTranslations(language);
       gap: 5px;
     }
 
-    .approach-card {
-      min-height: 240px;
+    .current-item {
+      grid-template-columns: 35px 1fr;
     }
   }
 </style>
