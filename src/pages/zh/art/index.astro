@@ -30,7 +30,31 @@ const CATEGORIES: { folder: string; titles: Record<string, string> }[] = [
   { folder: "food-art", titles: { en: "Food Art", zh: "美食艺术" } },
 ];
 
+const TITLE_MAP: Record<string, Record<string, string>> = {
+  illustrations: {
+    "01-xiaoke": "小刻",
+    "02-palasi": "帕拉斯",
+    "03-taojinniang": "桃金娘",
+    "04-gua": "伊吹萃香",
+    "05-aiyafala": "纯烬艾雅法拉",
+    "06-susuluo": "苏苏洛",
+    "07-mofazhumi": "魔法猪咪",
+  },
+  "food-art": {
+    "01-seven-color-yokan": "七色羊羹",
+    "02-niten-ichiryu": "二天一流",
+    "03-wellington-steak": "惠灵顿牛排",
+    "04-unconscious-mousse": "无意识妖怪慕斯",
+    "05-tricolor-icecream": "毛玉三色冰激凌",
+    "06-burnt-pudding": "燃尽布丁",
+  },
+};
+
 function titleFromFilename(folder: string, filename: string): string {
+  const key = filename.replace(/\.[^.]+$/, "");
+  if (TITLE_MAP[folder]?.[key]) {
+    return TITLE_MAP[folder][key];
+  }
   let name = filename.replace(/^.*[\\/]/, "").replace(/\.(png|jpe?g|webp)$/i, "");
   name = name.replace(/^\d+[-_]/, "");
   name = name.replace(/[-_]/g, " ");

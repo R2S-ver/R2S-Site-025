@@ -5,7 +5,7 @@ description: 数字角色插画合集，探索风格化肖像与视觉叙事。
 
 type: art
 category: 插画
-cover: 05-aiyafala.png
+cover: 05-aiyafala.jpg
 
 tags:
   - 插画
@@ -23,15 +23,15 @@ lang: zh
 translationKey: illustrations
 
 gallery:
-  - file: 01-xiaoke.png
+  - file: 01-xiaoke.jpg
     title: 小刻 — 2026年9月
   - file: 02-palasi.png
     title: 帕拉斯 — 2025年1月
   - file: 03-taojinniang.png
     title: 桃金娘 — 2026年7月
-  - file: 04-gua.png
+  - file: 04-gua.jpg
     title: 瓜 — 2025年3月
-  - file: 05-aiyafala.png
+  - file: 05-aiyafala.jpg
     title: 纯烬艾雅法拉 — 2025年9月
   - file: 06-susuluo.png
     title: 苏苏洛 — 2025年8月

@@ -32,14 +32,34 @@ const CATEGORIES: { folder: string; titles: Record<string, string> }[] = [
   { folder: "food-art", titles: { en: "Food Art", zh: "美食艺术" } },
 ];
 
+const TITLE_MAP: Record<string, Record<string, string>> = {
+  illustrations: {
+    "01-xiaoke": "Ceobe",
+    "02-palasi": "Pallas",
+    "03-taojinniang": "Myrtle",
+    "04-gua": "Ibuki Suika",
+    "05-aiyafala": "Eyjafjalla",
+    "06-susuluo": "Sussurro",
+    "07-mofazhumi": "Magic Piggy",
+  },
+  "food-art": {
+    "01-seven-color-yokan": "Seven-Color Yōkan",
+    "02-niten-ichiryu": "Niten Ichi-ryū",
+    "03-wellington-steak": "Wellington Steak",
+    "04-unconscious-mousse": "Unconscious Monster Mousse",
+    "05-tricolor-icecream": "Kedama Tricolor Ice Cream",
+    "06-burnt-pudding": "Burnt Pudding",
+  },
+};
+
 function titleFromFilename(folder: string, filename: string): string {
-  // Remove folder path and extension
+  const key = filename.replace(/\.[^.]+$/, "");
+  if (TITLE_MAP[folder]?.[key]) {
+    return TITLE_MAP[folder][key];
+  }
   let name = filename.replace(/^.*[\\/]/, "").replace(/\.(png|jpe?g|webp)$/i, "");
-  // Remove leading number prefix like "01-"
   name = name.replace(/^\d+[-_]/, "");
-  // Replace dashes and underscores with spaces, capitalize
   name = name.replace(/[-_]/g, " ");
-  // Capitalize words
   return name.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 

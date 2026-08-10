@@ -162,13 +162,10 @@ const t = translations[currentLanguage];
     <!-- BRAND -->
 
     <div class="brand">
-      <div class="logo">
-        <span class="red"></span>
-        <span class="yellow"></span>
-        <span class="teal"></span>
-      </div>
-
-      <a href={homePath}> R2S // STUDIO </a>
+      <a href={homePath} class="brand-link">
+        <img src="/favicon-48x48.png" alt="R2S" class="brand-icon" width="24" height="24" />
+        <span> R2S // STUDIO </span>
+      </a>
     </div>
 
     <!-- NAVIGATION -->
@@ -476,65 +473,30 @@ const t = translations[currentLanguage];
     */
 
     .brand {
-      display: flex;
-
-      align-items: center;
-
-      gap: 15px;
-
-      font-weight: 900;
-
-      line-height: 1;
-
-      font-size: 14px;
-
-      letter-spacing: 1px;
-    }
-
-    .brand a {
-      color: white;
-
-      text-decoration: none;
-    }
-
-    /*
-    =========================================================
-    LOGO
-    =========================================================
-    */
-
-    .logo {
-      display: flex;
-
-      width: 36px;
-
-      height: 18px;
-
-      overflow: hidden;
-
-      border-radius: 2px;
-
       flex-shrink: 0;
     }
 
-    .logo span {
-      display: block;
-
-      width: 12px;
-
-      height: 18px;
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
     }
 
-    .logo .red {
-      background: var(--stripe-red);
+    .brand-link:hover {
+      color: var(--accent);
     }
 
-    .logo .yellow {
-      background: var(--stripe-yellow);
-    }
-
-    .logo .teal {
-      background: var(--stripe-teal);
+    .brand-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 3px;
+      flex-shrink: 0;
     }
 
     /*

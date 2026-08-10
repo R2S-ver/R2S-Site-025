@@ -143,7 +143,7 @@ export const translations = {
         pageTag: "PERSONNEL_DOSSIER // PROFILE_MODULE",
         pageStatus: "● SYSTEM_ACTIVE",
         eyebrow: "R2S STUDIO // DESIGNER + MAKER + ARTIST",
-        title: "About R2S",
+        title: "About ME",
         introTitle: "BETWEEN DESIGN\nMAKING\nART",
         description:
           "I am an industrial product designer and digital artist with a strong interest in making things real.",
