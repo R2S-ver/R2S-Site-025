@@ -1,9 +1,12 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
+import ContentList from "../../../components/ContentList.astro";
 ---
 
-<Layout title="R2S Studio">
-  <main>
-    <h1>Notes</h1>
-  </main>
+<Layout title="笔记 | R2S Studio">
+  <ContentList
+    type="note"
+    title="笔记"
+    description="研究、学习与技术记录。"
+  />
 </Layout>

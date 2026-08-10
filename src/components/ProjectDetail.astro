@@ -106,7 +106,7 @@ const translationAvailable = !!translation;
     <aside class="toc">
       <h3>{t.common.contents}</h3>
 
-      <nav id="toc-list" class="toc-list"></nav>
+      <nav id="toc-list" class="toc-list" data-toc-level={project.data.type === "note" ? "h2" : "h1"}></nav>
     </aside>
 
     <article>
@@ -122,7 +122,7 @@ const translationAvailable = !!translation;
 
     if (!article || !toc) return;
 
-    const headings = article.querySelectorAll("h1");
+    const headings = article.querySelectorAll(toc.dataset.tocLevel || "h1");
 
     headings.forEach((heading, index) => {
       if (!heading.id) {
