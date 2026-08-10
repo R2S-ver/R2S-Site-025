@@ -5,7 +5,7 @@ description: A collection of product design posters exploring visual identity, c
 
 type: art
 category: Poster Design
-cover: 01-kartent-eco-bin.png
+cover: 01-kartent-eco-bin.jpg
 
 tags:
   - Poster Design
@@ -24,13 +24,13 @@ lang: en
 translationKey: product-posters
 
 gallery:
-  - file: 01-kartent-eco-bin.png
+  - file: 01-kartent-eco-bin.jpg
     title: Kartent Eco Bin
   - file: 02-krukcup.png
     title: KRUKCUP
-  - file: 03-ninjago.png
+  - file: 03-ninjago.jpg
     title: Ninjago
-  - file: 04-powerdrill.png
+  - file: 04-powerdrill.jpg
     title: Powerdrill
   - file: 05-powerdrill-variant.png
     title: Powerdrill — Alternate

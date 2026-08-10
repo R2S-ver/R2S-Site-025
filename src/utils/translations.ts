@@ -145,6 +145,7 @@ export const translations = {
         eyebrow: "R2S STUDIO // DESIGNER + MAKER + ARTIST",
         title: "About ME",
         introTitle: "BETWEEN DESIGN\nMAKING\nART",
+        subtitle: "Industrial designer & maker based in Rotterdam, bridging technical thinking with visual creativity.",
         description:
           "I am an industrial product designer and digital artist with a strong interest in making things real.",
         introText:
@@ -436,10 +437,10 @@ export const translations = {
     aboutPreview: {
       header: "个人档案 // 资料模块",
       operator: "操作员",
-      status: "● 活跃设计师 // 创作者",
+      status: "● 活跃设计师 //  创客",
       description: {
         line1:
-          "一名探索实体产品、技术与艺术之间联系的设计师与创作者",
+          "一名探索实体产品、技术与艺术之间联系的设计师与画师",
         line2:
           "专注于通过工业设计、嵌入式系统与实验性原型，将概念转化为现实",
       },
@@ -485,10 +486,11 @@ export const translations = {
       about: {
         pageTag: "个人档案 // 资料模块",
         pageStatus: "● 系统运行中",
-        eyebrow: "R2S STUDIO // 设计师 + 创作者 + 艺术家",
-        title: "关于 R2S",
+        eyebrow: "R2S STUDIO // 设计师 + 创客 + 画师",
+        title: "关于我",
 
         introTitle: "设计、工程与视觉艺术之间",
+        subtitle: "工业设计师 & 创客，现居鹿特丹，在技术思维与视觉创造力之间寻找交汇点。",
         description: "我的创作处于设计、工程与视觉艺术的交汇地",
         introText:
           "从一个模糊的草图或概念开始，寻找参考、研究材料与结构、发展造型、建立 3D 模型、制作原型，并最终把它变成一个看得见、摸得着，同时真正能够工作的实体",
@@ -505,7 +507,7 @@ export const translations = {
           header: "个人档案 // 关于模块",
           operator: "操作员",
           role: "工业及产品设计师",
-          status: "● 活跃设计师 // 创作者",
+          status: "● 活跃设计师 // 创客",
           locationLabel: "位置",
           location: "鹿特丹 // 荷兰",
           fieldLabel: "领域",
@@ -529,6 +531,7 @@ export const translations = {
         },
 
         approach: {
+          description: "从想法到实物的创意流程。",
           research: {
             title: "研究",
             description:
@@ -642,7 +645,7 @@ export const translations = {
 
         future: {
           header: "下一阶段 // 未来方向",
-          text: "工业设计是主线任务，同时还有创作者与插画师这两个支线",
+          text: "工业设计是主线任务，同时还有创客与插画师这两个支线",
           second:
             "长期来看，我希望自己能够越来越完整地把一个想法从概念与视觉开发，一路做到电子、软件、机械结构、采购与制造，最终成为一个成熟的独立设计师",
           third:

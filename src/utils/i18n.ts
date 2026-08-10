@@ -41,7 +41,7 @@ export function getLocalizedPath(
   language: Language
 ): string {
   const cleanPath =
-    pathname.replace(/^\/zh/, "") || "/";
+    pathname.replace(/^\/zh(?:\/|$)/, "/") || "/";
 
   if (language === "en") {
     return cleanPath;

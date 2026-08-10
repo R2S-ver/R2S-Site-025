@@ -1530,7 +1530,9 @@ const t = getTranslations(lang);
           }
         }
 
-        // ── Shadow ──
+        // ── Shadow (offset) ──
+        ctx.save();
+        ctx.translate(2, 2);
         ctx.fillStyle = "rgba(0,0,0,0.3)";
         ctx.beginPath();
 
@@ -1573,7 +1575,8 @@ const t = getTranslations(lang);
           ctx.closePath();
         }
         ctx.fill();
-        // Body gradient
+        ctx.restore();
+        // Body
         const g = ctx.createLinearGradient(-oreSize, -oreSize, oreSize, oreSize);
         g.addColorStop(0, oreColors[0]);
         g.addColorStop(1, oreColors[1]);
