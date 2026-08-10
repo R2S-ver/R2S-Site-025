@@ -58,7 +58,7 @@ The philosophy I landed on was pretty simple: don't try to stop everything at on
 
 Every single material in this vest is there for a reason. The stack order matters just as much as the materials themselves: environmental protection on the outside, ballistic and impact protection in the middle, comfort against the body.
 
-<img src="./06-material-and-production.png" alt="Material Selection and Production" style="max-width:600px; border-radius:12px; display:block; margin:40px auto;" />
+<img src="./06-material-and-production.jpg" alt="Material Selection and Production" style="max-width:600px; border-radius:12px; display:block; margin:40px auto;" />
 
 ## Layer Breakdown (Outside → Inside)
 

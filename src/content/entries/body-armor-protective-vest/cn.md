@@ -58,7 +58,7 @@ translationKey: body-armor-protective-vest
 
 这件背心里没有一块"差不多"的面料。每一层压进去的材料都有明确的分工，而且叠放顺序和材料本身同样关键：外层扛环境，中层扛弹道，内层扛舒适度。
 
-<img src="./06-material-and-production.png" alt="材料与生产" style="max-width:600px; border-radius:12px; display:block; margin:40px auto;" />
+<img src="./06-material-and-production.jpg" alt="材料与生产" style="max-width:600px; border-radius:12px; display:block; margin:40px auto;" />
 
 ## 层次分解（外 → 内）
 
