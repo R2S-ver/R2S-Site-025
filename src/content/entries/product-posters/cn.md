@@ -1,6 +1,6 @@
 ---
 title: 产品海报
-date: 2024-06-01
+date: 2026-06-01
 description: 产品设计海报合集，探索视觉识别、构图与商业美学。
 
 type: art

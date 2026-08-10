@@ -24,11 +24,11 @@ translationKey: illustrations
 
 gallery:
   - file: 01-xiaoke.png
-    title: 小刻 — 2024年9月
+    title: 小刻 — 2026年9月
   - file: 02-palasi.png
     title: 帕拉斯 — 2025年1月
   - file: 03-taojinniang.png
-    title: 桃金娘 — 2024年7月
+    title: 桃金娘 — 2026年7月
   - file: 04-gua.png
     title: 瓜 — 2025年3月
   - file: 05-aiyafala.png

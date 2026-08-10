@@ -32,15 +32,15 @@ lang: en
 translationKey: esp32-ec11-stepper-motor
 ---
 
-# Purpose
+# What I Built
 
-Verify that the ESP32 can simultaneously complete:
+This is where the previous encoder + OLED prototype graduated to actual motion control. I bolted a DM430 stepper driver and a 42BL40 motor onto the bench, wired everything up to the ESP32, and wrote the firmware to make it all work together. The system handles:
 
-1. **Dual EC11 encoder input** — direction detection, incremental counting, push buttons
-2. **Dual OLED display control** — SH1106 ×2 parallel sync display, real-time angle & step count
-3. **DM430 stepper motor driver** — STEP/DIR pulse output, 42BL40 motor control, microstep & current tuning
-4. **WiFi WebSocket dashboard** — real-time control page with auto-reconnect and heartbeat
-5. **FreeRTOS multi-task architecture** — Encoder Task, Motor Task, OLED Task, WebServer
+1. **Dual EC11 encoder input** — direction detection, incremental counting, push buttons for mode toggling.
+2. **Dual OLED display control** — two SH1106 modules in parallel on the same I2C bus, showing real-time angle, step count, speed, and current mode.
+3. **DM430 stepper motor driver** — STEP/DIR pulse output on GPIO4/5, with the 42BL40 motor running at 1600 microsteps per revolution. Tuned the driver's current and microstep settings through trial and error.
+4. **WiFi WebSocket dashboard** — a real-time control page with auto-reconnect and heartbeat, mirroring what the OLED shows.
+5. **FreeRTOS multi-task architecture** — Encoder Task, Motor Task, and OLED Task all on Core 1 behind a mutex.
 
 # System Architecture
 
@@ -68,10 +68,12 @@ Verify that the ESP32 can simultaneously complete:
 
 # Dual Control Modes
 
-- **MANUAL mode:** Rotate the encoder → motor moves in steps. Direct position control for precise adjustments.
-- **AUTO mode:** Encoder adjusts speed (−5000 to +5000 steps/sec). Motor runs continuously at the set speed. Ideal for testing motion ranges.
+I wanted two fundamentally different ways to interact with the motor, so I built both:
 
-Push button toggles between modes.
+- **MANUAL mode:** Spin the encoder and the motor follows in discrete steps. Each detent on the EC11 moves the motor by 20 steps (configurable). This is direct position control — great for precise jogging and alignment work.
+- **AUTO mode:** The encoder doesn't control position anymore — it controls speed. Twisting the knob changes the step rate from -5000 to +5000 steps/sec, with each encoder increment adjusting by 50 steps/sec. The motor runs continuously. Negative speed = reverse direction. This mode is perfect for sweeping through a motion range or testing speed limits.
+
+Pressing either encoder's push button toggles between modes. When you switch modes, the firmware syncs the target position to the current position so there's no sudden jump — I learned that one the hard way after the motor slammed into an endstop during an early test.
 
 # Hardware
 
@@ -79,8 +81,8 @@ Push button toggles between modes.
 
 | Signal | ESP32 Pin | Function |
 |--------|-----------|----------|
-| SDA    | GPIO21    | I²C Data |
-| SCL    | GPIO22    | I²C Clock |
+| SDA    | GPIO21    | I2C Data |
+| SCL    | GPIO22    | I2C Clock |
 | VCC    | 3.3V      | Power |
 | GND    | GND       | Ground |
 | TRA    | GPIO32    | Encoder A (rotation) |
@@ -93,8 +95,8 @@ Push button toggles between modes.
 
 | Signal | ESP32 Pin | Function |
 |--------|-----------|----------|
-| SDA    | GPIO21    | I²C Data (shared bus) |
-| SCL    | GPIO22    | I²C Clock (shared bus) |
+| SDA    | GPIO21    | I2C Data (shared bus) |
+| SCL    | GPIO22    | I2C Clock (shared bus) |
 | VCC    | 3.3V      | Power |
 | GND    | GND       | Ground |
 | TRA    | GPIO16    | Encoder A (rotation) |
@@ -103,7 +105,7 @@ Push button toggles between modes.
 | BAK    | GPIO19    | Back button |
 | CON    | GPIO23    | Confirm button |
 
-## Pinout — DM430 Stepper Driver → ESP32
+## Pinout — DM430 Stepper Driver to ESP32
 
 | DM430 Pin | ESP32 Pin | Function |
 |-----------|-----------|----------|
@@ -114,7 +116,7 @@ Push button toggles between modes.
 | DIR-      | GND       | — |
 | ENA-      | GND       | — |
 
-## DM430 → 42BL40 Stepper Motor
+## DM430 to 42BL40 Stepper Motor
 
 | DM430 | Motor Wire |
 |-------|------------|
@@ -128,21 +130,23 @@ Push button toggles between modes.
 | Device  | Voltage | Source  |
 |---------|---------|---------|
 | ESP32   | 5V      | USB     |
-| OLED ×2 | 3.3V    | ESP32   |
-| EC11 ×2 | 3.3V    | ESP32   |
+| OLED x2 | 3.3V    | ESP32   |
+| EC11 x2 | 3.3V    | ESP32   |
 | DM430   | 24V     | External PSU |
 | 42BL40  | —       | DM430 output |
 
 # Debugging Journey
 
-Key issues encountered and resolved:
+Getting a stepper motor to spin sounds simple until you're staring at a motionless shaft and a red FLT light on the driver. Here's what went wrong and how I fixed it:
 
 | Issue | Root Cause | Solution |
 |-------|-----------|----------|
-| OLED shows only a line | SH1106 init param wrong | `display.begin(0x3C, true)` |
-| Motor not spinning | ENA signal logic inverted | Disconnect ENA, use STEP+DIR only |
-| DM430 red FLT alarm | PA current setting incorrect | Reconfigure driver parameters |
-| Motor too slow | Step count per turn too low | Increase speed factor in code |
+| OLED shows only a line | SH1106 init param wrong | `display.begin(0x3C, true)` — the `true` triggers a hardware reset |
+| Motor not spinning | ENA signal logic inverted | Disconnected ENA entirely; STEP+DIR alone works fine for basic control |
+| DM430 red FLT alarm | PA current setting incorrect | Reconfigured driver DIP switches to match the 42BL40's rated current |
+| Motor too slow | Step count per encoder tick too low | Bumped the speed factor in code from a conservative value to something that actually feels responsive |
+
+The ENA pin was the most frustrating one. The DM430's enable logic depends on how you've wired the optocoupler inputs — pulling ENA+ high didn't enable the driver the way I expected. In the end I just left it disconnected and the driver defaults to enabled, which is fine for this prototype.
 
 # Full Code
 
@@ -617,13 +621,12 @@ void loop() {
 
 # Result
 
-ESP32 successfully:
-- ✅ Dual EC11 encoder reading
-- ✅ Dual OLED sync display
-- ✅ WiFi WebSocket server + dashboard
-- ✅ DM430 stepper motor control
-- ✅ 42BL40 motor driven via DM430
-- ✅ FreeRTOS multi-task scheduling
-- ✅ Industrial driver parameter tuning
+This one fought me a bit — stepper drivers have their own personality — but everything came together:
 
-The system has graduated from input device verification to a full motion control platform. Next steps: TCA9548A I²C expansion, 4 independent OLEDs, HSV lighting control, and closed-loop stepper control.
+- Both EC11 encoders feed into the control loop with no dropped counts, and the mode-switching logic (with position sync on transition) prevents the motor from jumping when you toggle between MANUAL and AUTO.
+- Dual OLEDs display angle, step count, speed, and mode — I2C bus sharing works fine at these refresh rates.
+- The WebSocket dashboard mirrors the OLED data in real time, with the usual heartbeat and auto-reconnect.
+- The DM430 drives the 42BL40 smoothly at 1600 microsteps/rev. The motor sings a bit at certain speeds but that's just stepper harmonics — nothing a microstep tuning pass can't dial out.
+- FreeRTOS scheduling holds up: the 1000 Hz encoder task, the pulse-generation motor task, and the 10 Hz OLED refresh all coexist on Core 1 without starving each other.
+
+This thing has graduated from "does the software work" to "actual motion control platform." The next round of upgrades I'm planning: a TCA9548A I2C multiplexer so I can run four independent OLEDs without address conflicts, HSV-based lighting control tied to motor position, and eventually closed-loop feedback with an encoder on the motor shaft.

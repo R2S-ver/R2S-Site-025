@@ -31,14 +31,16 @@ translationKey: esp32-ec11-encoder-oled
 
 ![Hardware Setup](./01-setup.png)
 
-# Purpose
+# What I Built
 
-Verify that the ESP32 can simultaneously handle:
+This is the first stepping stone toward a full motor control rig. Before bolting steppers and drivers onto the bench, I wanted to prove the ESP32 could juggle a few things at once without tripping over itself. So I set out to build a test platform that handles:
 
-1. **Dual EC11 rotary encoder input** — clockwise/counter-clockwise detection, incremental counting, push button input
-2. **SH1106 OLED display** — real-time angle display for both encoders, I2C communication stability
-3. **WiFi WebSocket server** — browser-based real-time angle display with auto-reconnect
-4. **FreeRTOS multi-task architecture** — Encoder Task (1000 Hz), Motor Task (100 Hz), OLED Task (10 Hz), WebServer
+1. **Dual EC11 rotary encoder input** — both encoders read simultaneously, with direction detection, incremental counting, and push button debouncing. No missed steps.
+2. **SH1106 OLED display** — both OLEDs share the same I2C bus (0x3C), refreshing angle data at 10 Hz without flicker or bus contention.
+3. **WiFi WebSocket server** — a browser-based dashboard that shows both angles in real time. WebSocket beats polling for this kind of low-latency UI, and I added heartbeat packets so the connection doesn't time out.
+4. **FreeRTOS multi-task architecture** — three tasks pinned to Core 1: Encoder Task at 1000 Hz, Motor Task at 100 Hz, and OLED Task at 10 Hz. Core 0 handles the web server. Mutex on the motor struct keeps shared state consistent.
+
+The goal wasn't to build anything flashy — it was to validate that the software architecture holds up under concurrent load before I add real motors to the mix.
 
 # System Architecture
 
@@ -61,8 +63,8 @@ Verify that the ESP32 can simultaneously handle:
 
 | Signal | ESP32 Pin | Function |
 |--------|-----------|----------|
-| SDA    | GPIO21    | I²C Data |
-| SCL    | GPIO22    | I²C Clock |
+| SDA    | GPIO21    | I2C Data |
+| SCL    | GPIO22    | I2C Clock |
 | VCC    | 3.3V      | Power |
 | GND    | GND       | Ground |
 | TRA    | GPIO32    | Encoder A (rotation) |
@@ -75,8 +77,8 @@ Verify that the ESP32 can simultaneously handle:
 
 | Signal | ESP32 Pin | Function |
 |--------|-----------|----------|
-| SDA    | GPIO21    | I²C Data (shared bus) |
-| SCL    | GPIO22    | I²C Clock (shared bus) |
+| SDA    | GPIO21    | I2C Data (shared bus) |
+| SCL    | GPIO22    | I2C Clock (shared bus) |
 | VCC    | 3.3V      | Power |
 | GND    | GND       | Ground |
 | TRA    | GPIO16    | Encoder A (rotation) |
@@ -85,21 +87,22 @@ Verify that the ESP32 can simultaneously handle:
 | BAK    | GPIO19    | Back button |
 | CON    | GPIO23    | Confirm button |
 
-> Both OLED modules share the same I²C bus (GPIO21/22). Each module's buttons and encoder use independent GPIO pins.
+> Both OLED modules share the same I2C bus (GPIO21/22). Each module's buttons and encoder use independent GPIO pins.
 
 # Web Interface
 
 ![Web Display](./02-web-display.png)
 
-The browser connects via WebSocket and displays both encoder angles in real time. Heartbeat packets maintain the connection, and automatic reconnection handles WiFi drops.
+The browser connects over WebSocket and displays both encoder angles with zero perceptible lag. The JavaScript reconnect logic handles WiFi glitches gracefully — if the ESP32 drops off the network, the page quietly retries every 2 seconds until it's back.
+
+One small optimization I'm happy with: the Motor Task only sends data when the angle actually changed, and it throttles to a minimum 50ms interval. Without that, every encoder tick would fire a WebSocket frame and you'd flood the browser on fast spins.
 
 # OLED Display
 
 The OLED shows:
-- Current mode (animation running/paused)
-- Animated indicator bar
-- Motor 1 angle
-- Motor 2 angle
+- Current mode indicator (a little animated `[>]` or `[||]` depending on state)
+- A scrolling animation bar that bounces across the top — pointless but satisfying
+- Motor 1 and Motor 2 angles in degrees
 
 # Full Code
 
@@ -433,11 +436,11 @@ void loop() {
 
 # Result
 
-ESP32 successfully:
-- ✅ Reads dual EC11 encoders with direction detection
-- ✅ Displays real-time data on SH1106 OLED
-- ✅ Creates WiFi WebSocket server
-- ✅ Streams real-time angle data to browser
-- ✅ Runs FreeRTOS multi-task architecture
+Everything checks out:
 
-This validates the ESP32 as a viable core for future motor control interaction prototypes.
+- Both EC11 encoders track reliably with direction detection — no missed ticks even when I spin them fast.
+- The SH1106 OLED refreshes at 10 Hz without flicker, and the shared I2C bus handles both modules fine. The `display.begin(0x3C, true)` call was the key — passing `true` for reset fixed the "OLED shows only a horizontal line" problem that had me scratching my head for an hour.
+- The WebSocket server streams angle data to the browser with a 50ms send throttle. The heartbeat packets keep the connection alive even if nothing changes for a while.
+- FreeRTOS tasks on Core 1 don't starve each other — mutex acquisition times are negligible at these rates.
+
+This prototype proved the software stack works. Next step: wire up a real DM430 stepper driver and replace those virtual "motor" angle values with actual step pulses.

@@ -31,153 +31,158 @@ translationKey: studio-electrical-optimization
 
 # Overview
 
-This project documents a systematic analysis and optimization of the electrical infrastructure in my home workshop. The goal was to understand power distribution topology, identify safety risks, and design practical solutions for a safe, professional working environment.
+When I started welding in the same room as my computers, I knew I was asking for trouble. The lights would flicker when the compressor kicked on. Power strips were daisy-chained in ways I'd rather not describe. And somewhere in the back of my mind I knew the setup had problems — I just hadn't sat down to figure out exactly what they were.
 
-The study is based on my local context in **The Netherlands (Europe)**, where installations must comply with **NEN 1010** safety regulations. Voltage standards, panel structures, and protection mechanisms vary by country.
+This project is the result of finally doing that. I mapped out every outlet, every device, every extension cord in my workshop, and what I found wasn't pretty: nine distinct safety risks, from an ungrounded welding machine to a fire hazard I'd been casually ignoring for months.
 
-# Research Goals
+I'm in **the Netherlands**, so everything here is grounded in **NEN 1010** — the Dutch implementation of European wiring regulations. If you're in a different country, your voltage standards and panel structures will differ, but the principles around topology, circuit separation, and overcurrent protection are universal.
 
-- Systematically map the power distribution structure and usage patterns
-- Identify potential safety risks in the current setup
-- Identify the main energy-consuming devices
-- Design safe, reliable, and feasible solutions for energy savings
-- Implement a zoned power distribution system
+# What I Wanted to Achieve
 
-# Protective Mechanisms in the Household Electrical System
+- Actually map out where power flows in my workshop — not just guess
+- Find every safety risk I'd been walking past without noticing
+- Identify which devices were the real power hogs
+- Design a solution that was both safe and actually doable (not a theoretical "rewire the house" plan)
+- Implement physical circuit separation between heavy machinery and sensitive electronics
 
-In Dutch homes, the distribution board (_groepenkast_) is located in the meter cupboard. Power enters through the grid connection and passes through the following safety components:
+# How a Dutch Home Electrical System Works
 
-- **Main Fuse & Main Switch:** For total system shutdown
-- **Residual Current Device (RCD):** Protects against electrocution by detecting leakage currents
-- **Circuit Breakers:** Distributes the installation into groups, with heavy consumers on dedicated circuits
-- **Grounding:** Provides a safe path for fault currents
+For context: in Dutch homes, the distribution board (_groepenkast_) lives in the meter cupboard. Power comes in from the grid and hits these protection layers in order:
+
+- **Main Fuse & Main Switch:** Kills everything if you need to
+- **Residual Current Device (RCD):** Detects leakage current and trips before you get electrocuted
+- **Circuit Breakers:** Split the installation into groups; heavy consumers get their own dedicated circuit
+- **Grounding:** The safety net that gives fault current somewhere safe to go
 
 ![Distribution Board Structure](./2.png)
 
 ## Circuit Breakers: 1P vs. 2P
 
-- **1P Breaker:** Interrupts the circuit but the appliance remains connected via the neutral wire (N)
-- **2P / 1P+N Breaker:** Interrupts **both** conductors (Phase and Neutral), ensuring complete electrical isolation
+This distinction matters more than people realize:
+
+- **1P Breaker:** Cuts the circuit, but the appliance stays connected through the neutral wire (N). There's still a path.
+- **2P / 1P+N Breaker:** Cuts **both** conductors — phase and neutral. Full isolation. If you're working on something downstream, this is what you want.
 
 ![1P vs 2P Breaker](./4.png)
 
 ## Trip Characteristics
 
-Circuit breakers protect against overload and short circuits. Common types include **B, C, D, K, Z, and MA** curves, differentiated by their magnetic trip threshold as a multiple of nominal current (In).
+Breakers protect against overload and short circuits, but not all breakers are the same. The common curve types — **B, C, D, K, Z, MA** — differ in how many times the rated current they'll let through before tripping on a magnetic fault. Equipment with high inrush (motors, welders, compressors) can nuisance-trip a B-curve breaker that's technically "correctly" sized, which is how people end up doing dumb things to bypass protection.
 
 ![Trip Characteristics](./3.png)
 
-# Potential Risks in Household Power Usage
+# What Can Go Wrong in a Home Workshop
 
 ## Cable Sizing
 
-The cross-sectional area of a cable determines its maximum safe current capacity. Key factors include:
+The cross-section of a cable isn't just a number on the jacket — it determines how much current that cable can carry safely. Things that eat into your margin:
 
 ![Hard vs Stranded Wire](./5.png)
 ![Wire Comparison](./6.png)
 
-- **Material:** Copper, Aluminum, or CCA (Copper Clad Aluminum)
-- **Core type:** Solid vs. stranded wire
-- **Length:** Longer cables have higher resistance and voltage drop
-- **Ambient Temperature:** Heat dissipation varies with environment
-- **Cable Density:** Multiple cables in a conduit increase heat buildup
-- **Short-circuit Current:** Must withstand thermal stress during faults
+- **Material:** Copper, aluminum, or the awful CCA (Copper Clad Aluminum) that looks like copper but isn't
+- **Core type:** Solid wire vs. stranded — they behave differently under load
+- **Length:** Longer run = more resistance = more voltage drop under load
+- **Ambient temperature:** Heat dissipation drops when the cable's in a hot environment
+- **Cable density:** Multiple cables bundled in conduit trap heat against each other
+- **Short-circuit current:** The cable has to survive the thermal stress of a fault long enough for the breaker to trip
 
 ![Cable Cross-Section Reference](./7.png)
 
 ## Cord Defects
 
-- Damage to the outer jacket
-- Color changes due to overheating
-- Excessive bending or pinching
-- Aging/brittle insulation material
+The stuff you can see if you actually look: damaged outer jacket, discoloration from overheating, kinks or pinch points, and insulation that's gone brittle with age. All of these mean the cable can't do its job safely anymore.
 
 ## Operating Environment
 
-Extra caution is required in damp or wet environments. Key checks: proper grounding, IP rating, RCD presence, and contact point corrosion.
+Damp or wet spaces make everything more dangerous. The checklist for those areas: proper grounding, adequate IP rating, RCD protection, and a close look at contact points for corrosion.
 
 ## Overload, Overvoltage and Short Circuits
 
-- **Simultaneous Use:** Multiple high-wattage devices on one group (max. 10A/16A)
-- **Long-term Heavy Load:** Cable overheating
-- **Daisy-Chaining:** Power strips plugged into other power strips — major fire hazard
-- **Poor Contacts:** High contact resistance causes heat
-- **Limited Heat Dissipation:** Coiled cable reels must be fully unrolled
-- **Lack of Surge Protection:** Vulnerability to voltage spikes
+This is where most of my problems lived:
 
-# Practical Research
+- **Simultaneous use:** Multiple hungry devices on one 10A/16A group
+- **Long-term heavy load:** Cables heating up hour after hour
+- **Daisy-chaining:** Power strip into power strip into power strip — each connection adds resistance and heat. This is how fires start.
+- **Poor contacts:** Loose plugs and worn sockets mean high resistance junctions
+- **Trapped heat:** Cable reels left coiled during use (I've definitely done this)
+- **No surge protection:** One voltage spike away from fried electronics
+
+# The Actual Investigation
 
 ![Workspace Topology Schema](./8.png)
 
-I conducted a detailed analysis of my workspace's electrical infrastructure, focusing on safety and operational reliability. The core objective was to understand electrical topology mapping and perform risk assessments.
+I spent an afternoon tracing cables and drawing a proper topology map. It was worse than I expected. The core question I kept asking: if something goes wrong, where does the current actually go, and what's in place to stop it?
 
 ![Risk Analysis Overview](./9.png)
 
-## Identified Risks and Optimization Plan
+## What I Found and How I Fixed It
 
 ### 1. Welding Machine Grounding
 
-The welding machine was ungrounded — a significant safety risk. **Solution:** Connect directly to the main grounding system of the distribution board.
+The welder wasn't grounded at all. Not "poorly grounded" — just not connected to ground. On a metal-chassis machine drawing 16A, that's a genuinely dangerous situation. **Fix:** I ran a dedicated ground connection back to the main grounding bus in the distribution board.
 
 ### 2. Inrush Current
 
-The welding machine's inrush current (20-30A) exceeded the circuit's capacity. **Solution:** Move to a dedicated circuit with a heavier-duty breaker.
+The welder pulls 20–30A on startup — more than the existing circuit was designed for. Even if the breaker held (which it sometimes didn't), it wasn't a safe long-term arrangement. **Fix:** Moved the welder to its own dedicated circuit with appropriately rated protection.
 
 ### 3. Trip Characteristics
 
-A C or D-curve breaker is needed for equipment with high starting currents.
+For equipment with high starting currents, a standard B-curve breaker will nuisance-trip. You need a C or D curve — same nominal rating, but the magnetic trip threshold is higher, so it tolerates inrush without sacrificing overload protection.
 
 ![Daisy-Chaining Risk](./10.png)
 
 ### 4. Eliminating Daisy-Chaining
 
-Power strips connected in series increase contact resistance, heat buildup, and fire risk. **Solution:** Convert from a tree structure to a star topology using a high-quality 16A power strip.
+I had power strips plugged into other power strips. Each junction adds contact resistance, generates heat, and increases the odds of something failing under load. It's a tree topology where every branch is a potential fire. **Fix:** Switched to a star topology — one high-quality 16A power strip as a central distribution point, with everything radiating from it rather than chaining through each other.
 
 ### 5. Voltage Dips & EMI
 
-Heavy consumers (compressor, angle grinder) cause voltage dips and electromagnetic interference, disrupting sensitive electronics. **Solution:** Separate circuits for heavy machinery and sensitive equipment.
+The compressor and angle grinder were on the same circuit as my computer and monitors. Every time a motor started, the voltage would sag and sensitive electronics would see the spike. Over time, that's how you kill power supplies. **Fix:** Physically separated circuits — heavy machinery on one group, sensitive electronics on another.
 
 ![Travel Adapter Issues](./11.png)
 
 ### 6. Travel Adapters
 
-Contact surfaces are too small for high-current applications. **Solution:** Replace with standard European plugs or industrial-grade power strips.
+I had a few travel adapters in the setup — the kind meant for charging a phone in a hotel, not running workshop equipment. The contact surfaces are tiny, they're not rated for sustained high current, and they get warm in ways that make me nervous. **Fix:** Replaced every single one with proper European Schuko plugs or industrial-grade power strips.
 
 ### 7. Zoning & Circuit Distribution
 
-Divide the workshop into "Machining Zone" and "Office Zone," each on separate circuits. Upgrade wiring from 2.5mm² to 4mm² or 6mm² where possible.
+This was the big structural change: dividing the workshop into a "Machining Zone" and an "Office Zone," each on separate circuits. I also upgraded wiring from 2.5mm² to 4mm² (and 6mm² where I could) to reduce voltage drop under load.
 
 ![Direct Connection Recommendation](./12.png)
 
 ### 8. Direct Connection
 
-Eliminate secondary power strips. Critical equipment must plug directly into wall sockets.
+Secondary power strips introduce extra junctions, extra resistance, and extra failure points. Critical equipment now plugs directly into wall sockets. No intermediate strips, no adapters, just a clean path from breaker to device.
 
 ### 9. Prevention & Warning Labels
 
-Apply safety signage — prohibit simultaneous startup of multiple heavy machines and ban coiled extension cords.
+This sounds silly but it matters: I put up actual labels. "Do not start more than one heavy machine at once." "Unroll extension cords fully before use." When you're tired and in the middle of a project, visual reminders at the point of use are worth more than a safety manual you'll never re-read.
 
 ![Warning Labels](./13.png)
 ![Safety Signage Detail](./14.png)
 
 # Conclusion
 
-This research identified **nine critical risk factors**, from missing grounds on heavy machinery to fire hazards caused by daisy-chaining. The analysis led to a concrete optimization plan to transform the workshop into a safe, professional environment.
+Nine risk factors, some of which had been sitting there for months while I worked around them. The ungrounded welder was the scariest — that one could have actually hurt someone. The daisy-chained power strips were probably the most likely to cause a real fire.
 
-The current installation was not equipped for simultaneous use of industrial tools and sensitive electronics. Moving from a serial tree structure to a parallel star topology and separating circuits are essential steps for fire safety and operational stability.
+The core insight was that my setup was never designed — it had just accumulated. Another power strip here, an extension cord there, until the topology was a mess of serial connections where every link was a liability. Moving to a star topology with physically separated circuits isn't just tidier — it means a fault in one zone doesn't cascade into the others.
 
-# Optimization — Implementation
+# Making It Real
 
 ![New Work Zone](./16.png)
 
-To mitigate the identified risks, I implemented physical separation of equipment:
+I actually did the physical work, not just the analysis:
 
-- **Office Zone:** All sensitive electronics (PC, monitors) consolidated in a dedicated area, isolated from heavy machinery to prevent EMI damage and voltage dips
-- **Work Zone:** Industrial equipment and power tools moved to a separate room, isolating heavy loads from delicate electronics, significantly reducing circuit overload risk
+- **Office Zone:** Computers, monitors, network gear — all on one dedicated circuit, physically isolated from the noisy stuff. No more screen flicker when a motor starts.
+- **Work Zone:** Welder, compressor, grinders, and other industrial tools moved to a separate room on separate circuits. Heavy loads are contained where they belong, and the fire risk from overloaded circuits dropped substantially.
 
 # Reflection
 
-Analyzing the installation and formulating concrete improvements has significantly increased my awareness of electrical safety. This research provided not only technical skills but also fostered a critical, observant attitude toward potential risks within the physical infrastructure of my workspace.
+I'll be honest: before this, I knew enough about electrical safety to be dangerous. I understood breakers and grounding in theory, but I'd never actually traced every connection in my own workspace and asked "what happens if this fails?"
+
+Doing that exercise — drawing the topology, walking the circuits, actually checking what was plugged into what — changed my relationship with the space. You develop a healthy paranoia. You start noticing the coiled extension cord, the warm plug, the adapter that's not quite seated right. That awareness doesn't go away, and honestly, it shouldn't.
 
 # References
 

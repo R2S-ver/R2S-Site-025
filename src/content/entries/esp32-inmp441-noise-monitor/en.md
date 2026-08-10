@@ -36,7 +36,7 @@ translationKey: esp32-inmp441-noise-monitor
 
 # Overview
 
-A real-time ambient noise monitor built with an ESP32 and an INMP441 omnidirectional I2S microphone. The system captures audio, performs FFT spectrum analysis, and streams live data to a web dashboard with dB meter, frequency bars, and historical charts.
+I wanted a way to see what my workspace actually sounds like — not just a number, but the full frequency picture. So I grabbed an INMP441 I2S microphone, wired it up to an ESP32, and wrote the FFT pipeline myself. The end result is a little device that sits on my desk, grabs audio in real time, runs a 512-point FFT, and streams everything to a browser dashboard over WiFi. It shows me the current dB level, a 64-bin spectrum bar chart, and a rolling 30-minute history of noise levels. It's surprisingly addictive to watch — you really get a feel for which appliances are the loudest in the room.
 
 # System Architecture
 
@@ -59,27 +59,25 @@ INMP441 → I2S → ESP32 → FFT → WebSocket → Browser Dashboard
 
 # Key Features
 
-- **Real-time dB SPL** reading with status indicator (Quiet / Normal / Warning / Danger)
-- **64-bin frequency spectrum** visualised as animated bar chart
-- **Dominant frequency detection** — identifies the loudest frequency in real time
-- **Noise history** with 30-minute rolling buffer (1 sample/sec)
-- **Calibration offset** for adjusting sensitivity
+- **Real-time dB SPL** reading with a status indicator that changes between Quiet, Normal, Warning, and Danger. I set the thresholds based on what felt right in my room — your mileage may vary.
+- **64-bin frequency spectrum** shown as animated bars, log-spaced from 20 Hz to 20 kHz. The log spacing matters a lot because our ears work that way — linear bins would waste most of the display on high frequencies we don't care about.
+- **Dominant frequency detection** — finds the loudest frequency in each frame. Handy for spotting things like a fridge compressor kicking in at a specific tone.
+- **Noise history** with a 30-minute rolling buffer, sampled once per second. The ESP32 keeps all 1800 points in RAM and sends the most recent 600 to the browser so the JSON doesn't get absurdly large.
+- **Calibration offset** accessible from the web UI — useful because the INMP441 isn't factory-calibrated for absolute SPL. I zero it against a phone app and call it close enough.
 
 # Web Dashboard
 
 ![Web Dashboard](./02-web-dashboard.png)
 ![Spectrum View](./03-spectrum.png)
 
-The browser dashboard uses Chart.js for:
-- Real-time dB history line chart
-- Dominant frequency history
-- 64-bin animated spectrum bars
+The dashboard runs entirely in the browser with Chart.js. No backend dependencies — the ESP32 serves the HTML and a `/data` JSON endpoint, and the JavaScript does the rest. It updates every second. One thing I learned: turn off Chart.js animations for this kind of streaming data, otherwise the browser chugs after a few minutes of redrawing.
 
 # Code Structure
 
 Two files:
-- **Main.ino** — I2S driver, FFT processing, WiFi server, JSON API
-- **webpage.h** — complete HTML/CSS/JS dashboard with Chart.js and WebSocket auto-reconnect
+
+- **Main.ino** — I2S driver setup, audio capture loop, the FFT pipeline (Hamming window, complex-to-magnitude, log-spaced binning), WiFi server, and the JSON API that serves `/data` and `/calibrate`.
+- **webpage.h** — the entire HTML/CSS/JS dashboard packed into a `PROGMEM` string. Chart.js loaded from CDN, WebSocket-style polling via `fetch()`, and the spectrum bars are just `div` elements with CSS transitions. No framework, no build step — just raw HTML that fits in the ESP32's flash.
 
 # Full Code
 
@@ -664,4 +662,6 @@ const char webpage[] PROGMEM = R"WEBPAGE(
 
 # Result
 
-The ESP32 successfully captures audio via INMP441, computes FFT in real time, and streams spectrum + dB data to multiple browser clients over WiFi. The dashboard updates at 1 Hz with smooth animated charts.
+The ESP32 handles everything in a single loop — capture, FFT, serve HTTP — without any hiccups. I was half-expecting the WiFi stack and I2S DMA to step on each other's toes, but the ESP32's dual-core architecture keeps things clean even with the web server running on the same core as the audio pipeline. The dashboard updates at 1 Hz and the charts stay smooth. Not bad for a $5 microcontroller and a $3 microphone.
+
+The one thing I'd improve next time: the INMP441's onboard L/R pin ties it to left channel only, which is fine for mono, but if I ever want stereo I'll need a second mic on a separate I2S bus. For now though, this does exactly what I wanted — it turns numbers into a picture of what my room sounds like.

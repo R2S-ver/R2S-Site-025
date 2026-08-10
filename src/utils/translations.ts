@@ -597,7 +597,7 @@ export const translations = {
 
         journey: {
           header: "PROCESS_LOG // DEVELOPMENT_PATH",
-          title: "学习经历",
+          title: "技能树",
           nodes: {
             hardware: "起点",
             design: "交汇点",

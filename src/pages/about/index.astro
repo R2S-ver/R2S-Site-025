@@ -1335,126 +1335,90 @@ const t = getTranslations(lang);
   DRAW: Electronics
   ====================================================== */
   function drawElectronics() {
-    ctx.strokeStyle = "rgba(30,50,40,0.35)";
+    const mx = mouseX * W;
+    const my = mouseY * H;
+    const t = time;
+
+    ctx.fillStyle = "#070a08";
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = "rgba(30,60,45,0.25)";
     ctx.lineWidth = 0.4;
-    const gridSize = 20;
-    for (let x = 0; x < W; x += gridSize) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, H);
-      ctx.stroke();
+    for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+    const amp = H * 0.10;
+
+    const channels = [
+      { baseY: H * 0.22, color: "rgba(100,220,160,0.85)", type: "square",   freq: 4.5, label: "CH1 — SQUARE" },
+      { baseY: H * 0.50, color: "rgba(160,200,230,0.8)",  type: "sine",     freq: 3.0, label: "CH2 — SINE"   },
+      { baseY: H * 0.78, color: "rgba(200,160,220,0.75)", type: "triangle", freq: 5.5, label: "CH3 — TRI"    },
+    ];
+
+    // Dividers
+    channels.forEach(ch => {
+      ctx.strokeStyle = "rgba(60,100,80,0.25)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(0, ch.baseY); ctx.lineTo(W, ch.baseY); ctx.stroke();
+    });
+
+    function waveVal(ch, prog) {
+      const arg = prog * Math.PI * 2 * ch.freq + t * 1.67;
+      if (ch.type === "square")   return Math.sin(arg) >= 0 ? 1 : -1;
+      if (ch.type === "sine")     return Math.sin(arg);
+      if (ch.type === "triangle") { const ph = ((arg / (Math.PI * 2)) % 1 + 1) % 1; return ph < 0.5 ? 4 * ph - 1 : 3 - 4 * ph; }
+      return 0;
     }
-    for (let y = 0; y < H; y += gridSize) {
+
+    // Draw
+    channels.forEach(ch => {
+      ctx.strokeStyle = ch.color;
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(W, y);
-      ctx.stroke();
-    }
-
-    const numLines = 7;
-    const lineSpacing = H / (numLines + 1);
-    for (let l = 0; l < numLines; l++) {
-      const baseY = lineSpacing * (l + 0.5);
-      ctx.strokeStyle =
-        l === 3 ? "rgba(232,160,64,0.65)" : "rgba(100,180,140,0.3)";
-      ctx.lineWidth = l === 3 ? 2 : 1.2;
-      ctx.beginPath();
-      const leftX = W * 0.08;
-      const midX1 = W * 0.28;
-      const midX2 = W * 0.58;
-      const rightX = W * 0.92;
-      ctx.moveTo(leftX, baseY);
-      ctx.lineTo(midX1, baseY);
-      ctx.lineTo(
-        midX1 + gridSize,
-        baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6),
-      );
-      ctx.lineTo(
-        midX2,
-        baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6),
-      );
-      ctx.lineTo(midX2 + gridSize, baseY);
-      ctx.lineTo(rightX, baseY);
-      ctx.stroke();
-
-      const solderPoints = [leftX, midX1, midX2, rightX];
-      solderPoints.forEach((sx) => {
-        const sy =
-          sx === midX1 || sx === midX2
-            ? baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6)
-            : baseY;
-        ctx.fillStyle = "rgba(200,200,210,0.6)";
-        ctx.beginPath();
-        ctx.arc(sx, sy, 3.5, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = "rgba(255,255,255,0.25)";
-        ctx.beginPath();
-        ctx.arc(sx - 1, sy - 1, 1.2, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      const pulsePos = (time * 1.8 + l * 0.7) % 1;
-      const pulseX = leftX + pulsePos * (rightX - leftX);
-      let pulseY = baseY;
-      if (pulseX > midX1 && pulseX < midX1 + gridSize) {
-        const t = (pulseX - midX1) / gridSize;
-        pulseY = baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6) * t;
-      } else if (pulseX >= midX1 + gridSize && pulseX <= midX2) {
-        pulseY = baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6);
-      } else if (pulseX > midX2 && pulseX < midX2 + gridSize) {
-        const t = (pulseX - midX2) / gridSize;
-        pulseY =
-          baseY + (l % 2 === 0 ? -gridSize * 0.6 : gridSize * 0.6) * (1 - t);
+      for (let px = 0; px < W; px += 1.5) {
+        const wy = ch.baseY - waveVal(ch, px / W) * amp;
+        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
       }
-      const glow = ctx.createRadialGradient(
-        pulseX,
-        pulseY,
-        0,
-        pulseX,
-        pulseY,
-        8,
-      );
-      glow.addColorStop(0, "rgba(232,200,100,0.9)");
-      glow.addColorStop(0.5, "rgba(232,160,64,0.3)");
-      glow.addColorStop(1, "rgba(232,160,64,0)");
-      ctx.fillStyle = glow;
+      ctx.stroke();
+    });
+
+    // Labels
+    channels.forEach(ch => {
+      ctx.fillStyle = ch.color.replace(/[\d.]+\)$/, "0.5)");
+      ctx.font = "8px monospace";
+      ctx.textAlign = "left";
+      ctx.fillText(ch.label, 8, ch.baseY - amp - 8);
+    });
+
+    // Mouse highlight
+    let nearest = -1, nearestDist = Infinity;
+    channels.forEach((ch, i) => {
+      const wy = ch.baseY - waveVal(ch, mx / W) * amp;
+      const d = Math.abs(my - wy);
+      if (d < nearestDist && d < 40) { nearestDist = d; nearest = i; }
+    });
+
+    if (nearest >= 0) {
+      const ch = channels[nearest];
+      ctx.strokeStyle = ch.color.replace(/[\d.]+\)$/, "1)");
+      ctx.lineWidth = 2.2;
+      ctx.shadowColor = ch.color.replace(/[\d.]+\)$/, "0.6)");
+      ctx.shadowBlur = 8;
       ctx.beginPath();
-      ctx.arc(pulseX, pulseY, 8, 0, Math.PI * 2);
-      ctx.fill();
+      for (let px = 0; px < W; px += 1.5) {
+        const wy = ch.baseY - waveVal(ch, px / W) * amp;
+        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+      }
+      ctx.stroke();
+      ctx.shadowBlur = 0;
     }
 
-    const chipX = W * 0.4;
-    const chipY = H * 0.32;
-    const chipW = W * 0.2;
-    const chipH = H * 0.36;
-    ctx.fillStyle = "#0a0a0f";
-    ctx.strokeStyle = "rgba(180,180,180,0.5)";
-    ctx.lineWidth = 1.5;
-    roundedRect(chipX, chipY, chipW, chipH, 3);
-    ctx.fill();
-    ctx.stroke();
-
-    const pinCount = 8;
-    const pinSpacing = chipH / (pinCount + 1);
-    for (let i = 0; i < pinCount; i++) {
-      const py = chipY + pinSpacing * (i + 1);
-      ctx.fillStyle = "rgba(200,200,210,0.5)";
-      ctx.fillRect(chipX - 8, py - 1.5, 10, 3);
-      ctx.fillRect(chipX + chipW - 2, py - 1.5, 10, 3);
-    }
-    ctx.fillStyle = "rgba(232,160,64,0.7)";
-    ctx.font = "8px monospace";
-    ctx.textAlign = "center";
-    ctx.fillText("IC-01", chipX + chipW / 2, chipY + chipH / 2 + 3);
-    ctx.fillStyle = "rgba(255,255,255,0.3)";
-    ctx.beginPath();
-    ctx.arc(chipX + 8, chipY + 8, 3, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.fillStyle = "rgba(160,180,170,0.3)";
+    ctx.font = "7px monospace";
+    ctx.textAlign = "right";
+    ctx.fillText("TRIG:AUTO · 1V/div", W - 8, H * 0.06);
   }
-
-  /* =====================================================
-  DRAW: Embedded Systems
-  ====================================================== */
   function drawEmbedded() {
     for (let i = 0; i < 18; i++) {
       ctx.beginPath();
@@ -1477,88 +1441,173 @@ const t = getTranslations(lang);
   DRAW: Fabrication — Refined Conveyor
   ====================================================== */
   function drawFabrication() {
-    const beltCount = 5;
-    const beltHeight = 14;
-    const beltGap = 18;
-    const startY = H * 0.15;
-    const totalHeight = beltCount * beltHeight + (beltCount - 1) * beltGap;
-    const offsetY = startY + (H - startY - totalHeight) / 2;
+    const beltH = 22;
+    const gap = 30;
+    const beltCount = 3;
+    const totalH = beltCount * beltH + (beltCount - 1) * gap;
+    const startY = (H - totalH) / 2 + H * 0.04;
 
     for (let b = 0; b < beltCount; b++) {
-      const beltY = offsetY + b * (beltHeight + beltGap);
+      const by = startY + b * (beltH + gap);
+      const dir = b % 2 === 0 ? 1 : -1; // alternate directions
+      const speed = 8 + b * 2; // much slower
 
-      ctx.fillStyle = "#1a1a20";
-      ctx.fillRect(0, beltY, W, beltHeight);
-      ctx.strokeStyle = "rgba(255,255,255,0.08)";
+      // ── Belt body with gradient ──
+      const beltGrad = ctx.createLinearGradient(0, by, 0, by + beltH);
+      beltGrad.addColorStop(0, "#1a1c1e");
+      beltGrad.addColorStop(0.5, "#222528");
+      beltGrad.addColorStop(1, "#1a1c1e");
+      ctx.fillStyle = beltGrad;
+      ctx.fillRect(0, by, W, beltH);
+
+      // ── Belt edge lines ──
+      ctx.strokeStyle = "rgba(180,190,180,0.15)";
       ctx.lineWidth = 0.5;
-      ctx.strokeRect(0, beltY, W, beltHeight);
+      ctx.beginPath(); ctx.moveTo(0, by); ctx.lineTo(W, by); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, by + beltH); ctx.lineTo(W, by + beltH); ctx.stroke();
 
-      const rollerSpacing = 32;
-      const rollerShift = (time * 50 + b * 7) % rollerSpacing;
-      ctx.strokeStyle = "rgba(180,180,180,0.25)";
-      ctx.lineWidth = 0.6;
-      for (
-        let rx = -rollerSpacing + rollerShift;
-        rx < W + rollerSpacing;
-        rx += rollerSpacing
-      ) {
-        ctx.beginPath();
-        ctx.moveTo(rx, beltY + 2);
-        ctx.lineTo(rx, beltY + beltHeight - 2);
-        ctx.stroke();
+      // ── Moving tread marks (slow) ──
+      const treadW = 5;
+      const treadGap = 16;
+      const shift = ((time * speed * dir * 0.6) % (treadW + treadGap) + (treadW + treadGap)) % (treadW + treadGap);
+      for (let tx = -treadW + shift; tx < W + treadW; tx += treadW + treadGap) {
+        ctx.fillStyle = "rgba(100,110,100,0.18)";
+        ctx.fillRect(tx, by + 1, treadW, beltH - 2);
       }
 
-      const parcelCount = 4 + b;
-      const baseSpeed = 0.12 + b * 0.02;
+      // ── Ores ──
+      const itemCount = 9 + b;
+      for (let p = 0; p < itemCount; p++) {
+        const phase = (((time * 0.003 * speed * dir + p * 0.22) % 1) + 1) % 1;
+        const ix = phase * W;
+        const bob = Math.sin(time * 2.5 + p + b) * 1.5;
+        const iy = by + beltH / 2 + bob;
 
-      for (let p = 0; p < parcelCount; p++) {
-        const phase = (((time * baseSpeed * 0.7 + p * 0.25) % 1) + 1) % 1;
-        const px = phase * W;
-        const py = beltY + beltHeight / 2;
+        // Rarity: 60% coal, 30% iron, 9% gold, 1% diamond (deterministic per item)
+        // Rarity: 59.9% coal, 30% iron, 9% gold, 1% diamond, 0.1% prismatic
+        let seed = (p * 127 + b * 3571) | 0;
+        seed = ((seed >> 16) ^ seed) * 0x45d9f3b;
+        seed = ((seed >> 16) ^ seed) >>> 0;
+        const rarity = (seed % 10000) / 10000;
 
-        const hue = (b * 45 + p * 30 + time * 2) % 360;
-        const sat = 60 + 20 * Math.sin(p * 1.7 + b);
-        const light = 40 + 15 * Math.cos(p * 1.2 + b);
-
-        const shapeType = (p + b) % 3;
-        const size = 7 + (p % 3) * 3;
-
-        ctx.save();
-        ctx.translate(px, py);
-        ctx.fillStyle = `hsl(${hue},${sat}%,${light}%)`;
-        ctx.strokeStyle = `hsla(${hue},${sat}%,${light + 20}%,0.6)`;
-        ctx.lineWidth = 1;
-
-        ctx.shadowColor = `hsla(${hue},70%,60%,0.3)`;
-        ctx.shadowBlur = 4;
-
-        switch (shapeType) {
-          case 0:
-            roundedRect(-size / 2, -size / 2, size, size, 2);
-            ctx.fill();
-            ctx.stroke();
-            break;
-          case 1:
-            ctx.beginPath();
-            ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            break;
-          case 2:
-            ctx.beginPath();
-            ctx.moveTo(0, -size / 2);
-            ctx.lineTo(-size / 2, size / 2);
-            ctx.lineTo(size / 2, size / 2);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-            break;
+        let oreType, oreSize, oreColors;
+        if (rarity < 0.599) {
+          oreType = "coal"; oreSize = 11;
+          oreColors = ["#6a6a72", "#3a3a42"];
+        } else if (rarity < 0.899) {
+          oreType = "iron"; oreSize = 10;
+          oreColors = ["#d09070", "#8a4030"];
+        } else if (rarity < 0.989) {
+          oreType = "gold"; oreSize = 12;
+          oreColors = ["#f5d060", "#c08820"];
+        } else if (rarity < 0.999) {
+          oreType = "diamond"; oreSize = 10;
+          oreColors = ["#e8f4ff", "#a0c8f0"];
+        } else {
+          oreType = "prismatic"; oreSize = 9;
+          oreColors = ["#ffffff", "#e0d0ff"];
         }
 
-        ctx.fillStyle = "rgba(255,255,255,0.5)";
+        ctx.save();
+        ctx.translate(ix, iy);
+
+        // ── Diamond / Prismatic sparkle aura ──
+        if (oreType === "diamond" || oreType === "prismatic") {
+          const sparkle = Math.sin(time * 8 + p) * 0.3 + 0.7;
+          const halo = ctx.createRadialGradient(0, 0, 0, 0, 0, oreSize * 2.2);
+          halo.addColorStop(0, `rgba(200,220,255,${0.5 * sparkle})`);
+          halo.addColorStop(0.5, `rgba(180,200,255,${0.2 * sparkle})`);
+          halo.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = halo;
+          ctx.beginPath(); ctx.arc(0, 0, oreSize * 2.2, 0, Math.PI * 2); ctx.fill();
+          // Rainbow facets
+          for (let f = 0; f < 6; f++) {
+            const fa = (f / 6) * Math.PI * 2 + time * 0.8;
+            ctx.fillStyle = `hsla(${(f * 60 + time * 40) % 360},70%,75%,${0.12 * sparkle})`;
+            ctx.beginPath();
+            ctx.arc(Math.cos(fa) * oreSize * 0.45, Math.sin(fa) * oreSize * 0.45, oreSize * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        // ── Shadow ──
+        ctx.fillStyle = "rgba(0,0,0,0.3)";
         ctx.beginPath();
-        ctx.arc(-size * 0.2, -size * 0.2, 1.2, 0, Math.PI * 2);
+
+        // ── Ore shapes ──
+        if (oreType === "coal") {
+          // Coal chunk: irregular rocky blob
+          const s = oreSize;
+          ctx.moveTo(-s*0.6, s*0.5); ctx.lineTo(-s, s*0.1); ctx.lineTo(-s*0.8, -s*0.4);
+          ctx.lineTo(-s*0.3, -s*0.7); ctx.lineTo(s*0.2, -s*0.8); ctx.lineTo(s*0.7, -s*0.3);
+          ctx.lineTo(s*0.9, s*0.2); ctx.lineTo(s*0.4, s*0.6); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.closePath();
+        } else if (oreType === "iron") {
+          // Raw iron ore: jagged crystalline
+          const s = oreSize;
+          ctx.moveTo(-s*0.3, s*0.6); ctx.lineTo(-s*0.8, s*0.2); ctx.lineTo(-s, -s*0.3);
+          ctx.lineTo(-s*0.5, -s*0.6); ctx.lineTo(s*0.1, -s*0.8); ctx.lineTo(s*0.6, -s*0.4);
+          ctx.lineTo(s*0.9, s*0.1); ctx.lineTo(s*0.4, s*0.5); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.closePath();
+        } else if (oreType === "gold") {
+          // Gold ingot: rounded trapezoid bar
+          const s = oreSize;
+          ctx.moveTo(-s*0.75, s*0.3); ctx.lineTo(-s*0.85, -s*0.15); ctx.lineTo(-s*0.65, -s*0.4);
+          ctx.lineTo(s*0.65, -s*0.4); ctx.lineTo(s*0.85, -s*0.15); ctx.lineTo(s*0.75, s*0.3);
+          ctx.lineTo(-s*0.75, s*0.3);
+          ctx.closePath();
+        } else if (oreType === "diamond") {
+          // Diamond gem shape
+          const s = oreSize;
+          ctx.moveTo(0, -s); ctx.lineTo(s*0.4, -s*0.15); ctx.lineTo(s*0.7, s*0.1);
+          ctx.lineTo(s*0.3, s*0.15); ctx.lineTo(0, s*0.7); ctx.lineTo(-s*0.3, s*0.15);
+          ctx.lineTo(-s*0.7, s*0.1); ctx.lineTo(-s*0.4, -s*0.15);
+          ctx.closePath();
+        } else {
+          // Prismatic shard: sharp crystal spike
+          const s = oreSize;
+          ctx.moveTo(0, -s); ctx.lineTo(s*0.25, -s*0.2); ctx.lineTo(s*0.9, s*0.05);
+          ctx.lineTo(s*0.3, s*0.25); ctx.lineTo(s*0.6, s*0.8); ctx.lineTo(0, s*0.45);
+          ctx.lineTo(-s*0.6, s*0.8); ctx.lineTo(-s*0.3, s*0.25);
+          ctx.lineTo(-s*0.9, s*0.05); ctx.lineTo(-s*0.25, -s*0.2);
+          ctx.closePath();
+        }
         ctx.fill();
+        // Body gradient
+        const g = ctx.createLinearGradient(-oreSize, -oreSize, oreSize, oreSize);
+        g.addColorStop(0, oreColors[0]);
+        g.addColorStop(1, oreColors[1]);
+        ctx.fillStyle = g;
+        // Stroke varies by type
+        if (oreType === "gold") { ctx.strokeStyle = "rgba(255,220,100,0.5)"; ctx.lineWidth = 1; }
+        else if (oreType === "diamond") { ctx.strokeStyle = "rgba(200,220,255,0.55)"; ctx.lineWidth = 0.7; }
+        else if (oreType === "prismatic") { ctx.strokeStyle = "rgba(255,200,255,0.55)"; ctx.lineWidth = 0.7; }
+        else { ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 0.5; }
+        ctx.stroke();
+        ctx.fill();
+
+        // ── Specular ──
+        if (oreType === "diamond") {
+          ctx.fillStyle = "rgba(255,255,255,0.7)";
+          ctx.beginPath(); ctx.arc(0, -oreSize*0.4, oreSize*0.15, 0, Math.PI*2); ctx.fill();
+        } else if (oreType === "prismatic") {
+          ctx.fillStyle = "rgba(255,255,255,0.8)";
+          ctx.beginPath(); ctx.arc(0, -oreSize*0.3, oreSize*0.13, 0, Math.PI*2); ctx.fill();
+          // Extra rainbow sparkle
+          for (let rf = 0; rf < 3; rf++) {
+            const ra = (rf / 3) * Math.PI * 2 + time * 1.2;
+            ctx.fillStyle = `hsla(${(rf * 120 + time * 60) % 360},80%,70%,0.6)`;
+            ctx.beginPath();
+            ctx.arc(Math.cos(ra) * oreSize*0.35, Math.sin(ra) * oreSize*0.35, oreSize*0.12, 0, Math.PI*2);
+            ctx.fill();
+          }
+        } else if (oreType === "gold") {
+          ctx.fillStyle = "rgba(255,255,220,0.5)";
+          ctx.beginPath(); ctx.arc(-oreSize*0.15, -oreSize*0.2, oreSize*0.18, 0, Math.PI*2); ctx.fill();
+          // Second bar highlight
+          ctx.fillStyle = "rgba(255,255,255,0.2)";
+          ctx.fillRect(-oreSize*0.5, -oreSize*0.35, oreSize, oreSize*0.12);
+        }
 
         ctx.restore();
       }
@@ -1658,54 +1707,62 @@ const t = getTranslations(lang);
   DRAW: Teaching — Double DNA Helix
   ====================================================== */
   function drawTeaching() {
-    const amplitude = Math.min(W, H) * 0.22;
-    const helixLength = W * 0.7;
-    const startX = W * 0.15;
-    const centerY = H / 2;
-    const turns = 7;
-    const waveSpeed = 0.5;
+    const cx = W / 2, cy = H / 2;
+    const helixR = Math.min(W, H) * 0.18;   // width of the helix
+    const helixH = H * 0.64;                // total height
+    const turns = 5;
+    const steps = 400;
+    const phaseShift = time * 0.5;          // slow vertical wave
 
-    const pairSteps = turns * 18;
-    for (let i = 0; i <= pairSteps; i++) {
-      const t = (i / pairSteps) * turns * Math.PI * 2;
-      const progress = t / (turns * Math.PI * 2);
-      const x = startX + progress * helixLength;
-      const offset = Math.sin(t + time * waveSpeed) * amplitude;
-      const y1 = centerY + offset;
-      const y2 = centerY - offset;
+    // Strand 1: x = R * cos(θ), y = vertical position, strand1 displaced to left
+    // Strand 2: x = R * cos(θ + π), displaced to right
+    // θ = prog * turns * 2π + phaseShift
 
-      const hue = 180 + progress * 120;
-      const alpha = 0.3 + 0.2 * Math.sin(time * 2 + i * 0.3);
-      ctx.strokeStyle = `hsla(${hue},70%,60%,${alpha})`;
-      ctx.lineWidth = 0.8;
-      ctx.beginPath();
-      ctx.moveTo(x, y1);
-      ctx.lineTo(x, y2);
-      ctx.stroke();
+    ctx.strokeStyle = "rgba(100,220,180,0.8)";
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = "rgba(100,220,180,0.35)";
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    for (let i = 0; i <= steps; i++) {
+      const prog = i / steps;
+      const py = cy - helixH / 2 + prog * helixH;
+      const theta = prog * turns * Math.PI * 2 + phaseShift;
+      const px = cx + Math.cos(theta) * helixR;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
     }
+    ctx.stroke();
 
-    for (let strand = 0; strand < 2; strand++) {
-      const phase = strand * Math.PI;
-      ctx.strokeStyle =
-        strand === 0 ? "rgba(100,220,180,0.7)" : "rgba(232,160,64,0.7)";
-      ctx.lineWidth = 2;
-      ctx.shadowColor =
-        strand === 0 ? "rgba(100,220,180,0.3)" : "rgba(232,160,64,0.3)";
-      ctx.shadowBlur = 6;
-      ctx.beginPath();
-
-      const steps = 200;
-      for (let i = 0; i <= steps; i++) {
-        const t = (i / steps) * turns * Math.PI * 2;
-        const progress = t / (turns * Math.PI * 2);
-        const x = startX + progress * helixLength;
-        const y = centerY + Math.sin(t + phase + time * waveSpeed) * amplitude;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
+    ctx.strokeStyle = "rgba(232,160,64,0.8)";
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = "rgba(232,160,64,0.35)";
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    for (let i = 0; i <= steps; i++) {
+      const prog = i / steps;
+      const py = cy - helixH / 2 + prog * helixH;
+      const theta = prog * turns * Math.PI * 2 + Math.PI + phaseShift;
+      const px = cx + Math.cos(theta) * helixR;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
     }
+    ctx.stroke();
     ctx.shadowBlur = 0;
+
+    // Base-pair rungs (every 12 steps)
+    for (let i = 0; i <= steps; i += 12) {
+      const prog = i / steps;
+      const py = cy - helixH / 2 + prog * helixH;
+      const theta = prog * turns * Math.PI * 2 + phaseShift;
+      const x1 = cx + Math.cos(theta) * helixR;
+      const x2 = cx + Math.cos(theta + Math.PI) * helixR;
+      ctx.strokeStyle = "rgba(180,200,220,0.35)";
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(x1, py);
+      ctx.lineTo(x2, py);
+      ctx.stroke();
+    }
   }
 
   /* =====================================================

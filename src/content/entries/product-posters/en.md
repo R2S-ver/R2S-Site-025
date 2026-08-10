@@ -1,6 +1,6 @@
 ---
 title: Product Posters
-date: 2024-06-01
+date: 2026-06-01
 description: A collection of product design posters exploring visual identity, composition, and commercial aesthetics.
 
 type: art
