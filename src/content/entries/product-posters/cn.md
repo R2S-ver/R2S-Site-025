@@ -1,0 +1,43 @@
+---
+title: 产品海报
+date: 2024-06-01
+description: 产品设计海报合集，探索视觉识别、构图与商业美学。
+
+type: art
+category: 海报设计
+cover: 01-kartent-eco-bin.png
+
+tags:
+  - 海报设计
+  - 产品可视化
+  - 平面设计
+  - 商业艺术
+
+tools:
+  - Clip Studio Paint
+  - Photoshop
+
+featured: true
+
+lang: zh
+
+translationKey: product-posters
+
+gallery:
+  - file: 01-kartent-eco-bin.png
+    title: Kartent Eco Bin
+  - file: 02-krukcup.png
+    title: KRUKCUP
+  - file: 03-ninjago.png
+    title: Ninjago
+  - file: 04-powerdrill.png
+    title: Powerdrill
+  - file: 05-powerdrill-variant.png
+    title: Powerdrill — 变体
+  - file: 06-zoem-bike.png
+    title: Zoem Bike
+  - file: 07-zoem-bike-variant.png
+    title: Zoem Bike — 变体
+---
+
+产品海报设计，用于品牌视觉呈现与商业展示。每张作品探索海报格式中的构图、字体排印与产品叙事。

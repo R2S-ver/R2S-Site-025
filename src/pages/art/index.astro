@@ -1,12 +1,651 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ContentList from "../../components/ContentList.astro";
+import { getLanguageFromPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+// Auto-discover all images in art content entry folders
+// Drop new images into any of these folders → auto appears on the page
+const allImages = import.meta.glob(
+  "/src/content/entries/{illustrations,product-posters,fashion-design,food-art}/*.{png,jpg,jpeg,webp}",
+  { eager: true, import: "default" },
+);
+
+interface ArtImage {
+  src: string;
+  title: string;
+  folder: string;
+}
+
+interface Category {
+  folder: string;
+  titles: Record<string, string>;
+  images: ArtImage[];
+}
+
+const CATEGORIES: { folder: string; titles: Record<string, string> }[] = [
+  { folder: "illustrations", titles: { en: "Illustrations", zh: "插画" } },
+  { folder: "product-posters", titles: { en: "Product Posters", zh: "产品海报" } },
+  { folder: "fashion-design", titles: { en: "Fashion Design", zh: "服装设计" } },
+  { folder: "food-art", titles: { en: "Food Art", zh: "美食艺术" } },
+];
+
+function titleFromFilename(folder: string, filename: string): string {
+  // Remove folder path and extension
+  let name = filename.replace(/^.*[\\/]/, "").replace(/\.(png|jpe?g|webp)$/i, "");
+  // Remove leading number prefix like "01-"
+  name = name.replace(/^\d+[-_]/, "");
+  // Replace dashes and underscores with spaces, capitalize
+  name = name.replace(/[-_]/g, " ");
+  // Capitalize words
+  return name.replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+const categories: Category[] = CATEGORIES.map((cat) => {
+  const images: ArtImage[] = [];
+
+  for (const [path, src] of Object.entries(allImages)) {
+    if (path.includes(`/entries/${cat.folder}/`) && !path.endsWith("cover.png")) {
+      const filename = path.replace(/^.*[\\/]/, "");
+      // import.meta.glob returns ImageMetadata objects, extract .src URL
+      const url = typeof src === "string" ? src : (src as any).src;
+      images.push({
+        src: url,
+        title: titleFromFilename(cat.folder, filename),
+        folder: cat.folder,
+      });
+    }
+  }
+
+  return { ...cat, images };
+});
+
+const hasContent = categories.some((c) => c.images.length > 0);
 ---
 
-<Layout title="Art | R2S Studio">
-  <ContentList
-    type="art"
-    title="Art"
-    description="Illustration, character design and visual experiments."
-  />
+<Layout title={`${t.sections.art.title} | R2S Studio`}>
+  <main class="art-page">
+    <section class="art-hero">
+      <p class="hero-tag">{t.explore.art.header}</p>
+      <h1>{t.sections.art.title}</h1>
+      <p class="hero-sub">{t.sections.art.description}</p>
+      <p class="hero-hint">← scroll → drag &nbsp;|&nbsp; click to view</p>
+    </section>
+
+    {
+      !hasContent && (
+        <div class="empty">
+          <p>Drop images into <code>src/content/entries/&#123;illustrations,product-posters,fashion-design,food-art&#125;/</code></p>
+          <p>They will appear here automatically.</p>
+        </div>
+      )
+    }
+
+    <div class="rows" id="art-rows">
+      {categories.filter((c) => c.images.length > 0).map((cat, rowIndex) => (
+        <section class="art-row" data-row={rowIndex}>
+          <div class="row-header">
+            <span class="row-idx">{(rowIndex + 1).toString().padStart(2, "0")}</span>
+            <h2>{cat.titles[language] || cat.titles.en}</h2>
+            <span class="row-count">{cat.images.length} works</span>
+          </div>
+
+          <div class="row-viewport" id={`row-${rowIndex}`}>
+            {(() => {
+              const unique = cat.images.length;
+              // Ensure enough copies to fill the viewport seamlessly
+              const copies = Math.max(3, Math.ceil(12 / unique));
+              const frames = Array.from({ length: copies }, () => cat.images).flat();
+              return (
+                <div class="row-track" data-track={rowIndex} data-copies={copies} data-unique={unique}>
+                  {frames.map((img, i) => (
+                    <div
+                      class="frame"
+                      data-row={rowIndex}
+                      data-idx={i % unique}
+                      data-src={img.src}
+                      data-title={img.title}
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.title}
+                        loading={i < 8 ? "eager" : "lazy"}
+                        draggable="false"
+                      />
+                      <span class="frame-caption">{img.title}</span>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <!-- Lightbox -->
+    <aside class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-bg"></div>
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <button class="lightbox-prev" aria-label="Previous">&lsaquo;</button>
+      <button class="lightbox-next" aria-label="Next">&rsaquo;</button>
+      <div class="lightbox-body">
+        <img src="" alt="" id="lb-img" draggable="false" />
+        <p class="lb-caption" id="lb-caption"></p>
+      </div>
+    </aside>
+  </main>
 </Layout>
+
+<script>
+  // ── Auto-scroll with drag ──
+  const rows = document.querySelectorAll<HTMLElement>(".row-viewport");
+
+  interface RowState {
+    el: HTMLElement;
+    track: HTMLElement;
+    speed: number;         // pixels per frame
+    position: number;      // current scrollLeft
+    isHovering: boolean;
+    isDragging: boolean;
+    dragStartX: number;
+    dragStartScroll: number;
+    direction: number;     // 1 = right, -1 = left
+    animId: number;
+  }
+
+  const states: RowState[] = [];
+
+  rows.forEach((el, i) => {
+    const track = el.querySelector<HTMLElement>("[data-track]")!;
+    const dir = i % 2 === 0 ? 1 : -1; // alternate scroll direction
+    const state: RowState = {
+      el,
+      track,
+      speed: 0.3 + Math.random() * 0.2, // slight speed variation
+      position: 0,
+      isHovering: false,
+      isDragging: false,
+      dragStartX: 0,
+      dragStartScroll: 0,
+      direction: dir,
+      animId: 0,
+    };
+
+    track.style.transform = `translateX(${-state.position}px)`;
+    states.push(state);
+
+    // ── Mouse / touch events ──
+    el.addEventListener("mouseenter", () => { state.isHovering = true; });
+    el.addEventListener("mouseleave", () => {
+      state.isHovering = false;
+      state.isDragging = false;
+      el.style.cursor = "grab";
+    });
+
+    el.addEventListener("mousedown", (e) => {
+      state.isDragging = true;
+      state.dragStartX = e.clientX;
+      state.dragStartScroll = state.position;
+      el.style.cursor = "grabbing";
+      e.preventDefault();
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!state.isDragging) return;
+      const dx = (state.dragStartX - e.clientX) * 1.5;
+      state.position = state.dragStartScroll + dx;
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (state.isDragging) {
+        state.isDragging = false;
+        el.style.cursor = state.isHovering ? "grab" : "default";
+      }
+    });
+
+    // Touch support
+    el.addEventListener("touchstart", (e: Event) => {
+      const te = e as TouchEvent;
+      state.isDragging = true;
+      state.dragStartX = te.touches[0].clientX;
+      state.dragStartScroll = state.position;
+    });
+
+    el.addEventListener("touchmove", (e: Event) => {
+      if (!state.isDragging) return;
+      const te = e as TouchEvent;
+      const dx = (state.dragStartX - te.touches[0].clientX) * 1.5;
+      state.position = state.dragStartScroll + dx;
+    });
+
+    el.addEventListener("touchend", () => { state.isDragging = false; });
+  });
+
+  // ── Animation loop ──
+  function animate() {
+    for (const state of states) {
+      if (!state.isDragging && !state.isHovering) {
+        // Slow auto-scroll
+        state.position += state.speed * state.direction;
+      }
+
+      // True seamless wrap: position modulo setWidth
+      // Content at X and X+setWidth is visually identical
+      const copies = Number(state.track.dataset.copies) || 2;
+      const setWidth = state.track.scrollWidth / copies;
+      state.position = ((state.position % setWidth) + setWidth) % setWidth;
+
+      state.track.style.transform = `translateX(${-state.position}px)`;
+    }
+
+    // Pause animation when tab is hidden
+    if (document.hidden) {
+      setTimeout(() => requestAnimationFrame(animate), 200);
+    } else {
+      requestAnimationFrame(animate);
+    }
+  }
+
+  requestAnimationFrame(animate);
+
+  // ── Lightbox ──
+  const lightbox = document.getElementById("lightbox")!;
+  const lbImg = document.getElementById("lb-img") as HTMLImageElement;
+  const lbCaption = document.getElementById("lb-caption")!;
+  const btnClose = document.querySelector(".lightbox-close")!;
+  const btnPrev = document.querySelector(".lightbox-prev")!;
+  const btnNext = document.querySelector(".lightbox-next")!;
+  const lbBg = document.querySelector(".lightbox-bg")!;
+
+  // Collect all unique images per row (first half = originals)
+  const allFrames = document.querySelectorAll<HTMLElement>(".frame");
+
+  let currentRow = 0;
+  let currentIdx = 0;
+
+  function getRowFrames(row: number): HTMLElement[] {
+    return Array.from(allFrames).filter(
+      (f) => Number(f.dataset.row) === row,
+    );
+  }
+
+  function openLightbox(row: number, idx: number) {
+    currentRow = row;
+    currentIdx = idx;
+    updateLightbox();
+    lightbox.setAttribute("aria-hidden", "false");
+    lightbox.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightbox.setAttribute("aria-hidden", "true");
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function getUniqueCount(row: number): number {
+    const track = document.querySelector(`[data-track="${row}"]`) as HTMLElement;
+    return Number(track?.dataset.unique) || getRowFrames(row).length / 2;
+  }
+
+  function prevImage() {
+    const unique = getUniqueCount(currentRow);
+    currentIdx = (currentIdx - 1 + unique) % unique;
+    updateLightbox();
+  }
+
+  function nextImage() {
+    const unique = getUniqueCount(currentRow);
+    currentIdx = (currentIdx + 1) % unique;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    const frames = getRowFrames(currentRow);
+    const frame = frames[currentIdx];
+    lbImg.src = frame.dataset.src || "";
+    lbCaption.textContent = frame.dataset.title || "";
+  }
+
+  // Click handler — distinguish click from drag
+  let clickStartX = 0;
+  let clickStartY = 0;
+
+  allFrames.forEach((frame) => {
+    frame.addEventListener("mousedown", (e) => {
+      clickStartX = e.clientX;
+      clickStartY = e.clientY;
+    });
+
+    frame.addEventListener("click", (e) => {
+      const dx = Math.abs(e.clientX - clickStartX);
+      const dy = Math.abs(e.clientY - clickStartY);
+      // Only open lightbox if it was a click, not a drag
+      if (dx < 4 && dy < 4) {
+        const row = Number(frame.dataset.row);
+        const idx = Number(frame.dataset.idx);
+        openLightbox(row, idx);
+      }
+    });
+  });
+
+  btnClose.addEventListener("click", closeLightbox);
+  lbBg.addEventListener("click", closeLightbox);
+  btnPrev.addEventListener("click", (e) => { e.stopPropagation(); prevImage(); });
+  btnNext.addEventListener("click", (e) => { e.stopPropagation(); nextImage(); });
+
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox.classList.contains("active")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "ArrowRight") nextImage();
+  });
+
+  // Swipe in lightbox
+  let touchStart = 0;
+  lightbox.addEventListener("touchstart", (e) => {
+    touchStart = (e as TouchEvent).touches[0].clientX;
+  });
+  lightbox.addEventListener("touchend", (e) => {
+    const diff = touchStart - (e as TouchEvent).changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) diff > 0 ? nextImage() : prevImage();
+  });
+</script>
+
+<style>
+  .art-page {
+    padding: 0 0 60px;
+  }
+
+  /* ── Hero ── */
+  .art-hero {
+    text-align: center;
+    padding: 50px 20px 30px;
+  }
+
+  .hero-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .art-hero h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: #666;
+    max-width: 480px;
+    margin: 0 auto 14px;
+  }
+
+  .hero-hint {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 1px;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: #666;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  .empty code {
+    background: rgba(255,255,255,0.06);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ── Rows ── */
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .art-row {
+    position: relative;
+  }
+
+  .row-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 16px 28px 10px;
+    font-family: var(--font-mono);
+  }
+
+  .row-idx {
+    font-size: 12px;
+    color: var(--accent);
+    opacity: 0.6;
+    letter-spacing: 1px;
+  }
+
+  .row-header h2 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin: 0;
+    flex: 1;
+  }
+
+  .row-count {
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 1px;
+  }
+
+  /* ── Viewport & Track ── */
+  .row-viewport {
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    height: 320px;
+  }
+
+  .row-track {
+    display: flex;
+    gap: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 0 28px;
+    align-items: center;
+    will-change: transform;
+  }
+
+  /* ── Image Frames ── */
+  .frame {
+    flex-shrink: 0;
+    height: 280px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: #0a0a0f;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .frame:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+
+  .frame img {
+    height: 100%;
+    width: auto;
+    display: block;
+    pointer-events: none;
+  }
+
+  .frame-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 12px 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    color: #ccc;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    text-align: center;
+  }
+
+  .frame:hover .frame-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Lightbox ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+
+  .lightbox-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.96);
+  }
+
+  .lightbox-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 92vw;
+    max-height: 92vh;
+    z-index: 1;
+  }
+
+  .lightbox-body img {
+    max-width: 90vw;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+  }
+
+  .lb-caption {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    z-index: 2;
+    font-size: 42px;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .lightbox-close:hover { color: #fff; }
+
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    font-size: 52px;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 20px 14px;
+    transition: color 0.2s;
+    user-select: none;
+  }
+
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+  .lightbox-prev:hover,
+  .lightbox-next:hover { color: #fff; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .row-viewport {
+      height: 240px;
+    }
+    .frame {
+      height: 210px;
+    }
+    .row-header {
+      padding: 10px 16px 6px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .row-viewport {
+      height: 200px;
+    }
+    .frame {
+      height: 175px;
+    }
+    .art-hero {
+      padding: 30px 16px 20px;
+    }
+    .row-header {
+      padding: 8px 12px 4px;
+    }
+    .row-header h2 {
+      font-size: 13px;
+    }
+    .lightbox-prev,
+    .lightbox-next {
+      font-size: 36px;
+      padding: 10px 6px;
+    }
+    .lightbox-close {
+      font-size: 32px;
+      top: 10px;
+      right: 14px;
+    }
+  }
+</style>

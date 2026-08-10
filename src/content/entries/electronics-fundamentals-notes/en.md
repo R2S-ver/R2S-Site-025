@@ -67,13 +67,17 @@ Thus, voltage is not some invisible gas pressure, but rather the **spatial accum
 
 These two laws are specific manifestations of the universe's fundamental physical laws — **conservation of charge** and **conservation of energy** — within an electrical circuit.
 
-## Kirchhoff's Current Law (KCL) — Why Electrons Cannot Pile Up
+## Kirchhoff's Current Law (KCL)
+
+### Why Electrons Cannot Pile Up
 
 - **Macroscopic Formula:** Σ I_in = Σ I_out
 - **Microscopic Physics:** Electrons carry negative charges. According to **Coulomb's Law**, there is an immensely powerful repulsive force between like charges. If more electrons flow into a junction than flow out, negative charge would rapidly accumulate at that node.
 - **Self-Regulating Mechanism:** The moment negative charge begins to accumulate, the powerful repulsive force instantly "pushes away" incoming electrons while "speeding up" outgoing electrons. This microscopic self-balancing process finishes within nanoseconds. Under steady-state conditions, **no node can hold excess net charge**; whatever current goes in must come out.
 
-## Kirchhoff's Voltage Law (KVL) — Why a Full Loop Must Equal Zero
+## Kirchhoff's Voltage Law (KVL)
+
+### Why a Full Loop Must Equal Zero
 
 - **Macroscopic Formula:** Σ V = 0
 - **Microscopic Physics:** In electrostatics or low-frequency circuits, the electric field is a **conservative field (irrotational)**. The work done by the electric field force depends only on the starting and ending positions, independent of the path taken.
@@ -163,11 +167,11 @@ A diode is a semiconductor device that allows current to flow in only one direct
 
 ## Transistor
 
-🚧 *UPCOMING — Content on transistors will be added in a future update.*
+🚧 _UPCOMING — Content on transistors will be added in a future update._
 
 ## MOSFET
 
-🚧 *UPCOMING — Content on MOSFETs will be added in a future update.*
+🚧 _UPCOMING — Content on MOSFETs will be added in a future update._
 
 ## Linear and Switching Power Supply
 

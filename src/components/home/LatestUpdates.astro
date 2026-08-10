@@ -37,7 +37,7 @@ const routeMap = {
           );
 
           return (
-            <a href={`${basePath}/${entry.id}`} class="log">
+            <a href={`${basePath}/${entry.id.split("/")[0]}`} class="log">
               <div class="log-left">
                 <div class="entry">
                   ENTRY_{String(index + 1).padStart(3, "0")}

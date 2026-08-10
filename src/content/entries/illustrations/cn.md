@@ -1,0 +1,42 @@
+---
+title: 插画
+date: 2025-09-01
+description: 数字角色插画合集，探索风格化肖像与视觉叙事。
+
+type: art
+category: 插画
+cover: 05-aiyafala.png
+
+tags:
+  - 插画
+  - 角色设计
+  - 数字艺术
+  - 动漫风格
+
+tools:
+  - Clip Studio Paint
+
+featured: true
+
+lang: zh
+
+translationKey: illustrations
+
+gallery:
+  - file: 01-xiaoke.png
+    title: 小刻 — 2024年9月
+  - file: 02-palasi.png
+    title: 帕拉斯 — 2025年1月
+  - file: 03-taojinniang.png
+    title: 桃金娘 — 2024年7月
+  - file: 04-gua.png
+    title: 瓜 — 2025年3月
+  - file: 05-aiyafala.png
+    title: 纯烬艾雅法拉 — 2025年9月
+  - file: 06-susuluo.png
+    title: 苏苏洛 — 2025年8月
+  - file: 07-mofazhumi.png
+    title: 魔法猪咪 — 2025年9月
+---
+
+数字角色插画创作，探索动漫风格的风格化肖像。每张作品聚焦于角色表情、色彩构成与视觉氛围。

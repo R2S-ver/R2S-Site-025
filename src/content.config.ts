@@ -33,6 +33,11 @@ const entries = defineCollection({
 
     featured: z.boolean().optional(),
 
+    gallery: z.array(z.object({
+      file: z.string(),
+      title: z.string(),
+    })).optional(),
+
     lang: z.enum([
       'en',
       'zh',

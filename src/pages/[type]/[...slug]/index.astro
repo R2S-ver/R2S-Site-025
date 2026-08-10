@@ -2,12 +2,13 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import ProjectDetail from "../../../components/ProjectDetail.astro";
+import ArtGallery from "../../../components/ArtGallery.astro";
 import { findTranslation } from "../../../utils/i18n";
 
 export async function getStaticPaths() {
   const entries = await getCollection("entries");
 
-  const englishEntries = entries.filter((entry) => entry.data.lang === "en");
+  const englishEntries = entries.filter((entry) => entry.data.lang === "en" && entry.data.type !== "art");
 
   return englishEntries.map((entry) => {
     const projectSlug = entry.id.split("/")[0];
@@ -35,10 +36,14 @@ const { Content } = await render(project);
 ---
 
 <Layout title={project.data.title}>
-  <ProjectDetail
-    project={project}
-    projectId={projectId}
-    Content={Content}
-    translation={translation}
-  />
+  {project.data.type === "art" ? (
+    <ArtGallery project={project} projectId={projectId} />
+  ) : (
+    <ProjectDetail
+      project={project}
+      projectId={projectId}
+      Content={Content}
+      translation={translation}
+    />
+  )}
 </Layout>
