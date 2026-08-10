@@ -71,6 +71,10 @@ const aboutPath = getLocalizedPath("/about", language);
         &gt; {t.footer.email}
       </a>
 
+      <div class="qq">
+        &gt; QQ: 2385568240
+      </div>
+
       <a href={aboutPath}>
         &gt; {t.footer.about}
       </a>
@@ -243,6 +247,18 @@ const aboutPath = getLocalizedPath("/about", language);
     color: var(--accent);
 
     transform: translateX(5px);
+  }
+
+  .qq {
+    color: #ccc;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+  }
+
+  .qq:hover {
+    color: var(--accent);
   }
 
   .barcode {

@@ -35,6 +35,7 @@ translationKey: esp32-rgbww-fcob-comm
 #include <NeoPixelBus.h>
 
 #define LED_PIN 5
+// 先假设 150 个控制点
 #define LED_COUNT 150
 
 NeoPixelBus<NeoGrbwFeature, NeoEsp32Rmt0800KbpsMethod> strip(LED_COUNT, LED_PIN);

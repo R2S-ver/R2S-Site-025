@@ -19,7 +19,7 @@ const entries = defineCollection({
     cover: z.string().optional(),
 
     type: z.enum([
-      'work',
+      'projects',
       'lab',
       'note',
       'art',

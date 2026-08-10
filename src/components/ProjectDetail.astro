@@ -20,6 +20,21 @@ const cover = project.data.cover
   ? getProjectImage(projectId, project.data.cover)
   : null;
 
+// Resolve all images in this project folder for fixing raw <img> tags in markdown
+const allImagesRaw = import.meta.glob(
+  "/src/content/entries/**/*.{png,jpg,jpeg,webp}",
+  { eager: true },
+);
+const projectImageMap: Record<string, string> = {};
+for (const [path, mod] of Object.entries(allImagesRaw)) {
+  if (path.includes(`/entries/${projectId}/`)) {
+    const filename = path.split("/").pop()!;
+    const meta = (mod as any).default || mod;
+    const src = typeof meta === "string" ? meta : meta?.src;
+    if (src) projectImageMap[filename] = src;
+  }
+}
+
 const date = project.data.date.toLocaleDateString(
   language === "zh" ? "zh-CN" : "en-US",
   {
@@ -120,24 +135,56 @@ const translationAvailable = !!translation;
   </div>
 </main>
 
+<div id="image-map-data" style="display:none;" set:html={JSON.stringify(projectImageMap)}></div>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    // Fix raw <img> tags in markdown that Astro doesn't resolve
+    const mapEl = document.getElementById("image-map-data");
+    const __IMAGES__ = mapEl ? JSON.parse(mapEl.textContent || "{}") : {};
+    document.querySelectorAll<HTMLImageElement>("article img[src^='./']").forEach(img => {
+      const filename = img.getAttribute("src")!.replace("./", "");
+      if (__IMAGES__[filename]) img.src = __IMAGES__[filename];
+    });
+    // ── Process scroll auto-advance (art-gallery pattern) ──
+    const sc = document.getElementById("process-scroll");
+    const track = document.getElementById("process-track") as HTMLElement | null;
+    if (sc && track) {
+      let pos = 0, speed = 0.4, dragging = false, hovering = false;
+      let dragX = 0, dragStart = 0;
+      const copies = Number(track.dataset.copies) || 2;
+
+      sc.addEventListener("mouseenter", () => { hovering = true; });
+      sc.addEventListener("mouseleave", () => { hovering = false; dragging = false; sc.style.cursor = "grab"; });
+      sc.addEventListener("mousedown", (e) => {
+        dragging = true; dragX = e.clientX; dragStart = pos; sc.style.cursor = "grabbing"; e.preventDefault();
+      });
+      window.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        pos = dragStart + (dragX - e.clientX) * 1.5;
+      });
+      window.addEventListener("mouseup", () => { dragging = false; });
+      sc.addEventListener("touchstart", (e) => {
+        dragging = true; dragX = e.touches[0].clientX; dragStart = pos;
+      });
+      sc.addEventListener("touchmove", (e) => {
+        if (!dragging) return;
+        pos = dragStart + (dragX - e.touches[0].clientX) * 1.5;
+      });
+      sc.addEventListener("touchend", () => { dragging = false; });
+
+      const anim = () => {
+        if (!dragging && !hovering) pos += speed;
+        const setWidth = track.scrollWidth / copies;
+        pos = ((pos % setWidth) + setWidth) % setWidth;
+        track.style.transform = `translateX(${-pos}px)`;
+        requestAnimationFrame(anim);
+      };
+      requestAnimationFrame(anim);
+    }
     const article = document.querySelector("article");
     const toc = document.querySelector("#toc-list");
-    const tocSidebar = toc?.closest(".toc") as HTMLElement | null;
 
     if (!article || !toc) return;
-
-    // Show TOC only after the entire hero card (cover + info + tags + hr) scrolls past
-    if (tocSidebar) {
-      const hr = document.querySelector("hr");
-      const check = () => {
-        if (!hr) return;
-        tocSidebar.classList.toggle("visible", hr.getBoundingClientRect().bottom < 0);
-      };
-      window.addEventListener("scroll", check, { passive: true });
-      check();
-    }
 
     const headings = article.querySelectorAll(toc.dataset.tocLevel || "h1");
 
@@ -345,34 +392,20 @@ const translationAvailable = !!translation;
   */
 
   .content-layout {
-    position: relative;
-
-    padding-left: 280px;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 30px;
+    max-width: 1150px;
+    margin: 0 auto;
   }
 
   .toc {
-    position: fixed;
-
-    top: 120px;
-
-    opacity: 0;
-    transform: translateX(-10px);
-    transition:
-      opacity 0.35s ease,
-      transform 0.35s ease;
-    pointer-events: none;
-  }
-
-  .toc.visible {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-
-  .toc {
-    left: 40px;
-
-    width: 220px;
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    height: fit-content;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
 
     box-sizing: border-box;
 
@@ -469,7 +502,7 @@ const translationAvailable = !!translation;
 
   :global(article h1) {
     scroll-margin-top: 82px;
-    margin-top: 80px;
+    margin-top: 50px;
 
     margin-bottom: 25px;
 
@@ -565,24 +598,6 @@ const translationAvailable = !!translation;
     margin-bottom: 8px;
   }
 
-  article :global(img) {
-    width: auto !important;
-
-    height: auto !important;
-
-    max-width: 850px !important;
-
-    max-height: 800px !important;
-
-    object-fit: contain !important;
-
-    display: block;
-
-    margin: 40px auto;
-
-    border-radius: 16px;
-  }
-
   article :global(table) {
     width: 100%;
     border-collapse: separate;
@@ -618,6 +633,7 @@ const translationAvailable = !!translation;
     background: rgba(255, 255, 255, 0.03);
   }
 
+
   article pre {
     background: #f5f5f5;
 
@@ -637,25 +653,18 @@ const translationAvailable = !!translation;
   @media (max-width: 1100px) {
     .content-layout {
       grid-template-columns: 1fr;
-
-      padding-left: 0;
     }
 
     .toc {
       position: relative;
-
       top: auto;
-
+      max-height: none;
+      overflow-y: visible;
       order: -1;
-
       margin-bottom: 40px;
-
       padding: 20px;
-
       border-left: none;
-
       border: 1px solid rgba(255, 255, 255, 0.15);
-
       border-radius: 12px;
     }
 
@@ -705,4 +714,74 @@ const translationAvailable = !!translation;
       font-size: 14px;
     }
   }
+</style>
+
+<style is:global>
+  /* --- Article image defaults (1080p-friendly) --- */
+  article img {
+    width: auto; height: auto;
+    max-width: 850px; max-height: 550px;
+    object-fit: contain;
+    display: block; margin: 40px auto;
+    border-radius: 16px;
+  }
+
+  /* --- Layers cross-section layout --- */
+  .layers-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+    margin: 40px 0;
+  }
+  .layers-image img {
+    width: 100% !important;
+    max-width: 420px !important;
+    object-fit: contain;
+    border-radius: 12px;
+    position: sticky;
+    top: 100px;
+    margin: 0 !important;
+  }
+  .layers-desc h3 {
+    margin-top: 8px;
+    color: var(--retro-cyan);
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .layers-desc h3:first-child { margin-top: 0; }
+  .layers-desc p { font-size: 13px; color: #ccc; line-height: 1.4; margin-bottom: 0; }
+
+  /* --- Side-by-side comparison --- */
+  .side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 30px 0 10px; align-items: start; }
+  .side-by-side img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 420px !important;
+    object-fit: contain;
+    border-radius: 10px;
+    margin: 0 !important;
+  }
+  .side-by-side p { text-align: center; font-size: 12px; color: #888; margin-top: 6px; font-family: var(--font-mono); }
+
+  /* --- Process scroll track --- */
+  .process-scroll { overflow: hidden; cursor: grab; margin: 30px 0 0; user-select: none; -webkit-user-select: none; position: relative; height: 310px; }
+  .process-track { display: flex; gap: 16px; position: absolute; left: 0; top: 0; height: 100%; align-items: center; padding: 0 20px; will-change: transform; }
+  .process-track .step { flex-shrink: 0; width: 360px; text-align: center; }
+  .process-track .step img {
+    width: 360px !important;
+    height: 270px !important;
+    object-fit: cover !important;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    margin: 0 !important;
+  }
+  .process-track .step span { display: block; margin-top: 7px; font-size: 12px; color: #888; font-family: var(--font-mono); }
+
+  /* --- Variables grid --- */
+  .variables-grid { margin: 30px 0; }
+  .variables-grid li { margin-bottom: 6px; }
+
+  @media (max-width: 800px) { .layers-layout { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .side-by-side { grid-template-columns: 1fr; } }
 </style>

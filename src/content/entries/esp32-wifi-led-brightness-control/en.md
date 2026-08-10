@@ -82,9 +82,9 @@ The ESP32 connects, serves the interface, receives HTTP brightness values, and d
 #include <WiFi.h>
 #include <WebServer.h>
 
-// Replace with your WiFi credentials
-const char* ssid = "WIFI-NAME";
-const char* password = "WIFI-PASSWORD";
+// Replace with your WiFi name and password
+const char* ssid = "YOUR_WIFI_USERNAME_HERE";
+const char* password = "YOUR_WIFI_PASSWORD_HERE";
 
 WebServer server(80);
 
@@ -101,12 +101,13 @@ void setup() {
 
   // Configure PWM
   ledcAttach(LED_PIN, PWM_FREQ, PWM_RESOLUTION);
+
   // Start at 50% brightness
   ledcWrite(PWM_CHANNEL, 128);
 
   // Connect to WiFi
   WiFi.begin(ssid, password);
-  Serial.print("Connecting to WiFi");
+  Serial.print("Connecting WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
@@ -122,35 +123,36 @@ void setup() {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>ESP32 LED Control</title>
-  <style>
-    body { text-align: center; font-family: Arial; }
-    input { width: 80%; }
-  </style>
+<meta charset="utf-8">
+<title>ESP32 LED Control</title>
+<style>
+body { text-align: center; font-family: Arial; }
+input { width: 80%; }
+</style>
 </head>
 <body>
-  <h1>ESP32 LED Control</h1>
-  <h2>Brightness Control</h2>
-  <input type="range" min="0" max="255" value="128" id="brightness"
-         oninput="changeBrightness(this.value)">
-  <p>Current Brightness: <span id="value">128</span></p>
-  <script>
-    function changeBrightness(value) {
-      document.getElementById("value").innerHTML = value;
-      fetch("/set?value=" + value);
-    }
-  </script>
+<h1>ESP32 LED Control</h1>
+<h2>Brightness Control</h2>
+<input type="range" min="0" max="255" value="128" id="brightness"
+       oninput="changeBrightness(this.value)">
+<p>Current Brightness: <span id="value">128</span></p>
+<script>
+function changeBrightness(value) {
+  document.getElementById("value").innerHTML = value;
+  fetch("/set?value=" + value);
+}
+</script>
 </body>
 </html>
     )rawliteral";
-    server.send(200, "text/html; charset=utf-8", html);
+    server.send(200, "text/html;charset=utf-8", html);
   });
 
-  // Handle brightness updates
+  // Receive brightness data from web page
   server.on("/set", []() {
     if (server.hasArg("value")) {
       int brightness = server.arg("value").toInt();
+      // Output PWM signal
       ledcWrite(LED_PIN, brightness);
       Serial.print("Brightness: ");
       Serial.println(brightness);

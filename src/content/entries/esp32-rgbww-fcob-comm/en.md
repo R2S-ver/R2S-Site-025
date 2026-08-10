@@ -35,6 +35,7 @@ Verify that the ESP32 can communicate with an RGBWW FCOB LED strip using the Neo
 #include <NeoPixelBus.h>
 
 #define LED_PIN 5
+// Assume 150 control points for now
 #define LED_COUNT 150
 
 NeoPixelBus<NeoGrbwFeature, NeoEsp32Rmt0800KbpsMethod> strip(LED_COUNT, LED_PIN);

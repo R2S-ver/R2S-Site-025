@@ -84,9 +84,9 @@ ESP32 成功连接网络、提供网页界面、接收 HTTP 亮度值并通过 P
 #include <WiFi.h>
 #include <WebServer.h>
 
-// 请替换为你自己的 WiFi 信息
-const char* ssid = "WIFI-NAME";
-const char* password = "WIFI-PASSWORD";
+// 请替换为你自己的 WiFi 名称和密码
+const char* ssid = "YOUR_WIFI_USERNAME_HERE";
+const char* password = "YOUR_WIFI_PASSWORD_HERE";
 
 WebServer server(80);
 
@@ -96,14 +96,15 @@ WebServer server(80);
 // PWM 设置
 #define PWM_CHANNEL 0
 #define PWM_FREQ 5000
-#define PWM_RESOLUTION 8   // 8 位分辨率，范围 0–255
+#define PWM_RESOLUTION 8   // 8 位分辨率 = 0–255
 
 void setup() {
   Serial.begin(115200);
 
   // 配置 PWM
   ledcAttach(LED_PIN, PWM_FREQ, PWM_RESOLUTION);
-  // 初始亮度设为 50%
+
+  // 初始亮度 50%
   ledcWrite(PWM_CHANNEL, 128);
 
   // 连接 WiFi
@@ -118,41 +119,42 @@ void setup() {
   Serial.print("IP 地址：");
   Serial.println(WiFi.localIP());
 
-  // 首页
+  // 主页
   server.on("/", []() {
     String html = R"rawliteral(
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>ESP32 LED 控制</title>
-  <style>
-    body { text-align: center; font-family: Arial; }
-    input { width: 80%; }
-  </style>
+<meta charset="utf-8">
+<title>ESP32 LED 控制</title>
+<style>
+body { text-align: center; font-family: Arial; }
+input { width: 80%; }
+</style>
 </head>
 <body>
-  <h1>ESP32 LED 控制</h1>
-  <h2>亮度调节</h2>
-  <input type="range" min="0" max="255" value="128" id="brightness"
-         oninput="changeBrightness(this.value)">
-  <p>当前亮度：<span id="value">128</span></p>
-  <script>
-    function changeBrightness(value) {
-      document.getElementById("value").innerHTML = value;
-      fetch("/set?value=" + value);
-    }
-  </script>
+<h1>ESP32 LED 控制</h1>
+<h2>亮度调节</h2>
+<input type="range" min="0" max="255" value="128" id="brightness"
+       oninput="changeBrightness(this.value)">
+<p>当前亮度：<span id="value">128</span></p>
+<script>
+function changeBrightness(value) {
+  document.getElementById("value").innerHTML = value;
+  fetch("/set?value=" + value);
+}
+</script>
 </body>
 </html>
     )rawliteral";
-    server.send(200, "text/html; charset=utf-8", html);
+    server.send(200, "text/html;charset=utf-8", html);
   });
 
-  // 处理亮度更新请求
+  // 接收网页亮度数据
   server.on("/set", []() {
     if (server.hasArg("value")) {
       int brightness = server.arg("value").toInt();
+      // 输出 PWM 信号
       ledcWrite(LED_PIN, brightness);
       Serial.print("亮度：");
       Serial.println(brightness);

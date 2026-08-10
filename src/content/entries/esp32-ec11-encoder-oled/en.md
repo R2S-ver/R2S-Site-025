@@ -115,8 +115,8 @@ The OLED shows:
 //==============================
 // WiFi
 //==============================
-const char* ssid = "WIFI_USERNAME_HERE";
-const char* password = "WIFI_PASSWORD_HERE";
+const char* ssid = "YOUR_WIFI_USERNAME_HERE";
+const char* password = "YOUR_WIFI_PASSWORD_HERE";
 
 //==============================
 // WebSocket & AsyncWebServer
