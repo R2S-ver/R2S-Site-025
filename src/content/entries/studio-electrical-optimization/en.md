@@ -1,6 +1,6 @@
 ---
 title: Studio Electrical Safety & Optimization
-date: 2025-05-14
+date: 2026-05-14
 description: Electrical infrastructure analysis of a home workshop, identifying 9 risk factors and implementing a star-topology power distribution system with zoned circuit separation.
 
 type: lab
@@ -45,7 +45,7 @@ The study is based on my local context in **The Netherlands (Europe)**, where in
 
 # Protective Mechanisms in the Household Electrical System
 
-In Dutch homes, the distribution board (*groepenkast*) is located in the meter cupboard. Power enters through the grid connection and passes through the following safety components:
+In Dutch homes, the distribution board (_groepenkast_) is located in the meter cupboard. Power enters through the grid connection and passes through the following safety components:
 
 - **Main Fuse & Main Switch:** For total system shutdown
 - **Residual Current Device (RCD):** Protects against electrocution by detecting leakage currents
@@ -116,36 +116,45 @@ I conducted a detailed analysis of my workspace's electrical infrastructure, foc
 ## Identified Risks and Optimization Plan
 
 ### 1. Welding Machine Grounding
+
 The welding machine was ungrounded — a significant safety risk. **Solution:** Connect directly to the main grounding system of the distribution board.
 
 ### 2. Inrush Current
+
 The welding machine's inrush current (20-30A) exceeded the circuit's capacity. **Solution:** Move to a dedicated circuit with a heavier-duty breaker.
 
 ### 3. Trip Characteristics
+
 A C or D-curve breaker is needed for equipment with high starting currents.
 
 ![Daisy-Chaining Risk](./10.png)
 
 ### 4. Eliminating Daisy-Chaining
+
 Power strips connected in series increase contact resistance, heat buildup, and fire risk. **Solution:** Convert from a tree structure to a star topology using a high-quality 16A power strip.
 
 ### 5. Voltage Dips & EMI
+
 Heavy consumers (compressor, angle grinder) cause voltage dips and electromagnetic interference, disrupting sensitive electronics. **Solution:** Separate circuits for heavy machinery and sensitive equipment.
 
 ![Travel Adapter Issues](./11.png)
 
 ### 6. Travel Adapters
+
 Contact surfaces are too small for high-current applications. **Solution:** Replace with standard European plugs or industrial-grade power strips.
 
 ### 7. Zoning & Circuit Distribution
+
 Divide the workshop into "Machining Zone" and "Office Zone," each on separate circuits. Upgrade wiring from 2.5mm² to 4mm² or 6mm² where possible.
 
 ![Direct Connection Recommendation](./12.png)
 
 ### 8. Direct Connection
+
 Eliminate secondary power strips. Critical equipment must plug directly into wall sockets.
 
 ### 9. Prevention & Warning Labels
+
 Apply safety signage — prohibit simultaneous startup of multiple heavy machines and ban coiled extension cords.
 
 ![Warning Labels](./13.png)

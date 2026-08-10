@@ -1,6 +1,6 @@
 ---
 title: Electronics Fundamentals — Self-Study Notes
-date: 2025-05-14
+date: 2026-05-14
 description: A structured study log covering voltage and current theory, Kirchhoff's laws, and the principles of basic electronic components including resistors, capacitors, diodes, and power supplies.
 
 type: note
