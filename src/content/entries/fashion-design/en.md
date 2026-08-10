@@ -33,4 +33,4 @@ gallery:
     title: Ibuki Suika — Design #4 (Jan 2024)
 ---
 
-A four-piece fashion design series featuring Ibuki Suika. Each illustration explores a different modern streetwear look, from oversized silhouettes to layered urban styling. The series experiments with fabric texture, colour blocking, and accessory details.
+A four-piece fashion design series featuring Ibuki Suika. Each illustration explores a different streetwear look.

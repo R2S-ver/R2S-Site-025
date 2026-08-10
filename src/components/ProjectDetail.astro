@@ -106,7 +106,12 @@ const translationAvailable = !!translation;
     <aside class="toc">
       <h3>{t.common.contents}</h3>
 
-      <nav id="toc-list" class="toc-list" data-toc-level={project.data.type === "note" ? "h2" : "h1"}></nav>
+      <nav
+        id="toc-list"
+        class="toc-list"
+        data-toc-level={project.data.type === "note" ? "h2" : "h1"}
+      >
+      </nav>
     </aside>
 
     <article>
@@ -119,8 +124,20 @@ const translationAvailable = !!translation;
   document.addEventListener("DOMContentLoaded", () => {
     const article = document.querySelector("article");
     const toc = document.querySelector("#toc-list");
+    const tocSidebar = toc?.closest(".toc") as HTMLElement | null;
 
     if (!article || !toc) return;
+
+    // Show TOC only after the entire hero card (cover + info + tags + hr) scrolls past
+    if (tocSidebar) {
+      const hr = document.querySelector("hr");
+      const check = () => {
+        if (!hr) return;
+        tocSidebar.classList.toggle("visible", hr.getBoundingClientRect().bottom < 0);
+      };
+      window.addEventListener("scroll", check, { passive: true });
+      check();
+    }
 
     const headings = article.querySelectorAll(toc.dataset.tocLevel || "h1");
 
@@ -338,6 +355,21 @@ const translationAvailable = !!translation;
 
     top: 120px;
 
+    opacity: 0;
+    transform: translateX(-10px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+    pointer-events: none;
+  }
+
+  .toc.visible {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .toc {
     left: 40px;
 
     width: 220px;
@@ -436,6 +468,7 @@ const translationAvailable = !!translation;
   }
 
   :global(article h1) {
+    scroll-margin-top: 82px;
     margin-top: 80px;
 
     margin-bottom: 25px;
@@ -450,6 +483,7 @@ const translationAvailable = !!translation;
   }
 
   :global(article h2) {
+    scroll-margin-top: 82px;
     margin-top: 60px;
 
     margin-bottom: 20px;
@@ -547,6 +581,41 @@ const translationAvailable = !!translation;
     margin: 40px auto;
 
     border-radius: 16px;
+  }
+
+  article :global(table) {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 30px 0;
+    font-size: 15px;
+  }
+
+  article :global(th) {
+    text-align: left;
+    padding: 12px 20px;
+    border-bottom: 2px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  article :global(td) {
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  article :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  article :global(tr:hover td) {
+    background: rgba(255, 255, 255, 0.03);
   }
 
   article pre {

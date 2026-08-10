@@ -9,10 +9,9 @@ cover: cover.png
 
 tags:
   - ESP32
-  - Arduino
   - WiFi
   - PWM
-  - 嵌入式系统
+  - Web Server
 
 tools:
   - ESP32

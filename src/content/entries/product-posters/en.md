@@ -40,4 +40,4 @@ gallery:
     title: Zoem Bike — Alternate
 ---
 
-Product poster designs created for brand visualisation and commercial presentation. Each piece explores composition, typography, and product storytelling through a poster format.
+Product poster designs created for brand visualisation and commercial presentation.

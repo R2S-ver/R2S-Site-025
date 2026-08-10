@@ -39,4 +39,4 @@ gallery:
     title: 魔法猪咪 Magic Piggy — Sept 2025
 ---
 
-Digital character illustrations created over time, exploring stylised anime-inspired portraiture. Each piece focuses on character expression, colour composition, and visual atmosphere.
+Digital character illustrations created over time.

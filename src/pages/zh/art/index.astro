@@ -254,18 +254,28 @@ const hasContent = categories.some((c) => c.images.length > 0);
   }
 
   function openLightbox(row: number, idx: number) {
+    if (lightbox.parentElement !== document.body) {
+      document.body.appendChild(lightbox);
+    }
     currentRow = row;
     currentIdx = idx;
     updateLightbox();
     lightbox.setAttribute("aria-hidden", "false");
     lightbox.classList.add("active");
-    document.body.style.overflow = "hidden";
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
   }
 
   function closeLightbox() {
     lightbox.setAttribute("aria-hidden", "true");
     lightbox.classList.remove("active");
-    document.body.style.overflow = "";
+    const scrollY = document.body.style.top;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.width = "";
+    window.scrollTo(0, parseInt(scrollY || "0") * -1);
   }
 
   function getUniqueCount(row: number): number {
@@ -288,7 +298,15 @@ const hasContent = categories.some((c) => c.images.length > 0);
   function updateLightbox() {
     const frames = getRowFrames(currentRow);
     const frame = frames[currentIdx];
-    lbImg.src = frame.dataset.src || "";
+    const nextSrc = frame.dataset.src || "";
+    if (lbImg.src === nextSrc) return;
+    lbImg.classList.add("crossfade");
+    const preload = new Image();
+    preload.onload = () => {
+      lbImg.src = nextSrc;
+      lbImg.classList.remove("crossfade");
+    };
+    preload.src = nextSrc;
     lbCaption.textContent = frame.dataset.title || "";
   }
 
@@ -532,6 +550,11 @@ const hasContent = categories.some((c) => c.images.length > 0);
     max-width: 90vw;
     max-height: 82vh;
     object-fit: contain;
+    transition: opacity 0.15s ease;
+  }
+  .lightbox-body img.crossfade {
+    opacity: 0;
+  }
     border-radius: 4px;
     box-shadow: 0 4px 60px rgba(0,0,0,0.5);
   }

@@ -37,4 +37,4 @@ gallery:
     title: 燃尽布丁 Burnt Pudding
 ---
 
-A six-piece food art series where each dish is reimagined through a stylised visual lens. The illustrations blend realistic food textures with character-driven presentation, creating a playful dialogue between culinary art and anime-inspired aesthetics.
+A six-piece food art series.

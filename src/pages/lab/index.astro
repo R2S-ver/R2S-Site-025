@@ -1,17 +1,175 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ContentList from "../../components/ContentList.astro";
+import { getCollection } from "astro:content";
+import ProjectCard from "../../components/ProjectCard.astro";
 import { getLanguageFromPath } from "../../utils/i18n";
 import { getTranslations } from "../../utils/translations";
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
+
+const entries = await getCollection("entries");
+const labEntries = entries
+  .filter((e) => e.data.type === "lab" && e.data.lang === language)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Curated filter tags — meaningful, non-overlapping categories
+const filterTags = [
+  "ESP32",
+  "Arduino",
+  "WiFi",
+  "NeoPixel",
+  "Web Server",
+  "Stepper Motor",
+  "3D Printing",
+  "Electrical Safety",
+];
+
+// Only show tags that actually exist in lab entries
+const allTags = new Set(labEntries.flatMap((e) => e.data.tags || []));
+const topTags = filterTags
+  .filter((t) => allTags.has(t))
+  .map((t) => [t, labEntries.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
 <Layout title={`${t.sections.lab.title} | R2S Studio`}>
-  <ContentList
-    type="lab"
-    title={t.sections.lab.title}
-    description={t.sections.lab.description}
-  />
+  <main class="lab-page">
+    <header class="lab-header">
+      <h1>{t.sections.lab.title}</h1>
+      <p>{t.sections.lab.description}</p>
+    </header>
+
+    <div class="tag-bar" id="tag-bar">
+      <button class="tag-chip active" data-tag="">ALL</button>
+      {topTags.map(([tag, count]) => (
+        <button class="tag-chip" data-tag={tag}>
+          {tag}<span class="tag-count">{count}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="grid" id="lab-grid">
+      {labEntries.map((entry) => (
+        <div class="project-wrapper" data-tags={JSON.stringify(entry.data.tags || [])}>
+          <ProjectCard project={entry} />
+        </div>
+      ))}
+    </div>
+  </main>
 </Layout>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>(".tag-chip");
+  const wrappers = document.querySelectorAll<HTMLElement>(".project-wrapper");
+
+  let activeTag = "";
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const tag = chip.dataset.tag || "";
+
+      // Toggle UI
+      chips.forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      activeTag = tag;
+
+      // Filter
+      wrappers.forEach((w) => {
+        const tags: string[] = JSON.parse(w.dataset.tags || "[]");
+        if (!activeTag || tags.includes(activeTag)) {
+          w.style.display = "";
+        } else {
+          w.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .lab-page {
+    max-width: 1400px;
+    margin: auto;
+    padding: 0 40px 80px;
+  }
+
+  .lab-header {
+    margin-bottom: 30px;
+  }
+
+  .lab-header h1 {
+    font-size: 64px;
+    line-height: 1.2;
+  }
+
+  .lab-header p {
+    font-size: 20px;
+    color: #666;
+    margin-top: 8px;
+  }
+
+  /* ── Tag chips ── */
+  .tag-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+    color: #999;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tag-chip:hover {
+    border-color: rgba(255,255,255,0.3);
+    color: #ddd;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .tag-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+
+  .tag-count {
+    font-size: 10px;
+    opacity: 0.6;
+  }
+
+  .tag-chip.active .tag-count {
+    color: rgba(0,0,0,0.5);
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 700px) {
+    .lab-page { padding: 0 16px 60px; }
+    .grid { grid-template-columns: 1fr; }
+    .lab-header h1 { font-size: 42px; }
+  }
+</style>
