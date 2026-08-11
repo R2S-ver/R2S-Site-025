@@ -390,7 +390,7 @@ export const translations = {
         line2:
           "我的目标是让视觉上的优雅始终建立在严谨的技术与切实可行的执行之上",
       },
-      button: "访问项目数据库 →",
+      button: "访问项目数据库",
     },
 
     featured: {
