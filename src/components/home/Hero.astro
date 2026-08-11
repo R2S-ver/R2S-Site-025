@@ -10,9 +10,7 @@ const projectsPath = getLocalizedPath("/projects", language);
 <section class="hero">
   <!-- ── Decorative background ── -->
   <div class="hero-bg" aria-hidden="true">
-    <div class="orbital-ring"></div>
-    <div class="orbital-ring ring-2"></div>
-    <div class="grid-cross cross-tl"></div>
+<div class="grid-cross cross-tl"></div>
     <div class="grid-cross cross-tr"></div>
     <div class="grid-cross cross-bl"></div>
     <div class="grid-cross cross-br"></div>
@@ -248,37 +246,6 @@ const projectsPath = getLocalizedPath("/projects", language);
     z-index: 1;
   }
 
-  /* Orbital rings (Lone Star style) */
-  .orbital-ring {
-    position: absolute;
-    top: 50%;
-    right: 205px;
-    width: 440px;
-    height: 440px;
-    margin-top: -220px;
-    border-radius: 50%;
-    border: 1px dashed rgba(232, 160, 64, 0.25);
-    animation: ringPulse 6s ease-in-out infinite;
-  }
-  .orbital-ring.ring-2 {
-    width: 520px;
-    height: 520px;
-    margin-top: -260px;
-    right: 165px;
-    border-color: rgba(100, 200, 180, 0.16);
-    border-style: dotted;
-    animation-delay: 1.5s;
-    transform: rotate(15deg);
-  }
-  @keyframes ringPulse {
-    0%,
-    100% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
 
   /* Coordinate cross markers */
   .grid-cross {
@@ -634,6 +601,7 @@ const projectsPath = getLocalizedPath("/projects", language);
      ═══════════════════════════════════════════ */
   .terminal {
     width: 430px;
+    margin-top: 70px;
     padding: 32px;
     background: rgba(5, 5, 10, 0.85);
     border: 1px solid var(--accent);
