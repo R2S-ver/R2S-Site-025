@@ -163,7 +163,11 @@ const t = translations[currentLanguage];
 
     <div class="brand">
       <a href={homePath} class="brand-link">
-        <img src="/favicon-48x48.png" alt="R2S" class="brand-icon" width="24" height="24" />
+        <div class="brand-mark">
+          <span class="rgb-dot dot-r"></span>
+          <span class="rgb-dot dot-y"></span>
+          <span class="rgb-dot dot-b"></span>
+        </div>
         <span> R2S // STUDIO </span>
       </a>
     </div>
@@ -492,11 +496,60 @@ const t = translations[currentLanguage];
       color: var(--accent);
     }
 
-    .brand-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 3px;
+    .brand-mark {
+      position: relative;
+
+      width: 22px;
+
+      height: 22px;
+
       flex-shrink: 0;
+
+      isolation: isolate;
+    }
+
+    .rgb-dot {
+      position: absolute;
+
+      width: 13px;
+
+      height: 13px;
+
+      border-radius: 50%;
+
+      mix-blend-mode: screen;
+    }
+
+    .dot-r {
+      top: 0;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      background: #ff3333;
+
+      opacity: 0.9;
+    }
+
+    .dot-y {
+      bottom: 0;
+
+      left: 0;
+
+      background: #ffd400;
+
+      opacity: 0.9;
+    }
+
+    .dot-b {
+      bottom: 0;
+
+      right: 0;
+
+      background: #00b0ff;
+
+      opacity: 0.9;
     }
 
     /*
@@ -602,32 +655,51 @@ const t = translations[currentLanguage];
     */
 
     .warning-stripe {
-      height: 2px;
+      height: 3px;
 
       width: 100%;
 
-      background: #ff5f1f;
+      display: flex;
 
-      border-top: 1px solid rgba(255, 95, 31, 0.25);
-
-      border-bottom: 1px solid rgba(255, 95, 31, 0.25);
-
-      opacity: 0.35;
-
-      animation: warning-pulse 8s ease-in-out infinite;
+      position: relative;
     }
 
-    @keyframes warning-pulse {
+    .warning-stripe::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--stripe-red) 0%,
+          var(--stripe-red) 33%,
+          var(--stripe-yellow) 33%,
+          var(--stripe-yellow) 66%,
+          var(--stripe-teal) 66%,
+          var(--stripe-teal) 100%
+        );
+
+      animation: triColorShift 6s ease-in-out infinite;
+    }
+
+    @keyframes triColorShift {
       0%,
       100% {
-        opacity: 0.25;
+        filter: brightness(1);
+      }
 
-        filter: brightness(0.65);
+      25% {
+        filter: brightness(1.25);
       }
 
       50% {
-        opacity: 0.85;
+        filter: brightness(0.9);
+      }
 
+      75% {
         filter: brightness(1.15);
       }
     }

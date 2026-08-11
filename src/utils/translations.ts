@@ -29,6 +29,7 @@ export const translations = {
     card: {
       projectNode: "PRJ_NODE //",
       online: "● ONLINE",
+      team: "/TEAMWORK/",
       imageStream: "IMAGE_STREAM // ACTIVE",
       category: "CATEGORY:",
       archive: "ARCHIVE:",
@@ -373,6 +374,7 @@ export const translations = {
     card: {
       projectNode: "项目节点 //",
       online: "● 在线",
+      team: "/协作/",
       imageStream: "图像流 // ACTIVE",
       category: "分类:",
       archive: "档案:",

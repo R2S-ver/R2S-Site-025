@@ -1,7 +1,7 @@
 ---
 title: ZOEM Bike — Modular Cargo Bike Box
 date: 2025-11-15
-description: Redesigned a modular cargo box for the ZOEM Bike platform — started from user's current pain points, then worked through material sourcing, factory coordination, assembly, and final delivery to get it onto the road.
+description: Redesigned a modular cargo box for the ZOEM Bike platform — addressing key user pain points while managing the end-to-end process from material sourcing and factory coordination to assembly and final road delivery.
 
 type: projects
 category: Industrial Design / Fabrication
@@ -24,6 +24,8 @@ tools:
   - Factory Liaison
 
 featured: true
+
+collaboration: team
 
 lang: en
 

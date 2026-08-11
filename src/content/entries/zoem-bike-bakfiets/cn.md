@@ -1,7 +1,7 @@
 ---
 title: ZOEM Bike — 模块化货运自行车货箱
 date: 2025-11-15
-description: 为 ZOEM Bike 平台重新设计了模块化货箱——从实际使用痛点出发，一步步走完材料选购、加工厂沟通、组装到最终交付，让它真正跑在了路上。
+description: 为 ZOEM Bike 平台重新设计模块化载货箱 — 精准解决用户核心痛点，并主导从材料选型、工厂对接、组装落地到最终上路交付的端到端流程。
 
 type: projects
 category: 工业设计 / 制造加工
@@ -24,6 +24,8 @@ tools:
   - 工厂对接
 
 featured: true
+
+collaboration: team
 
 lang: zh
 

@@ -63,6 +63,14 @@ const type = project.data.type.toUpperCase();
       <div class="image-wrapper">
         <div class="image-label">{t.card.imageStream}</div>
 
+        {
+          project.data.translationKey === "zoem-bike-cargo-box" && (
+            <div class="collab-badge">
+              {t.card.team}
+            </div>
+          )
+        }
+
         <Image class="cover" src={image} alt={project.data.title} />
       </div>
     )
@@ -172,6 +180,10 @@ const type = project.data.type.toUpperCase();
 
     justify-content: space-between;
 
+    align-items: center;
+
+    gap: 8px;
+
     padding: 16px 20px;
 
     border-bottom: 1px solid var(--border);
@@ -220,6 +232,123 @@ const type = project.data.type.toUpperCase();
 
     color: var(--accent);
   }
+
+  .collab-badge {
+    position: absolute;
+
+    top: 10px;
+
+    right: 12px;
+
+    z-index: 3;
+
+    /* Typography */
+    font-family: var(--font-mono);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    /* Shape — angular industrial tag */
+    padding: 4px 10px;
+
+    clip-path: polygon(
+      6px 0,
+      100% 0,
+      calc(100% - 6px) 100%,
+      0 100%
+    );
+
+    /* Background */
+    background: rgba(8, 8, 11, 0.94);
+
+    /* Text color — warm off-white */
+    color: rgba(230, 220, 200, 0.9);
+
+    /* Tri-color bottom border only */
+    border-bottom: 1.5px solid transparent;
+
+    border-image: linear-gradient(
+      90deg,
+      var(--stripe-red),
+      var(--stripe-yellow),
+      var(--stripe-teal)
+    ) 1;
+
+    /* Subtle text glow sweep */
+    overflow: hidden;
+  }
+
+  /* ---- Tri-color accent glow sweep ---- */
+  .collab-badge::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.04) 45%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.04) 55%,
+      transparent 100%
+    );
+
+    animation: collabSweep 5s ease-in-out infinite;
+
+    pointer-events: none;
+  }
+
+  @keyframes collabSweep {
+    0% {
+      left: -100%;
+    }
+
+    35%,
+    65% {
+      left: 100%;
+    }
+
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* ---- Corner notch — tri-color filled ---- */
+  .collab-badge::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 7px;
+
+    height: 7px;
+
+    background: linear-gradient(
+      135deg,
+      var(--stripe-red) 0%,
+      var(--stripe-yellow) 100%
+    );
+
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
+
+    opacity: 0.6;
+  }
+
 
   .cover {
     width: 100%;
