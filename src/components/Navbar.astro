@@ -496,6 +496,10 @@ const t = translations[currentLanguage];
       color: var(--accent);
     }
 
+    .brand-link:active {
+      transform: scale(0.97);
+    }
+
     .brand-mark {
       position: relative;
 
@@ -579,7 +583,13 @@ const t = translations[currentLanguage];
 
       text-decoration: none;
 
-      transition: 0.25s;
+      transition:
+        color 0.2s var(--ease-out),
+        transform 0.16s var(--ease-out);
+    }
+
+    .links a:active {
+      transform: scale(0.95);
     }
 
     .links a::after {
@@ -597,7 +607,7 @@ const t = translations[currentLanguage];
 
       background: var(--accent);
 
-      transition: 0.25s;
+      transition: width 0.2s var(--ease-out);
     }
 
     .links a:hover {

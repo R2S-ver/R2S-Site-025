@@ -190,11 +190,17 @@ const aboutPath = getLocalizedPath("/about", language);
 
     font-weight: bold;
 
-    transition: 0.2s;
+    transition:
+      color 0.2s var(--ease-out),
+      transform 0.16s var(--ease-out);
   }
 
   .footer a:hover {
     color: var(--accent);
+  }
+
+  .footer a:active {
+    transform: scale(0.95);
   }
 
   @media (max-width: 900px) {

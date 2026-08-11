@@ -130,9 +130,13 @@ const type = project.data.type.toUpperCase();
     font-family: var(--font-mono);
 
     transition:
-      transform 0.3s,
-      border-color 0.3s,
-      box-shadow 0.3s;
+      transform 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      box-shadow 0.25s var(--ease-out);
+  }
+
+  .card:active {
+    transform: scale(0.97);
   }
 
   .card::before {
@@ -289,7 +293,7 @@ const type = project.data.type.toUpperCase();
 
     top: 0;
 
-    left: -100%;
+    left: 0;
 
     width: 100%;
 
@@ -304,6 +308,8 @@ const type = project.data.type.toUpperCase();
       transparent 100%
     );
 
+    transform: translateX(-100%);
+
     animation: collabSweep 5s ease-in-out infinite;
 
     pointer-events: none;
@@ -311,16 +317,16 @@ const type = project.data.type.toUpperCase();
 
   @keyframes collabSweep {
     0% {
-      left: -100%;
+      transform: translateX(-100%);
     }
 
     35%,
     65% {
-      left: 100%;
+      transform: translateX(100%);
     }
 
     100% {
-      left: 100%;
+      transform: translateX(100%);
     }
   }
 
@@ -357,11 +363,11 @@ const type = project.data.type.toUpperCase();
 
     object-fit: cover;
 
-    transition: transform 0.5s;
+    transition: transform 0.28s var(--ease-out);
   }
 
   .card:hover .cover {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 
   .content {

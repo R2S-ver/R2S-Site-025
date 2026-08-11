@@ -238,7 +238,9 @@ const aboutPath = getLocalizedPath("/about", language);
 
     font-size: 13px;
 
-    transition: 0.2s;
+    transition:
+      color 0.2s var(--ease-out),
+      transform 0.2s var(--ease-out);
   }
 
   .links a:hover {
@@ -247,12 +249,16 @@ const aboutPath = getLocalizedPath("/about", language);
     transform: translateX(5px);
   }
 
+  .links a:active {
+    transform: scale(0.95);
+  }
+
   .qq {
     color: #ccc;
 
     font-size: 13px;
 
-    transition: 0.2s;
+    transition: color 0.2s var(--ease-out);
   }
 
   .qq:hover {
