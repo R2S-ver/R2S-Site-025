@@ -3,7 +3,7 @@ title: Light Diffusion Test Platform
 
 date: 2026-04-20
 
-description: I built a desktop optical test platform to stop guessing how materials behave under light. It measures transmission, diffusion, reflection, and luminance distribution under controlled conditions — turning subjective CMF decisions into something I can actually compare.
+description: Designed a desktop optical test platform to  measures light transmission, diffusion, reflection and luminance distribution under controlled conditions — turning subjective CMF decisions into something measurable.
 
 type: projects
 

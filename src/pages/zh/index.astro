@@ -16,9 +16,18 @@ const entries = await getCollection("entries");
 
 const languageEntries = entries.filter((entry) => entry.data.lang === language);
 
+const featuredKeys = [
+  "light-diffusion-test-platform",
+  "body-armor-protective-vest",
+  "studio-electrical-optimization",
+];
+
 const featuredEntries = languageEntries
-  .filter((entry) => entry.data.featured)
-  .slice(0, 3);
+  .filter((entry) => featuredKeys.includes(entry.data.translationKey));
+
+const totalProjectLabCount = languageEntries
+  .filter((entry) => entry.data.type === "projects" || entry.data.type === "lab")
+  .length;
 
 const latestEntries = [...languageEntries]
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -28,7 +37,7 @@ const latestEntries = [...languageEntries]
 <Layout title="R2S Studio">
   <Hero />
 
-  <FeaturedProjects projects={featuredEntries} />
+  <FeaturedProjects projects={featuredEntries} totalCount={totalProjectLabCount} />
 
   <ExploreLinks />
 

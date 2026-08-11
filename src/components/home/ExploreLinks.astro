@@ -5,45 +5,15 @@ import { getTranslations } from "../../utils/translations";
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
 
-const aboutPath = getLocalizedPath("/about", language);
 const projectsPath = getLocalizedPath("/projects", language);
+const labPath = getLocalizedPath("/lab", language);
 const artPath = getLocalizedPath("/art", language);
 const notesPath = getLocalizedPath("/notes", language);
 ---
 
 <div class="explore-grid">
   <!-- =========================
-       MODULE 01 // ABOUT
-  ========================== -->
-
-  <a href={aboutPath} class="explore-card">
-    <div class="header">
-      {t.explore.about.header}
-    </div>
-
-    <span class="number">01</span>
-
-    <h3>
-      {t.explore.about.title}
-    </h3>
-
-    <p>
-      {t.explore.about.description}
-    </p>
-
-    <div class="access">
-      {t.explore.about.access}
-    </div>
-
-    <div class="stripe">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </a>
-
-  <!-- =========================
-       MODULE 02 // PROJECTS
+       MODULE 01 // PROJECTS
   ========================== -->
 
   <a href={projectsPath} class="explore-card">
@@ -51,7 +21,7 @@ const notesPath = getLocalizedPath("/notes", language);
       {t.explore.projects.header}
     </div>
 
-    <span class="number">02</span>
+    <span class="number">01</span>
 
     <h3>
       {t.explore.projects.title}
@@ -63,6 +33,36 @@ const notesPath = getLocalizedPath("/notes", language);
 
     <div class="access">
       {t.explore.projects.access}
+    </div>
+
+    <div class="stripe">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </a>
+
+  <!-- =========================
+       MODULE 02 // LAB
+  ========================== -->
+
+  <a href={labPath} class="explore-card">
+    <div class="header">
+      {t.explore.lab.header}
+    </div>
+
+    <span class="number">02</span>
+
+    <h3>
+      {t.explore.lab.title}
+    </h3>
+
+    <p>
+      {t.explore.lab.description}
+    </p>
+
+    <div class="access">
+      {t.explore.lab.access}
     </div>
 
     <div class="stripe">

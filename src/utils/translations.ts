@@ -58,17 +58,17 @@ export const translations = {
     },
 
     explore: {
-      about: {
-        header: "MODULE_01 // PROFILE",
-        title: "ABOUT",
-        description: "PERSONNEL_DOSSIER",
-        access: "ACCESS_MODULE →",
-      },
       projects: {
-        header: "MODULE_02 // WORKS",
+        header: "MODULE_01 // WORKS",
         title: "PROJECTS",
         description: "FABRICATION_ARCHIVE",
         access: "ACCESS_DATABASE →",
+      },
+      lab: {
+        header: "MODULE_02 // EXPERIMENTS",
+        title: "LAB",
+        description: "HARDWARE_AND_PROTOTYPE_LOG",
+        access: "OPEN_MODULE →",
       },
       art: {
         header: "MODULE_03 // VISUAL",
@@ -402,17 +402,17 @@ export const translations = {
     },
 
     explore: {
-      about: {
-        header: "模块_01 // 个人档案",
-        title: "关于",
-        description: "个人资料档案",
-        access: "访问模块 →",
-      },
       projects: {
-        header: "模块_02 // 项目",
+        header: "模块_01 // 项目",
         title: "项目",
         description: "制造与设计档案",
         access: "访问数据库 →",
+      },
+      lab: {
+        header: "模块_02 // 实验",
+        title: "实验室",
+        description: "硬件与原型日志",
+        access: "打开模块 →",
       },
       art: {
         header: "模块_03 // 视觉",

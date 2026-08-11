@@ -3,7 +3,7 @@ title: DIY Modular BulletProof Vest
 
 date: 2026-04-15
 
-description: I hand-sewed a modular protective vest as a deep dive into how tactical gear is actually made. Layered armor materials, a full MOLLE grid, and adjustable closures — all prototyped on a home setup with industrial fabrics and a lot of trial and error.
+description: Self-made modular protective vest as a deep dive into how tactical gear is actually made. From research, material sourcing to final prototype.
 
 type: projects
 

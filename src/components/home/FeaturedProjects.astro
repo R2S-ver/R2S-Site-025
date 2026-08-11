@@ -3,7 +3,7 @@ import ProjectCard from "../ProjectCard.astro";
 import { getLanguageFromPath } from "../../utils/i18n";
 import { getTranslations } from "../../utils/translations";
 
-const { projects = [] } = Astro.props;
+const { projects = [], totalCount = 0 } = Astro.props;
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
@@ -30,7 +30,7 @@ const t = getTranslations(language);
     </span>
 
     <strong>
-      {projects.length}
+      {totalCount}
     </strong>
 
     <span>

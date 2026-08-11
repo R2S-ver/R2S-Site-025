@@ -42,7 +42,7 @@ I'm writing this up not as a polished guide, but as the real journey — failure
 
 # What I Wanted to Figure Out
 
-I wasn't just chasing a good print. I wanted to understand *why* ABS behaves the way it does, and whether a consumer printer like the A1 (which isn't exactly marketed as an ABS machine) could handle it reliably with the right setup.
+I wasn't just chasing a good print. I wanted to understand _why_ ABS behaves the way it does, and whether a consumer printer like the A1 (which isn't exactly marketed as an ABS machine) could handle it reliably with the right setup.
 
 ABS is appealing for functional parts because it handles heat better than PLA, takes impacts better than PETG, and lasts. But the printing environment matters way more than slicer settings alone. I wanted to:
 
@@ -221,7 +221,7 @@ Settings:
 - Brim and draft shield: Enabled
 - Material profile: Generic ABS
 
-I made a dumb mistake here: I didn't check the extrusion path after Test 4's jam. Residual blockage killed this print too.
+Made a dumb mistake here: didn't check the extrusion path after Test 4's jam. Residual blockage killed this print too.
 
 But I did learn something useful: a **375W heater** could actually hold the enclosure at **50–55°C** for extended periods. So lower power plus decent insulation was clearly the way to go — less overshoot, more stability.
 
@@ -556,7 +556,7 @@ Stuff I'd like to test when I get around to it:
 - Documented extrusion recovery procedures that don't involve panic
 - Actually controlled experiments where I change one variable at a time (novel concept, I know)
 
-The big lesson on methodology: changing three things at once might get you to a solution faster, but you won't know *which* thing fixed it. Next round I want to be more disciplined about isolating variables.
+The big lesson on methodology: changing three things at once might get you to a solution faster, but you won't know _which_ thing fixed it. Next round I want to be more disciplined about isolating variables.
 
 ## 10. Self Reflection
 
