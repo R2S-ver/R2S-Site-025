@@ -54,14 +54,51 @@ const coverImage =
 const alternateHref = translation
   ? getLocalizedPath(Astro.url.pathname, translation.data.lang)
   : null;
+
+// Structured data — TechArticle entity for detail pages.
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  headline: project.data.title,
+  description: project.data.description ?? undefined,
+  image: coverImage ?? undefined,
+  datePublished: project.data.date.toISOString().split("T")[0],
+  inLanguage: project.data.lang === "zh" ? "zh-CN" : "en",
+  author: {
+    "@type": "Person",
+    name: "R2S Studio",
+    url: "https://r2s-site-025.pages.dev/about",
+  },
+  mainEntityOfPage: Astro.site
+    ? new URL(Astro.url.pathname, Astro.site).href
+    : undefined,
+  translationOfWork: translation
+    ? {
+        "@type": "TechArticle",
+        name: translation.data.title,
+        url: Astro.site
+          ? new URL(
+              getLocalizedPath(Astro.url.pathname, translation.data.lang),
+              Astro.site,
+            ).href
+          : undefined,
+      }
+    : undefined,
+};
 ---
 
 <Layout
-  title={project.data.title}
+  title={`${project.data.title} | R2S Studio`}
   description={project.data.description}
   ogImage={coverImage}
   alternateHref={alternateHref}
 >
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(articleSchema)}
+  />
+
   {project.data.type === "art" ? (
     <ArtGallery project={project} projectId={projectId} />
   ) : (

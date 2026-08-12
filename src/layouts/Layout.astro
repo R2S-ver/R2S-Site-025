@@ -43,6 +43,12 @@ const canonical = Astro.site
 
 const hreflangUrl = canonical && hreflang ? new URL(hreflang, Astro.site).href : null;
 
+// x-default: the default-language version of this page.
+const xDefaultPath =
+  language === "zh" ? getLocalizedPath(Astro.url.pathname, "en") : Astro.url.pathname;
+
+const xDefaultUrl = Astro.site ? new URL(xDefaultPath, Astro.site).href : null;
+
 const ogImageUrl = ogImage && Astro.site ? new URL(ogImage, Astro.site).href : null;
 
 // Structured data — WebSite entity, declared on every page.
@@ -120,11 +126,14 @@ const websiteSchema = {
       )
     }
 
+    {xDefaultUrl && <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />}
+
     <meta property="og:site_name" content="R2S Studio" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={isZh ? "zh_CN" : "en_US"} />
+    <meta property="og:locale:alternate" content={isZh ? "en_US" : "zh_CN"} />
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
 

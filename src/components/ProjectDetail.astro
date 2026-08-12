@@ -636,6 +636,8 @@ const translationAvailable = !!translation;
     padding-left: 18px;
   }
 
+  /* Accent bars — sized to the text line (em), not the element (%), so
+     every heading gets an identical bar aligned to its first line. */
   :global(article h2)::before {
     content: "";
 
@@ -643,13 +645,17 @@ const translationAvailable = !!translation;
 
     left: 0;
 
-    top: 22px;
+    top: 30px;
 
     width: 5px;
 
-    height: 55%;
+    height: 1.2em;
 
     background: var(--retro-yellow);
+  }
+
+  :global(article h2:first-of-type)::before {
+    top: 0;
   }
 
   :global(article h3)::before {
@@ -659,13 +665,17 @@ const translationAvailable = !!translation;
 
     left: 0;
 
-    top: 18px;
+    top: 22px;
 
     width: 4px;
 
-    height: 55%;
+    height: 1.2em;
 
     background: var(--retro-cyan);
+  }
+
+  :global(article h3:first-of-type)::before {
+    top: 0;
   }
 
   article p {
