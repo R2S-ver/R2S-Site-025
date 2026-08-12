@@ -392,7 +392,10 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
   .tri-bar div {
     flex: 1;
-    transform-origin: bottom;
+    /* clip-path avoids nested transform compositing issues —
+       <main> has a pageIn animation with translateY which
+       creates a compositing layer; using clip-path here keeps
+       the bars on the paint layer so they don't vanish */
   }
   .tri-bar div:nth-child(1) {
     background: var(--stripe-red);
@@ -411,10 +414,10 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
   @keyframes barGrow {
     from {
-      transform: scaleY(0);
+      clip-path: inset(100% 0 0 0);
     }
     to {
-      transform: scaleY(1);
+      clip-path: inset(0 0 0 0);
     }
   }
 
