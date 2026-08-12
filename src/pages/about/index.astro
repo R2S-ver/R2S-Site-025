@@ -2515,6 +2515,7 @@ const t = getTranslations(lang);
     height: 110px;
     padding: 20px;
     border: none;
+    border-left: 3px solid transparent;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     background: #08080c;
@@ -2525,11 +2526,7 @@ const t = getTranslations(lang);
     transition:
       background 0.25s var(--ease-out),
       color 0.25s var(--ease-out),
-      transform 0.2s var(--spring-snappy);
-  }
-
-  .cap-button:active {
-    transform: scale(0.97);
+      border-color 0.25s var(--ease-out);
   }
 
   .cap-button:nth-child(even) {
@@ -2566,7 +2563,7 @@ const t = getTranslations(lang);
       rgba(232, 160, 64, 0.025)
     );
     color: white;
-    box-shadow: inset 3px 0 0 var(--accent);
+    border-left-color: var(--accent);
   }
 
   .cap-button.active span {
@@ -2576,7 +2573,8 @@ const t = getTranslations(lang);
   .capability-display {
     display: flex;
     flex-direction: column;
-    min-height: 560px;
+    height: 585px;
+    overflow: hidden;
   }
 
   .display-header,
@@ -2587,6 +2585,7 @@ const t = getTranslations(lang);
     color: #666;
     font-size: 9px;
     letter-spacing: 2px;
+    flex-shrink: 0;
   }
 
   .display-header {
@@ -2600,6 +2599,7 @@ const t = getTranslations(lang);
   .display-visual {
     position: relative;
     height: 280px;
+    flex-shrink: 0;
     overflow: hidden;
     background: #09090b;
     border-bottom: 1px solid var(--border);
@@ -2645,7 +2645,8 @@ const t = getTranslations(lang);
 
   .display-body {
     flex: 1;
-    padding: 35px;
+    padding: 30px 35px;
+    min-height: 0;
   }
 
   .display-kicker {
@@ -2656,9 +2657,9 @@ const t = getTranslations(lang);
 
   .display-body h3 {
     max-width: 500px;
-    margin: 20px 0 15px;
-    font-size: clamp(28px, 4vw, 48px);
-    line-height: 1;
+    margin: 16px 0 12px;
+    font-size: clamp(26px, 3.5vw, 46px);
+    line-height: 1.05;
     letter-spacing: -2px;
     white-space: pre-line;
   }
@@ -2666,8 +2667,8 @@ const t = getTranslations(lang);
   .display-body p {
     max-width: 520px;
     color: #888;
-    font-size: 13px;
-    line-height: 1.9;
+    font-size: 12.5px;
+    line-height: 1.7;
   }
 
   .display-footer {
