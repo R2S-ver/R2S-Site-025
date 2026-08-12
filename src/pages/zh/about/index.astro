@@ -5,9 +5,36 @@ import { getTranslations } from "../../../utils/translations";
 
 const lang = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(lang);
+
+// 结构化数据 — Person 实体：搜索结果中的身份卡片
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "R2S Studio",
+  alternateName: "R2S",
+  url: "https://r2s-site-025.pages.dev/",
+  jobTitle: "设计师 / 创客",
+  description: t.meta.description,
+  email: "mailto:ranrsuika@gmail.com",
+  sameAs: [
+    "https://github.com/R2S-ver",
+    "https://www.pixiv.net/users/71884225",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Rotterdam",
+    addressCountry: "NL",
+  },
+};
 ---
 
 <Layout title={`${t.sections.about.title} | R2S Studio`} description={t.meta.description}>
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(personSchema)}
+  />
+
   <main class="about-page">
     <!-- =====================================================
     HERO

@@ -44,6 +44,15 @@ const canonical = Astro.site
 const hreflangUrl = canonical && hreflang ? new URL(hreflang, Astro.site).href : null;
 
 const ogImageUrl = ogImage && Astro.site ? new URL(ogImage, Astro.site).href : null;
+
+// Structured data — WebSite entity, declared on every page.
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "R2S Studio",
+  url: "https://r2s-site-025.pages.dev/",
+  inLanguage: ["en", "zh"],
+};
 ---
 
 <!doctype html>
@@ -123,6 +132,12 @@ const ogImageUrl = ogImage && Astro.site ? new URL(ogImage, Astro.site).href : n
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={metaDescription} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(websiteSchema)}
+    />
   </head>
 
   <body>
