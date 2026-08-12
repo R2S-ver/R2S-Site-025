@@ -1,17 +1,49 @@
 ---
+import "../styles/global.css";
+
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import ScrollMeter from "../components/ScrollMeter.astro";
-import { getLanguageFromPath } from "../utils/i18n";
+import { getLanguageFromPath, getLocalizedPath } from "../utils/i18n";
+import { getTranslations } from "../utils/translations";
 
 interface Props {
   title?: string;
+  description?: string;
+  ogImage?: string | null;
+  /** undefined → page assumed to exist in the other language; null → omit hreflang */
+  alternateHref?: string | null;
+  noIndex?: boolean;
 }
 
-const { title = "R2S Studio" } = Astro.props;
+const {
+  title = "R2S Studio",
+  description,
+  ogImage,
+  alternateHref,
+  noIndex = false,
+} = Astro.props;
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const isZh = language === "zh";
+const t = getTranslations(language);
+
+const metaDescription = description ?? t.meta.description;
+
+const otherLanguage = language === "zh" ? "en" : "zh";
+
+const hreflang =
+  alternateHref === undefined
+    ? getLocalizedPath(Astro.url.pathname, otherLanguage)
+    : alternateHref;
+
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : null;
+
+const hreflangUrl = canonical && hreflang ? new URL(hreflang, Astro.site).href : null;
+
+const ogImageUrl = ogImage && Astro.site ? new URL(ogImage, Astro.site).href : null;
 ---
 
 <!doctype html>
@@ -44,19 +76,53 @@ const isZh = language === "zh";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f0ebe0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#07070d" media="(prefers-color-scheme: dark)" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800;900&display=swap"
       rel="stylesheet"
     />
 
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+
     <title>{title}</title>
+
+    <meta name="description" content={metaDescription} />
+
+    {noIndex && <meta name="robots" content="noindex" />}
+
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    {
+      hreflangUrl && (
+        <link
+          rel="alternate"
+          hreflang={otherLanguage}
+          href={hreflangUrl}
+        />
+      )
+    }
+
+    <meta property="og:site_name" content="R2S Studio" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={isZh ? "zh_CN" : "en_US"} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
   </head>
 
   <body>
@@ -84,7 +150,7 @@ const isZh = language === "zh";
     </div>
 
     <!-- =========================================
-         NEURAL NETWORK BACKGROUND
+         NEURAL NETWORK BACKGROUND (weakened)
     ========================================== -->
 
     <canvas id="neural-canvas" aria-hidden="true"></canvas>
@@ -116,7 +182,11 @@ const isZh = language === "zh";
     <div id="tube-vignette"></div>
 
     <!-- =========================================
-         NEURAL NETWORK SCRIPT
+         NEURAL NETWORK SCRIPT — weakened version:
+         fewer particles, softer glow, gentler
+         mouse repulsion, dimmer connections.
+         Tuning knobs: density / shadowBlur /
+         CONNECTION_DIST / mouse.radius / force.
     ========================================== -->
 
     <script>
@@ -136,8 +206,10 @@ const isZh = language === "zh";
         const mouse = {
           x: null as number | null,
           y: null as number | null,
-          radius: 180,
+          radius: 140,
         };
+
+        const CONNECTION_DIST = 140;
 
         let time = 0;
 
@@ -171,7 +243,7 @@ const isZh = language === "zh";
         function initParticles() {
           particles = [];
 
-          const density = window.innerWidth < 900 ? 80 : 160;
+          const density = window.innerWidth < 900 ? 70 : 140;
 
           for (let i = 0; i < density; i++) {
             particles.push({
@@ -265,7 +337,7 @@ const isZh = language === "zh";
               const distance = Math.sqrt(dx * dx + dy * dy);
 
               if (distance < mouse.radius && distance > 0.1) {
-                const force = (1 - distance / mouse.radius) * 0.12;
+                const force = (1 - distance / mouse.radius) * 0.08;
 
                 particle.vx += (dx / distance) * force;
 
@@ -338,7 +410,7 @@ const isZh = language === "zh";
 
             ctx.shadowColor = particle.color;
 
-            ctx.shadowBlur = 12;
+            ctx.shadowBlur = 8;
 
             ctx.beginPath();
 
@@ -361,10 +433,10 @@ const isZh = language === "zh";
 
               const distance = Math.sqrt(dx * dx + dy * dy);
 
-              if (distance < 140) {
+              if (distance < CONNECTION_DIST) {
                 ctx.beginPath();
 
-                ctx.strokeStyle = `rgba(255,255,255,${0.35 - distance / 500})`;
+                ctx.strokeStyle = `rgba(255,255,255,${0.22 - distance / 500})`;
 
                 ctx.lineWidth = 1;
 
@@ -384,845 +456,6 @@ const isZh = language === "zh";
       })();
     </script>
 
-    <!-- =========================================
-         GLOBAL STYLE
-    ========================================== -->
-
-    <style is:global>
-      :root {
-        color-scheme: dark;
-
-        /* ═══════════════════════════════════════════
-           BASE SURFACES
-           ═══════════════════════════════════════════ */
-        --bg: #07070d;
-        --panel: #0e0e18;
-        --panel-light: #161625;
-
-        /* ═══════════════════════════════════════════
-           TEXT
-           ═══════════════════════════════════════════ */
-        --text: #e8e6e0;
-        --secondary: #8a8880;
-
-        /* ═══════════════════════════════════════════
-           BORDERS
-           ═══════════════════════════════════════════ */
-        --border: rgba(255, 255, 255, 0.10);
-        --border-accent: rgba(224, 148, 58, 0.25);
-
-        /* ═══════════════════════════════════════════
-           PRIMARY ACCENT — Vacuum tube amber
-           ═══════════════════════════════════════════ */
-        --accent: #e8943a;
-        --accent-glow: #f0b860;
-        --accent-deep: #b87020;
-
-        /* ═══════════════════════════════════════════
-           TRI-COLOR STRIPE — Industrial signals
-           ═══════════════════════════════════════════ */
-        --stripe-red: #e04040;
-        --stripe-yellow: #f0c040;
-        --stripe-teal: #3ab8d8;
-
-        /* ═══════════════════════════════════════════
-           PHOSPHOR — CRT / oscilloscope
-           ═══════════════════════════════════════════ */
-        --terminal-green: #3af04f;
-        --phosphor-dim: #1a5c25;
-        --pipboy-green: #1ef05c;
-        --pipboy-bg: #0a1a0a;
-
-        /* ═══════════════════════════════════════════
-           RETRO HEADING COLORS
-           ═══════════════════════════════════════════ */
-        --retro-red: #d65a4a;
-        --retro-yellow: #f6c85f;
-        --retro-cyan: #5edfff;
-
-        /* ═══════════════════════════════════════════
-           ATOM-PUNK INDUSTRIAL
-           ═══════════════════════════════════════════ */
-        --amber-glow: #f0a040;
-        --amber-deep: #c86a20;
-        --reactor-blue: #4af0ff;
-        --reactor-teal: #00e5c0;
-        --concrete: #3a3a3f;
-        --warning-orange: #ff6b2b;
-        --caution-yellow: #ffcc00;
-        --cold-steel: #8899aa;
-        --oxide-red: #c0392b;
-        --dial-glow: #ff9d5c;
-
-        /* ═══════════════════════════════════════════
-           CASSETTE FUTURISM
-           ═══════════════════════════════════════════ */
-        --cassette-shell: #2a2040;
-        --cassette-label: #f5e6c8;
-        --magnetic-brown: #8b6914;
-        --reel-silver: #c0c0d0;
-
-        /* ═══════════════════════════════════════════
-           CONSTRUCTIVIST
-           ═══════════════════════════════════════════ */
-        --construct-black: #0d0d0d;
-        --construct-white: #f5f0e8;
-
-        /* ═══════════════════════════════════════════
-           SHADOWS / GLOWS
-           ═══════════════════════════════════════════ */
-        --glow-accent: 0 0 20px rgba(232, 148, 58, 0.3);
-        --glow-tube: 0 0 15px rgba(240, 160, 64, 0.4), inset 0 0 8px rgba(240, 160, 64, 0.1);
-        --glow-radar: 0 0 12px rgba(58, 240, 79, 0.4);
-        --shadow-panel: 0 4px 24px rgba(0, 0, 0, 0.5);
-
-        /* ═══════════════════════════════════════════
-           TYPOGRAPHY
-           ═══════════════════════════════════════════ */
-        --font-mono: "JetBrains Mono", "Courier New", monospace;
-
-        /* ═══════════════════════════════════════════
-           EASING — Emil Kowalski's recommended curves
-           ═══════════════════════════════════════════ */
-        --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-        --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-        --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
-
-        /* Spring curves — retro-futuristic fluid motion */
-        --spring-gentle: cubic-bezier(0.34, 1.3, 0.64, 1);
-        --spring-snappy: cubic-bezier(0.22, 1.2, 0.36, 1);
-        --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-        --spring-expressive: cubic-bezier(0.15, 1.8, 0.4, 1);
-
-        /* Mechanical / analog feel */
-        --ease-mechanical: cubic-bezier(0.25, 0.1, 0.15, 1);
-        --ease-needle: cubic-bezier(0.22, 1.4, 0.36, 1);
-        --ease-warmup: cubic-bezier(0.45, 0, 0.55, 1);
-      }
-
-      /* ═══════════════════════════════════════════
-         LIGHT THEME — Soviet technical manual / blueprint
-         ═══════════════════════════════════════════ */
-      :root[data-theme="light"] {
-        color-scheme: light;
-
-        --bg: #f0ebe0;
-        --panel: #e5dfd3;
-        --panel-light: #f8f4ec;
-
-        --text: #1a1815;
-        --secondary: #6b6860;
-
-        --border: rgba(0, 0, 0, 0.08);
-        --border-accent: rgba(176, 112, 32, 0.25);
-
-        --accent: #c07020;
-        --accent-glow: #d08030;
-        --accent-deep: #8b4513;
-
-        --stripe-red: #c03030;
-        --stripe-yellow: #b89020;
-        --stripe-teal: #1a8090;
-
-        --terminal-green: #1a7030;
-        --phosphor-dim: #c8e0c8;
-        --pipboy-green: #0a7020;
-        --pipboy-bg: #d8ecd8;
-
-        --retro-red: #b84a3a;
-        --retro-yellow: #c49a2a;
-        --retro-cyan: #3a9ebf;
-
-        --amber-glow: #d08020;
-        --amber-deep: #a05518;
-        --reactor-blue: #1a7090;
-        --reactor-teal: #0a8068;
-        --concrete: #d5d0c8;
-        --warning-orange: #d05020;
-        --caution-yellow: #b89000;
-        --cold-steel: #6a7888;
-        --oxide-red: #a02820;
-        --dial-glow: #c07030;
-
-        --cassette-shell: #d0c8b8;
-        --cassette-label: #e8e0d0;
-        --magnetic-brown: #7a5010;
-        --reel-silver: #8a8a90;
-
-        --construct-black: #1a1a1a;
-        --construct-white: #faf8f2;
-
-        --glow-accent: 0 0 12px rgba(192, 112, 32, 0.15);
-        --glow-tube: 0 0 8px rgba(192, 112, 32, 0.2);
-        --glow-radar: 0 0 8px rgba(26, 112, 48, 0.2);
-        --shadow-panel: 0 2px 12px rgba(0, 0, 0, 0.08);
-      }
-
-      /* =========================================
-         REDUCED MOTION
-      ========================================== */
-
-      @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
-
-        html {
-          scroll-behavior: auto;
-        }
-
-        #neural-canvas {
-          display: none;
-        }
-      }
-
-      /* =========================================
-         RESET
-      ========================================== */
-
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 82px;
-      }
-
-      /* Hide the browser's default scrollbar — scrolling stays functional
-         (wheel / touch / keyboard). Fits the CRT-terminal aesthetic. */
-      html {
-        scrollbar-width: none; /* Firefox */
-      }
-
-      html::-webkit-scrollbar {
-        display: none; /* Chrome / Edge / Safari */
-      }
-
-      body {
-        min-height: 100vh;
-
-        background: var(--bg);
-
-        color: var(--text);
-
-        font-family: Arial, Helvetica, sans-serif;
-
-        overflow-x: hidden;
-
-        transition:
-          background 0.4s var(--ease-out),
-          color 0.4s var(--ease-out);
-      }
-
-      /* =========================================
-         SKIP LINK — visually hidden until focused
-      ========================================== */
-
-      .skip-link {
-        position: fixed;
-
-        top: -100px;
-
-        left: 16px;
-
-        z-index: 10002;
-
-        padding: 10px 18px;
-
-        background: var(--accent);
-
-        color: #000;
-
-        font-family: var(--font-mono);
-
-        font-size: 13px;
-
-        font-weight: bold;
-
-        letter-spacing: 1px;
-
-        text-decoration: none;
-
-        border: 1px solid var(--accent);
-
-        transition: top 0.2s var(--ease-out);
-      }
-
-      .skip-link:focus-visible {
-        top: 12px;
-      }
-
-      /* =========================================
-         MOBILE NOTICE — desktop mode recommended
-         Fixed top bar, mobile only, dismissible
-      ========================================== */
-
-      #mobile-notice {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 200;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        padding: 10px 48px 10px 16px;
-        background: rgba(7, 7, 13, 0.95);
-        border-bottom: 1px solid var(--terminal-green);
-        font-family: var(--font-mono);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        animation: noticeIn 0.4s var(--ease-out);
-        transition:
-          opacity 0.4s var(--ease-out),
-          transform 0.4s var(--ease-out);
-      }
-
-      #mobile-notice[hidden] {
-        display: none;
-      }
-
-      #mobile-notice.notice-leave {
-        opacity: 0;
-        transform: translateY(-100%);
-      }
-
-      .notice-dot {
-        flex-shrink: 0;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--terminal-green);
-        box-shadow: 0 0 6px rgba(58, 240, 79, 0.6);
-        animation: noticeBlink 1.6s infinite;
-      }
-
-      .notice-text {
-        font-size: 11px;
-        letter-spacing: 1px;
-        color: #ccc;
-        text-align: center;
-      }
-
-      .notice-close {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 28px;
-        height: 28px;
-        background: none;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #ccc;
-        font-family: var(--font-mono);
-        font-size: 15px;
-        line-height: 1;
-        cursor: pointer;
-        transition:
-          color 0.2s var(--ease-out),
-          border-color 0.2s var(--ease-out);
-      }
-
-      .notice-close:hover {
-        color: var(--terminal-green);
-        border-color: var(--terminal-green);
-      }
-
-      @keyframes noticeIn {
-        from {
-          transform: translateY(-100%);
-        }
-        to {
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes noticeBlink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.25;
-        }
-      }
-
-      /* Desktop: hide the mobile notice */
-      @media (min-width: 769px) {
-        #mobile-notice {
-          display: none;
-        }
-      }
-
-      /* Light mode */
-      :root[data-theme="light"] #mobile-notice {
-        background: rgba(240, 235, 224, 0.97);
-        border-bottom-color: rgba(26, 112, 48, 0.5);
-      }
-
-      :root[data-theme="light"] .notice-dot {
-        box-shadow: 0 0 6px rgba(20, 90, 40, 0.35);
-      }
-
-      :root[data-theme="light"] .notice-text {
-        color: #444;
-      }
-
-      :root[data-theme="light"] .notice-close {
-        color: #555;
-        border-color: rgba(0, 0, 0, 0.15);
-      }
-
-      /* Smooth theme transitions for all themed surfaces */
-      :root[data-theme] .panel,
-      :root[data-theme] .terminal,
-      :root[data-theme] .card,
-      :root[data-theme] .dossier,
-      :root[data-theme] .capability-console,
-      :root[data-theme] .cap-button,
-      :root[data-theme] .skill-tree,
-      :root[data-theme] .research-terminal,
-      :root[data-theme] .future-panel,
-      :root[data-theme] .footer,
-      :root[data-theme] .nav {
-        transition:
-          background 0.35s var(--ease-out),
-          border-color 0.35s var(--ease-out),
-          box-shadow 0.35s var(--ease-out),
-          color 0.35s var(--ease-out);
-      }
-
-      /* =========================================
-         NEURAL CANVAS
-      ========================================== */
-
-      #neural-canvas {
-        position: fixed;
-
-        inset: 0;
-
-        width: 100vw;
-        height: 100vh;
-
-        pointer-events: none;
-
-        z-index: 0;
-
-        opacity: 0.55;
-
-        transition: filter 0.4s var(--ease-out), opacity 0.4s var(--ease-out);
-      }
-
-      :root[data-theme="light"] #neural-canvas {
-        opacity: 0.16; filter: invert(1);
-      }
-      :root[data-theme="light"] #crt-overlay { opacity: 0.1; }
-
-      /* ── Cards: recessed screen effect ── */
-      :root[data-theme="light"] .card {
-        background: #e8e3da;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
-      }
-      :root[data-theme="light"] .card h2,
-      :root[data-theme="light"] .card h3 { color: #1a1a1a; }
-      :root[data-theme="light"] .card::before { background: var(--stripe-red); }
-      :root[data-theme="light"] .card-header { color: #555; }
-      :root[data-theme="light"] .card .description { color: #555; }
-      :root[data-theme="light"] .card .footer { color: #666; border-top-color: #ccc; }
-      :root[data-theme="light"] .card .tags span { background: #e0dcd5; border-color: #ccc; color: #555; }
-      :root[data-theme="light"] .card .tags span:nth-child(3n+1) { color: #a33; border-color: #d99; }
-      :root[data-theme="light"] .card .tags span:nth-child(3n+2) { color: #9a7b00; border-color: #db9; }
-      :root[data-theme="light"] .card .tags span:nth-child(3n) { color: #006899; border-color: #9bc; }
-
-      /* Explore cards */
-      :root[data-theme="light"] .explore-card {
-        background: #e8e3da;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
-      }
-      :root[data-theme="light"] .explore-card .header { color: #666; }
-      :root[data-theme="light"] .explore-card h3 { color: #1a1a1a; }
-      :root[data-theme="light"] .explore-card p { color: #666; }
-      :root[data-theme="light"] .access { color: #00703c; }
-
-      /* SYS.LOG + AboutPreview */
-      :root[data-theme="light"] .latest,
-      :root[data-theme="light"] .about-preview {
-        background: #e8e3da;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
-      }
-      :root[data-theme="light"] .latest h2,
-      :root[data-theme="light"] .about-preview h2 { color: #1a1a1a; }
-      :root[data-theme="light"] .latest p { color: #555; }
-      :root[data-theme="light"] .about-preview p { color: #404040; }
-
-      /* Featured */
-      :root[data-theme="light"] .featured .section-header p { color: #666; }
-      :root[data-theme="light"] .project-count { color: #666; border-bottom-color: #ccc; }
-      :root[data-theme="light"] .data-tag { color: #8b4513; border-color: #8b4513; }
-
-      /* Hero */
-      :root[data-theme="light"] .hero .cassette { color: #555; }
-      :root[data-theme="light"] .hero .description { color: #555; }
-      :root[data-theme="light"] .terminal {
-        background: #e0dbd2;
-        box-shadow: inset 0 2px 6px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.5);
-      }
-
-      /* Footer + barcode */
-      :root[data-theme="light"] .footer { background: #e8e3da; }
-      :root[data-theme="light"] .footer .identity h3 { color: #1a1a1a; }
-      :root[data-theme="light"] .footer .identity p { color: #777; }
-      :root[data-theme="light"] .footer .copyright { color: #999; }
-      :root[data-theme="light"] .footer .links a { color: #777; }
-      :root[data-theme="light"] .footer .links a:hover { color: var(--accent); }
-      :root[data-theme="light"] .footer .system { color: #8b4513; }
-      :root[data-theme="light"] .barcode {
-        background-image: repeating-linear-gradient(90deg, #333 0px, #333 1px, transparent 1px, transparent 4px, #333 4px, #333 7px, transparent 7px, transparent 8px, #333 8px, #333 9px, transparent 9px, transparent 12px, #333 12px, #333 15px, transparent 15px, transparent 17px, #333 17px, #333 18px, transparent 18px, transparent 23px, #333 23px, #333 26px, transparent 26px, transparent 28px, #333 28px, #333 30px, transparent 30px, transparent 35px, #333 35px, #333 36px, transparent 36px, transparent 38px, #333 38px, #333 42px, transparent 42px, transparent 43px, #333 43px, #333 46px, transparent 46px, transparent 50px, #333 50px, #333 52px, transparent 52px, transparent 54px, #333 54px, #333 58px, transparent 58px, transparent 60px) !important;
-        opacity: 0.5;
-      }
-
-      /* About page cards */
-      :root[data-theme="light"] .about-section,
-      :root[data-theme="light"] .dossier,
-      :root[data-theme="light"] .capability-matrix,
-      :root[data-theme="light"] .knowledge-log,
-      :root[data-theme="light"] .current-research {
-        background: #e8e3da;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
-      }
-
-      /* Decorative numbers */
-      :root[data-theme="light"] .number { color: rgba(0,0,0,0.12) !important; }
-
-      /* Tag filter area */
-      :root[data-theme="light"] .tag-filter,
-      :root[data-theme="light"] .tag-filter span,
-      :root[data-theme="light"] .tag-filter button { color: #555; }
-
-      /* Page section headers */
-      :root[data-theme="light"] section header h1 { color: #1a1a1a; }
-      :root[data-theme="light"] section header p { color: #666; }
-
-      /* Note cards */
-      :root[data-theme="light"] .note-card h2,
-      :root[data-theme="light"] .note-card h3 { color: #1a1a1a; }
-      :root[data-theme="light"] .note-card .description { color: #555; }
-      :root[data-theme="light"] .note-card .tags span { color: #555; }
-
-      /* Art gallery */
-      :root[data-theme="light"] .masonry-item { border-color: rgba(0,0,0,0.1); }
-      :root[data-theme="light"] .masonry-item .caption {
-        background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
-      }
-      :root[data-theme="light"] .lightbox-bg { background: rgba(240,235,225,0.96); }
-      :root[data-theme="light"] .lightbox-body { color: #1a1a1a; }
-
-      /* Terminal — remove dark borders in light mode */
-      :root[data-theme="light"] .terminal { border-color: transparent; }
-      :root[data-theme="light"] .terminal-line { color: #444; }
-
-      /* Hero extra text */
-      :root[data-theme="light"] .hero .cassette { color: #444; }
-      :root[data-theme="light"] .hero .hero-desc { color: #444; }
-
-      /* QQ color match Email */
-      :root[data-theme="light"] .qq { color: #777 !important; }
-      :root[data-theme="light"] .qq:hover { color: var(--accent) !important; }
-
-      /* Footer deeper text */
-      :root[data-theme="light"] .footer .copyright { color: #777; }
-      :root[data-theme="light"] .footer .meta strong { color: #1a1a1a; }
-      :root[data-theme="light"] .footer .status,
-      :root[data-theme="light"] .footer .system { color: #666; }
-      :root[data-theme="light"] .footer .footer-line { color: #777; }
-      :root[data-theme="light"] .footer .identity p { color: #666; }
-
-      /* SYS.LOG text */
-      :root[data-theme="light"] .latest .section-header p,
-      :root[data-theme="light"] .featured .section-header p { color: #555; }
-
-      /* Tag chip filter area */
-      :root[data-theme="light"] .tag-chip { color: #555; border-color: rgba(0,0,0,0.15); }
-      :root[data-theme="light"] .tag-chip:hover { color: #333; }
-      :root[data-theme="light"] .tag-chip.active { color: #fff; }
-
-      /* =========================================
-         HEXAGONAL GRID BACKGROUND
-         Three-directional lines at 0° / 60° / 120°
-         reads as a sci-fi hex grid (Arknights / NASA-punk)
-      ========================================== */
-
-      body::before {
-        content: "";
-
-        position: fixed;
-
-        inset: 0;
-
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(60deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(120deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-
-        background-size: 52px 90px;
-
-        pointer-events: none;
-
-        z-index: 0;
-
-        opacity: 0.3;
-      }
-
-      :root[data-theme="light"] body::before {
-        background-image:
-          linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-          linear-gradient(60deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-          linear-gradient(120deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
-        opacity: 0.4;
-      }
-
-      /* =========================================
-         CONCRETE / BRUTALIST NOISE OVERLAY
-      ========================================== */
-
-      body::after {
-        content: "";
-
-        position: fixed;
-
-        inset: 0;
-
-        pointer-events: none;
-
-        z-index: 0;
-
-        opacity: 0.035;
-
-        /* Subtle noise via tiny SVG data URI */
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        background-size: 256px 256px;
-      }
-
-      :root[data-theme="light"] body::after {
-        opacity: 0.025;
-      }
-
-      /* =========================================
-         CONTENT
-      ========================================== */
-
-      .site-content {
-        position: relative;
-
-        z-index: 1;
-
-        min-height: 100vh;
-      }
-
-      main {
-        width: 100%;
-      }
-
-      /* =========================================
-         GLOBAL
-      ========================================== */
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      img {
-        max-width: 100%;
-        display: block;
-      }
-
-      .container {
-        width: min(1400px, 90%);
-
-        margin: auto;
-      }
-
-      .mono {
-        font-family: var(--font-mono);
-      }
-
-      .data-tag {
-        font-family: var(--font-mono);
-
-        font-size: 11px;
-
-        letter-spacing: 2px;
-
-        color: var(--accent);
-
-        text-transform: uppercase;
-      }
-
-      ::selection {
-        background: var(--accent);
-
-        color: black;
-      }
-
-      /* ── Content fade-in on page load ── */
-      main {
-        animation: pageIn 0.65s var(--spring-gentle) both;
-      }
-
-      @keyframes pageIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-
-      /* ── Staggered card entrance ── */
-      .card,
-      .explore-card,
-      .art-card,
-      .log,
-      .masonry-item,
-      .frame {
-        animation: cardIn 0.55s var(--spring-gentle) both;
-      }
-
-      @keyframes cardIn {
-        from { opacity: 0; transform: translateY(16px); }
-        to   { opacity: 1; transform: translateY(0); }
-      }
-
-      .grid > *:nth-child(1)  { animation-delay: 0.05s; }
-      .grid > *:nth-child(2)  { animation-delay: 0.10s; }
-      .grid > *:nth-child(3)  { animation-delay: 0.15s; }
-      .grid > *:nth-child(4)  { animation-delay: 0.20s; }
-      .grid > *:nth-child(5)  { animation-delay: 0.25s; }
-      .grid > *:nth-child(6)  { animation-delay: 0.30s; }
-      .grid > *:nth-child(7)  { animation-delay: 0.35s; }
-      .grid > *:nth-child(8)  { animation-delay: 0.40s; }
-      .grid > *:nth-child(9)  { animation-delay: 0.45s; }
-
-      .logs > *:nth-child(1)  { animation-delay: 0.05s; }
-      .logs > *:nth-child(2)  { animation-delay: 0.12s; }
-      .logs > *:nth-child(3)  { animation-delay: 0.19s; }
-      .logs > *:nth-child(4)  { animation-delay: 0.26s; }
-      .logs > *:nth-child(5)  { animation-delay: 0.33s; }
-
-      .art-grid > *:nth-child(1) { animation-delay: 0.05s; }
-      .art-grid > *:nth-child(2) { animation-delay: 0.15s; }
-      .art-grid > *:nth-child(3) { animation-delay: 0.25s; }
-      .art-grid > *:nth-child(4) { animation-delay: 0.35s; }
-
-      .masonry > *:nth-child(1)  { animation-delay: 0.03s; }
-      .masonry > *:nth-child(2)  { animation-delay: 0.06s; }
-      .masonry > *:nth-child(3)  { animation-delay: 0.09s; }
-      .masonry > *:nth-child(4)  { animation-delay: 0.12s; }
-      .masonry > *:nth-child(5)  { animation-delay: 0.15s; }
-      .masonry > *:nth-child(6)  { animation-delay: 0.18s; }
-      .masonry > *:nth-child(7)  { animation-delay: 0.21s; }
-      .masonry > *:nth-child(8)  { animation-delay: 0.24s; }
-
-      .explore-grid > *:nth-child(1) { animation-delay: 0.05s; }
-      .explore-grid > *:nth-child(2) { animation-delay: 0.15s; }
-      .explore-grid > *:nth-child(3) { animation-delay: 0.25s; }
-      .explore-grid > *:nth-child(4) { animation-delay: 0.35s; }
-
-      /* ── Art row frames staggered entrance ── */
-      .row-track .frame:nth-child(1)  { animation-delay: 0.03s; }
-      .row-track .frame:nth-child(2)  { animation-delay: 0.06s; }
-      .row-track .frame:nth-child(3)  { animation-delay: 0.09s; }
-      .row-track .frame:nth-child(4)  { animation-delay: 0.12s; }
-      .row-track .frame:nth-child(5)  { animation-delay: 0.15s; }
-      .row-track .frame:nth-child(6)  { animation-delay: 0.18s; }
-      .row-track .frame:nth-child(7)  { animation-delay: 0.21s; }
-      .row-track .frame:nth-child(8)  { animation-delay: 0.24s; }
-
-      /* =========================================
-         CRT SCANLINE OVERLAY — Subtle retro screen effect
-      ========================================== */
-
-      #crt-overlay {
-        position: fixed;
-
-        inset: 0;
-
-        width: 100vw;
-        height: 100vh;
-
-        pointer-events: none;
-
-        z-index: 9999;
-
-        /* Scanlines + subtle horizontal banding (magnetic tape readout) */
-        background:
-          repeating-linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.04) 0px,
-            rgba(255, 255, 255, 0.04) 1px,
-            transparent 1px,
-            transparent 3px
-          ),
-          repeating-linear-gradient(
-            to bottom,
-            transparent 0px,
-            transparent 30px,
-            rgba(255, 255, 255, 0.015) 30px,
-            rgba(255, 255, 255, 0.015) 32px
-          );
-
-        opacity: 0.28;
-
-        mix-blend-mode: screen;
-      }
-
-      :root[data-theme="light"] #crt-overlay {
-        opacity: 0.08;
-      }
-
-      /* =========================================
-         VACUUM TUBE AMBER VIGNETTE
-         Warm corner glow like tube-lit instrumentation
-      ========================================== */
-
-      #tube-vignette {
-        position: fixed;
-
-        inset: 0;
-
-        pointer-events: none;
-
-        z-index: 9998;
-
-        background: radial-gradient(
-          ellipse at 50% 50%,
-          transparent 55%,
-          rgba(240, 160, 64, 0.04) 75%,
-          rgba(200, 100, 20, 0.08) 100%
-        );
-
-        opacity: 0.6;
-      }
-
-      :root[data-theme="light"] #tube-vignette {
-        background: radial-gradient(
-          ellipse at 50% 50%,
-          transparent 55%,
-          rgba(180, 140, 100, 0.03) 75%,
-          rgba(160, 120, 80, 0.05) 100%
-        );
-        opacity: 0.4;
-      }
-    </style>
     <!-- ── Theme toggle (init is in <head> to prevent flash) ── -->
     <script>
       (() => {

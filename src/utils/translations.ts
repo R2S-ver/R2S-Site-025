@@ -2,6 +2,11 @@ import type { Language } from "./i18n";
 
 export const translations = {
   en: {
+    meta: {
+      description:
+        "R2S Studio — multidisciplinary maker portfolio: industrial design, embedded systems, electronics notes, and visual art.",
+    },
+
     nav: {
       home: "HOME",
       projects: "PROJECTS",
@@ -416,6 +421,11 @@ export const translations = {
   },
 
   zh: {
+    meta: {
+      description:
+        "R2S Studio — 多学科创客作品集：工业设计、嵌入式系统、电子学笔记与视觉艺术。",
+    },
+
     nav: {
       home: "首页",
       projects: "项目",
