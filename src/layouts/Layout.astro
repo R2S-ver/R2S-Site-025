@@ -678,14 +678,22 @@ const isZh = language === "zh";
         gap: 12px;
         padding: 10px 48px 10px 16px;
         background: rgba(7, 7, 13, 0.95);
-        border-bottom: 1px solid var(--accent);
+        border-bottom: 1px solid var(--terminal-green);
         font-family: var(--font-mono);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         animation: noticeIn 0.4s var(--ease-out);
+        transition:
+          opacity 0.4s var(--ease-out),
+          transform 0.4s var(--ease-out);
       }
 
       #mobile-notice[hidden] {
         display: none;
+      }
+
+      #mobile-notice.notice-leave {
+        opacity: 0;
+        transform: translateY(-100%);
       }
 
       .notice-dot {
@@ -693,7 +701,8 @@ const isZh = language === "zh";
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background: var(--accent);
+        background: var(--terminal-green);
+        box-shadow: 0 0 6px rgba(58, 240, 79, 0.6);
         animation: noticeBlink 1.6s infinite;
       }
 
@@ -727,8 +736,8 @@ const isZh = language === "zh";
       }
 
       .notice-close:hover {
-        color: var(--accent);
-        border-color: var(--accent);
+        color: var(--terminal-green);
+        border-color: var(--terminal-green);
       }
 
       @keyframes noticeIn {
@@ -760,7 +769,11 @@ const isZh = language === "zh";
       /* Light mode */
       :root[data-theme="light"] #mobile-notice {
         background: rgba(240, 235, 224, 0.97);
-        border-bottom-color: rgba(176, 112, 32, 0.5);
+        border-bottom-color: rgba(26, 112, 48, 0.5);
+      }
+
+      :root[data-theme="light"] .notice-dot {
+        box-shadow: 0 0 6px rgba(20, 90, 40, 0.35);
       }
 
       :root[data-theme="light"] .notice-text {
@@ -1222,7 +1235,7 @@ const isZh = language === "zh";
         };
       })();
     </script>
-    <!-- ── Mobile notice dismiss (session-scoped) ── -->
+    <!-- ── Mobile notice dismiss: click × (session-scoped) ── -->
     <script>
       (() => {
         var KEY = "r2s-mobile-notice";
@@ -1234,11 +1247,21 @@ const isZh = language === "zh";
             return;
           }
         } catch (_) {}
-        var close = notice.querySelector(".notice-close");
-        close?.addEventListener("click", () => {
-          notice.hidden = true;
+
+        var dismissed = false;
+        function dismissNotice() {
+          if (dismissed) return;
+          dismissed = true;
+          // 淡出动画结束后再移除
+          notice.classList.add("notice-leave");
+          setTimeout(() => {
+            notice.hidden = true;
+          }, 450);
           try { sessionStorage.setItem(KEY, "dismissed"); } catch (_) {}
-        });
+        }
+
+        var close = notice.querySelector(".notice-close");
+        close?.addEventListener("click", dismissNotice);
       })();
     </script>
   </body>
