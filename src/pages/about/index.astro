@@ -866,10 +866,65 @@ const t = getTranslations(lang);
         <div class="closing-terminal">
           <div class="closing-status">&gt; SYSTEM_READY_</div>
 
-          <button class="enter-key" type="button" aria-label="Continue">
+          <button
+            class="enter-key"
+            type="button"
+            aria-label="Open style genealogy record"
+            aria-expanded="false"
+            aria-controls="style-annex-panel"
+          >
             <span>ENTER</span>
             <b>↵</b>
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    ANNEX 09 — STYLE GENEALOGY (EASTER EGG)
+    ====================================================== -->
+
+    <section class="style-annex">
+      <div class="annex-panel" id="style-annex-panel" hidden>
+        <div class="annex-header">
+          <span>{t.sections.about.annex.header}</span>
+          <span class="annex-status">{t.sections.about.annex.status}</span>
+        </div>
+
+        <p class="annex-intro">
+          {t.sections.about.annex.intro}
+        </p>
+
+        <div class="annex-style-index">
+          {t.sections.about.annex.styleIndex}
+        </div>
+
+        <div class="annex-grid">
+          {t.sections.about.annex.styles.map((style) => (
+            <article class="annex-entry">
+              <div class="annex-entry-head">
+                <span class="annex-code">{style.code}</span>
+                <span class="annex-era">{style.era}</span>
+              </div>
+              <p>{style.body}</p>
+              <div class="annex-refs">&gt; REF: {style.refs}</div>
+            </article>
+          ))}
+        </div>
+
+        <div class="annex-works">
+          <div class="annex-style-index">
+            {t.sections.about.annex.worksIndex}
+          </div>
+
+          <ul class="annex-works-list">
+            {t.sections.about.annex.works.map((work) => (
+              <li>
+                <span class="annex-work-title">{work.title}</span>
+                <span class="annex-work-note">— {work.note}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -1910,6 +1965,83 @@ const t = getTranslations(lang);
   // 初始激活第一个模块并准备 Canvas（但不要自动开始动画，等进入视口）
   activateModule(0);
   // 注意：不再直接调用 drawCapability()，由 Observer 触发
+</script>
+
+<script>
+  /* =====================================================
+  09 — STYLE GENEALOGY ANNEX (easter egg)
+  独立脚本：与页面主脚本隔离，主脚本出错也不会影响彩蛋
+  ====================================================== */
+
+  const annexPanel = document.getElementById("style-annex-panel");
+  const enterKey = document.querySelector(".enter-key");
+
+  // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
+  function typeAnnexBlock(el, original, speed) {
+    return new Promise((resolve) => {
+      const temp = document.createElement("div");
+      temp.innerHTML = original;
+      const text = temp.textContent || "";
+      let i = 0;
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          el.textContent = text.slice(0, i + 1);
+          i++;
+        } else {
+          clearInterval(timer);
+          el.innerHTML = original;
+          el.classList.remove("typing");
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  // 每类区块的输出速度（毫秒/字符）：正文快而不抢读，标签更快
+  function annexSpeed(el) {
+    if (el.classList.contains("annex-intro")) return 5;
+    if (el.classList.contains("annex-style-index")) return 2;
+    if (el.classList.contains("annex-refs")) return 3;
+    return 4;
+  }
+
+  let annexTyped = false;
+
+  if (annexPanel && enterKey) {
+    enterKey.addEventListener("click", () => {
+      const wasOpen = !annexPanel.hidden;
+      if (wasOpen) {
+        annexPanel.hidden = true;
+        enterKey.setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      enterKey.setAttribute("aria-expanded", "true");
+
+      if (!annexTyped) {
+        annexTyped = true;
+        const blocks = annexPanel.querySelectorAll(
+          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
+        );
+        // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
+        blocks.forEach((el) => {
+          el.dataset.annexOriginal = el.innerHTML;
+          el.innerHTML = "";
+          el.classList.add("typing");
+        });
+        annexPanel.hidden = false;
+        annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        (async () => {
+          for (const el of blocks) {
+            await typeAnnexBlock(el, el.dataset.annexOriginal || "", annexSpeed(el));
+          }
+        })();
+      } else {
+        annexPanel.hidden = false;
+        annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
 </script>
 
 <style>
@@ -3202,8 +3334,11 @@ const t = getTranslations(lang);
 
   .enter-key {
     position: relative;
-    min-width: 170px;
-    padding: 17px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 260px;
+    padding: 28px 36px;
     border: 1px solid #555;
     border-bottom: 4px solid #222;
     background: linear-gradient(180deg, #1a1a1d, #0b0b0d);
@@ -3238,13 +3373,13 @@ const t = getTranslations(lang);
   }
 
   .enter-key span {
-    margin-right: 12px;
-    font-size: 10px;
+    margin-right: 16px;
+    font-size: 19px;
   }
 
   .enter-key b {
     color: var(--accent);
-    font-size: 17px;
+    font-size: 34px;
   }
 
   .enter-key:hover {
@@ -3256,6 +3391,238 @@ const t = getTranslations(lang);
   .enter-key:active {
     transform: translateY(3px);
     border-bottom-width: 1px;
+  }
+
+  /* ENTER key invitation — breathing glow + bouncing arrow */
+  .enter-key {
+    animation: enterPulse 2.6s ease-in-out infinite;
+  }
+
+  .enter-key b {
+    display: inline-block;
+    animation: arrowNudge 1.4s ease-in-out infinite;
+  }
+
+  .enter-key:hover {
+    animation: none;
+    box-shadow: 0 0 26px rgba(232, 160, 64, 0.22);
+  }
+
+  @keyframes enterPulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgba(232, 160, 64, 0);
+      border-color: #555;
+    }
+    50% {
+      box-shadow: 0 0 18px rgba(232, 160, 64, 0.28);
+      border-color: rgba(232, 160, 64, 0.65);
+    }
+  }
+
+  @keyframes arrowNudge {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* =====================================================
+  ANNEX 09 — STYLE GENEALOGY (easter egg)
+  ====================================================== */
+
+  .style-annex {
+    padding-top: 60px;
+  }
+
+  .annex-panel {
+    padding: 40px 45px;
+    border: 1px dashed rgba(232, 160, 64, 0.3);
+    background: rgba(232, 160, 64, 0.02);
+    font-family: var(--font-mono);
+  }
+
+  /* Typewriter cursor while a block is being typed */
+  .annex-panel .typing::after {
+    content: "_";
+    color: var(--terminal-green);
+    animation: annexBlink 0.6s infinite;
+    font-weight: 400;
+  }
+
+  @keyframes annexBlink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .annex-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .annex-status {
+    color: #888;
+    font-weight: normal;
+    letter-spacing: 1px;
+  }
+
+  .annex-intro {
+    margin: 30px 0 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  .annex-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 40px;
+    margin-top: 15px;
+  }
+
+  .annex-entry {
+    border-left: 2px solid var(--stripe-red);
+    padding-left: 18px;
+  }
+
+  .annex-entry:nth-child(3n + 2) {
+    border-left-color: var(--stripe-yellow);
+  }
+
+  .annex-entry:nth-child(3n) {
+    border-left-color: var(--stripe-teal);
+  }
+
+  .annex-entry-head {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .annex-code {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: white;
+  }
+
+  .annex-era {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #777;
+  }
+
+  .annex-entry p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #aaa;
+  }
+
+  .annex-refs {
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--terminal-green);
+    opacity: 0.7;
+  }
+
+  .annex-style-index {
+    margin-top: 35px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .annex-works {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .annex-works-list {
+    margin: 15px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .annex-works-list li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #999;
+  }
+
+  .annex-work-title {
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .annex-work-note {
+    color: #999;
+  }
+
+  :root[data-theme="light"] .annex-panel {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(176, 112, 32, 0.3);
+  }
+
+  :root[data-theme="light"] .annex-code {
+    color: #1a1a1a;
+  }
+
+  :root[data-theme="light"] .annex-status,
+  :root[data-theme="light"] .annex-era {
+    color: #666;
+  }
+
+  :root[data-theme="light"] .annex-intro {
+    color: #444;
+  }
+
+  :root[data-theme="light"] .annex-entry p {
+    color: #555;
+  }
+
+  :root[data-theme="light"] .annex-work-title {
+    color: #1a1a1a;
+  }
+
+  :root[data-theme="light"] .annex-work-note,
+  :root[data-theme="light"] .annex-works-list li {
+    color: #555;
+  }
+
+  @media (max-width: 800px) {
+    .annex-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .annex-panel {
+      padding: 30px 22px;
+    }
   }
 
   /* =====================================================

@@ -26,9 +26,8 @@ const { title = "R2S Studio" } = Astro.props;
         try { stored = localStorage.getItem(key); } catch (_) { stored = null; }
         if (stored === "light" || stored === "dark") {
           document.documentElement.setAttribute("data-theme", stored);
-        } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-          document.documentElement.setAttribute("data-theme", "light");
         } else {
+          // First visit: default to dark mode
           document.documentElement.setAttribute("data-theme", "dark");
         }
       })();
@@ -59,19 +58,27 @@ const { title = "R2S Studio" } = Astro.props;
 
   <body>
     <!-- =========================================
+         SKIP LINK — keyboard navigation
+    ========================================== -->
+
+    <a class="skip-link" href="#main-content">SKIP_TO_CONTENT &gt;</a>
+
+    <!-- =========================================
          NEURAL NETWORK BACKGROUND
     ========================================== -->
 
-    <canvas id="neural-canvas"></canvas>
+    <canvas id="neural-canvas" aria-hidden="true"></canvas>
 
     <!-- =========================================
          GLOBAL CONTENT
     ========================================== -->
 
     <div class="site-content">
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <slot />
       </main>
 
@@ -570,6 +577,16 @@ const { title = "R2S Studio" } = Astro.props;
         scroll-padding-top: 82px;
       }
 
+      /* Hide the browser's default scrollbar — scrolling stays functional
+         (wheel / touch / keyboard). Fits the CRT-terminal aesthetic. */
+      html {
+        scrollbar-width: none; /* Firefox */
+      }
+
+      html::-webkit-scrollbar {
+        display: none; /* Chrome / Edge / Safari */
+      }
+
       body {
         min-height: 100vh;
 
@@ -584,6 +601,44 @@ const { title = "R2S Studio" } = Astro.props;
         transition:
           background 0.4s var(--ease-out),
           color 0.4s var(--ease-out);
+      }
+
+      /* =========================================
+         SKIP LINK — visually hidden until focused
+      ========================================== */
+
+      .skip-link {
+        position: fixed;
+
+        top: -100px;
+
+        left: 16px;
+
+        z-index: 10002;
+
+        padding: 10px 18px;
+
+        background: var(--accent);
+
+        color: #000;
+
+        font-family: var(--font-mono);
+
+        font-size: 13px;
+
+        font-weight: bold;
+
+        letter-spacing: 1px;
+
+        text-decoration: none;
+
+        border: 1px solid var(--accent);
+
+        transition: top 0.2s var(--ease-out);
+      }
+
+      .skip-link:focus-visible {
+        top: 12px;
       }
 
       /* Smooth theme transitions for all themed surfaces */
@@ -665,8 +720,8 @@ const { title = "R2S Studio" } = Astro.props;
       }
       :root[data-theme="light"] .latest h2,
       :root[data-theme="light"] .about-preview h2 { color: #1a1a1a; }
-      :root[data-theme="light"] .latest p,
-      :root[data-theme="light"] .about-preview p { color: #555; }
+      :root[data-theme="light"] .latest p { color: #555; }
+      :root[data-theme="light"] .about-preview p { color: #404040; }
 
       /* Featured */
       :root[data-theme="light"] .featured .section-header p { color: #666; }

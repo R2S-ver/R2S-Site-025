@@ -1,110 +1,195 @@
 <!--
   SCROLL METER — Signal strength indicator tied to scroll position
-  Fixed bottom-right, LED-segment vertical bar
-  Pure CSS + IntersectionObserver
+  Fixed right edge, vertically centered, LED-segment vertical bar
+  Styled after the site's own panels: dark terminal surface,
+  amber border accents, phosphor-green signal, restrained glow
+  Drag the track to scroll · jump buttons above and below
 -->
-
-<div class="scroll-meter" aria-hidden="true">
-  <div class="meter-label">SIGNAL</div>
-  <div class="meter-track">
-    <div class="meter-segment" style="--i: 0"></div>
-    <div class="meter-segment" style="--i: 1"></div>
-    <div class="meter-segment" style="--i: 2"></div>
-    <div class="meter-segment" style="--i: 3"></div>
-    <div class="meter-segment" style="--i: 4"></div>
-    <div class="meter-segment" style="--i: 5"></div>
-    <div class="meter-segment" style="--i: 6"></div>
-    <div class="meter-segment" style="--i: 7"></div>
-    <div class="meter-segment" style="--i: 8"></div>
-    <div class="meter-segment" style="--i: 9"></div>
+<div class="scroll-cluster">
+  <button class="back-to-top" type="button" aria-label="Back to top"
+    >&#9650;</button
+  >
+  <div class="scroll-meter" aria-hidden="true">
+    <div class="meter-label">SIGNAL</div>
+    <div class="meter-track">
+      <div class="meter-segment" style="--i: 0"></div>
+      <div class="meter-segment" style="--i: 1"></div>
+      <div class="meter-segment" style="--i: 2"></div>
+      <div class="meter-segment" style="--i: 3"></div>
+      <div class="meter-segment" style="--i: 4"></div>
+      <div class="meter-segment" style="--i: 5"></div>
+      <div class="meter-segment" style="--i: 6"></div>
+      <div class="meter-segment" style="--i: 7"></div>
+      <div class="meter-segment" style="--i: 8"></div>
+      <div class="meter-segment" style="--i: 9"></div>
+    </div>
+    <div class="meter-value" id="meter-pct">00</div>
+    <div class="meter-unit">TELEMETRY</div>
   </div>
-  <div class="meter-value" id="meter-pct">00</div>
-  <div class="meter-unit">TELEMETRY</div>
+  <button class="back-to-bottom" type="button" aria-label="Jump to bottom"
+    >&#9660;</button
+  >
 </div>
 
 <script>
   const meter = document.querySelector<HTMLElement>(".scroll-meter");
-  const segments = meter?.querySelectorAll<HTMLElement>(".meter-segment");
   const pctEl = document.getElementById("meter-pct");
-  if (!meter || !segments || !pctEl) {
-    // component present but elements missing
-  } else {
+  const topBtn = document.querySelector<HTMLElement>(".back-to-top");
+  const bottomBtn = document.querySelector<HTMLElement>(".back-to-bottom");
+
+  topBtn?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  bottomBtn?.addEventListener("click", () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  });
+
+  if (meter && pctEl) {
+    const segments = meter.querySelectorAll<HTMLElement>(".meter-segment");
+    const track = meter.querySelector<HTMLElement>(".meter-track");
+    const meterPct = pctEl;
     let rafPending = false;
 
     function updateMeter() {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
       const filled = Math.round(pct * segments.length);
 
       segments.forEach((seg, i) => {
-        if (i < filled) {
-          seg.classList.add("active");
-        } else {
-          seg.classList.remove("active");
-        }
+        seg.classList.toggle("active", i < filled);
       });
 
-      pctEl.textContent = String(Math.round(pct * 100)).padStart(2, "0");
+      meterPct.textContent = String(Math.round(pct * 100)).padStart(2, "0");
+
+      topBtn?.classList.toggle("visible", scrollTop > 300);
+      bottomBtn?.classList.toggle("visible", docHeight - scrollTop > 300);
 
       rafPending = false;
     }
 
-    window.addEventListener("scroll", () => {
-      if (!rafPending) {
-        rafPending = true;
-        requestAnimationFrame(updateMeter);
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!rafPending) {
+          rafPending = true;
+          requestAnimationFrame(updateMeter);
+        }
+      },
+      { passive: true },
+    );
+
+    // ── Drag the track to scroll ──
+    if (track) {
+      const meterTrack = track;
+      let dragging = false;
+
+      function scrollFromPointer(e: PointerEvent) {
+        const rect = meterTrack.getBoundingClientRect();
+        // 轨道顶部 = 页面顶部，轨道底部 = 页面底部（与填充方向一致）
+        const ratio = Math.min(
+          Math.max((e.clientY - rect.top) / rect.height, 0),
+          1,
+        );
+        const maxScroll =
+          document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: ratio * maxScroll, behavior: "instant" });
       }
-    }, { passive: true });
+
+      meterTrack.addEventListener("pointerdown", (e) => {
+        // 阻止浏览器启动原生拖拽/文字选择，避免拖到一半指针被抢走（光标变 ✗）
+        e.preventDefault();
+        const sel = window.getSelection();
+        if (sel) sel.removeAllRanges();
+        dragging = true;
+        document.documentElement.classList.add("meter-dragging");
+        meterTrack.setPointerCapture(e.pointerId);
+        scrollFromPointer(e);
+      });
+
+      meterTrack.addEventListener("pointermove", (e) => {
+        if (dragging) {
+          e.preventDefault();
+          scrollFromPointer(e);
+        }
+      });
+
+      const endDrag = () => {
+        dragging = false;
+        document.documentElement.classList.remove("meter-dragging");
+      };
+      meterTrack.addEventListener("pointerup", endDrag);
+      meterTrack.addEventListener("pointercancel", endDrag);
+    }
 
     updateMeter();
   }
 </script>
 
 <style>
-  .scroll-meter {
+  /* ── Cluster: fixed on the right edge, vertically centered ── */
+  .scroll-cluster {
     position: fixed;
-    bottom: 32px;
-    right: 24px;
+    top: 50%;
+    right: 2px;
+    transform: translateY(-50%);
     z-index: 500;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 12px;
+  }
+
+  .scroll-meter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
     font-family: var(--font-mono);
     pointer-events: none;
-    opacity: 0.55;
-    transition: opacity 0.4s var(--ease-out);
   }
 
-  .scroll-meter:hover {
-    opacity: 0.9;
-  }
-
-  .meter-label,
-  .meter-unit {
-    font-size: 7px;
-    letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.3);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-  }
+  /* ═══════════════════════════════════════════
+     SITE-NATIVE PANEL — terminal surface, amber
+     edge accent, phosphor-green signal
+     ═══════════════════════════════════════════ */
 
   .meter-track {
+    position: relative;
     display: flex;
-    flex-direction: column-reverse;
-    gap: 2px;
-    padding: 4px 3px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 8px;
+    pointer-events: auto;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+  }
+
+  .meter-track:active {
+    cursor: grabbing;
+  }
+
+  /* Hover: unlit cells wake up slightly — no wrapper, just signal */
+  .meter-track:hover .meter-segment {
+    background: rgba(58, 240, 79, 0.15);
+  }
+
+  .meter-track:hover .meter-segment.active {
+    background: var(--terminal-green);
   }
 
   .meter-segment {
-    width: 8px;
-    height: 6px;
-    border-radius: 1px;
-    background: rgba(58, 240, 79, 0.1);
+    width: 16px;
+    height: 12px;
+    border-radius: 2px;
+    background: rgba(58, 240, 79, 0.08);
     transition:
       background 0.3s var(--ease-out),
       box-shadow 0.3s var(--ease-out);
@@ -112,30 +197,176 @@
 
   .meter-segment.active {
     background: var(--terminal-green);
-    box-shadow: 0 0 4px rgba(58, 240, 79, 0.5);
+    box-shadow: 0 0 6px rgba(58, 240, 79, 0.45);
   }
 
   .meter-value {
-    font-size: 10px;
+    font-size: 20px;
     font-weight: 900;
     color: var(--terminal-green);
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    text-shadow: 0 0 10px rgba(58, 240, 79, 0.3);
+  }
+
+  /* Jump buttons — miniature terminal keys */
+  .back-to-top,
+  .back-to-bottom {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: rgba(5, 5, 10, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--terminal-green);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 4px 20px rgba(0, 0, 0, 0.5);
+    transition:
+      border-color 0.35s var(--ease-out),
+      box-shadow 0.35s var(--ease-out),
+      color 0.25s var(--ease-out),
+      transform 0.2s var(--spring-snappy),
+      opacity 0.3s var(--ease-out),
+      visibility 0.3s;
+  }
+
+  /* Corner brackets — matching the site's key style */
+  .back-to-top::before,
+  .back-to-bottom::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 4px;
+    height: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .back-to-top::after,
+  .back-to-bottom::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    width: 4px;
+    height: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .back-to-top.visible,
+  .back-to-bottom.visible,
+  .back-to-top:focus-visible,
+  .back-to-bottom:focus-visible {
+    opacity: 0.9;
+    visibility: visible;
+  }
+
+  .back-to-top.visible:hover,
+  .back-to-bottom.visible:hover {
+    border-color: rgba(232, 148, 58, 0.55);
+    color: var(--accent);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 20px rgba(232, 148, 58, 0.22),
+      0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .back-to-top:active,
+  .back-to-bottom:active {
+    transform: scale(0.94);
+    transition: transform 0.08s var(--spring-snappy);
+  }
+
+  .meter-label,
+  .meter-unit {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.3);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  /* 拖拽期间：全页锁定为抓取光标、禁止文字选择，
+     防止浏览器原生拖选抢走指针（光标变 ✗） */
+  html.meter-dragging,
+  html.meter-dragging * {
+    cursor: grabbing !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     LIGHT MODE — paper panel: the site's
+     #e8e3da surface + deep green signal
+     ═══════════════════════════════════════════ */
+
+  :root[data-theme="light"] .back-to-top,
+  :root[data-theme="light"] .back-to-bottom {
+    background: #e8e3da;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      inset 0 -1px 3px rgba(0, 0, 0, 0.04),
+      0 4px 16px rgba(0, 0, 0, 0.05),
+      0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  :root[data-theme="light"] .meter-track:hover .meter-segment {
+    background: rgba(20, 90, 40, 0.2);
+  }
+
+  :root[data-theme="light"] .meter-track:hover .meter-segment.active {
+    background: #145a28;
   }
 
   :root[data-theme="light"] .meter-segment {
-    background: rgba(26, 112, 48, 0.1);
+    background: rgba(20, 90, 40, 0.12);
   }
+
   :root[data-theme="light"] .meter-segment.active {
-    background: var(--terminal-green);
-    box-shadow: 0 0 4px rgba(26, 112, 48, 0.3);
+    background: #145a28;
+    box-shadow: 0 0 6px rgba(20, 90, 40, 0.4);
   }
+
+  :root[data-theme="light"] .meter-value {
+    color: #145a28;
+    text-shadow: 0 0 8px rgba(20, 90, 40, 0.25);
+  }
+
+  :root[data-theme="light"] .back-to-top,
+  :root[data-theme="light"] .back-to-bottom {
+    color: #145a28;
+  }
+
+  :root[data-theme="light"] .back-to-top::before,
+  :root[data-theme="light"] .back-to-bottom::before,
+  :root[data-theme="light"] .back-to-top::after,
+  :root[data-theme="light"] .back-to-bottom::after {
+    border-color: rgba(0, 0, 0, 0.15);
+  }
+
+  :root[data-theme="light"] .back-to-top.visible:hover,
+  :root[data-theme="light"] .back-to-bottom.visible:hover {
+    border-color: rgba(176, 112, 32, 0.4);
+    color: #8b4513;
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      0 0 16px rgba(192, 112, 32, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
   :root[data-theme="light"] .meter-label,
   :root[data-theme="light"] .meter-unit {
     color: rgba(0, 0, 0, 0.25);
-  }
-  :root[data-theme="light"] .meter-track {
-    background: rgba(0, 0, 0, 0.04);
-    border-color: rgba(0, 0, 0, 0.1);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -145,10 +376,8 @@
   }
 
   @media (max-width: 768px) {
-    .scroll-meter {
-      bottom: 16px;
-      right: 12px;
-      opacity: 0.35;
+    .scroll-cluster {
+      display: none;
     }
   }
 </style>

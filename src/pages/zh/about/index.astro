@@ -867,10 +867,145 @@ const t = getTranslations(lang);
         <div class="closing-terminal">
           <div class="closing-status">&gt; 系统就绪_</div>
 
-          <button class="enter-key" type="button" aria-label="继续">
-            <span>进入</span>
+          <button
+            class="enter-key"
+            type="button"
+            aria-label="打开风格谱系档案"
+            aria-expanded="false"
+            aria-controls="style-annex-panel"
+          >
+            <span>ENTER</span>
             <b>↵</b>
           </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    ANNEX 09 — STYLE GENEALOGY (EASTER EGG)
+    ====================================================== -->
+
+    <section class="style-annex">
+      <div class="annex-panel" id="style-annex-panel" hidden>
+        <div class="annex-header">
+          <span>风格谱系 // 设计起源档案</span>
+          <span class="annex-status">档案状态：已解密 — 出于好奇</span>
+        </div>
+
+        <p class="annex-intro">
+          我超爱复古未来主义！！当身边的一切都被极简和性冷淡风格处理时，人被量化，产品也失去了情感和个性。就像有人喜欢千禧年美学、有人着迷后室一样，我好奇的是从冷战时期一路到上世纪末的风格演变——那是一条可以追溯、不断变化的审美线索，随着当代社会与文化不断生长，令人着迷。
+        </p>
+
+        <div class="annex-style-index">
+          // STYLE_INDEX — 这个网站参考的设计语言
+        </div>
+
+        <div class="annex-grid">
+          <article class="annex-entry">
+            <div class="annex-entry-head">
+              <span class="annex-code">STYLE_01 // BAUHAUS_&_DE_STIJL</span>
+              <span class="annex-era">1919 — 1933</span>
+            </div>
+            <p>
+              三原色当作设计语法：导航栏里重叠的红黄蓝圆点、标题旁的三色竖条。是最早的现代主义设计语言，也是这个网站的视觉起点。
+            </p>
+            <div class="annex-refs">
+              &gt; REF: 包豪斯德绍 · 蒙德里安构成 · 莫霍利-纳吉的字体实验
+            </div>
+          </article>
+
+          <article class="annex-entry">
+            <div class="annex-entry-head">
+              <span class="annex-code">STYLE_02 // SWISS_INTERNATIONAL</span>
+              <span class="annex-era">1950s — 60s</span>
+            </div>
+            <p>
+              系统化的网格、编号模块、大写微标签。文案写得像仪表铭牌——MODULE_01、ENTRY_001、DATA_UPLINK。
+            </p>
+            <div class="annex-refs">
+              &gt; REF: 约瑟夫·米勒-布罗克曼《平面设计中的网格系统》
+            </div>
+          </article>
+
+          <article class="annex-entry">
+            <div class="annex-entry-head">
+              <span class="annex-code">STYLE_03 // CASSETTE_FUTURISM</span>
+              <span class="annex-era">1970s — 80s</span>
+            </div>
+            <p>
+              绿色磷光、扫描线、磁带、条形码、开机终端。
+              画面里隐藏起来的CRT扫描线质感，不知道你有没有注意到？
+            </p>
+            <div class="annex-refs">
+              &gt; REF: 《异形》(1979) · 《2001太空漫游》 · 苏联联盟号控制面板
+            </div>
+          </article>
+
+          <article class="annex-entry">
+            <div class="annex-entry-head">
+              <span class="annex-code">STYLE_04 // NASA_PUNK</span>
+              <span class="annex-era">1960s</span>
+            </div>
+            <p>
+              任务控制台式显示方式：经纬度坐标、LED
+              段式仪表、六边形网格、粒子网络。页面像仪器面板一样自我读数。
+            </p>
+            <div class="annex-refs">
+              &gt; REF: 阿波罗任务控制中心 · AGC 读数屏 · 明日方舟：孤星 UI
+            </div>
+          </article>
+
+          <article class="annex-entry">
+            <div class="annex-entry-head">
+              <span class="annex-code">STYLE_05 // CYBERPUNK_TERMINAL</span>
+              <span class="annex-era">1980s — 90s</span>
+            </div>
+            <p>
+              黑底绿字的系统日志、黑客终端氛围。意外混入的第五种语言，豪到我了。
+            </p>
+            <div class="annex-refs">&gt; REF: 《银翼杀手》 · 《黑客帝国》</div>
+          </article>
+        </div>
+
+        <div class="annex-works">
+          <div class="annex-style-index">// WORKS_INDEX — 同频的视觉作品</div>
+
+          <ul class="annex-works-list">
+            <li>
+              <span class="annex-work-title">明日方舟：孤星</span>
+              <span class="annex-work-note"
+                >— 冷调科研机构与航天基地，仪表盘式的界面叙事</span
+              >
+            </li>
+            <li>
+              <span class="annex-work-title">重返未来：1999</span>
+              <span class="annex-work-note"
+                >— 复古未来与神秘学交织的视觉语言</span
+              >
+            </li>
+            <li>
+              <span class="annex-work-title">原子之心</span>
+              <span class="annex-work-note"
+                >— 苏联未来主义与机器美学的第一人称呈现</span
+              >
+            </li>
+            <li>
+              <span class="annex-work-title">辐射（Fallout）系列</span>
+              <span class="annex-work-note"
+                >— 原子朋克标杆——CRT 终端与废土乐观主义</span
+              >
+            </li>
+            <li>
+              <span class="annex-work-title"
+                >《异形》(1979) · 《2001太空漫游》</span
+              >
+              <span class="annex-work-note">— 卡带未来主义的影像源头</span>
+            </li>
+            <li>
+              <span class="annex-work-title">《银翼杀手》 · 《黑客帝国》</span>
+              <span class="annex-work-note">— 黑屏绿字成为流行文化的起点</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -1343,7 +1478,8 @@ const t = getTranslations(lang);
     const mx = mouseX * W;
     const my = mouseY * H;
     const t = time;
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
 
     ctx.fillStyle = isLight ? "#e8e3da" : "#070a08";
     ctx.fillRect(0, 0, W, H);
@@ -1351,46 +1487,81 @@ const t = getTranslations(lang);
     // Grid
     ctx.strokeStyle = isLight ? "rgba(0,0,0,0.06)" : "rgba(30,60,45,0.25)";
     ctx.lineWidth = 0.4;
-    for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    for (let x = 0; x < W; x += 24) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = 0; y < H; y += 24) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
 
-    const amp = H * 0.10;
+    const amp = H * 0.1;
 
     const channels = [
-      { baseY: H * 0.22, color: isLight ? "rgba(0,120,60,0.9)" : "rgba(100,220,160,0.85)", type: "square",   freq: 4.5, label: "CH1 — SQUARE" },
-      { baseY: H * 0.50, color: isLight ? "rgba(30,80,140,0.85)" : "rgba(160,200,230,0.8)",  type: "sine",     freq: 3.0, label: "CH2 — SINE"   },
-      { baseY: H * 0.78, color: isLight ? "rgba(120,40,100,0.8)" : "rgba(200,160,220,0.75)", type: "triangle", freq: 5.5, label: "CH3 — TRI"    },
+      {
+        baseY: H * 0.22,
+        color: isLight ? "rgba(0,120,60,0.9)" : "rgba(100,220,160,0.85)",
+        type: "square",
+        freq: 4.5,
+        label: "CH1 — SQUARE",
+      },
+      {
+        baseY: H * 0.5,
+        color: isLight ? "rgba(30,80,140,0.85)" : "rgba(160,200,230,0.8)",
+        type: "sine",
+        freq: 3.0,
+        label: "CH2 — SINE",
+      },
+      {
+        baseY: H * 0.78,
+        color: isLight ? "rgba(120,40,100,0.8)" : "rgba(200,160,220,0.75)",
+        type: "triangle",
+        freq: 5.5,
+        label: "CH3 — TRI",
+      },
     ];
 
     // Dividers
-    channels.forEach(ch => {
+    channels.forEach((ch) => {
       ctx.strokeStyle = isLight ? "rgba(0,0,0,0.08)" : "rgba(60,100,80,0.25)";
       ctx.lineWidth = 0.5;
-      ctx.beginPath(); ctx.moveTo(0, ch.baseY); ctx.lineTo(W, ch.baseY); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, ch.baseY);
+      ctx.lineTo(W, ch.baseY);
+      ctx.stroke();
     });
 
     function waveVal(ch, prog) {
       const arg = prog * Math.PI * 2 * ch.freq + t * 1.67;
-      if (ch.type === "square")   return Math.sin(arg) >= 0 ? 1 : -1;
-      if (ch.type === "sine")     return Math.sin(arg);
-      if (ch.type === "triangle") { const ph = ((arg / (Math.PI * 2)) % 1 + 1) % 1; return ph < 0.5 ? 4 * ph - 1 : 3 - 4 * ph; }
+      if (ch.type === "square") return Math.sin(arg) >= 0 ? 1 : -1;
+      if (ch.type === "sine") return Math.sin(arg);
+      if (ch.type === "triangle") {
+        const ph = (((arg / (Math.PI * 2)) % 1) + 1) % 1;
+        return ph < 0.5 ? 4 * ph - 1 : 3 - 4 * ph;
+      }
       return 0;
     }
 
     // Draw
-    channels.forEach(ch => {
+    channels.forEach((ch) => {
       ctx.strokeStyle = ch.color;
       ctx.lineWidth = 1.2;
       ctx.beginPath();
       for (let px = 0; px < W; px += 1.5) {
         const wy = ch.baseY - waveVal(ch, px / W) * amp;
-        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+        if (px === 0) ctx.moveTo(px, wy);
+        else ctx.lineTo(px, wy);
       }
       ctx.stroke();
     });
 
     // Labels
-    channels.forEach(ch => {
+    channels.forEach((ch) => {
       ctx.fillStyle = ch.color.replace(/[\d.]+\)$/, "0.5)");
       ctx.font = "8px monospace";
       ctx.textAlign = "left";
@@ -1398,11 +1569,15 @@ const t = getTranslations(lang);
     });
 
     // Mouse highlight
-    let nearest = -1, nearestDist = Infinity;
+    let nearest = -1,
+      nearestDist = Infinity;
     channels.forEach((ch, i) => {
       const wy = ch.baseY - waveVal(ch, mx / W) * amp;
       const d = Math.abs(my - wy);
-      if (d < nearestDist && d < 40) { nearestDist = d; nearest = i; }
+      if (d < nearestDist && d < 40) {
+        nearestDist = d;
+        nearest = i;
+      }
     });
 
     if (nearest >= 0) {
@@ -1414,7 +1589,8 @@ const t = getTranslations(lang);
       ctx.beginPath();
       for (let px = 0; px < W; px += 1.5) {
         const wy = ch.baseY - waveVal(ch, px / W) * amp;
-        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+        if (px === 0) ctx.moveTo(px, wy);
+        else ctx.lineTo(px, wy);
       }
       ctx.stroke();
       ctx.shadowBlur = 0;
@@ -1426,7 +1602,8 @@ const t = getTranslations(lang);
     ctx.fillText("TRIG:AUTO · 1V/div", W - 8, H * 0.06);
   }
   function drawEmbedded() {
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     for (let i = 0; i < 18; i++) {
       ctx.beginPath();
       const y = H * 0.18 + i * H * 0.035;
@@ -1439,7 +1616,11 @@ const t = getTranslations(lang);
         else ctx.lineTo(x, yy);
       }
       ctx.strokeStyle =
-        i === 9 ? "#e8a040" : (isLight ? `rgba(80,80,80,${0.06 + i * 0.004})` : `rgba(220,220,220,${0.08 + i * 0.005})`);
+        i === 9
+          ? "#e8a040"
+          : isLight
+            ? `rgba(80,80,80,${0.06 + i * 0.004})`
+            : `rgba(220,220,220,${0.08 + i * 0.005})`;
       ctx.stroke();
     }
   }
@@ -1448,7 +1629,8 @@ const t = getTranslations(lang);
   DRAW: 制造与加工 — 精致化流水线
   ====================================================== */
   function drawFabrication() {
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     const beltH = 22;
     const gap = 30;
     const beltCount = 3;
@@ -1475,17 +1657,30 @@ const t = getTranslations(lang);
       ctx.fillRect(0, by, W, beltH);
 
       // ── Belt edge lines ──
-      ctx.strokeStyle = isLight ? "rgba(150,140,130,0.25)" : "rgba(180,190,180,0.15)";
+      ctx.strokeStyle = isLight
+        ? "rgba(150,140,130,0.25)"
+        : "rgba(180,190,180,0.15)";
       ctx.lineWidth = 0.5;
-      ctx.beginPath(); ctx.moveTo(0, by); ctx.lineTo(W, by); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0, by + beltH); ctx.lineTo(W, by + beltH); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, by);
+      ctx.lineTo(W, by);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, by + beltH);
+      ctx.lineTo(W, by + beltH);
+      ctx.stroke();
 
       // ── Moving tread marks (slow) ──
       const treadW = 5;
       const treadGap = 16;
-      const shift = ((time * speed * dir * 0.6) % (treadW + treadGap) + (treadW + treadGap)) % (treadW + treadGap);
+      const shift =
+        (((time * speed * dir * 0.6) % (treadW + treadGap)) +
+          (treadW + treadGap)) %
+        (treadW + treadGap);
       for (let tx = -treadW + shift; tx < W + treadW; tx += treadW + treadGap) {
-        ctx.fillStyle = isLight ? "rgba(140,130,120,0.18)" : "rgba(100,110,100,0.18)";
+        ctx.fillStyle = isLight
+          ? "rgba(140,130,120,0.18)"
+          : "rgba(100,110,100,0.18)";
         ctx.fillRect(tx, by + 1, treadW, beltH - 2);
       }
 
@@ -1506,19 +1701,24 @@ const t = getTranslations(lang);
 
         let oreType, oreSize, oreColors;
         if (rarity < 0.599) {
-          oreType = "coal"; oreSize = 11;
+          oreType = "coal";
+          oreSize = 11;
           oreColors = ["#6a6a72", "#3a3a42"];
         } else if (rarity < 0.899) {
-          oreType = "iron"; oreSize = 10;
+          oreType = "iron";
+          oreSize = 10;
           oreColors = ["#d09070", "#8a4030"];
         } else if (rarity < 0.989) {
-          oreType = "gold"; oreSize = 12;
+          oreType = "gold";
+          oreSize = 12;
           oreColors = ["#f5d060", "#c08820"];
         } else if (rarity < 0.999) {
-          oreType = "diamond"; oreSize = 10;
+          oreType = "diamond";
+          oreSize = 10;
           oreColors = ["#e8f4ff", "#a0c8f0"];
         } else {
-          oreType = "prismatic"; oreSize = 9;
+          oreType = "prismatic";
+          oreSize = 9;
           oreColors = ["#ffffff", "#e0d0ff"];
         }
 
@@ -1533,13 +1733,21 @@ const t = getTranslations(lang);
           halo.addColorStop(0.5, `rgba(180,200,255,${0.2 * sparkle})`);
           halo.addColorStop(1, "rgba(0,0,0,0)");
           ctx.fillStyle = halo;
-          ctx.beginPath(); ctx.arc(0, 0, oreSize * 2.2, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(0, 0, oreSize * 2.2, 0, Math.PI * 2);
+          ctx.fill();
           // Rainbow facets
           for (let f = 0; f < 6; f++) {
             const fa = (f / 6) * Math.PI * 2 + time * 0.8;
             ctx.fillStyle = `hsla(${(f * 60 + time * 40) % 360},70%,75%,${0.12 * sparkle})`;
             ctx.beginPath();
-            ctx.arc(Math.cos(fa) * oreSize * 0.45, Math.sin(fa) * oreSize * 0.45, oreSize * 0.4, 0, Math.PI * 2);
+            ctx.arc(
+              Math.cos(fa) * oreSize * 0.45,
+              Math.sin(fa) * oreSize * 0.45,
+              oreSize * 0.4,
+              0,
+              Math.PI * 2,
+            );
             ctx.fill();
           }
         }
@@ -1554,76 +1762,140 @@ const t = getTranslations(lang);
         if (oreType === "coal") {
           // Coal chunk: irregular rocky blob
           const s = oreSize;
-          ctx.moveTo(-s*0.6, s*0.5); ctx.lineTo(-s, s*0.1); ctx.lineTo(-s*0.8, -s*0.4);
-          ctx.lineTo(-s*0.3, -s*0.7); ctx.lineTo(s*0.2, -s*0.8); ctx.lineTo(s*0.7, -s*0.3);
-          ctx.lineTo(s*0.9, s*0.2); ctx.lineTo(s*0.4, s*0.6); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.moveTo(-s * 0.6, s * 0.5);
+          ctx.lineTo(-s, s * 0.1);
+          ctx.lineTo(-s * 0.8, -s * 0.4);
+          ctx.lineTo(-s * 0.3, -s * 0.7);
+          ctx.lineTo(s * 0.2, -s * 0.8);
+          ctx.lineTo(s * 0.7, -s * 0.3);
+          ctx.lineTo(s * 0.9, s * 0.2);
+          ctx.lineTo(s * 0.4, s * 0.6);
+          ctx.lineTo(-s * 0.1, s * 0.7);
           ctx.closePath();
         } else if (oreType === "iron") {
           // Raw iron ore: jagged crystalline
           const s = oreSize;
-          ctx.moveTo(-s*0.3, s*0.6); ctx.lineTo(-s*0.8, s*0.2); ctx.lineTo(-s, -s*0.3);
-          ctx.lineTo(-s*0.5, -s*0.6); ctx.lineTo(s*0.1, -s*0.8); ctx.lineTo(s*0.6, -s*0.4);
-          ctx.lineTo(s*0.9, s*0.1); ctx.lineTo(s*0.4, s*0.5); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.moveTo(-s * 0.3, s * 0.6);
+          ctx.lineTo(-s * 0.8, s * 0.2);
+          ctx.lineTo(-s, -s * 0.3);
+          ctx.lineTo(-s * 0.5, -s * 0.6);
+          ctx.lineTo(s * 0.1, -s * 0.8);
+          ctx.lineTo(s * 0.6, -s * 0.4);
+          ctx.lineTo(s * 0.9, s * 0.1);
+          ctx.lineTo(s * 0.4, s * 0.5);
+          ctx.lineTo(-s * 0.1, s * 0.7);
           ctx.closePath();
         } else if (oreType === "gold") {
           // Gold ingot: rounded trapezoid bar
           const s = oreSize;
-          ctx.moveTo(-s*0.75, s*0.3); ctx.lineTo(-s*0.85, -s*0.15); ctx.lineTo(-s*0.65, -s*0.4);
-          ctx.lineTo(s*0.65, -s*0.4); ctx.lineTo(s*0.85, -s*0.15); ctx.lineTo(s*0.75, s*0.3);
-          ctx.lineTo(-s*0.75, s*0.3);
+          ctx.moveTo(-s * 0.75, s * 0.3);
+          ctx.lineTo(-s * 0.85, -s * 0.15);
+          ctx.lineTo(-s * 0.65, -s * 0.4);
+          ctx.lineTo(s * 0.65, -s * 0.4);
+          ctx.lineTo(s * 0.85, -s * 0.15);
+          ctx.lineTo(s * 0.75, s * 0.3);
+          ctx.lineTo(-s * 0.75, s * 0.3);
           ctx.closePath();
         } else if (oreType === "diamond") {
           // Diamond gem shape
           const s = oreSize;
-          ctx.moveTo(0, -s); ctx.lineTo(s*0.4, -s*0.15); ctx.lineTo(s*0.7, s*0.1);
-          ctx.lineTo(s*0.3, s*0.15); ctx.lineTo(0, s*0.7); ctx.lineTo(-s*0.3, s*0.15);
-          ctx.lineTo(-s*0.7, s*0.1); ctx.lineTo(-s*0.4, -s*0.15);
+          ctx.moveTo(0, -s);
+          ctx.lineTo(s * 0.4, -s * 0.15);
+          ctx.lineTo(s * 0.7, s * 0.1);
+          ctx.lineTo(s * 0.3, s * 0.15);
+          ctx.lineTo(0, s * 0.7);
+          ctx.lineTo(-s * 0.3, s * 0.15);
+          ctx.lineTo(-s * 0.7, s * 0.1);
+          ctx.lineTo(-s * 0.4, -s * 0.15);
           ctx.closePath();
         } else {
           // Prismatic shard: sharp crystal spike
           const s = oreSize;
-          ctx.moveTo(0, -s); ctx.lineTo(s*0.25, -s*0.2); ctx.lineTo(s*0.9, s*0.05);
-          ctx.lineTo(s*0.3, s*0.25); ctx.lineTo(s*0.6, s*0.8); ctx.lineTo(0, s*0.45);
-          ctx.lineTo(-s*0.6, s*0.8); ctx.lineTo(-s*0.3, s*0.25);
-          ctx.lineTo(-s*0.9, s*0.05); ctx.lineTo(-s*0.25, -s*0.2);
+          ctx.moveTo(0, -s);
+          ctx.lineTo(s * 0.25, -s * 0.2);
+          ctx.lineTo(s * 0.9, s * 0.05);
+          ctx.lineTo(s * 0.3, s * 0.25);
+          ctx.lineTo(s * 0.6, s * 0.8);
+          ctx.lineTo(0, s * 0.45);
+          ctx.lineTo(-s * 0.6, s * 0.8);
+          ctx.lineTo(-s * 0.3, s * 0.25);
+          ctx.lineTo(-s * 0.9, s * 0.05);
+          ctx.lineTo(-s * 0.25, -s * 0.2);
           ctx.closePath();
         }
         ctx.fill();
         ctx.restore();
         // Body
-        const g = ctx.createLinearGradient(-oreSize, -oreSize, oreSize, oreSize);
+        const g = ctx.createLinearGradient(
+          -oreSize,
+          -oreSize,
+          oreSize,
+          oreSize,
+        );
         g.addColorStop(0, oreColors[0]);
         g.addColorStop(1, oreColors[1]);
         ctx.fillStyle = g;
         // Stroke varies by type
-        if (oreType === "gold") { ctx.strokeStyle = "rgba(255,220,100,0.5)"; ctx.lineWidth = 1; }
-        else if (oreType === "diamond") { ctx.strokeStyle = "rgba(200,220,255,0.55)"; ctx.lineWidth = 0.7; }
-        else if (oreType === "prismatic") { ctx.strokeStyle = "rgba(255,200,255,0.55)"; ctx.lineWidth = 0.7; }
-        else { ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 0.5; }
+        if (oreType === "gold") {
+          ctx.strokeStyle = "rgba(255,220,100,0.5)";
+          ctx.lineWidth = 1;
+        } else if (oreType === "diamond") {
+          ctx.strokeStyle = "rgba(200,220,255,0.55)";
+          ctx.lineWidth = 0.7;
+        } else if (oreType === "prismatic") {
+          ctx.strokeStyle = "rgba(255,200,255,0.55)";
+          ctx.lineWidth = 0.7;
+        } else {
+          ctx.strokeStyle = "rgba(255,255,255,0.12)";
+          ctx.lineWidth = 0.5;
+        }
         ctx.stroke();
         ctx.fill();
 
         // ── Specular ──
         if (oreType === "diamond") {
           ctx.fillStyle = "rgba(255,255,255,0.7)";
-          ctx.beginPath(); ctx.arc(0, -oreSize*0.4, oreSize*0.15, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(0, -oreSize * 0.4, oreSize * 0.15, 0, Math.PI * 2);
+          ctx.fill();
         } else if (oreType === "prismatic") {
           ctx.fillStyle = "rgba(255,255,255,0.8)";
-          ctx.beginPath(); ctx.arc(0, -oreSize*0.3, oreSize*0.13, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(0, -oreSize * 0.3, oreSize * 0.13, 0, Math.PI * 2);
+          ctx.fill();
           // Extra rainbow sparkle
           for (let rf = 0; rf < 3; rf++) {
             const ra = (rf / 3) * Math.PI * 2 + time * 1.2;
             ctx.fillStyle = `hsla(${(rf * 120 + time * 60) % 360},80%,70%,0.6)`;
             ctx.beginPath();
-            ctx.arc(Math.cos(ra) * oreSize*0.35, Math.sin(ra) * oreSize*0.35, oreSize*0.12, 0, Math.PI*2);
+            ctx.arc(
+              Math.cos(ra) * oreSize * 0.35,
+              Math.sin(ra) * oreSize * 0.35,
+              oreSize * 0.12,
+              0,
+              Math.PI * 2,
+            );
             ctx.fill();
           }
         } else if (oreType === "gold") {
           ctx.fillStyle = "rgba(255,255,220,0.5)";
-          ctx.beginPath(); ctx.arc(-oreSize*0.15, -oreSize*0.2, oreSize*0.18, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(
+            -oreSize * 0.15,
+            -oreSize * 0.2,
+            oreSize * 0.18,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
           // Second bar highlight
           ctx.fillStyle = "rgba(255,255,255,0.2)";
-          ctx.fillRect(-oreSize*0.5, -oreSize*0.35, oreSize, oreSize*0.12);
+          ctx.fillRect(
+            -oreSize * 0.5,
+            -oreSize * 0.35,
+            oreSize,
+            oreSize * 0.12,
+          );
         }
 
         ctx.restore();
@@ -1696,7 +1968,8 @@ const t = getTranslations(lang);
   function drawSoftware() {
     ctx.font = "10px monospace";
     ctx.textAlign = "left";
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     const lines = [
       "> 初始化_r2s();",
       "> 加载_设计系统();",
@@ -1708,7 +1981,12 @@ const t = getTranslations(lang);
     ];
     lines.forEach((line, i) => {
       const alpha = 0.15 + 0.1 * Math.sin(time * 2 - i);
-      ctx.fillStyle = i === 6 ? "#e8a040" : (isLight ? `rgba(60,60,60,${alpha + 0.25})` : `rgba(220,220,220,${alpha})`);
+      ctx.fillStyle =
+        i === 6
+          ? "#e8a040"
+          : isLight
+            ? `rgba(60,60,60,${alpha + 0.25})`
+            : `rgba(220,220,220,${alpha})`;
       ctx.fillText(line, W * 0.2, H * 0.22 + i * 25);
     });
     ctx.strokeStyle = "rgba(232,160,64,0.35)";
@@ -1725,7 +2003,8 @@ const t = getTranslations(lang);
   DRAW: 绘画教学 — 双DNA螺旋
   ====================================================== */
   function drawTeaching() {
-    const cx = W / 2, cy = H / 2;
+    const cx = W / 2,
+      cy = H / 2;
     const helixR = Math.min(W, H) * 0.18;
     const helixH = H * 0.64;
     const turns = 5;
@@ -1733,8 +2012,10 @@ const t = getTranslations(lang);
     const phaseShift = time * 0.5;
 
     // Strand 1
-    ctx.strokeStyle = "rgba(100,220,180,0.8)"; ctx.lineWidth = 1.6;
-    ctx.shadowColor = "rgba(100,220,180,0.35)"; ctx.shadowBlur = 4;
+    ctx.strokeStyle = "rgba(100,220,180,0.8)";
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = "rgba(100,220,180,0.35)";
+    ctx.shadowBlur = 4;
     ctx.beginPath();
     for (let i = 0; i <= steps; i++) {
       const prog = i / steps;
@@ -1746,8 +2027,10 @@ const t = getTranslations(lang);
     ctx.stroke();
 
     // Strand 2
-    ctx.strokeStyle = "rgba(232,160,64,0.8)"; ctx.lineWidth = 1.6;
-    ctx.shadowColor = "rgba(232,160,64,0.35)"; ctx.shadowBlur = 4;
+    ctx.strokeStyle = "rgba(232,160,64,0.8)";
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = "rgba(232,160,64,0.35)";
+    ctx.shadowBlur = 4;
     ctx.beginPath();
     for (let i = 0; i <= steps; i++) {
       const prog = i / steps;
@@ -1768,7 +2051,10 @@ const t = getTranslations(lang);
       const x2 = cx + Math.cos(theta + Math.PI) * helixR;
       ctx.strokeStyle = "rgba(180,200,220,0.35)";
       ctx.lineWidth = 0.6;
-      ctx.beginPath(); ctx.moveTo(x1, py); ctx.lineTo(x2, py); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x1, py);
+      ctx.lineTo(x2, py);
+      ctx.stroke();
     }
   }
 
@@ -1778,7 +2064,8 @@ const t = getTranslations(lang);
   function drawCapability() {
     if (!ctx || !canvasVisible) return;
     ctx.clearRect(0, 0, W, H);
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     ctx.fillStyle = isLight ? "#e8e3da" : "#09090b";
     ctx.fillRect(0, 0, W, H);
     if (!isLight) drawGrid();
@@ -1894,6 +2181,83 @@ const t = getTranslations(lang);
   });
 
   activateModule(0);
+</script>
+
+<script>
+  /* =====================================================
+  09 — STYLE GENEALOGY ANNEX (easter egg)
+  独立脚本：与页面主脚本隔离，主脚本出错也不会影响彩蛋
+  ====================================================== */
+
+  const annexPanel = document.getElementById("style-annex-panel");
+  const enterKey = document.querySelector(".enter-key");
+
+  // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
+  function typeAnnexBlock(el, original, speed) {
+    return new Promise((resolve) => {
+      const temp = document.createElement("div");
+      temp.innerHTML = original;
+      const text = temp.textContent || "";
+      let i = 0;
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          el.textContent = text.slice(0, i + 1);
+          i++;
+        } else {
+          clearInterval(timer);
+          el.innerHTML = original;
+          el.classList.remove("typing");
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  // 每类区块的输出速度（毫秒/字符）：正文快而不抢读，标签更快
+  function annexSpeed(el) {
+    if (el.classList.contains("annex-intro")) return 5;
+    if (el.classList.contains("annex-style-index")) return 2;
+    if (el.classList.contains("annex-refs")) return 3;
+    return 4;
+  }
+
+  let annexTyped = false;
+
+  if (annexPanel && enterKey) {
+    enterKey.addEventListener("click", () => {
+      const wasOpen = !annexPanel.hidden;
+      if (wasOpen) {
+        annexPanel.hidden = true;
+        enterKey.setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      enterKey.setAttribute("aria-expanded", "true");
+
+      if (!annexTyped) {
+        annexTyped = true;
+        const blocks = annexPanel.querySelectorAll(
+          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
+        );
+        // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
+        blocks.forEach((el) => {
+          el.dataset.annexOriginal = el.innerHTML;
+          el.innerHTML = "";
+          el.classList.add("typing");
+        });
+        annexPanel.hidden = false;
+        annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        (async () => {
+          for (const el of blocks) {
+            await typeAnnexBlock(el, el.dataset.annexOriginal || "", annexSpeed(el));
+          }
+        })();
+      } else {
+        annexPanel.hidden = false;
+        annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
 </script>
 
 <style>
@@ -3178,8 +3542,11 @@ const t = getTranslations(lang);
 
   .enter-key {
     position: relative;
-    min-width: 170px;
-    padding: 17px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 260px;
+    padding: 28px 36px;
     border: 1px solid #555;
     border-bottom: 4px solid #222;
     background: linear-gradient(180deg, #1a1a1d, #0b0b0d);
@@ -3214,13 +3581,13 @@ const t = getTranslations(lang);
   }
 
   .enter-key span {
-    margin-right: 12px;
-    font-size: 10px;
+    margin-right: 16px;
+    font-size: 19px;
   }
 
   .enter-key b {
     color: var(--accent);
-    font-size: 17px;
+    font-size: 34px;
   }
 
   .enter-key:hover {
@@ -3234,27 +3601,280 @@ const t = getTranslations(lang);
     border-bottom-width: 1px;
   }
 
+  /* ENTER key invitation — breathing glow + bouncing arrow */
+  .enter-key {
+    animation: enterPulse 2.6s ease-in-out infinite;
+  }
+
+  .enter-key b {
+    display: inline-block;
+    animation: arrowNudge 1.4s ease-in-out infinite;
+  }
+
+  .enter-key:hover {
+    animation: none;
+    box-shadow: 0 0 26px rgba(232, 160, 64, 0.22);
+  }
+
+  @keyframes enterPulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgba(232, 160, 64, 0);
+      border-color: #555;
+    }
+    50% {
+      box-shadow: 0 0 18px rgba(232, 160, 64, 0.28);
+      border-color: rgba(232, 160, 64, 0.65);
+    }
+  }
+
+  @keyframes arrowNudge {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* =====================================================
+  ANNEX 09 — STYLE GENEALOGY (easter egg)
+  ====================================================== */
+
+  .style-annex {
+    padding-top: 60px;
+  }
+
+  .annex-panel {
+    padding: 40px 45px;
+    border: 1px dashed rgba(232, 160, 64, 0.3);
+    background: rgba(232, 160, 64, 0.02);
+    font-family: var(--font-mono);
+  }
+
+  /* Typewriter cursor while a block is being typed */
+  .annex-panel .typing::after {
+    content: "_";
+    color: var(--terminal-green);
+    animation: annexBlink 0.6s infinite;
+    font-weight: 400;
+  }
+
+  @keyframes annexBlink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .annex-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .annex-status {
+    color: #888;
+    font-weight: normal;
+    letter-spacing: 1px;
+  }
+
+  .annex-intro {
+    margin: 30px 0 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  .annex-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 40px;
+    margin-top: 15px;
+  }
+
+  .annex-entry {
+    border-left: 2px solid var(--stripe-red);
+    padding-left: 18px;
+  }
+
+  .annex-entry:nth-child(3n + 2) {
+    border-left-color: var(--stripe-yellow);
+  }
+
+  .annex-entry:nth-child(3n) {
+    border-left-color: var(--stripe-teal);
+  }
+
+  .annex-entry-head {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .annex-code {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: white;
+  }
+
+  .annex-era {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #777;
+  }
+
+  .annex-entry p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #aaa;
+  }
+
+  .annex-refs {
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    color: var(--terminal-green);
+    opacity: 0.7;
+  }
+
+  .annex-style-index {
+    margin-top: 35px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+  }
+
+  .annex-works {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .annex-works-list {
+    margin: 15px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .annex-works-list li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #999;
+  }
+
+  .annex-work-title {
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .annex-work-note {
+    color: #999;
+  }
+
+  :root[data-theme="light"] .annex-panel {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(176, 112, 32, 0.3);
+  }
+
+  :root[data-theme="light"] .annex-code {
+    color: #1a1a1a;
+  }
+
+  :root[data-theme="light"] .annex-status,
+  :root[data-theme="light"] .annex-era {
+    color: #666;
+  }
+
+  :root[data-theme="light"] .annex-intro {
+    color: #444;
+  }
+
+  :root[data-theme="light"] .annex-entry p {
+    color: #555;
+  }
+
+  :root[data-theme="light"] .annex-work-title {
+    color: #1a1a1a;
+  }
+
+  :root[data-theme="light"] .annex-work-note,
+  :root[data-theme="light"] .annex-works-list li {
+    color: #555;
+  }
+
+  @media (max-width: 800px) {
+    .annex-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .annex-panel {
+      padding: 30px 22px;
+    }
+  }
+
   /* =====================================================
   LIGHT MODE
   ====================================================== */
 
-  :root[data-theme="light"] .subtitle { color: #444; }
-  :root[data-theme="light"] .hero-index { color: #888; }
-  :root[data-theme="light"] .hero-meta { color: #555; border-bottom-color: rgba(0,0,0,0.12); }
-  :root[data-theme="light"] h1 { color: #111; }
-  :root[data-theme="light"] .intro-heading h2 { color: #111; }
-  :root[data-theme="light"] .process-heading h2 { color: #111; }
-  :root[data-theme="light"] .philosophy-main h2 { color: #111; }
-  :root[data-theme="light"] .journey-header h2 { color: #111; }
+  :root[data-theme="light"] .subtitle {
+    color: #444;
+  }
+  :root[data-theme="light"] .hero-index {
+    color: #888;
+  }
+  :root[data-theme="light"] .hero-meta {
+    color: #555;
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+  }
+  :root[data-theme="light"] h1 {
+    color: #111;
+  }
+  :root[data-theme="light"] .intro-heading h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .process-heading h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .philosophy-main h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .journey-header h2 {
+    color: #111;
+  }
 
   /* Cards → light background */
   :root[data-theme="light"] .dossier {
     background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.6);
   }
   :root[data-theme="light"] .capability-console {
     background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.6);
   }
   :root[data-theme="light"] .cap-button {
     background: #e8e3da;
@@ -3265,58 +3885,134 @@ const t = getTranslations(lang);
     color: #1a1a1a;
   }
   :root[data-theme="light"] .cap-button.active {
-    background: linear-gradient(135deg, rgba(232,160,64,0.12), rgba(232,160,64,0.03));
+    background: linear-gradient(
+      135deg,
+      rgba(232, 160, 64, 0.12),
+      rgba(232, 160, 64, 0.03)
+    );
     color: #1a1a1a;
     box-shadow: inset 3px 0 0 var(--accent);
   }
-  :root[data-theme="light"] .cap-button span { color: #888; }
-  :root[data-theme="light"] .cap-button.active span { color: var(--accent); }
+  :root[data-theme="light"] .cap-button span {
+    color: #888;
+  }
+  :root[data-theme="light"] .cap-button.active span {
+    color: var(--accent);
+  }
   :root[data-theme="light"] .skill-tree {
     background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.6);
   }
-  :root[data-theme="light"] .skill-node-dot { background: #e8e3da; box-shadow: 0 0 0 5px #e8e3da; }
-  :root[data-theme="light"] .skill-node:hover .skill-node-dot { box-shadow: 0 0 0 5px #e8e3da, 0 0 18px rgba(232,160,64,0.45); }
-  :root[data-theme="light"] .skill-node-content strong { color: #333; }
-  :root[data-theme="light"] .skill-node-content small { color: #777; }
-  :root[data-theme="light"] .skill-tree-label { color: #999; }
+  :root[data-theme="light"] .skill-node-dot {
+    background: #e8e3da;
+    box-shadow: 0 0 0 5px #e8e3da;
+  }
+  :root[data-theme="light"] .skill-node:hover .skill-node-dot {
+    box-shadow:
+      0 0 0 5px #e8e3da,
+      0 0 18px rgba(232, 160, 64, 0.45);
+  }
+  :root[data-theme="light"] .skill-node-content strong {
+    color: #333;
+  }
+  :root[data-theme="light"] .skill-node-content small {
+    color: #777;
+  }
+  :root[data-theme="light"] .skill-tree-label {
+    color: #999;
+  }
   :root[data-theme="light"] .research-terminal {
     background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.6);
   }
   :root[data-theme="light"] .future-panel {
     background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.6);
   }
 
   /* Text → dark */
-  :root[data-theme="light"] .intro-content p { color: #444; }
-  :root[data-theme="light"] .intro-content .intro-lead { color: #1a1a1a; }
-  :root[data-theme="light"] .philosophy-copy p { color: #444; }
-  :root[data-theme="light"] .philosophy-copy .lead { color: #1a1a1a; }
-  :root[data-theme="light"] .journey-copy p { color: #444; }
-  :root[data-theme="light"] .journey-copy .lead { color: #1a1a1a; }
-  :root[data-theme="light"] .future-text p { color: #444; }
-  :root[data-theme="light"] .future-text .lead { color: #1a1a1a; }
-  :root[data-theme="light"] .closing-section p { color: #333; }
-  :root[data-theme="light"] .data-row { color: #444; }
-  :root[data-theme="light"] .identity h2 { color: #111; }
-  :root[data-theme="light"] .research-column strong { color: #1a1a1a; }
-  :root[data-theme="light"] .research-column p { color: #555; }
-  :root[data-theme="light"] .station-content h3 { color: #1a1a1a; }
-  :root[data-theme="light"] .station-content p { color: #555; }
-  :root[data-theme="light"] .display-body h3 { color: #111; }
-  :root[data-theme="light"] .display-body p { color: #555; }
-  :root[data-theme="light"] .process-header p { color: #555; }
-  :root[data-theme="light"] .dossier-header { color: #c07820; }
+  :root[data-theme="light"] .intro-content p {
+    color: #444;
+  }
+  :root[data-theme="light"] .intro-content .intro-lead {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .philosophy-copy p {
+    color: #444;
+  }
+  :root[data-theme="light"] .philosophy-copy .lead {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .journey-copy p {
+    color: #444;
+  }
+  :root[data-theme="light"] .journey-copy .lead {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .future-text p {
+    color: #444;
+  }
+  :root[data-theme="light"] .future-text .lead {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .closing-section p {
+    color: #333;
+  }
+  :root[data-theme="light"] .data-row {
+    color: #444;
+  }
+  :root[data-theme="light"] .identity h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .research-column strong {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .research-column p {
+    color: #555;
+  }
+  :root[data-theme="light"] .station-content h3 {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .station-content p {
+    color: #555;
+  }
+  :root[data-theme="light"] .display-body h3 {
+    color: #111;
+  }
+  :root[data-theme="light"] .display-body p {
+    color: #555;
+  }
+  :root[data-theme="light"] .process-header p {
+    color: #555;
+  }
+  :root[data-theme="light"] .dossier-header {
+    color: #c07820;
+  }
   :root[data-theme="light"] .display-header,
-  :root[data-theme="light"] .display-footer { color: #888; }
-  :root[data-theme="light"] .console-top { color: #888; }
+  :root[data-theme="light"] .display-footer {
+    color: #888;
+  }
+  :root[data-theme="light"] .console-top {
+    color: #888;
+  }
 
   /* Borders / misc in light mode */
-  :root[data-theme="light"] .station-light { background: #e8e3da; }
-  :root[data-theme="light"] .display-visual { background: #e8e3da; }
-  :root[data-theme="light"] .intro-marker span { color: #555; border-color: rgba(0,0,0,0.15); }
+  :root[data-theme="light"] .station-light {
+    background: #e8e3da;
+  }
+  :root[data-theme="light"] .display-visual {
+    background: #e8e3da;
+  }
+  :root[data-theme="light"] .intro-marker span {
+    color: #555;
+    border-color: rgba(0, 0, 0, 0.15);
+  }
 
   :root[data-theme="light"] .enter-key {
     background: linear-gradient(180deg, #f0ebe0, #e8e3da);
@@ -3333,7 +4029,9 @@ const t = getTranslations(lang);
   :root[data-theme="light"] .enter-key::after {
     border-color: #ccc;
   }
-  :root[data-theme="light"] .closing-status { color: #00703c; }
+  :root[data-theme="light"] .closing-status {
+    color: #00703c;
+  }
 
   /* =====================================================
   RESPONSIVE
