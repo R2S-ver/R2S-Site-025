@@ -1,4 +1,21 @@
+# 通用规则：允许爬虫访问全站（含 Googlebot 等搜索引擎）
 User-agent: *
 Allow: /
+
+# AI 训练爬虫：禁止抓取艺术栏目（/art 与 /zh/art）
+# Googlebot 不受影响，网站照常被 Google 搜索收录
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: CCBot
+User-agent: PerplexityBot
+User-agent: Meta-ExternalAgent
+User-agent: cohere-ai
+User-agent: Bytespider
+Disallow: /art/
+Disallow: /zh/art/
 
 Sitemap: https://r2s-site-025.pages.dev/sitemap.xml
