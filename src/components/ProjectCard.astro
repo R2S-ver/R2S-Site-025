@@ -115,7 +115,7 @@ const type = project.data.type.toUpperCase();
 
     position: relative;
 
-    background: rgba(8, 8, 11, 0.92);
+    background: rgba(8, 8, 13, 0.92);
 
     border: 1px solid var(--border);
 
@@ -131,8 +131,8 @@ const type = project.data.type.toUpperCase();
 
     transition:
       transform 0.4s var(--spring-bounce),
-      border-color 0.35s var(--ease-out),
-      box-shadow 0.4s var(--spring-gentle);
+      border-color 0.45s var(--ease-warmup),
+      box-shadow 0.45s var(--ease-warmup);
   }
 
   .card:active {
@@ -140,6 +140,7 @@ const type = project.data.type.toUpperCase();
     transition: transform 0.1s var(--spring-snappy);
   }
 
+  /* ── Left accent stripe ── */
   .card::before {
     content: "";
 
@@ -179,7 +180,7 @@ const type = project.data.type.toUpperCase();
 
     box-shadow:
       0 20px 60px rgba(0, 0, 0, 0.7),
-      0 0 0 1px rgba(232, 120, 53, 0.15);
+      0 0 0 1px rgba(232, 148, 58, 0.15);
   }
 
   /* ── Hover gloss sweep ── */

@@ -27,104 +27,104 @@ lang: en
 translationKey: electronics-fundamentals-notes
 ---
 
-# Electronics Fundamentals — What I've Been Studying
+# Electronics Fundamentals — My Self-Study Notes
 
-This is my running set of notes as I work through the fundamentals of hardware and analog electronics. I started from the absolute basics — voltage, current, what a resistor actually is inside — and I'm building up toward being able to read a schematic and understand what every component is doing and why it's there. These notes are the raw material I come back to when I need to refresh something.
+These are the notes I've built up while systematically teaching myself hardware and analog electronics. Starting from the absolute basics — what voltage actually is, how current works, what a resistor looks like inside — with the goal of being able to look at a circuit board and understand what every component is doing. I come back to these notes regularly, and each time I find something new.
 
-> **Note:** The images I've collected here are for educational and self-study purposes only.
+> **Note:** Images are for educational and self-study purposes only.
 
-# Voltage and Current
+## Voltage and Current
 
-## The Water Analogy — A Good Starting Point
+## The Water Analogy — A Decent Starting Point
 
-Before diving into the physics, the water pipe analogy gives you a working mental model:
+Before diving into physics equations, use water pipes to build intuition:
 
-- **Voltage (V):** Like water pressure. It's the "push" — the potential energy difference that drives charges through a circuit.
-- **Current (I):** Like water flow rate. The actual movement of charges through the conductor.
-- **Resistance (R):** Like pipe diameter. A narrower pipe resists flow more.
+- **Voltage (V):** equivalent to water pressure — the "push" that drives charges through a circuit, i.e., the potential energy difference
+- **Current (I):** equivalent to water flow rate — the actual movement of charges through the conductor
+- **Resistance (R):** equivalent to pipe diameter — narrower pipe, more resistance
 
 > **Ohm's Law: V = I × R**
 
-This analogy isn't perfect (nothing is), but it's good enough for an intuitive grasp of what's happening.
+The analogy isn't perfect (none are), but it's good enough for a working mental model.
 
-## The Deeper Explanation — What Actually Happens When You Flip a Switch
+## Deeper Understanding — What Actually Happens When You Flip a Switch
 
-When you flip a light switch, the bulb comes on instantly. So electrons must rush from the battery to the bulb at the speed of light, right? Nope. Not even close.
+Flip a switch, the bulb lights instantly. So electrons must race from the battery to the bulb at light speed, right? No. Completely wrong. This was one of the most counterintuitive things I learned.
 
-### "Snail-Paced" Electrons vs. "Light-Speed" Energy Propagation
+### "Snail-Pace" Electrons vs "Light-Speed" Energy
 
-Inside a copper wire, the free electrons form what's called an **"electron sea"** — they're already everywhere in the wire, swimming around in the metal's crystal lattice.
+Inside copper wire, free electrons fill the entire metal's crystal lattice, forming what's called an **"electron sea"** — they're already everywhere in the wire.
 
-- **Drift Velocity**: When you apply a voltage, the electric field pushes electrons forward. But they're constantly bouncing off copper atoms in the crystal lattice, so their net forward motion is incredibly slow — typically only **a few micrometers to millimeters per second**. Slower than a snail.
+- **Drift velocity**: apply a voltage, the electric field pushes electrons forward. But they constantly crash into the copper atom lattice, so their net forward speed is incredibly slow — typically only **a few micrometers to millimeters per second**. Slower than a snail.
 
-- **So why does the bulb turn on instantly?** Because energy doesn't travel via the electrons themselves. It travels via the **electromagnetic field**. The moment the switch closes, an electric field propagates along the wire at **nearly the speed of light** (about 3 × 10⁸ m/s). The electrons are already there, filling the entire wire. The field gives all of them the push simultaneously (F = qE), and they all start drifting together.
+- **So why does the bulb light instantly?** Because energy isn't carried by the electrons themselves — it's carried by the **electromagnetic field**. The moment the switch closes, the electric field propagates along the wire at **nearly the speed of light** (~3 × 10⁸ m/s). The electrons are already everywhere in the wire; the field gives all of them the push (F = qE) simultaneously, and they all start drifting together.
 
-This was a real "aha" moment for me. The electrons barely move, but the field moves at light speed. What we call "electricity" is really field propagation.
+This was a real "aha moment" for me — electrons barely move, but the field travels at light speed. What we call "electricity" is really field propagation.
 
-### The Essence of Voltage: Electric Field Accumulated Over Distance
+### The Essence of Voltage: Spatial Accumulation of Electric Field Force
 
-In physics terms, voltage is **electrical potential difference**. A battery uses chemical energy to forcibly separate positive and negative charges, creating an **electric field** in the space around it. Voltage is the work done by that field per unit charge moved between two points.
+In physics, voltage is **electrical potential difference**. A battery uses chemical energy to forcibly separate positive and negative charges, creating an **electric field** in space. Electrons moving through this field have work done on them by the field force. Voltage is that work, per unit charge.
 
-So voltage isn't some mystical pressure — it's the **spatial accumulation of the electric field's "invisible push" on charges**.
+So voltage isn't some mysterious gas pressure — it's the **"invisible push" of the electric field on charges, accumulated over a spatial distance**.
 
-# Kirchhoff's Laws
+## Kirchhoff's Laws
 
-These two laws aren't just handy circuit analysis tricks. They're direct consequences of two fundamental conservation laws of the universe: **conservation of charge** and **conservation of energy**.
+These two laws aren't just handy circuit analysis tools. Behind them stand two fundamental conservation laws of the universe: **conservation of charge** and **conservation of energy**.
 
 ## Kirchhoff's Current Law (KCL)
 
-### Why Electrons Can't Pile Up at a Node
+### Why Electrons Can't Just Pile Up at a Node
 
-- **The formula**: Σ I_in = Σ I_out
-- **The physics**: Electrons carry negative charge. According to **Coulomb's Law**, like charges repel each other with enormous force. If more electrons flowed into a junction than flowed out, negative charge would start accumulating there.
-- **The self-correction**: The instant charge begins to accumulate, the repulsive force pushes away incoming electrons and accelerates outgoing ones. This self-balancing act happens in nanoseconds. Under steady-state conditions, **no node can hold excess net charge**. What goes in must come out — exactly.
+- **Formula**: Σ I_in = Σ I_out
+- **The physics**: electrons carry negative charge. According to **Coulomb's Law**, like charges repel each other with enormous force. If more electrons flowed into a node than left, negative charge would accumulate there.
+- **Self-correcting mechanism**: the instant charge starts building up, the repulsive force pushes away incoming electrons and accelerates outgoing ones. This microscopic self-balancing happens in nanoseconds. Under steady-state conditions, **no node can hold excess net charge**. What goes in comes out — exactly.
 
 ## Kirchhoff's Voltage Law (KVL)
 
-### Why the Sum Around a Loop Must Equal Zero
+### Why a Full Loop Always Sums to Zero
 
-- **The formula**: Σ V = 0
-- **The physics**: In electrostatics and low-frequency circuits, the electric field is a **conservative field** (irrotational). The work done depends only on the start and end points, not on the path taken between them.
+- **Formula**: Σ V = 0
+- **The physics**: in electrostatics and low-frequency circuits, the electric field is a **conservative field** (irrotational). The work done by the field force depends only on the start and end points, not the path taken.
 
-- **The energy picture**: Think of the power source as a "charge elevator" — it uses chemical energy to lift electrons from low potential to high potential. As those electrons flow through resistors, they give up that potential energy through collisions with the atomic lattice, converting it into **heat** or **light**. By the time an electron returns to the battery's negative terminal, it has given back all the energy it gained. Energy can't be created or destroyed — that's KVL in a nutshell.
+- **The energy picture**: think of the power source as a "charge elevator" — it consumes chemical energy to lift electrons from low potential to high potential. As electrons flow through resistors, they give up all that potential energy through collisions with the atomic lattice, converting it into **heat** or **light**. By the time an electron returns to the battery's negative terminal, all the energy it gained has been surrendered. Energy can't be created or destroyed — that's KVL at its core.
 
-# Basic Electronic Components
+## Basic Electronic Components
 
 ## Resistor
 
 ![Carbon Film Resistor Cross-Section](./18.jpg)
 
-A resistor is a passive component whose job is to impede current flow. Its primary uses: limiting current (so your LED doesn't burn out) and dividing voltage (so you can create reference levels).
+Resistors are passive components whose job is to impede current flow. Two main uses: current limiting (so your LED doesn't burn out) and voltage division (creating reference levels).
 
-### What's Inside a Carbon Film Resistor?
+### Inside a Carbon Film Resistor
 
-1. **Ceramic Core**: A solid rod of high-grade ceramic (an insulator) — the structural foundation.
-2. **Carbon Film Layer**: A thin layer of pure carbon deposited on the ceramic rod. This is the actual resistive material.
-3. **The Helical Groove**: A spiral cut is laser-trimmed into the carbon film. The spiral's geometry sets the resistance: shorter, wider path = lower resistance; longer, thinner path = higher resistance.
-4. **End Caps and Leads**: Metal caps press-fit onto both ends, with tinned copper leads welded on.
-5. **Protective Coating and Color Bands**: Insulating lacquer with colored stripes that encode the resistance value and tolerance.
+1. **Ceramic core**: a solid rod of high-grade ceramic (insulator) — the structural foundation.
+2. **Carbon film layer**: a thin layer of pure carbon deposited on the ceramic surface. This is the actual resistive material.
+3. **Helical groove**: a spiral is laser-cut into the carbon film. Shorter, wider spiral = lower resistance; longer, thinner = higher resistance. The spiral geometry sets the value.
+4. **End caps and leads**: metal caps press-fit onto both ends, tinned copper leads welded to the caps.
+5. **Protective coating and color bands**: insulating lacquer with colored stripes encoding the resistance value and tolerance.
 
 ![Resistor Color Bands](./21.png)
 
 ### LED Current Limiting
 
-![Limit the ampere vs LED broke by too much ampere](./17.png)
+![Current Limiting: With Resistor vs LED Burnt by Excess Current](./17.png)
 
-This is probably the first resistor circuit everyone builds: a resistor in series with an LED. Without it, the LED pulls as much current as the supply can give until it destroys itself.
+Probably the first resistor circuit everyone builds: LED + series resistor. Without the resistor, the LED pulls as much current as the supply can give until it destroys itself.
 
-### The Voltage Divider
+### Voltage Divider
 
-In a series circuit with multiple resistors, the voltage drop across each is proportional to its resistance (bigger R = bigger voltage drop).
+In a series circuit, voltage drop across each resistor is proportional to its resistance (bigger R = more voltage share).
 
-**Practical example — sizing a series resistor for an LED:**
-An LED runs at 3V and draws 13.5mA (0.0135A). I've got a 5V supply.
+**Practical calculation — sizing a series resistor for an LED:**
+LED operates at 3V, draws 13.5mA (0.0135A), using a 5V supply.
 
 - V_drop = V_source - V_LED = 5V - 3V = 2V
 - R = V_drop / I = 2V / 0.0135A = 148.15Ω → **use a 150Ω resistor**
 
-### Can I Treat an LED as a Resistor?
+### Can an LED Work as a Resistor?
 
-No. An LED is a diode — it's nonlinear. A resistor follows Ohm's law (current proportional to voltage). An LED's I-V curve is exponential: below its forward voltage it barely conducts, and above it, current skyrockets. You can't replace it with a fixed resistance value.
+No. An LED is a diode — it's nonlinear. A resistor follows Ohm's law (current proportional to voltage). An LED's I-V curve is exponential: below the forward voltage it barely conducts; above it, current skyrockets. You can't replace it with a fixed resistance.
 
 ### Practical Case: Voltage Comparator
 
@@ -135,92 +135,92 @@ No. An LED is a diode — it's nonlinear. A resistor follows Ohm's law (current 
 
 ![Resistor Types Overview](./extra.png)
 
-There's a whole zoo of resistor types: carbon film, metal film, wire-wound, SMD chip resistors, potentiometers (variable resistors). The choice depends on power rating, tolerance, temperature coefficient, and noise requirements. Metal film is my default for analog circuits — lower noise and better temperature stability than carbon film.
+There's quite a variety: carbon film, metal film, wire-wound, SMD chip resistors, potentiometers (variable resistors). Selection depends on power rating, tolerance, temperature coefficient, and noise requirements. I default to metal film for analog circuits — lower noise than carbon film and better temperature stability.
 
-### Resistor — Summary
+### Resistor Summary
 
-![Resistor Conclusion Diagram](./20.png)
+![Resistor Summary](./20.png)
 
 ## Capacitor
 
 ![Capacitor Overview 1](./27.png)
 ![Capacitor Overview 2](./28.png)
 
-Capacitors store energy in an electric field between two conductive plates separated by a dielectric (insulator). They're used for filtering, decoupling, timing circuits, and energy storage. The key formula: I = C × dV/dt — current through a capacitor is proportional to how fast the voltage is changing.
+Capacitors store energy in an electric field between two conductive plates separated by a dielectric (insulator). Used for filtering, decoupling, timing circuits, and energy storage. Key formula: I = C × dV/dt — current through a capacitor is proportional to the rate of voltage change.
 
 ## Inductor
 
 ![Inductor Overview](./29.png)
 
-An inductor stores energy in a magnetic field when current flows through it. It's a coil of wire, usually wound around a magnetic core. Its defining behavior: it resists changes in current. The key formula: V = L × dI/dt — voltage across an inductor is proportional to how fast the current is changing.
+Inductors store energy in a magnetic field when current flows through them. It's a coil of wire, typically wound around a magnetic core. Its defining behavior: it resists changes in current. Key formula: V = L × dI/dt — voltage across an inductor is proportional to the rate of current change.
 
-### Practical Case: Rectifier Bridge with LC Filter
+### Practical Case: Rectifier Bridge LC Filter
 
 ![Rectifier Bridge with Inductor 1](./24.png)
 ![Rectifier Bridge with Inductor 2](./25.png)
 
-In power supplies, inductors team up with capacitors to form LC filters. After the bridge rectifier converts AC to pulsating DC, the inductor opposes ripple current and the capacitor smooths the voltage, giving much cleaner DC than a capacitor alone.
+In power supply circuits, inductors and capacitors work together as LC filters. After the bridge rectifier converts AC to pulsating DC, the inductor suppresses ripple current and the capacitor smooths the voltage. The resulting DC is much cleaner than capacitor-alone filtering.
 
 ## Diode
 
 ![Diode Overview](./30.png)
 
-A diode is a semiconductor device that lets current flow in only one direction — anode to cathode. It's the fundamental building block for rectification (AC to DC), reverse-polarity protection, and all sorts of signal processing. The forward voltage drop is typically 0.7V for silicon diodes and 0.2-0.4V for Schottky diodes.
+Diodes only allow current flow in one direction — anode to cathode. They're the foundation of rectification (AC→DC), reverse-polarity protection, and all kinds of signal processing. Forward voltage drop: ~0.7V for silicon diodes, ~0.2-0.4V for Schottky diodes.
 
 ### Practical Case: Rectifier Bridge
 
-![Rectifier Bridge — Diode Case](./26.png)
+![Rectifier Bridge — Diode Application](./26.png)
 
-Four diodes arranged as a bridge rectifier turn AC into pulsating DC. The capacitor after the bridge smooths it into something usable. This is the front end of basically every linear power supply ever made.
+Four diodes arranged as a bridge rectifier convert AC to pulsating DC. The capacitor after the bridge smooths it into something usable. This is the front end of basically every linear power supply.
 
 ## Transistor
 
-🚧 _Coming soon — I'm working through transistor content and will add it when I've got it organized._
+🚧 _Coming soon — transistor content in progress._
 
 ## MOSFET
 
-🚧 _Coming soon — MOSFET content will be added in a future update._
+🚧 _Coming soon — MOSFET content to follow._
 
-## Linear and Switching Power Supplies
+## Linear vs Switching Power Supplies
 
 ![Linear vs Switching PSU Overview](./31.png)
 
-Power supplies convert input power into regulated DC output. Two main approaches:
+Power supplies convert input power into regulated DC output. Two main topologies:
 
-- **Linear Power Supply**: Transformer → rectifier → filter capacitor → linear regulator. Simple, low noise, but inefficient — excess energy becomes heat.
-- **Switching Power Supply (SMPS)**: High-frequency switching → transformer → rectification → feedback control. More complex, but way more efficient and much smaller.
+- **Linear supply**: transformer → rectifier → filter cap → linear regulator. Simple, low noise, but inefficient — excess voltage all becomes heat.
+- **Switching supply (SMPS)**: high-frequency switching → transformer → rectification → feedback control. More complex, but far more efficient and much smaller.
 
-### Practical Case: 230V to 12V Switching Power Supply
+### Practical Case: 230V → 12V Switching Power Supply
 
 ![SMPS Analysis 1](./32.png)
 ![SMPS Analysis 2](./33.png)
 ![SMPS Analysis 3](./34.png)
 
-Walking through an SMPS schematic and identifying the input filtering, bridge rectifier, switching controller, transformer, output rectification, and feedback loop is great practice for understanding real power supply design.
+Walking through an SMPS schematic stage by stage — input filtering, bridge rectifier, switching controller, transformer, output rectification, feedback loop — is a great way to understand real power supply design.
 
 ## Practical Skills
 
 ![Practical Skills Overview](./35.png)
 
-The hands-on stuff I've been building: breadboarding circuits, soldering, using a multimeter properly, reading schematics, and basic troubleshooting. You can read about theory all day, but until you've debugged why your circuit isn't working and found the loose ground connection with a meter, it doesn't really stick.
+The hands-on skills I'm building: breadboarding circuits, soldering, using a multimeter correctly, reading schematics, basic troubleshooting. Theory only takes you so far — the moment you find that loose ground connection with a multimeter, a lot of theory suddenly clicks.
 
-# References
+## References
 
-1. [LED weerstand calculator](https://www.budgetronics.eu/nl/led-weerstand-calculator/c-7)
+1. [LED Resistor Calculator](https://www.budgetronics.eu/nl/led-weerstand-calculator/c-7)
 2. [Resistor Heat Calculator](https://a2zcalculators.com/science-and-engineering-calculators/resistor-heat-calculator)
-3. [Pull-up and Pull-down Resistors](https://www.circuitbasics.com/pull-up-and-pull-down-resistors/)
-4. [Voltage comparator LM393 data sheet | TI.com](https://www.ti.com/product/LM393#features)
+3. [Pull-Up and Pull-Down Resistors](https://www.circuitbasics.com/pull-up-and-pull-down-resistors/)
+4. [LM393 Voltage Comparator Datasheet | TI.com](https://www.ti.com/product/LM393#features)
 5. [How to Build a Voltage Comparator Circuit Using an LM393](https://www.learningaboutelectronics.com/Articles/LM393-voltage-comparator-circuit.php)
-6. [LC filter calculator](https://www.omnicalculator.com/physics/lc-filter)
+6. [LC Filter Calculator](https://www.omnicalculator.com/physics/lc-filter)
 7. [Voltage and Current Explained](https://www.ariat-tech.com/blog/comprehensive-overview-of-voltage-and-current.html)
-8. [25 Types of Capacitors & their Uses](https://www.etechnophiles.com/types-of-capacitors/)
+8. [25 Types of Capacitors & Their Uses](https://www.etechnophiles.com/types-of-capacitors/)
 9. [Linear Regulated Power Supply Block Diagram & Circuit Diagram](https://www.hackatronic.com/linear-regulated-power-supply-block-diagram-circuit-diagram/)
 10. [How to Build a Linear Power Supply](https://www.circuitbasics.com/linear-power-supplies/)
 11. [Power Supply Basics — Part 1](https://mcitransformer.com/power-supply-basics-part-1-unregulated-linear-regulated-linear/)
 12. [Isolated vs Non-Isolated Power Supplies](https://resources.altium.com/p/isolated-vs-non-isolated-power-supplies-right-choice-without-fail)
-13. [Gallium Nitride Power Devices in Power Electronics Applications](https://www.mdpi.com/1996-1073/16/9/3894)
-14. [How mobile phone charger works? | SMPS](https://www.youtube.com/watch?v=F2dCS5qOE8A)
-15. [Modular AC line EMI filters explained](https://passive-components.eu/modular-ac-line-emi-filters-explained/)
+13. [Gallium Nitride Power Devices in Power Electronics](https://www.mdpi.com/1996-1073/16/9/3894)
+14. [How Mobile Phone Chargers Work | SMPS](https://www.youtube.com/watch?v=F2dCS5qOE8A)
+15. [Modular AC Line EMI Filters Explained](https://passive-components.eu/modular-ac-line-emi-filters-explained/)
 16. [Bridge Rectifier With Capacitor Filter](https://www.voltagelab.com/bridge-rectifier-with-capacitor-filter/)
-17. [Understanding of Carbon Film Resistors](https://www.utmel.com/blog/categories/resistor/understanding-of-carbon-film-resistors)
-18. [Resistor Color Codes: What Do the Color Bands Mean?](https://www.te.com/en/products/passive-components/resistors/intersection/resistor-color-codes.html)
+17. [Understanding Carbon Film Resistors](https://www.utmel.com/blog/categories/resistor/understanding-of-carbon-film-resistors)
+18. [Resistor Color Codes: Color Band Meanings](https://www.te.com/en/products/passive-components/resistors/intersection/resistor-color-codes.html)

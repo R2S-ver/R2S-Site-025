@@ -54,7 +54,7 @@ const topTags = filterTags
     <div class="notes-list" id="notes-list">
       {notes.map((entry) => (
         <a
-          href={`/notes/${entry.id.split("/")[0]}`}
+          href={`/note/${entry.id.split("/")[0]}`}
           class="note-row"
           data-tags={JSON.stringify(entry.data.tags || [])}
         >

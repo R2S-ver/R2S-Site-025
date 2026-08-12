@@ -1,6 +1,7 @@
 ---
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
+import ScrollMeter from "../components/ScrollMeter.astro";
 import { getLanguageFromPath } from "../utils/i18n";
 
 interface Props {
@@ -77,11 +78,15 @@ const { title = "R2S Studio" } = Astro.props;
       <Footer />
     </div>
 
+    <ScrollMeter />
+
     <!-- =========================================
          CRT OVERLAY
     ========================================== -->
 
     <div id="crt-overlay"></div>
+
+    <div id="tube-vignette"></div>
 
     <!-- =========================================
          NEURAL NETWORK SCRIPT
@@ -360,31 +365,98 @@ const { title = "R2S Studio" } = Astro.props;
       :root {
         color-scheme: dark;
 
-        --bg: #050507;
+        /* ═══════════════════════════════════════════
+           BASE SURFACES
+           ═══════════════════════════════════════════ */
+        --bg: #07070d;
+        --panel: #0e0e18;
+        --panel-light: #161625;
 
-        --panel: #0d0d14;
-        --panel-light: #151520;
+        /* ═══════════════════════════════════════════
+           TEXT
+           ═══════════════════════════════════════════ */
+        --text: #e8e6e0;
+        --secondary: #8a8880;
 
-        --text: #ffffff;
-        --secondary: #999;
+        /* ═══════════════════════════════════════════
+           BORDERS
+           ═══════════════════════════════════════════ */
+        --border: rgba(255, 255, 255, 0.10);
+        --border-accent: rgba(224, 148, 58, 0.25);
 
-        --border: #303038;
+        /* ═══════════════════════════════════════════
+           PRIMARY ACCENT — Vacuum tube amber
+           ═══════════════════════════════════════════ */
+        --accent: #e8943a;
+        --accent-glow: #f0b860;
+        --accent-deep: #b87020;
 
-        --accent: #e87835;
+        /* ═══════════════════════════════════════════
+           TRI-COLOR STRIPE — Industrial signals
+           ═══════════════════════════════════════════ */
+        --stripe-red: #e04040;
+        --stripe-yellow: #f0c040;
+        --stripe-teal: #3ab8d8;
 
-        --stripe-red: #ff3333;
-        --stripe-yellow: #ffd400;
-        --stripe-teal: #00b0ff;
+        /* ═══════════════════════════════════════════
+           PHOSPHOR — CRT / oscilloscope
+           ═══════════════════════════════════════════ */
+        --terminal-green: #3af04f;
+        --phosphor-dim: #1a5c25;
+        --pipboy-green: #1ef05c;
+        --pipboy-bg: #0a1a0a;
 
-        --terminal-green: #00ff88;
-
+        /* ═══════════════════════════════════════════
+           RETRO HEADING COLORS
+           ═══════════════════════════════════════════ */
         --retro-red: #d65a4a;
         --retro-yellow: #f6c85f;
         --retro-cyan: #5edfff;
 
+        /* ═══════════════════════════════════════════
+           ATOM-PUNK INDUSTRIAL
+           ═══════════════════════════════════════════ */
+        --amber-glow: #f0a040;
+        --amber-deep: #c86a20;
+        --reactor-blue: #4af0ff;
+        --reactor-teal: #00e5c0;
+        --concrete: #3a3a3f;
+        --warning-orange: #ff6b2b;
+        --caution-yellow: #ffcc00;
+        --cold-steel: #8899aa;
+        --oxide-red: #c0392b;
+        --dial-glow: #ff9d5c;
+
+        /* ═══════════════════════════════════════════
+           CASSETTE FUTURISM
+           ═══════════════════════════════════════════ */
+        --cassette-shell: #2a2040;
+        --cassette-label: #f5e6c8;
+        --magnetic-brown: #8b6914;
+        --reel-silver: #c0c0d0;
+
+        /* ═══════════════════════════════════════════
+           CONSTRUCTIVIST
+           ═══════════════════════════════════════════ */
+        --construct-black: #0d0d0d;
+        --construct-white: #f5f0e8;
+
+        /* ═══════════════════════════════════════════
+           SHADOWS / GLOWS
+           ═══════════════════════════════════════════ */
+        --glow-accent: 0 0 20px rgba(232, 148, 58, 0.3);
+        --glow-tube: 0 0 15px rgba(240, 160, 64, 0.4), inset 0 0 8px rgba(240, 160, 64, 0.1);
+        --glow-radar: 0 0 12px rgba(58, 240, 79, 0.4);
+        --shadow-panel: 0 4px 24px rgba(0, 0, 0, 0.5);
+
+        /* ═══════════════════════════════════════════
+           TYPOGRAPHY
+           ═══════════════════════════════════════════ */
         --font-mono: "JetBrains Mono", "Courier New", monospace;
 
-        /* Easing — Emil Kowalski's recommended curves */
+        /* ═══════════════════════════════════════════
+           EASING — Emil Kowalski's recommended curves
+           ═══════════════════════════════════════════ */
         --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
         --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
         --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
@@ -394,33 +466,69 @@ const { title = "R2S Studio" } = Astro.props;
         --spring-snappy: cubic-bezier(0.22, 1.2, 0.36, 1);
         --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
         --spring-expressive: cubic-bezier(0.15, 1.8, 0.4, 1);
+
+        /* Mechanical / analog feel */
+        --ease-mechanical: cubic-bezier(0.25, 0.1, 0.15, 1);
+        --ease-needle: cubic-bezier(0.22, 1.4, 0.36, 1);
+        --ease-warmup: cubic-bezier(0.45, 0, 0.55, 1);
       }
 
-      /* Light theme — warm terminal "day mode" */
+      /* ═══════════════════════════════════════════
+         LIGHT THEME — Soviet technical manual / blueprint
+         ═══════════════════════════════════════════ */
       :root[data-theme="light"] {
         color-scheme: light;
 
-        --bg: #f3efe7;
+        --bg: #f0ebe0;
+        --panel: #e5dfd3;
+        --panel-light: #f8f4ec;
 
-        --panel: #e8e3da;
-        --panel-light: #faf7f1;
+        --text: #1a1815;
+        --secondary: #6b6860;
 
-        --text: #1a1a1a;
-        --secondary: #666;
+        --border: rgba(0, 0, 0, 0.08);
+        --border-accent: rgba(176, 112, 32, 0.25);
 
-        --border: #d4cfc5;
+        --accent: #c07020;
+        --accent-glow: #d08030;
+        --accent-deep: #8b4513;
 
-        --accent: #c55a1a;
+        --stripe-red: #c03030;
+        --stripe-yellow: #b89020;
+        --stripe-teal: #1a8090;
 
-        --stripe-red: #cc2929;
-        --stripe-yellow: #c9a800;
-        --stripe-teal: #0088c7;
-
-        --terminal-green: #007a3d;
+        --terminal-green: #1a7030;
+        --phosphor-dim: #c8e0c8;
+        --pipboy-green: #0a7020;
+        --pipboy-bg: #d8ecd8;
 
         --retro-red: #b84a3a;
         --retro-yellow: #c49a2a;
         --retro-cyan: #3a9ebf;
+
+        --amber-glow: #d08020;
+        --amber-deep: #a05518;
+        --reactor-blue: #1a7090;
+        --reactor-teal: #0a8068;
+        --concrete: #d5d0c8;
+        --warning-orange: #d05020;
+        --caution-yellow: #b89000;
+        --cold-steel: #6a7888;
+        --oxide-red: #a02820;
+        --dial-glow: #c07030;
+
+        --cassette-shell: #d0c8b8;
+        --cassette-label: #e8e0d0;
+        --magnetic-brown: #7a5010;
+        --reel-silver: #8a8a90;
+
+        --construct-black: #1a1a1a;
+        --construct-white: #faf8f2;
+
+        --glow-accent: 0 0 12px rgba(192, 112, 32, 0.15);
+        --glow-tube: 0 0 8px rgba(192, 112, 32, 0.2);
+        --glow-radar: 0 0 8px rgba(26, 112, 48, 0.2);
+        --shadow-panel: 0 2px 12px rgba(0, 0, 0, 0.08);
       }
 
       /* =========================================
@@ -652,7 +760,9 @@ const { title = "R2S Studio" } = Astro.props;
       :root[data-theme="light"] .tag-chip.active { color: #fff; }
 
       /* =========================================
-         GRID BACKGROUND
+         HEXAGONAL GRID BACKGROUND
+         Three-directional lines at 0° / 60° / 120°
+         reads as a sci-fi hex grid (Arknights / NASA-punk)
       ========================================== */
 
       body::before {
@@ -663,20 +773,51 @@ const { title = "R2S Studio" } = Astro.props;
         inset: 0;
 
         background-image:
-          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-          linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.035) 1px,
-            transparent 1px
-          );
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(60deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(120deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 
-        background-size: 45px 45px;
+        background-size: 52px 90px;
 
         pointer-events: none;
 
         z-index: 0;
 
-        opacity: 0.25;
+        opacity: 0.3;
+      }
+
+      :root[data-theme="light"] body::before {
+        background-image:
+          linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+          linear-gradient(60deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+          linear-gradient(120deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+        opacity: 0.4;
+      }
+
+      /* =========================================
+         CONCRETE / BRUTALIST NOISE OVERLAY
+      ========================================== */
+
+      body::after {
+        content: "";
+
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: 0;
+
+        opacity: 0.035;
+
+        /* Subtle noise via tiny SVG data URI */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 256px 256px;
+      }
+
+      :root[data-theme="light"] body::after {
+        opacity: 0.025;
       }
 
       /* =========================================
@@ -808,7 +949,7 @@ const { title = "R2S Studio" } = Astro.props;
       .row-track .frame:nth-child(8)  { animation-delay: 0.24s; }
 
       /* =========================================
-         CRT
+         CRT SCANLINE OVERLAY — Subtle retro screen effect
       ========================================== */
 
       #crt-overlay {
@@ -823,21 +964,64 @@ const { title = "R2S Studio" } = Astro.props;
 
         z-index: 9999;
 
-        background: repeating-linear-gradient(
-          to bottom,
+        /* Scanlines + subtle horizontal banding (magnetic tape readout) */
+        background:
+          repeating-linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.04) 0px,
+            rgba(255, 255, 255, 0.04) 1px,
+            transparent 1px,
+            transparent 3px
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 30px,
+            rgba(255, 255, 255, 0.015) 30px,
+            rgba(255, 255, 255, 0.015) 32px
+          );
 
-          rgba(255, 255, 255, 0.06) 0px,
-
-          rgba(255, 255, 255, 0.06) 1px,
-
-          transparent 1px,
-
-          transparent 4px
-        );
-
-        opacity: 0.35;
+        opacity: 0.28;
 
         mix-blend-mode: screen;
+      }
+
+      :root[data-theme="light"] #crt-overlay {
+        opacity: 0.08;
+      }
+
+      /* =========================================
+         VACUUM TUBE AMBER VIGNETTE
+         Warm corner glow like tube-lit instrumentation
+      ========================================== */
+
+      #tube-vignette {
+        position: fixed;
+
+        inset: 0;
+
+        pointer-events: none;
+
+        z-index: 9998;
+
+        background: radial-gradient(
+          ellipse at 50% 50%,
+          transparent 55%,
+          rgba(240, 160, 64, 0.04) 75%,
+          rgba(200, 100, 20, 0.08) 100%
+        );
+
+        opacity: 0.6;
+      }
+
+      :root[data-theme="light"] #tube-vignette {
+        background: radial-gradient(
+          ellipse at 50% 50%,
+          transparent 55%,
+          rgba(180, 140, 100, 0.03) 75%,
+          rgba(160, 120, 80, 0.05) 100%
+        );
+        opacity: 0.4;
       }
     </style>
     <!-- ── Theme toggle (init is in <head> to prevent flash) ── -->

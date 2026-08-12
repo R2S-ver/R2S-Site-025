@@ -211,6 +211,10 @@ const translationAvailable = !!translation;
 
       link.href = "#" + heading.id;
 
+      // Tag heading level for CSS (h2 → major section divider)
+      const level = heading.tagName.toLowerCase();
+      link.classList.add("toc-" + level);
+
       const title = heading.innerText.replace(/^\d+(\.\d+)*[\.\s-]*/, "");
 
       link.textContent = title;
@@ -429,25 +433,28 @@ const translationAvailable = !!translation;
 
     box-sizing: border-box;
 
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: none;
 
-    padding-left: 20px;
+    padding-left: 0;
 
     font-family: var(--font-mono);
   }
 
   .toc h3 {
-    font-size: 14px;
+    font-size: 11px;
 
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 
     text-transform: uppercase;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 
     color: var(--accent);
 
     font-weight: 900;
+
+    padding-left: 12px;
+    border-left: 2px solid var(--accent);
   }
 
   .content-layout article {
@@ -456,53 +463,68 @@ const translationAvailable = !!translation;
     margin: 0 auto;
   }
 
-  .toc a {
-    display: block;
-
-    width: 100%;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-
-    color: #888;
-
-    text-decoration: none;
-
-    margin-bottom: 12px;
-
-    padding: 4px 0;
-
-    transition:
-      color 0.2s var(--ease-out),
-      transform 0.3s var(--spring-snappy);
-  }
-
-  .toc a::before {
-    content: "→";
-
-    margin-right: 8px;
-
-    opacity: 0.4;
-    transition: opacity 0.2s var(--ease-out);
-  }
-
   .toc-list {
     display: flex;
 
     flex-direction: column;
 
-    gap: 4px;
+    gap: 0;
   }
 
-  .toc a:hover::before {
-    opacity: 1;
+  /*
+  ══════════════════════════════════════
+  TOC items — each separated by a
+  visible horizontal divider line
+  ══════════════════════════════════════
+  */
+
+  .toc-list a {
+    display: block;
+
+    width: 100%;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    padding: 12px 10px;
+
+    /* ═══ The divider ═══ */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+
+    transition:
+      color 0.15s var(--ease-out),
+      background 0.15s var(--ease-out);
   }
 
-  .toc a:hover {
-    color: var(--stripe-teal);
+  .toc-list a:last-child {
+    border-bottom: none;
+  }
 
-    transform: translateX(6px);
+  /* H2 — section headers */
+  .toc-list a.toc-h2 {
+    font-weight: 700;
+    font-size: 12px;
+    color: #ccc;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  }
+
+  /* H3 — sub-items */
+  .toc-list a.toc-h3 {
+    padding-left: 22px;
+    font-size: 11px;
+    color: #888;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  /* Hover */
+  .toc-list a:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.04);
   }
 
   .toc .sub {
@@ -551,6 +573,19 @@ const translationAvailable = !!translation;
     color: var(--retro-yellow) !important;
 
     font-weight: 800;
+
+    /* Section divider above h2 */
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 30px;
+  }
+
+  :global(article h2:first-of-type) {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  :root[data-theme="light"] :global(article h2) {
+    border-top-color: rgba(0, 0, 0, 0.1);
   }
 
   :global(article h3) {
@@ -565,6 +600,19 @@ const translationAvailable = !!translation;
     color: var(--retro-cyan) !important;
 
     font-weight: 700;
+
+    /* Section divider above h3 */
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 22px;
+  }
+
+  :global(article h3:first-of-type) {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  :root[data-theme="light"] :global(article h3) {
+    border-top-color: rgba(0, 0, 0, 0.05);
   }
 
   :global(article h2),
@@ -581,11 +629,11 @@ const translationAvailable = !!translation;
 
     left: 0;
 
-    top: 8px;
+    top: 22px;
 
     width: 5px;
 
-    height: 70%;
+    height: 55%;
 
     background: var(--retro-yellow);
   }
@@ -597,11 +645,11 @@ const translationAvailable = !!translation;
 
     left: 0;
 
-    top: 7px;
+    top: 18px;
 
     width: 4px;
 
-    height: 70%;
+    height: 55%;
 
     background: var(--retro-cyan);
   }
@@ -812,4 +860,25 @@ const translationAvailable = !!translation;
 
   @media (max-width: 800px) { .layers-layout { grid-template-columns: 1fr; } }
   @media (max-width: 700px) { .side-by-side { grid-template-columns: 1fr; } }
+
+  /* ── TOC light mode ── */
+  :root[data-theme="light"] .toc-list a {
+    color: #555;
+    border-bottom-color: rgba(0, 0, 0, 0.18);
+  }
+
+  :root[data-theme="light"] .toc-list a.toc-h2 {
+    color: #222;
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+  }
+
+  :root[data-theme="light"] .toc-list a.toc-h3 {
+    color: #666;
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+  }
+
+  :root[data-theme="light"] .toc-list a:hover {
+    color: #000 !important;
+    background: rgba(0, 0, 0, 0.04);
+  }
 </style>

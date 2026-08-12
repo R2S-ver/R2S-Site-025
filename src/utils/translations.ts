@@ -44,8 +44,6 @@ export const translations = {
       description: {
         line1:
           "Bridge the gap between TECH and AESTHETIC by pairing artistic intuition with a research-driven mindset.",
-        line2:
-          "My goal is to ensure that visual elegance is always grounded in technical rigor and practical execution.",
       },
       button: "ACCESS PROJECT DATABASE",
     },
@@ -63,25 +61,25 @@ export const translations = {
         header: "MODULE_01 // WORKS",
         title: "PROJECTS",
         description: "FABRICATION_ARCHIVE",
-        access: "ACCESS_DATABASE →",
+        access: "ACCESS_DATABASE >",
       },
       lab: {
         header: "MODULE_02 // EXPERIMENTS",
         title: "LAB",
         description: "HARDWARE_AND_PROTOTYPE_LOG",
-        access: "OPEN_MODULE →",
+        access: "OPEN_MODULE >",
       },
       art: {
         header: "MODULE_03 // VISUAL",
         title: "ART",
         description: "VISUAL_ASSET_MATRIX",
-        access: "OPEN_ARCHIVE →",
+        access: "OPEN_ARCHIVE >",
       },
       notes: {
         header: "MODULE_04 // KNOWLEDGE",
         title: "NOTES",
         description: "RESEARCH_DATABASE",
-        access: "LOAD_DOCUMENTS →",
+        access: "LOAD_DOCUMENTS >",
       },
     },
 
@@ -103,7 +101,7 @@ export const translations = {
       },
       location: "LOCATION: ROTTERDAM // NL",
       field: "FIELD: DESIGN + TECHNOLOGY",
-      access: "ACCESS FULL DOSSIER →",
+      access: "ACCESS FULL DOSSIER >",
     },
 
     footer: {
@@ -173,7 +171,7 @@ export const translations = {
         },
         philosophy: {
           header: "PERSONAL_PROTOCOL // DESIGN_PHILOSOPHY",
-          title: "standing on the\nshoulders\nof giants",
+          title: "STANDING\nON THE\nSHOULDERS\nOF GIANTS",
           text:
             "Design is never created in isolation. I believe in learning from what already exists, studying references, understanding the work of others and combining those accumulated ideas into something new.",
           second:
@@ -408,25 +406,25 @@ export const translations = {
         header: "模块_01 // 项目",
         title: "项目",
         description: "制造与设计档案",
-        access: "访问数据库 →",
+        access: "访问数据库 >",
       },
       lab: {
         header: "模块_02 // 实验",
         title: "实验室",
         description: "硬件与原型日志",
-        access: "打开模块 →",
+        access: "打开模块 >",
       },
       art: {
         header: "模块_03 // 视觉",
         title: "艺术",
         description: "视觉资产矩阵",
-        access: "打开档案 →",
+        access: "打开档案 >",
       },
       notes: {
         header: "模块_04 // 知识",
         title: "笔记",
         description: "研究数据库",
-        access: "加载文档 →",
+        access: "加载文档 >",
       },
     },
 
@@ -448,7 +446,7 @@ export const translations = {
       },
       location: "位置: 鹿特丹 // 荷兰",
       field: "领域: 设计 + 技术",
-      access: "访问完整档案 →",
+      access: "访问完整档案 >",
     },
 
     footer: {

@@ -31,7 +31,7 @@ translationKey: isolation-gpio-driver-mosfet-bjt-relay-optocoupler
 - GPIO 不给负载供电，只负责控制 Gate。
 - **NMOS + 低边开关 + PWM** 是智能硬件里最常见的驱动拓扑，也是最值得优先掌握的基础电路。
 
-## GPIO 的本质
+# GPIO 的本质
 
 GPIO 是 MCU 的通用输入输出接口，可以配成输入（检测外部电平）或输出（产生高/低电平）。但它的本质是数字控制接口，不是电源——高电平大约 3.3V（或 5V），低电平约 0V，对应逻辑 1 和 0。它能输出的电流非常有限，通常 20mA 左右。
 

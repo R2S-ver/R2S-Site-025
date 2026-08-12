@@ -183,6 +183,7 @@ const projectsPath = getLocalizedPath("/projects", language);
   ];
 
   async function typeTerminalSequence() {
+    if (!termEl) return;
     for (const line of bootLines) {
       await typeTerminalLine(termEl, line.text, line.result, 8);
     }
@@ -195,7 +196,9 @@ const projectsPath = getLocalizedPath("/projects", language);
     function addLiveLine() {
       const line = liveLogs[logIndex % liveLogs.length];
       cursor.remove();
+      if (!termEl) return;
       typeTerminalLine(termEl, line.text, line.result, 6).then(() => {
+        if (!termEl) return;
         termEl.appendChild(cursor);
         termEl.scrollTop = termEl.scrollHeight;
       });
@@ -274,11 +277,11 @@ const projectsPath = getLocalizedPath("/projects", language);
     transform: translateX(-0.5px);
   }
   .cross-tl {
-    top: 30px;
+    top: 90px;
     left: 30px;
   }
   .cross-tr {
-    top: 30px;
+    top: 90px;
     right: 30px;
   }
   .cross-bl {

@@ -1,0 +1,154 @@
+<!--
+  SCROLL METER — Signal strength indicator tied to scroll position
+  Fixed bottom-right, LED-segment vertical bar
+  Pure CSS + IntersectionObserver
+-->
+
+<div class="scroll-meter" aria-hidden="true">
+  <div class="meter-label">SIGNAL</div>
+  <div class="meter-track">
+    <div class="meter-segment" style="--i: 0"></div>
+    <div class="meter-segment" style="--i: 1"></div>
+    <div class="meter-segment" style="--i: 2"></div>
+    <div class="meter-segment" style="--i: 3"></div>
+    <div class="meter-segment" style="--i: 4"></div>
+    <div class="meter-segment" style="--i: 5"></div>
+    <div class="meter-segment" style="--i: 6"></div>
+    <div class="meter-segment" style="--i: 7"></div>
+    <div class="meter-segment" style="--i: 8"></div>
+    <div class="meter-segment" style="--i: 9"></div>
+  </div>
+  <div class="meter-value" id="meter-pct">00</div>
+  <div class="meter-unit">TELEMETRY</div>
+</div>
+
+<script>
+  const meter = document.querySelector<HTMLElement>(".scroll-meter");
+  const segments = meter?.querySelectorAll<HTMLElement>(".meter-segment");
+  const pctEl = document.getElementById("meter-pct");
+  if (!meter || !segments || !pctEl) {
+    // component present but elements missing
+  } else {
+    let rafPending = false;
+
+    function updateMeter() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+      const filled = Math.round(pct * segments.length);
+
+      segments.forEach((seg, i) => {
+        if (i < filled) {
+          seg.classList.add("active");
+        } else {
+          seg.classList.remove("active");
+        }
+      });
+
+      pctEl.textContent = String(Math.round(pct * 100)).padStart(2, "0");
+
+      rafPending = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(updateMeter);
+      }
+    }, { passive: true });
+
+    updateMeter();
+  }
+</script>
+
+<style>
+  .scroll-meter {
+    position: fixed;
+    bottom: 32px;
+    right: 24px;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-mono);
+    pointer-events: none;
+    opacity: 0.55;
+    transition: opacity 0.4s var(--ease-out);
+  }
+
+  .scroll-meter:hover {
+    opacity: 0.9;
+  }
+
+  .meter-label,
+  .meter-unit {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.3);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .meter-track {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+    padding: 4px 3px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+
+  .meter-segment {
+    width: 8px;
+    height: 6px;
+    border-radius: 1px;
+    background: rgba(58, 240, 79, 0.1);
+    transition:
+      background 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out);
+  }
+
+  .meter-segment.active {
+    background: var(--terminal-green);
+    box-shadow: 0 0 4px rgba(58, 240, 79, 0.5);
+  }
+
+  .meter-value {
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--terminal-green);
+    letter-spacing: -0.5px;
+  }
+
+  :root[data-theme="light"] .meter-segment {
+    background: rgba(26, 112, 48, 0.1);
+  }
+  :root[data-theme="light"] .meter-segment.active {
+    background: var(--terminal-green);
+    box-shadow: 0 0 4px rgba(26, 112, 48, 0.3);
+  }
+  :root[data-theme="light"] .meter-label,
+  :root[data-theme="light"] .meter-unit {
+    color: rgba(0, 0, 0, 0.25);
+  }
+  :root[data-theme="light"] .meter-track {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .meter-segment {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .scroll-meter {
+      bottom: 16px;
+      right: 12px;
+      opacity: 0.35;
+    }
+  }
+</style>
