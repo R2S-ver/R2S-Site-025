@@ -9,6 +9,9 @@ interface Props {
 }
 
 const { title = "R2S Studio" } = Astro.props;
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const isZh = language === "zh";
 ---
 
 <!doctype html>
@@ -62,6 +65,23 @@ const { title = "R2S Studio" } = Astro.props;
     ========================================== -->
 
     <a class="skip-link" href="#main-content">SKIP_TO_CONTENT &gt;</a>
+
+    <!-- =========================================
+         MOBILE NOTICE — desktop mode recommended
+         (mobile only, dismissible)
+    ========================================== -->
+
+    <div id="mobile-notice" role="status">
+      <span class="notice-dot" aria-hidden="true"></span>
+      <span class="notice-text">
+        {isZh
+          ? "系统提示 // 建议使用电脑访问，桌面模式效果最佳"
+          : "SYSTEM_NOTICE // BEST VIEWED IN DESKTOP MODE"}
+      </span>
+      <button class="notice-close" type="button" aria-label={isZh ? "关闭提示" : "Dismiss"}>
+        ×
+      </button>
+    </div>
 
     <!-- =========================================
          NEURAL NETWORK BACKGROUND
@@ -641,6 +661,117 @@ const { title = "R2S Studio" } = Astro.props;
         top: 12px;
       }
 
+      /* =========================================
+         MOBILE NOTICE — desktop mode recommended
+         Fixed top bar, mobile only, dismissible
+      ========================================== */
+
+      #mobile-notice {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 10px 48px 10px 16px;
+        background: rgba(7, 7, 13, 0.95);
+        border-bottom: 1px solid var(--accent);
+        font-family: var(--font-mono);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        animation: noticeIn 0.4s var(--ease-out);
+      }
+
+      #mobile-notice[hidden] {
+        display: none;
+      }
+
+      .notice-dot {
+        flex-shrink: 0;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+        animation: noticeBlink 1.6s infinite;
+      }
+
+      .notice-text {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: #ccc;
+        text-align: center;
+      }
+
+      .notice-close {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #ccc;
+        font-family: var(--font-mono);
+        font-size: 15px;
+        line-height: 1;
+        cursor: pointer;
+        transition:
+          color 0.2s var(--ease-out),
+          border-color 0.2s var(--ease-out);
+      }
+
+      .notice-close:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+
+      @keyframes noticeIn {
+        from {
+          transform: translateY(-100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes noticeBlink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.25;
+        }
+      }
+
+      /* Desktop: hide the mobile notice */
+      @media (min-width: 769px) {
+        #mobile-notice {
+          display: none;
+        }
+      }
+
+      /* Light mode */
+      :root[data-theme="light"] #mobile-notice {
+        background: rgba(240, 235, 224, 0.97);
+        border-bottom-color: rgba(176, 112, 32, 0.5);
+      }
+
+      :root[data-theme="light"] .notice-text {
+        color: #444;
+      }
+
+      :root[data-theme="light"] .notice-close {
+        color: #555;
+        border-color: rgba(0, 0, 0, 0.15);
+      }
+
       /* Smooth theme transitions for all themed surfaces */
       :root[data-theme] .panel,
       :root[data-theme] .terminal,
@@ -1089,6 +1220,25 @@ const { title = "R2S Studio" } = Astro.props;
           document.documentElement.setAttribute("data-theme", next);
           try { localStorage.setItem(KEY, next); } catch (_) {}
         };
+      })();
+    </script>
+    <!-- ── Mobile notice dismiss (session-scoped) ── -->
+    <script>
+      (() => {
+        var KEY = "r2s-mobile-notice";
+        var notice = document.getElementById("mobile-notice");
+        if (!notice) return;
+        try {
+          if (sessionStorage.getItem(KEY) === "dismissed") {
+            notice.hidden = true;
+            return;
+          }
+        } catch (_) {}
+        var close = notice.querySelector(".notice-close");
+        close?.addEventListener("click", () => {
+          notice.hidden = true;
+          try { sessionStorage.setItem(KEY, "dismissed"); } catch (_) {}
+        });
       })();
     </script>
   </body>
