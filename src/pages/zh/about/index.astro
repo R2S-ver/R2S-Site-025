@@ -1322,11 +1322,15 @@ const t = getTranslations(lang);
     for (let r = 0; r < rows; r++) {
       const drawFn = materialDraw[r];
       for (let c = 0; c < cols; c++) {
-        const x = startX + pad + c * (cellW + pad) + cellW / 2;
-        const y = startY + pad + r * (cellH + pad) + cellH / 2;
+        const x = startX + c * (cellW + pad) + cellW / 2;
+        const y = startY + r * (cellH + pad) + cellH / 2;
         const hue = ((c / cols) * 360 + (r / rows) * 40 + time * 8) % 360;
-        const sat = 55 + 20 * Math.sin(time * 0.5 + r + c);
-        const light = 25 + 15 * Math.cos(time * 0.4 + c);
+        let sat = 55 + 20 * Math.sin(time * 0.5 + r + c);
+        // Boost orange (~15-45) and purple (~260-300)
+        if ((hue > 15 && hue < 45) || (hue > 260 && hue < 300)) {
+          sat = Math.min(100, sat * 1.35);
+        }
+        const light = 38 + 15 * Math.cos(time * 0.4 + c);
         drawFn(x, y, cellW, cellH, hue, sat, light);
       }
     }
@@ -1339,12 +1343,13 @@ const t = getTranslations(lang);
     const mx = mouseX * W;
     const my = mouseY * H;
     const t = time;
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
 
-    ctx.fillStyle = "#070a08";
+    ctx.fillStyle = isLight ? "#e8e3da" : "#070a08";
     ctx.fillRect(0, 0, W, H);
 
     // Grid
-    ctx.strokeStyle = "rgba(30,60,45,0.25)";
+    ctx.strokeStyle = isLight ? "rgba(0,0,0,0.06)" : "rgba(30,60,45,0.25)";
     ctx.lineWidth = 0.4;
     for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
     for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
@@ -1352,14 +1357,14 @@ const t = getTranslations(lang);
     const amp = H * 0.10;
 
     const channels = [
-      { baseY: H * 0.22, color: "rgba(100,220,160,0.85)", type: "square",   freq: 4.5, label: "CH1 — SQUARE" },
-      { baseY: H * 0.50, color: "rgba(160,200,230,0.8)",  type: "sine",     freq: 3.0, label: "CH2 — SINE"   },
-      { baseY: H * 0.78, color: "rgba(200,160,220,0.75)", type: "triangle", freq: 5.5, label: "CH3 — TRI"    },
+      { baseY: H * 0.22, color: isLight ? "rgba(0,120,60,0.9)" : "rgba(100,220,160,0.85)", type: "square",   freq: 4.5, label: "CH1 — SQUARE" },
+      { baseY: H * 0.50, color: isLight ? "rgba(30,80,140,0.85)" : "rgba(160,200,230,0.8)",  type: "sine",     freq: 3.0, label: "CH2 — SINE"   },
+      { baseY: H * 0.78, color: isLight ? "rgba(120,40,100,0.8)" : "rgba(200,160,220,0.75)", type: "triangle", freq: 5.5, label: "CH3 — TRI"    },
     ];
 
     // Dividers
     channels.forEach(ch => {
-      ctx.strokeStyle = "rgba(60,100,80,0.25)";
+      ctx.strokeStyle = isLight ? "rgba(0,0,0,0.08)" : "rgba(60,100,80,0.25)";
       ctx.lineWidth = 0.5;
       ctx.beginPath(); ctx.moveTo(0, ch.baseY); ctx.lineTo(W, ch.baseY); ctx.stroke();
     });
@@ -1421,6 +1426,7 @@ const t = getTranslations(lang);
     ctx.fillText("TRIG:AUTO · 1V/div", W - 8, H * 0.06);
   }
   function drawEmbedded() {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
     for (let i = 0; i < 18; i++) {
       ctx.beginPath();
       const y = H * 0.18 + i * H * 0.035;
@@ -1433,7 +1439,7 @@ const t = getTranslations(lang);
         else ctx.lineTo(x, yy);
       }
       ctx.strokeStyle =
-        i === 9 ? "#e8a040" : `rgba(220,220,220,${0.08 + i * 0.005})`;
+        i === 9 ? "#e8a040" : (isLight ? `rgba(80,80,80,${0.06 + i * 0.004})` : `rgba(220,220,220,${0.08 + i * 0.005})`);
       ctx.stroke();
     }
   }
@@ -1442,6 +1448,7 @@ const t = getTranslations(lang);
   DRAW: 制造与加工 — 精致化流水线
   ====================================================== */
   function drawFabrication() {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
     const beltH = 22;
     const gap = 30;
     const beltCount = 3;
@@ -1455,14 +1462,20 @@ const t = getTranslations(lang);
 
       // ── Belt body with gradient ──
       const beltGrad = ctx.createLinearGradient(0, by, 0, by + beltH);
-      beltGrad.addColorStop(0, "#1a1c1e");
-      beltGrad.addColorStop(0.5, "#222528");
-      beltGrad.addColorStop(1, "#1a1c1e");
+      if (isLight) {
+        beltGrad.addColorStop(0, "#d5d0c8");
+        beltGrad.addColorStop(0.5, "#c8c3ba");
+        beltGrad.addColorStop(1, "#d5d0c8");
+      } else {
+        beltGrad.addColorStop(0, "#1a1c1e");
+        beltGrad.addColorStop(0.5, "#222528");
+        beltGrad.addColorStop(1, "#1a1c1e");
+      }
       ctx.fillStyle = beltGrad;
       ctx.fillRect(0, by, W, beltH);
 
       // ── Belt edge lines ──
-      ctx.strokeStyle = "rgba(180,190,180,0.15)";
+      ctx.strokeStyle = isLight ? "rgba(150,140,130,0.25)" : "rgba(180,190,180,0.15)";
       ctx.lineWidth = 0.5;
       ctx.beginPath(); ctx.moveTo(0, by); ctx.lineTo(W, by); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(0, by + beltH); ctx.lineTo(W, by + beltH); ctx.stroke();
@@ -1472,7 +1485,7 @@ const t = getTranslations(lang);
       const treadGap = 16;
       const shift = ((time * speed * dir * 0.6) % (treadW + treadGap) + (treadW + treadGap)) % (treadW + treadGap);
       for (let tx = -treadW + shift; tx < W + treadW; tx += treadW + treadGap) {
-        ctx.fillStyle = "rgba(100,110,100,0.18)";
+        ctx.fillStyle = isLight ? "rgba(140,130,120,0.18)" : "rgba(100,110,100,0.18)";
         ctx.fillRect(tx, by + 1, treadW, beltH - 2);
       }
 
@@ -1641,7 +1654,7 @@ const t = getTranslations(lang);
             Math.sin(dist * 12 - time) * 35) %
           360;
         const sat = 55 + 35 * (1 - Math.min(1, dist * 1.8));
-        const light = 18 + 32 * (1 - Math.min(1, dist * 1.5));
+        const light = 32 + 28 * (1 - Math.min(1, dist * 1.5));
         const pad = 4 + 6 * (1 - Math.min(1, dist * 1.6));
         const x = c * cw + pad;
         const y = r * ch + pad;
@@ -1683,6 +1696,7 @@ const t = getTranslations(lang);
   function drawSoftware() {
     ctx.font = "10px monospace";
     ctx.textAlign = "left";
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
     const lines = [
       "> 初始化_r2s();",
       "> 加载_设计系统();",
@@ -1694,7 +1708,7 @@ const t = getTranslations(lang);
     ];
     lines.forEach((line, i) => {
       const alpha = 0.15 + 0.1 * Math.sin(time * 2 - i);
-      ctx.fillStyle = i === 6 ? "#e8a040" : `rgba(220,220,220,${alpha})`;
+      ctx.fillStyle = i === 6 ? "#e8a040" : (isLight ? `rgba(60,60,60,${alpha + 0.25})` : `rgba(220,220,220,${alpha})`);
       ctx.fillText(line, W * 0.2, H * 0.22 + i * 25);
     });
     ctx.strokeStyle = "rgba(232,160,64,0.35)";
@@ -1764,9 +1778,10 @@ const t = getTranslations(lang);
   function drawCapability() {
     if (!ctx || !canvasVisible) return;
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = "#09090b";
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    ctx.fillStyle = isLight ? "#e8e3da" : "#09090b";
     ctx.fillRect(0, 0, W, H);
-    drawGrid();
+    if (!isLight) drawGrid();
 
     const key = buttons[activeIndex]?.dataset.cap;
     switch (key) {
@@ -2480,7 +2495,7 @@ const t = getTranslations(lang);
 
   .cap-button {
     position: relative;
-    min-height: 100px;
+    height: 110px;
     padding: 20px;
     border: none;
     border-right: 1px solid var(--border);
@@ -3218,6 +3233,107 @@ const t = getTranslations(lang);
     transform: translateY(3px);
     border-bottom-width: 1px;
   }
+
+  /* =====================================================
+  LIGHT MODE
+  ====================================================== */
+
+  :root[data-theme="light"] .subtitle { color: #444; }
+  :root[data-theme="light"] .hero-index { color: #888; }
+  :root[data-theme="light"] .hero-meta { color: #555; border-bottom-color: rgba(0,0,0,0.12); }
+  :root[data-theme="light"] h1 { color: #111; }
+  :root[data-theme="light"] .intro-heading h2 { color: #111; }
+  :root[data-theme="light"] .process-heading h2 { color: #111; }
+  :root[data-theme="light"] .philosophy-main h2 { color: #111; }
+  :root[data-theme="light"] .journey-header h2 { color: #111; }
+
+  /* Cards → light background */
+  :root[data-theme="light"] .dossier {
+    background: #e8e3da;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  :root[data-theme="light"] .capability-console {
+    background: #e8e3da;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  :root[data-theme="light"] .cap-button {
+    background: #e8e3da;
+    color: #555;
+  }
+  :root[data-theme="light"] .cap-button:hover {
+    background: #dcd7cc;
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .cap-button.active {
+    background: linear-gradient(135deg, rgba(232,160,64,0.12), rgba(232,160,64,0.03));
+    color: #1a1a1a;
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  :root[data-theme="light"] .cap-button span { color: #888; }
+  :root[data-theme="light"] .cap-button.active span { color: var(--accent); }
+  :root[data-theme="light"] .skill-tree {
+    background: #e8e3da;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  :root[data-theme="light"] .skill-node-dot { background: #e8e3da; box-shadow: 0 0 0 5px #e8e3da; }
+  :root[data-theme="light"] .skill-node:hover .skill-node-dot { box-shadow: 0 0 0 5px #e8e3da, 0 0 18px rgba(232,160,64,0.45); }
+  :root[data-theme="light"] .skill-node-content strong { color: #333; }
+  :root[data-theme="light"] .skill-node-content small { color: #777; }
+  :root[data-theme="light"] .skill-tree-label { color: #999; }
+  :root[data-theme="light"] .research-terminal {
+    background: #e8e3da;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  :root[data-theme="light"] .future-panel {
+    background: #e8e3da;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+  }
+
+  /* Text → dark */
+  :root[data-theme="light"] .intro-content p { color: #444; }
+  :root[data-theme="light"] .intro-content .intro-lead { color: #1a1a1a; }
+  :root[data-theme="light"] .philosophy-copy p { color: #444; }
+  :root[data-theme="light"] .philosophy-copy .lead { color: #1a1a1a; }
+  :root[data-theme="light"] .journey-copy p { color: #444; }
+  :root[data-theme="light"] .journey-copy .lead { color: #1a1a1a; }
+  :root[data-theme="light"] .future-text p { color: #444; }
+  :root[data-theme="light"] .future-text .lead { color: #1a1a1a; }
+  :root[data-theme="light"] .closing-section p { color: #333; }
+  :root[data-theme="light"] .data-row { color: #444; }
+  :root[data-theme="light"] .identity h2 { color: #111; }
+  :root[data-theme="light"] .research-column strong { color: #1a1a1a; }
+  :root[data-theme="light"] .research-column p { color: #555; }
+  :root[data-theme="light"] .station-content h3 { color: #1a1a1a; }
+  :root[data-theme="light"] .station-content p { color: #555; }
+  :root[data-theme="light"] .display-body h3 { color: #111; }
+  :root[data-theme="light"] .display-body p { color: #555; }
+  :root[data-theme="light"] .process-header p { color: #555; }
+  :root[data-theme="light"] .dossier-header { color: #c07820; }
+  :root[data-theme="light"] .display-header,
+  :root[data-theme="light"] .display-footer { color: #888; }
+  :root[data-theme="light"] .console-top { color: #888; }
+
+  /* Borders / misc in light mode */
+  :root[data-theme="light"] .station-light { background: #e8e3da; }
+  :root[data-theme="light"] .display-visual { background: #e8e3da; }
+  :root[data-theme="light"] .intro-marker span { color: #555; border-color: rgba(0,0,0,0.15); }
+
+  :root[data-theme="light"] .enter-key {
+    background: linear-gradient(180deg, #f0ebe0, #e8e3da);
+    border-color: #ccc;
+    border-bottom-color: #bbb;
+    color: #555;
+  }
+  :root[data-theme="light"] .enter-key:hover {
+    color: #1a1a1a;
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(232, 160, 64, 0.1);
+  }
+  :root[data-theme="light"] .enter-key::before,
+  :root[data-theme="light"] .enter-key::after {
+    border-color: #ccc;
+  }
+  :root[data-theme="light"] .closing-status { color: #00703c; }
 
   /* =====================================================
   RESPONSIVE

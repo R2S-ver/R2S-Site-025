@@ -1,7 +1,7 @@
 ---
 title: ESP32 + EC11 Encoder + Stepper Motor Control
 date: 2026-08-02
-description: Full embedded motion control — dual EC11 encoders, dual OLED displays, DM430 stepper driver, 42BL40 motor, and WiFi WebSocket dashboard with manual/auto modes.
+description: Embedded motion control with EC11 encoders, DM430 stepper driver, and WiFi WebSocket dashboard.
 
 type: lab
 category: Embedded System

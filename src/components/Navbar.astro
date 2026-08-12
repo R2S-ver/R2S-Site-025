@@ -201,12 +201,21 @@ const t = translations[currentLanguage];
 
       <a
         href={languagePath}
-        class="language"
+        class="lang-switch"
         data-language-available={languageAvailable}
         data-language-message={t.language.unavailable}
+        data-lang-active={currentLanguage}
       >
-        {t.nav.language}
+        <span class="lang-pos lang-pos--en">EN</span>
+        <span class="lang-sep"></span>
+        <span class="lang-pos lang-pos--zh">中文</span>
       </a>
+
+      <button class="theme-switch" onclick="window.__toggleTheme?.()" aria-label="Toggle theme">
+        <span class="switch-knob"><span class="knob-face"></span></span>
+        <span class="switch-stars" aria-hidden="true"></span>
+        <span class="switch-cloud" aria-hidden="true"></span>
+      </button>
     </div>
 
     <!-- SYSTEM STATUS -->
@@ -364,7 +373,7 @@ const t = translations[currentLanguage];
       const target = event.target as HTMLElement;
 
       const languageButton = target.closest(
-        ".language",
+        ".lang-switch",
       ) as HTMLAnchorElement | null;
 
       if (!languageButton || !toast || !messageElement) {
@@ -456,7 +465,21 @@ const t = translations[currentLanguage];
       backdrop-filter: blur(10px);
 
       border-bottom: 1px solid var(--border);
+
+      transition: background 0.4s var(--ease-out);
     }
+
+    :root[data-theme="light"] nav {
+      background: rgba(243, 239, 231, 0.92);
+    }
+
+    :root[data-theme="light"] .brand-link { color: #2a2a2a; }
+    :root[data-theme="light"] .brand-link:hover { color: var(--accent); }
+    :root[data-theme="light"] .links a { color: #555; }
+    :root[data-theme="light"] .links a:hover { color: #1a1a1a; }
+    :root[data-theme="light"] .status .label { color: #666; }
+    :root[data-theme="light"] #clock { color: #333; }
+    :root[data-theme="light"] .status .online { color: var(--terminal-green); }
 
     .nav-inner {
       height: 72px;
@@ -611,15 +634,120 @@ const t = translations[currentLanguage];
     }
 
     .links a:hover {
-      color: white;
+      color: var(--text);
     }
 
     .links a:hover::after {
       width: 100%;
     }
 
-    .links .language {
+    /* ========== LANGUAGE SWITCH ========== */
+
+    .lang-switch {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      padding: 8px 0;
+      margin-top: -1px;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: transform 0.16s var(--ease-out);
+    }
+    .lang-switch:active { transform: scale(0.95); }
+
+    .lang-pos {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #666;
+      transition: color 0.2s var(--ease-out);
+    }
+
+    .lang-sep {
+      width: 1px; height: 12px;
+      background: #444;
+      flex-shrink: 0;
+    }
+
+    [data-lang-active="en"] .lang-pos--en,
+    [data-lang-active="zh"] .lang-pos--zh {
       color: var(--accent);
+    }
+
+    :root[data-theme="light"] .lang-sep {
+      background: #ccc;
+    }
+
+    /* ========== THEME SWITCH ========== */
+
+    .theme-switch {
+      position: relative; width: 44px; height: 22px; padding: 2px; margin-top: 2px;
+      background: linear-gradient(180deg, #1c1c24 0%, #121218 100%);
+      border: 1px solid #3a3a44; border-radius: 3px;
+      cursor: pointer; flex-shrink: 0; overflow: hidden;
+      transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out), transform 0.16s var(--ease-out);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 3px rgba(0,0,0,0.4);
+    }
+    .theme-switch:active { transform: scale(0.96); }
+    .theme-switch:hover { border-color: var(--accent); }
+
+    .switch-knob {
+      position: absolute; top: 2px; left: 2px; z-index: 2;
+      display: block; width: 16px; height: 16px; border-radius: 50%;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .knob-face {
+      display: block; width: 100%; height: 100%; border-radius: 50%;
+      background: radial-gradient(circle at 55% 40%, #999 0%, #ccc 30%, #888 60%, #555 100%);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+    :root[data-theme="light"] .switch-knob { transform: translateX(20px); }
+    :root[data-theme="light"] .knob-face {
+      background: radial-gradient(circle at 40% 40%, #ffe484 0%, #f7b731 50%, #e89a1a 100%);
+      box-shadow: 0 0 4px rgba(247,183,49,0.6), 0 0 8px rgba(247,183,49,0.3), 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .switch-stars {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; opacity: 1;
+      transition: opacity 0.3s var(--ease-out);
+    }
+    .switch-stars::before {
+      content: "";
+      position: absolute; top: 3px; right: 7px;
+      width: 1.5px; height: 1.5px; border-radius: 50%; background: #fff;
+      box-shadow:
+        -5px 1px 0 0 rgba(255,255,255,0.9),
+        -9px 5px 0 0 rgba(255,255,255,0.6),
+        -3px 8px 0 0 rgba(255,255,255,0.5),
+        -11px 2px 0 0 rgba(255,255,255,0.35),
+        -7px 10px 0 0 rgba(255,255,255,0.4);
+      animation: starTwinkle 3s ease-in-out infinite;
+    }
+    @keyframes starTwinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+    :root[data-theme="light"] .switch-stars { opacity: 0; }
+
+    .switch-cloud {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; opacity: 0;
+      transition: opacity 0.3s var(--ease-out);
+    }
+    .switch-cloud::before {
+      content: "";
+      position: absolute; top: 7px; left: 5px;
+      width: 5px; height: 4px; border-radius: 50%;
+      background: rgba(255,255,255,0.75);
+      box-shadow:
+        3px -2px 0 1px rgba(255,255,255,0.55),
+        7px 0 0 1px rgba(255,255,255,0.5);
+    }
+    :root[data-theme="light"] .switch-cloud { opacity: 1; }
+
+    :root[data-theme="light"] .theme-switch {
+      background: linear-gradient(180deg, #87ceeb 0%, #b8e4f0 50%, #e0f0ff 100%);
+      border-color: #8ab8cc;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.08);
     }
 
     /*

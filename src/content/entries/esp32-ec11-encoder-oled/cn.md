@@ -1,7 +1,7 @@
 ---
 title: ESP32 + EC11 旋转编码器 + OLED 角度反馈
 date: 2026-08-02
-description: 双 EC11 旋转编码器 + SH1106 OLED 显示 + WiFi WebSocket 实时角度反馈——基于 FreeRTOS 多任务架构的交互控制原型。
+description: 双 EC11 旋转编码器 + OLED 显示 + WiFi WebSocket 实时角度反馈。
 
 type: lab
 category: 嵌入式系统

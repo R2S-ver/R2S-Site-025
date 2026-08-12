@@ -208,7 +208,7 @@ const type = project.data.type.toUpperCase();
   .image-wrapper {
     height: 220px;
 
-    background: #000;
+    background: var(--bg);
 
     position: relative;
 
@@ -235,6 +235,10 @@ const type = project.data.type.toUpperCase();
     padding: 4px 8px;
 
     color: var(--accent);
+  }
+
+  :root[data-theme="light"] .image-label {
+    background: #e8e3da;
   }
 
   .collab-badge {

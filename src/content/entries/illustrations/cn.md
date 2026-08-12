@@ -37,6 +37,8 @@ gallery:
     title: 苏苏洛 — 2025年8月
   - file: 07-mofazhumi.png
     title: 魔法猪咪 — 2025年9月
+  - file: 08-pepe.png
+    title: 佩佩 — 2026年6月
 ---
 
 数字角色插画创作。

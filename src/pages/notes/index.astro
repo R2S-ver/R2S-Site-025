@@ -264,4 +264,13 @@ const topTags = filterTags
       padding-top: 0;
     }
   }
+
+  :root[data-theme="light"] .note-title { color: #1a1a1a; }
+  :root[data-theme="light"] .note-row:hover .note-title { color: var(--accent); }
+  :root[data-theme="light"] .note-desc { color: #555; }
+  :root[data-theme="light"] .note-tag { color: #555; border-color: rgba(0,0,0,0.15); }
+  :root[data-theme="light"] .note-row { border-bottom-color: rgba(0,0,0,0.08); }
+  :root[data-theme="light"] .note-row:hover { background: rgba(0,0,0,0.03); }
+  :root[data-theme="light"] .tag-chip { color: #555; border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.03); }
+  :root[data-theme="light"] .tag-chip:hover { color: #333; border-color: rgba(0,0,0,0.3); background: rgba(0,0,0,0.06); }
 </style>

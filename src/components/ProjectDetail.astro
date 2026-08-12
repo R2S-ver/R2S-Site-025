@@ -145,7 +145,21 @@ const translationAvailable = !!translation;
       const filename = img.getAttribute("src")!.replace("./", "");
       if (__IMAGES__[filename]) img.src = __IMAGES__[filename];
     });
-    // ── Process scroll auto-advance (art-gallery pattern) ──
+    // ── Image click → fullscreen overlay ──
+    document.querySelectorAll<HTMLImageElement>("article img").forEach(img => {
+      img.style.cursor = "zoom-in";
+      img.addEventListener("click", () => {
+        const overlay = document.createElement("div");
+        overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;cursor:zoom-out;";
+        const clone = document.createElement("img");
+        clone.src = img.src;
+        clone.style.cssText = "max-width:92vw;max-height:92vh;object-fit:contain;";
+        overlay.appendChild(clone);
+        overlay.addEventListener("click", () => overlay.remove());
+        document.body.appendChild(overlay);
+      });
+    });
+    // ── Process scroll auto-advance ──
     const sc = document.getElementById("process-scroll");
     const track = document.getElementById("process-track") as HTMLElement | null;
     if (sc && track) {
@@ -750,7 +764,8 @@ const translationAvailable = !!translation;
     font-size: 14px;
   }
   .layers-desc h3:first-child { margin-top: 0; }
-  .layers-desc p { font-size: 13px; color: #ccc; line-height: 1.4; margin-bottom: 0; }
+  .layers-desc p { font-size: 13px; color: #777; line-height: 1.4; margin-bottom: 0; }
+  :root[data-theme="light"] .layers-desc p { color: #555; }
 
   /* --- Side-by-side comparison --- */
   .side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 30px 0 10px; align-items: start; }

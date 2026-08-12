@@ -364,6 +364,31 @@ const { title = "R2S Studio" } = Astro.props;
         --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
       }
 
+      /* Light theme — warm terminal "day mode" */
+      :root[data-theme="light"] {
+        --bg: #f3efe7;
+
+        --panel: #e8e3da;
+        --panel-light: #faf7f1;
+
+        --text: #1a1a1a;
+        --secondary: #666;
+
+        --border: #d4cfc5;
+
+        --accent: #c55a1a;
+
+        --stripe-red: #cc2929;
+        --stripe-yellow: #c9a800;
+        --stripe-teal: #0088c7;
+
+        --terminal-green: #007a3d;
+
+        --retro-red: #b84a3a;
+        --retro-yellow: #c49a2a;
+        --retro-cyan: #3a9ebf;
+      }
+
       /* =========================================
          RESET
       ========================================== */
@@ -384,13 +409,36 @@ const { title = "R2S Studio" } = Astro.props;
       body {
         min-height: 100vh;
 
-        background: #050507;
+        background: var(--bg);
 
-        color: white;
+        color: var(--text);
 
         font-family: Arial, Helvetica, sans-serif;
 
         overflow-x: hidden;
+
+        transition:
+          background 0.4s var(--ease-out),
+          color 0.4s var(--ease-out);
+      }
+
+      /* Smooth theme transitions for all themed surfaces */
+      :root[data-theme] .panel,
+      :root[data-theme] .terminal,
+      :root[data-theme] .card,
+      :root[data-theme] .dossier,
+      :root[data-theme] .capability-console,
+      :root[data-theme] .cap-button,
+      :root[data-theme] .skill-tree,
+      :root[data-theme] .research-terminal,
+      :root[data-theme] .future-panel,
+      :root[data-theme] .footer,
+      :root[data-theme] .nav {
+        transition:
+          background 0.35s var(--ease-out),
+          border-color 0.35s var(--ease-out),
+          box-shadow 0.35s var(--ease-out),
+          color 0.35s var(--ease-out);
       }
 
       /* =========================================
@@ -410,7 +458,142 @@ const { title = "R2S Studio" } = Astro.props;
         z-index: 0;
 
         opacity: 0.55;
+
+        transition: filter 0.4s var(--ease-out), opacity 0.4s var(--ease-out);
       }
+
+      :root[data-theme="light"] #neural-canvas {
+        opacity: 0.5; filter: invert(1);
+      }
+      :root[data-theme="light"] #crt-overlay { opacity: 0.1; }
+
+      /* ── Cards: recessed screen effect ── */
+      :root[data-theme="light"] .card {
+        background: #e8e3da;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+      }
+      :root[data-theme="light"] .card h2,
+      :root[data-theme="light"] .card h3 { color: #1a1a1a; }
+      :root[data-theme="light"] .card::before { background: var(--stripe-red); }
+      :root[data-theme="light"] .card-header { color: #555; }
+      :root[data-theme="light"] .card .description { color: #555; }
+      :root[data-theme="light"] .card .footer { color: #666; border-top-color: #ccc; }
+      :root[data-theme="light"] .card .tags span { background: #e0dcd5; border-color: #ccc; color: #555; }
+      :root[data-theme="light"] .card .tags span:nth-child(3n+1) { color: #a33; border-color: #d99; }
+      :root[data-theme="light"] .card .tags span:nth-child(3n+2) { color: #9a7b00; border-color: #db9; }
+      :root[data-theme="light"] .card .tags span:nth-child(3n) { color: #006899; border-color: #9bc; }
+
+      /* Explore cards */
+      :root[data-theme="light"] .explore-card {
+        background: #e8e3da;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+      }
+      :root[data-theme="light"] .explore-card .header { color: #666; }
+      :root[data-theme="light"] .explore-card h3 { color: #1a1a1a; }
+      :root[data-theme="light"] .explore-card p { color: #666; }
+      :root[data-theme="light"] .access { color: #00703c; }
+
+      /* SYS.LOG + AboutPreview */
+      :root[data-theme="light"] .latest,
+      :root[data-theme="light"] .about-preview {
+        background: #e8e3da;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+      }
+      :root[data-theme="light"] .latest h2,
+      :root[data-theme="light"] .about-preview h2 { color: #1a1a1a; }
+      :root[data-theme="light"] .latest p,
+      :root[data-theme="light"] .about-preview p { color: #555; }
+
+      /* Featured */
+      :root[data-theme="light"] .featured .section-header p { color: #666; }
+      :root[data-theme="light"] .project-count { color: #666; border-bottom-color: #ccc; }
+      :root[data-theme="light"] .data-tag { color: #8b4513; border-color: #8b4513; }
+
+      /* Hero */
+      :root[data-theme="light"] .hero .cassette { color: #555; }
+      :root[data-theme="light"] .hero .description { color: #555; }
+      :root[data-theme="light"] .terminal {
+        background: #e0dbd2;
+        box-shadow: inset 0 2px 6px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.5);
+      }
+
+      /* Footer + barcode */
+      :root[data-theme="light"] .footer { background: #e8e3da; }
+      :root[data-theme="light"] .footer .identity h3 { color: #1a1a1a; }
+      :root[data-theme="light"] .footer .identity p { color: #777; }
+      :root[data-theme="light"] .footer .copyright { color: #999; }
+      :root[data-theme="light"] .footer .links a { color: #777; }
+      :root[data-theme="light"] .footer .links a:hover { color: var(--accent); }
+      :root[data-theme="light"] .footer .system { color: #8b4513; }
+      :root[data-theme="light"] .barcode {
+        background-image: repeating-linear-gradient(90deg, #333 0px, #333 1px, transparent 1px, transparent 4px, #333 4px, #333 7px, transparent 7px, transparent 8px, #333 8px, #333 9px, transparent 9px, transparent 12px, #333 12px, #333 15px, transparent 15px, transparent 17px, #333 17px, #333 18px, transparent 18px, transparent 23px, #333 23px, #333 26px, transparent 26px, transparent 28px, #333 28px, #333 30px, transparent 30px, transparent 35px, #333 35px, #333 36px, transparent 36px, transparent 38px, #333 38px, #333 42px, transparent 42px, transparent 43px, #333 43px, #333 46px, transparent 46px, transparent 50px, #333 50px, #333 52px, transparent 52px, transparent 54px, #333 54px, #333 58px, transparent 58px, transparent 60px) !important;
+        opacity: 0.5;
+      }
+
+      /* About page cards */
+      :root[data-theme="light"] .about-section,
+      :root[data-theme="light"] .dossier,
+      :root[data-theme="light"] .capability-matrix,
+      :root[data-theme="light"] .knowledge-log,
+      :root[data-theme="light"] .current-research {
+        background: #e8e3da;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+      }
+
+      /* Decorative numbers */
+      :root[data-theme="light"] .number { color: rgba(0,0,0,0.12) !important; }
+
+      /* Tag filter area */
+      :root[data-theme="light"] .tag-filter,
+      :root[data-theme="light"] .tag-filter span,
+      :root[data-theme="light"] .tag-filter button { color: #555; }
+
+      /* Page section headers */
+      :root[data-theme="light"] section header h1 { color: #1a1a1a; }
+      :root[data-theme="light"] section header p { color: #666; }
+
+      /* Note cards */
+      :root[data-theme="light"] .note-card h2,
+      :root[data-theme="light"] .note-card h3 { color: #1a1a1a; }
+      :root[data-theme="light"] .note-card .description { color: #555; }
+      :root[data-theme="light"] .note-card .tags span { color: #555; }
+
+      /* Art gallery */
+      :root[data-theme="light"] .masonry-item { border-color: rgba(0,0,0,0.1); }
+      :root[data-theme="light"] .masonry-item .caption {
+        background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      }
+      :root[data-theme="light"] .lightbox-bg { background: rgba(240,235,225,0.96); }
+      :root[data-theme="light"] .lightbox-body { color: #1a1a1a; }
+
+      /* Terminal — remove dark borders in light mode */
+      :root[data-theme="light"] .terminal { border-color: transparent; }
+      :root[data-theme="light"] .terminal-line { color: #444; }
+
+      /* Hero extra text */
+      :root[data-theme="light"] .hero .cassette { color: #444; }
+      :root[data-theme="light"] .hero .hero-desc { color: #444; }
+
+      /* QQ color match Email */
+      :root[data-theme="light"] .qq { color: #777 !important; }
+      :root[data-theme="light"] .qq:hover { color: var(--accent) !important; }
+
+      /* Footer deeper text */
+      :root[data-theme="light"] .footer .copyright { color: #777; }
+      :root[data-theme="light"] .footer .meta strong { color: #1a1a1a; }
+      :root[data-theme="light"] .footer .status,
+      :root[data-theme="light"] .footer .system { color: #666; }
+      :root[data-theme="light"] .footer .footer-line { color: #777; }
+      :root[data-theme="light"] .footer .identity p { color: #666; }
+
+      /* SYS.LOG text */
+      :root[data-theme="light"] .latest .section-header p,
+      :root[data-theme="light"] .featured .section-header p { color: #555; }
+
+      /* Tag chip filter area */
+      :root[data-theme="light"] .tag-chip { color: #555; border-color: rgba(0,0,0,0.15); }
+      :root[data-theme="light"] .tag-chip:hover { color: #333; }
+      :root[data-theme="light"] .tag-chip.active { color: #fff; }
 
       /* =========================================
          GRID BACKGROUND
@@ -624,12 +807,38 @@ const { title = "R2S Studio" } = Astro.props;
       (() => {
         const overlay = document.getElementById("boot-overlay");
         if (!overlay) return;
-        // Dismiss after a brief moment — simulates CRT warm-up
         window.addEventListener("load", () => {
           setTimeout(() => overlay.classList.add("done"), 150);
         });
-        // Fallback: dismiss after 2s even if load event hasn't fired
         setTimeout(() => overlay.classList.add("done"), 2000);
+      })();
+    </script>
+
+    <!-- ── Theme toggle ── -->
+    <script>
+      (() => {
+        const KEY = "r2s-theme";
+
+        function apply(theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+          try { localStorage.setItem(KEY, theme); } catch (_) {}
+        }
+
+        // Init — prefer stored, then system, fallback dark
+        const stored = (() => { try { return localStorage.getItem(KEY); } catch (_) { return null; } })();
+        if (stored === "light" || stored === "dark") {
+          apply(stored);
+        } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          apply("light");
+        } else {
+          apply("dark");
+        }
+
+        // Expose toggle globally so the navbar switch can call it
+        window.__toggleTheme = function () {
+          const current = document.documentElement.getAttribute("data-theme");
+          apply(current === "light" ? "dark" : "light");
+        };
       })();
     </script>
   </body>

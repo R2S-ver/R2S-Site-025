@@ -37,6 +37,8 @@ gallery:
     title: 苏苏洛 Sussurro — Aug 2025
   - file: 07-mofazhumi.png
     title: 魔法猪咪 Magic Piggy — Sept 2025
+  - file: 08-pepe.png
+    title: Pepe — June 2026
 ---
 
 Digital character illustrations created over time.

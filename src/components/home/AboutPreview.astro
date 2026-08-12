@@ -56,23 +56,31 @@ const aboutPath = getLocalizedPath("/about", language);
 
 <style>
   .about-preview {
-    max-width: 1400px;
-
     margin: 0 auto 120px;
-
-    padding: 0 40px;
 
     font-family: var(--font-mono);
   }
 
   .panel {
+    max-width: 1320px;
+
+    width: calc(100% - 80px);
+
+    margin: 0 auto;
+
     background: rgba(8, 8, 12, 0.9);
 
     border: 1px solid var(--border);
 
+    border-radius: 6px;
+
     position: relative;
 
     overflow: hidden;
+  }
+
+  @media (max-width: 800px) {
+    .panel { max-width: none; margin: 0 16px; }
   }
 
   .panel::before {
@@ -236,4 +244,16 @@ const aboutPath = getLocalizedPath("/about", language);
       font-size: 38px;
     }
   }
+
+  :root[data-theme="light"] .about-preview .panel {
+    background: #e8e3da;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+  }
+  :root[data-theme="light"] .about-preview .header { color: #444; }
+  :root[data-theme="light"] .about-preview h2 { color: #1a1a1a; }
+  :root[data-theme="light"] .about-preview .description p { color: #555; }
+  :root[data-theme="light"] .about-preview .label { color: #777; }
+  :root[data-theme="light"] .about-preview .status { color: #00703c; }
+  :root[data-theme="light"] .about-preview .footer a { color: #00703c; }
+  :root[data-theme="light"] .about-preview .footer { color: #555; }
 </style>

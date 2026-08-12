@@ -1,7 +1,7 @@
 ---
 title: ESP32 + INMP441 音量检测网页显示
 date: 2026-08-01
-description: 使用 INMP441 I2S 全向麦克风搭建实时环境噪音监测系统——FFT 频谱分析 + 网页仪表盘显示 dB、频谱柱状图与历史曲线。
+description: INMP441 I2S 麦克风实时噪音监测——FFT 频谱分析 + 网页仪表盘显示。
 
 type: lab
 category: 嵌入式系统

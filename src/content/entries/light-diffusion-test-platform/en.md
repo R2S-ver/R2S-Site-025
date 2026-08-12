@@ -157,12 +157,12 @@ The platform didn't arrive fully formed. I built it three times, and each versio
 
 ![Iteration Comparison](./01-iteration-comparison.png)
 
-|         | V1 — Single LED                                         | V2 — LED Strip                                              | V3 — LED Strip + PWM                                                       |
-| ------- | ------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Method  | Hand-soldered                                           | Copper foil tape                                            | PWM controller                                                             |
-| Issues  | <span style="color:#e53935">✕</span> Soldering too slow | <span style="color:#e53935">✕</span> Tape unsuitable for 2A | <span style="color:#00ff88">✓</span> Brightness adjustable                 |
-|         | <span style="color:#e53935">✕</span> Light effect poor  | <span style="color:#e53935">✕</span> No brightness control  | <span style="color:#00ff88">✓</span> Diffuse reflection from dark surfaces |
-| Verdict | <span style="color:#e53935">✕ Discarded</span>          | <span style="color:#e53935">✕ Discarded</span>              | <span style="color:#00ff88">✓ Final</span>                                 |
+|                          | V1 — Single LED                                         | V2 — LED Strip                                              | V3 — LED Strip + PWM                                                                     |
+| ------------------------ | ------------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| <strong>Method</strong>  | Hand-soldered                                           | Copper foil tape                                            | PWM controller                                                                           |
+| <strong>Issues</strong>  | <span style="color:#e53935">✕</span> Soldering too slow | <span style="color:#e53935">✕</span> Tape unsuitable for 2A | <span style="color:var(--terminal-green)">✓</span> Brightness adjustable                 |
+|                          | <span style="color:#e53935">✕</span> Light effect poor  | <span style="color:#e53935">✕</span> No brightness control  | <span style="color:var(--terminal-green)">✓</span> Diffuse reflection from dark surfaces |
+| <strong>Verdict</strong> | <span style="color:#e53935">✕ Discarded</span>          | <span style="color:#e53935">✕ Discarded</span>              | <span style="color:var(--terminal-green)">✓ Final</span>                                 |
 
 ### V1: Single LED — Manual Solder
 
@@ -182,9 +182,9 @@ I swapped the individual LEDs for a uniform LED strip and used copper foil tape 
 
 This is the one that stuck:
 
-- <span style="color:#00ff88">**Upgrade:**</span> Ripped out the copper tape and replaced it with oxygen-free copper wire (min 0.5mm²). Properly rated for 2A with margin to spare. Less convenient to work with than tape, but convenience doesn't matter if your test rig burns.
-- <span style="color:#00ff88">**Upgrade:**</span> Added an Arduino-based PWM controller for full-range brightness adjustment. Now I can test at 10%, 50%, 100%, or anywhere in between — and get the same reading every time.
-- <span style="color:#00ff88">**Upgrade:**</span> Painted the interior frame matte black. This sounds trivial, but the improvement in measurement consistency was dramatic. Ambient light and internal reflections had been silently contaminating every reading I took in V1 and V2.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> Ripped out the copper tape and replaced it with oxygen-free copper wire (min 0.5mm²). Properly rated for 2A with margin to spare. Less convenient to work with than tape, but convenience doesn't matter if your test rig burns.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> Added an Arduino-based PWM controller for full-range brightness adjustment. Now I can test at 10%, 50%, 100%, or anywhere in between — and get the same reading every time.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> Painted the interior frame matte black. This sounds trivial, but the improvement in measurement consistency was dramatic. Ambient light and internal reflections had been silently contaminating every reading I took in V1 and V2.
 
 # What the Platform Delivers
 

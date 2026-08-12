@@ -47,7 +47,7 @@ export const translations = {
         line2:
           "My goal is to ensure that visual elegance is always grounded in technical rigor and practical execution.",
       },
-      button: "ACCESS PROJECT DATABASE →",
+      button: "ACCESS PROJECT DATABASE",
     },
 
     featured: {
@@ -184,7 +184,7 @@ export const translations = {
             "Not pretending to already know everything, but being willing to step into unfamiliar territory, learn what is necessary and keep building until the idea becomes real.",
         },
         approach: {
-          description: "Creative pipeline from idea to object.",
+          description: "",
           research: {
             title: "RESEARCH",
             description:
@@ -533,7 +533,7 @@ export const translations = {
         },
 
         approach: {
-          description: "从想法到实物的创意流程。",
+          description: "",
           research: {
             title: "研究",
             description:

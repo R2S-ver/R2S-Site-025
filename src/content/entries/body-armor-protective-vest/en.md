@@ -86,7 +86,7 @@ The workflow was pretty standard for garment prototyping: estimate fabric needs 
 - <strong style="color:var(--accent)">MOLLE isn't just sewing straight lines</strong>: The PALS grid looks simple — one-inch spacing, parallel rows of webbing. But every single attachment point needs a bartack reinforcement, and if your spacing drifts even a couple of millimeters, certain pouches won't fit. It's a standardized interface, and standards don't tolerate slop.
 - <strong style="color:var(--accent)">Adjustability is its own design problem</strong>: Hook-and-loop panels at the shoulders and cummerbund let the vest adapt to different body shapes and clothing layers. That means you don't need to rebuild the whole thing to adjust the fit — which, if you've ever sewn through six layers of nylon, is a feature you'll deeply appreciate.
 
-![Process: Fitting & Adjustment](./04-process-fitting.jpeg)
+![Process: Fitting and Adjustment](./04-process-fitting.jpeg)
 
 ## Modularity at Two Scales
 

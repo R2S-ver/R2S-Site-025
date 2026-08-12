@@ -1,7 +1,7 @@
 ---
 title: ESP32 + EC11 Encoder + OLED Angle Feedback
 date: 2026-08-02
-description: Dual EC11 rotary encoders with SH1106 OLED display and WiFi WebSocket real-time angle feedback — a FreeRTOS multi-task control interface prototype.
+description: Dual EC11 encoders with OLED display and WiFi WebSocket real-time angle feedback.
 
 type: lab
 category: Embedded System

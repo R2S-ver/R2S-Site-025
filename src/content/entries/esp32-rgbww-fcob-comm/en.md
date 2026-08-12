@@ -1,7 +1,7 @@
 ---
 title: ESP32 + RGBWW FCOB LED Communication
 date: 2026-08-02
-description: Testing basic NeoPixelBus communication with an RGBWW FCOB LED strip — cycling through red, green, blue, and white channels to verify correct wiring and protocol.
+description: NeoPixelBus communication test with RGBWW FCOB LED strip — channel cycling and protocol verification.
 
 type: lab
 category: Embedded System

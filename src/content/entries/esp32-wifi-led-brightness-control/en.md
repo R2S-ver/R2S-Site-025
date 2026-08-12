@@ -1,7 +1,7 @@
 ---
 title: ESP32 WiFi LED Brightness Control
 date: 2026-08-04
-description: Using ESP32 WiFi web server and PWM to control build-in LED brightness through a browser interface.
+description: WiFi web server and PWM LED brightness control through a browser interface.
 
 type: lab
 category: Embedded System

@@ -1,7 +1,7 @@
 ---
 title: ESP32 + EC11 旋转编码器 + 步进电机控制
 date: 2026-08-02
-description: 完整嵌入式运动控制系统——双 EC11 编码器、双 OLED 显示、DM430 驱动器、42BL40 步进电机、WiFi WebSocket 仪表盘，支持手动/自动双模式。
+description: 嵌入式运动控制——EC11 编码器、DM430 驱动器、步进电机、WiFi WebSocket 仪表盘。
 
 type: lab
 category: 嵌入式系统

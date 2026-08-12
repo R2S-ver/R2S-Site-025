@@ -1,7 +1,7 @@
 ---
 title: ESP32 + RGBWW FCOB 灯带通讯测试
 date: 2026-08-02
-description: 测试 ESP32 通过 NeoPixelBus 库与 RGBWW FCOB LED 灯带的基本通信——依次循环红、绿、蓝、白四个通道，验证接线与协议正确性。
+description: ESP32 NeoPixelBus 与 RGBWW FCOB LED 灯带通信测试——通道循环与协议验证。
 
 type: lab
 category: 嵌入式系统

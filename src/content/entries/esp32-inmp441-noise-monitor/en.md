@@ -1,7 +1,7 @@
 ---
 title: ESP32 + INMP441 Noise Monitor
 date: 2026-08-01
-description: Real-time ambient noise monitoring with an INMP441 I2S microphone, FFT spectrum analysis, and a web dashboard displaying dB level, frequency spectrum, and noise history charts.
+description: Real-time noise monitoring with INMP441 I2S mic, FFT analysis and web dashboard.
 
 type: lab
 category: Embedded System

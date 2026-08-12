@@ -1,7 +1,7 @@
 ---
 title: ESP32 串口输出测试
 date: 2026-07-20
-description: 验证 ESP32 单片机基本功能——上传简单程序并通过 USB 串口确认数据通信正常。
+description: 验证 ESP32 单片机基本功能——上传程序并通过 USB 串口确认通信正常。
 
 type: lab
 category: 嵌入式系统

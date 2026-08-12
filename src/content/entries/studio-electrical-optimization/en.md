@@ -1,7 +1,7 @@
 ---
 title: Studio Electrical Safety & Optimization
 date: 2026-05-14
-description: Electrical infrastructure analysis of a home workshop, identifying 9 risk factors and implementing a star-topology power distribution system with zoned circuit separation.
+description: Home workshop electrical analysis — 9 risk factors identified, star-topology distribution system implemented.
 
 type: lab
 category: Electrical Engineering

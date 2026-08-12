@@ -1,7 +1,7 @@
 ---
 title: Tinkercad 3-Channel LED Strip Control
 date: 2026-07-25
-description: Virtual circuit simulation of a 3-channel individually-addressable LED strip controller using push buttons for channel selection and potentiometers for RGB + brightness control.
+description: Virtual 3-channel LED strip controller with push buttons and potentiometer RGB control.
 
 type: lab
 category: Embedded System

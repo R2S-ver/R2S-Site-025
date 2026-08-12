@@ -1,7 +1,7 @@
 ---
 title: ESP32 + RGBWW FCOB 灯带网页色环控制
 date: 2026-07-31
-description: 通过 WiFi 网页色环和 RGB 滑块，实时控制 RGBWW FCOB LED 灯带颜色——含 RGB→RGBW 白光提取算法。
+description: WiFi 网页色环与 RGB 滑块实时控制 RGBWW LED 灯带，含 RGB→RGBW 白光提取算法。
 
 type: lab
 category: 嵌入式系统

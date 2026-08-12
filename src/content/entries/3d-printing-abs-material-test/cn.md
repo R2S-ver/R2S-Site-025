@@ -3,7 +3,7 @@ title: ABS 3D打印材料研究
 
 date: 2026-04-29
 
-description: 针对ABS FDM打印、封箱温度控制、热稳定性以及挤出可靠性进行的实验研究。
+description: ABS FDM 打印研究——封箱温度控制、热稳定性与挤出可靠性实验。
 
 type: lab
 

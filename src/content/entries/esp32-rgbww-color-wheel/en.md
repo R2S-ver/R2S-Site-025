@@ -1,7 +1,7 @@
 ---
 title: ESP32 + RGBWW FCOB LED Color Wheel Control
 date: 2026-07-31
-description: WiFi-controlled RGBWW FCOB LED strip with a web-based colour wheel picker, RGB-to-RGBW white extraction algorithm, and real-time brightness control.
+description: WiFi-controlled RGBWW LED strip with web colour wheel picker and RGB-to-RGBW conversion.
 
 type: lab
 category: Embedded System

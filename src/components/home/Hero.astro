@@ -10,7 +10,7 @@ const projectsPath = getLocalizedPath("/projects", language);
 <section class="hero">
   <!-- ── Decorative background ── -->
   <div class="hero-bg" aria-hidden="true">
-<div class="grid-cross cross-tl"></div>
+    <div class="grid-cross cross-tl"></div>
     <div class="grid-cross cross-tr"></div>
     <div class="grid-cross cross-bl"></div>
     <div class="grid-cross cross-br"></div>
@@ -155,7 +155,7 @@ const projectsPath = getLocalizedPath("/projects", language);
           clearInterval(timer);
           setTimeout(() => {
             span.textContent = result;
-            span.style.color = "#00ff88";
+            span.style.color = "var(--terminal-green)";
             resolve();
           }, 120);
         }
@@ -231,7 +231,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     align-items: flex-start;
     justify-content: space-between;
     gap: 100px;
-    padding: 120px 40px 80px;
+    padding: 15px 40px 80px;
     position: relative;
     overflow: hidden;
   }
@@ -245,7 +245,6 @@ const projectsPath = getLocalizedPath("/projects", language);
     pointer-events: none;
     z-index: 1;
   }
-
 
   /* Coordinate cross markers */
   .grid-cross {
@@ -687,7 +686,7 @@ const projectsPath = getLocalizedPath("/projects", language);
 
   .terminal-content {
     line-height: 2;
-    color: #00ff88;
+    color: var(--terminal-green);
     height: 240px;
     overflow-y: hidden;
     position: relative;
@@ -736,5 +735,48 @@ const projectsPath = getLocalizedPath("/projects", language);
     .hero-bg {
       display: none;
     }
+  }
+
+  /* ── Light mode ── */
+  :root[data-theme="light"] .terminal {
+    border-color: rgba(0,0,0,0.08);
+    background: #e8e3da;
+    box-shadow:
+      inset 0 2px 6px rgba(0,0,0,0.06),
+      inset 0 -1px 3px rgba(0,0,0,0.04),
+      0 4px 16px rgba(0,0,0,0.05),
+      0 1px 0 rgba(255,255,255,0.6);
+  }
+  :root[data-theme="light"] .terminal::before {
+    background: linear-gradient(90deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05), transparent);
+  }
+  :root[data-theme="light"] .terminal::after {
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), rgba(0,0,0,0.1));
+  }
+  :root[data-theme="light"] .crt-fade-top {
+    background: linear-gradient(to bottom, #e8e3da 0%, transparent 100%);
+  }
+  :root[data-theme="light"] .crt-fade-bot {
+    background: linear-gradient(to top, #e8e3da 0%, transparent 100%);
+  }
+  :root[data-theme="light"] .telemetry-strip {
+    color: #666;
+    border-bottom-color: rgba(0,0,0,0.1);
+  }
+  :root[data-theme="light"] .terminal-header {
+    color: #1a1a1a;
+    border-bottom-color: rgba(0,0,0,0.12);
+  }
+  :root[data-theme="light"] .terminal-header span {
+    color: #8b4513;
+  }
+  :root[data-theme="light"] .tel-sep {
+    color: rgba(0,0,0,0.12);
+  }
+  :root[data-theme="light"] .coords {
+    color: rgba(0,0,0,0.25);
+  }
+  :root[data-theme="light"] .hero h1 {
+    color: #1a1a1a;
   }
 </style>

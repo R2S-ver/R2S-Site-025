@@ -1,7 +1,7 @@
 ---
 title: ESP32 Serial Output Test
 date: 2026-07-20
-description: Basic verification of ESP32 microcontroller functionality — uploading a simple sketch and confirming serial communication over USB.
+description: ESP32 microcontroller verification — uploading a sketch and confirming serial communication over USB.
 
 type: lab
 category: Embedded System

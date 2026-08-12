@@ -157,12 +157,12 @@ translationKey: light-diffusion-test-platform
 
 ![迭代对比](./01-iteration-comparison.png)
 
-|      | V1 — 单 LED                                       | V2 — LED 灯带                                      | V3 — LED 灯带 + PWM                               |
-| ---- | ------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------- |
-| 方法 | 手工焊接                                          | 铜箔胶带                                           | PWM 控制器                                        |
-| 问题 | <span style="color:#e53935">✕</span> 焊接速度太慢 | <span style="color:#e53935">✕</span> 胶带不适配 2A | <span style="color:#00ff88">✓</span> 亮度可调     |
-|      | <span style="color:#e53935">✕</span> 灯光效果差   | <span style="color:#e53935">✕</span> 无亮度控制    | <span style="color:#00ff88">✓</span> 暗表面漫反射 |
-| 结论 | <span style="color:#e53935">✕ 已弃用</span>       | <span style="color:#e53935">✕ 已弃用</span>        | <span style="color:#00ff88">✓ 最终版本</span>     |
+|                       | V1 — 单 LED                                       | V2 — LED 灯带                                      | V3 — LED 灯带 + PWM                                             |
+| --------------------- | ------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------- |
+| <strong>方法</strong> | 手工焊接                                          | 铜箔胶带                                           | PWM 控制器                                                      |
+| <strong>问题</strong> | <span style="color:#e53935">✕</span> 焊接速度太慢 | <span style="color:#e53935">✕</span> 胶带不适配 2A | <span style="color:var(--terminal-green)">✓</span> 亮度可调     |
+|                       | <span style="color:#e53935">✕</span> 灯光效果差   | <span style="color:#e53935">✕</span> 无亮度控制    | <span style="color:var(--terminal-green)">✓</span> 暗表面漫反射 |
+| <strong>结论</strong> | <span style="color:#e53935">✕ 已弃用</span>       | <span style="color:#e53935">✕ 已弃用</span>        | <span style="color:var(--terminal-green)">✓ 最终版本</span>     |
 
 ### 版本一：单 LED ——手工焊接
 
@@ -182,9 +182,9 @@ translationKey: light-diffusion-test-platform
 
 这个版本是最终钉下来的：
 
-- <span style="color:#00ff88">**改进：**</span> 铜箔胶带全部拆掉，换成无氧铜导线（最小截面积 0.5mm²）。额定 2A 且有余量。比胶带难走线，但安全比方便重要得多。
-- <span style="color:#00ff88">**改进：**</span> 加了基于 Arduino 的 PWM 控制器，全范围可调亮度。现在可以测 10%、50%、100%，或者任意中间档位——而且每次读数一致。
-- <span style="color:#00ff88">**改进：**</span> 框架内壁全喷哑光黑。听起来是件小事，但测量一致性的改善非常明显。环境光和内部反射在 V1 和 V2 里一直在悄悄污染每一次读数。
+- <span style="color:var(--terminal-green)">**改进：**</span> 铜箔胶带全部拆掉，换成无氧铜导线（最小截面积 0.5mm²）。额定 2A 且有余量。比胶带难走线，但安全比方便重要得多。
+- <span style="color:var(--terminal-green)">**改进：**</span> 加了基于 Arduino 的 PWM 控制器，全范围可调亮度。现在可以测 10%、50%、100%，或者任意中间档位——而且每次读数一致。
+- <span style="color:var(--terminal-green)">**改进：**</span> 框架内壁全喷哑光黑。听起来是件小事，但测量一致性的改善非常明显。环境光和内部反射在 V1 和 V2 里一直在悄悄污染每一次读数。
 
 # 平台能做什么
 

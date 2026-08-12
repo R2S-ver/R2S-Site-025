@@ -1,7 +1,7 @@
 ---
 title: Tinkercad 三通道灯条独立控制
 date: 2026-07-25
-description: 在 Tinkercad 中搭建虚拟电路——三个按钮切换当前灯条，四个旋钮电位器分别控制 RGB 与亮度，实现对三条 NeoPixel 灯带的独立控制。
+description: Tinkercad 虚拟电路——三路 LED 灯条独立控制，按钮切换 + 电位器调节 RGB 与亮度。
 
 type: lab
 category: 嵌入式系统
