@@ -53,9 +53,9 @@ const t = getTranslations(language);
 
 <style>
   .featured {
-    max-width: 1400px;
+    max-width: var(--container-wide);
 
-    margin: 0 auto 120px;
+    margin: 0 auto var(--section-gap);
 
     padding: 0 40px;
 
@@ -69,9 +69,9 @@ const t = getTranslations(language);
   .data-tag {
     display: inline-block;
 
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
 
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
 
     padding: 8px 15px;
 
@@ -83,11 +83,11 @@ const t = getTranslations(language);
   }
 
   h2 {
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: var(--text-scale-display);
 
     font-weight: 900;
 
-    letter-spacing: -3px;
+    letter-spacing: var(--tracking-display);
 
     margin-bottom: 15px;
 
@@ -95,11 +95,11 @@ const t = getTranslations(language);
   }
 
   .section-header p {
-    color: #777;
+    color: var(--text-dim);
 
-    font-size: 12px;
+    font-size: var(--text-scale-2xs);
 
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
   }
 
   .project-count {
@@ -111,11 +111,11 @@ const t = getTranslations(language);
 
     margin-bottom: 35px;
 
-    font-size: 12px;
+    font-size: var(--text-scale-2xs);
 
-    color: #777;
+    color: var(--text-dim);
 
-    border-bottom: 1px dashed #333;
+    border-bottom: 1px dashed var(--border-divider);
 
     padding-bottom: 15px;
   }
@@ -129,7 +129,7 @@ const t = getTranslations(language);
 
     grid-template-columns: repeat(3, 1fr);
 
-    gap: 35px;
+    gap: var(--grid-gap-wide);
   }
 
   .project-wrapper {

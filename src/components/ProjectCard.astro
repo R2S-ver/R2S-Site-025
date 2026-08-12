@@ -64,7 +64,7 @@ const type = project.data.type.toUpperCase();
         <div class="image-label">{t.card.imageStream}</div>
 
         {
-          project.data.translationKey === "zoem-bike-cargo-box" && (
+          project.data.collaboration && project.data.collaboration.length > 0 && (
             <div class="collab-badge">
               {t.card.team}
             </div>
@@ -115,11 +115,11 @@ const type = project.data.type.toUpperCase();
 
     position: relative;
 
-    background: rgba(8, 8, 13, 0.92);
+    background: var(--surface-ink);
 
     border: 1px solid var(--border);
 
-    color: white;
+    color: var(--text-bright);
 
     text-decoration: none;
 
@@ -180,7 +180,7 @@ const type = project.data.type.toUpperCase();
 
     box-shadow:
       0 20px 60px rgba(0, 0, 0, 0.7),
-      0 0 0 1px rgba(232, 148, 58, 0.15);
+      0 0 0 1px rgba(var(--accent-rgb), 0.15);
   }
 
   /* ── Hover gloss sweep ── */
@@ -221,11 +221,11 @@ const type = project.data.type.toUpperCase();
 
     border-bottom: 1px solid var(--border);
 
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
 
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
 
-    color: #777;
+    color: var(--text-dim);
   }
 
   .status {
@@ -255,7 +255,7 @@ const type = project.data.type.toUpperCase();
 
     z-index: 2;
 
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
 
     background: #000;
 
@@ -267,7 +267,7 @@ const type = project.data.type.toUpperCase();
   }
 
   :root[data-theme="light"] .image-label {
-    background: #e8e3da;
+    background: var(--paper);
   }
 
   .collab-badge {
@@ -282,11 +282,11 @@ const type = project.data.type.toUpperCase();
     /* Typography */
     font-family: var(--font-mono);
 
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
 
     font-weight: 700;
 
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
 
     /* Shape — angular industrial tag */
     padding: 4px 10px;
@@ -408,7 +408,7 @@ const type = project.data.type.toUpperCase();
   }
 
   h2 {
-    font-size: 28px;
+    font-size: var(--text-scale-card);
 
     font-weight: 900;
 
@@ -416,11 +416,11 @@ const type = project.data.type.toUpperCase();
 
     margin-bottom: 15px;
 
-    letter-spacing: -1px;
+    letter-spacing: var(--tracking-slight);
   }
 
   .description {
-    font-size: 13px;
+    font-size: var(--text-scale-xs);
 
     color: #aaa;
 
@@ -440,11 +440,11 @@ const type = project.data.type.toUpperCase();
   }
 
   .tags span {
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
 
     padding: 5px 10px;
 
-    border: 1px solid #333;
+    border: 1px solid var(--border-divider);
 
     background: #111;
   }
@@ -452,19 +452,19 @@ const type = project.data.type.toUpperCase();
   .tags span:nth-child(3n + 1) {
     border-color: var(--stripe-red);
 
-    color: #ff8888;
+    color: var(--stripe-red-soft);
   }
 
   .tags span:nth-child(3n + 2) {
     border-color: var(--stripe-yellow);
 
-    color: #ffe66d;
+    color: var(--stripe-yellow-soft);
   }
 
   .tags span:nth-child(3n) {
     border-color: var(--stripe-teal);
 
-    color: #66d5ff;
+    color: var(--stripe-teal-soft);
   }
 
   .footer {
@@ -472,12 +472,12 @@ const type = project.data.type.toUpperCase();
 
     justify-content: space-between;
 
-    border-top: 1px dashed #333;
+    border-top: 1px dashed var(--border-divider);
 
     padding-top: 15px;
 
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
 
-    color: #777;
+    color: var(--text-dim);
   }
 </style>

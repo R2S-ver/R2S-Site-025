@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
-import { getLanguageFromPath } from "../../utils/i18n";
+import { getLanguageFromPath, getLocalizedPath } from "../../utils/i18n";
 import { getTranslations } from "../../utils/translations";
 
 const language = getLanguageFromPath(Astro.url.pathname);
@@ -31,7 +31,7 @@ const topTags = filterTags
   .map((t) => [t, notes.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title={`${t.sections.notes.title} | R2S Studio`}>
+<Layout title={`${t.sections.notes.title} | R2S Studio`} description={t.meta.description}>
   <main class="notes-page">
     <header class="notes-header">
       <h1>{t.sections.notes.title}</h1>
@@ -54,7 +54,7 @@ const topTags = filterTags
     <div class="notes-list" id="notes-list">
       {notes.map((entry) => (
         <a
-          href={`/note/${entry.id.split("/")[0]}`}
+          href={`${getLocalizedPath("/note", language)}/${entry.id.split("/")[0]}`}
           class="note-row"
           data-tags={JSON.stringify(entry.data.tags || [])}
         >
@@ -100,7 +100,7 @@ const topTags = filterTags
 
 <style>
   .notes-page {
-    max-width: 900px;
+    max-width: var(--container-text);
     margin: auto;
     padding: 0 40px 80px;
   }
@@ -110,7 +110,7 @@ const topTags = filterTags
   }
 
   .notes-header h1 {
-    font-size: 64px;
+    font-size: var(--text-scale-h1);
     line-height: 1.2;
   }
 
@@ -120,61 +120,25 @@ const topTags = filterTags
     margin-top: 8px;
   }
 
-  /* ── Tag chips ── */
-  .tag-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  /* ── Tag chips — global styles in global.css §12; local density overrides ── */
+  .notes-page .tag-bar {
     margin-bottom: 32px;
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
   }
 
-  .tag-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .notes-page .tag-chip {
     padding: 6px 14px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 999px;
-    background: rgba(255,255,255,0.04);
-    color: #999;
-    font-family: var(--font-mono);
     font-size: 11px;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition:
-      background 0.25s var(--ease-out),
-      border-color 0.25s var(--ease-out),
-      color 0.2s var(--ease-out),
-      transform 0.2s var(--spring-snappy);
   }
 
-  .tag-chip:hover {
-    border-color: rgba(255,255,255,0.3);
-    color: #ddd;
-    background: rgba(255,255,255,0.08);
+  :root[data-theme="light"] .notes-page .tag-chip {
+    background: rgba(0,0,0,0.03);
   }
 
-  .tag-chip:active {
-    transform: scale(0.93);
-    transition: transform 0.08s var(--spring-snappy);
-  }
-
-  .tag-chip.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #000;
-    font-weight: 700;
-  }
-
-  .tag-count {
-    font-size: 10px;
-    opacity: 0.6;
-  }
-
-  .tag-chip.active .tag-count {
-    color: rgba(0,0,0,0.5);
+  :root[data-theme="light"] .notes-page .tag-chip:hover {
+    color: #333;
+    border-color: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.06);
   }
 
   /* ── Row list ── */
@@ -200,7 +164,7 @@ const topTags = filterTags
     margin: 0 -12px;
     padding-left: 12px;
     padding-right: 12px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
   }
 
   .note-left {
@@ -223,8 +187,8 @@ const topTags = filterTags
   }
 
   .note-desc {
-    font-size: 13px;
-    color: #777;
+    font-size: var(--text-scale-xs);
+    color: var(--text-dim);
     margin: 0;
     line-height: 1.5;
     display: -webkit-box;
@@ -246,9 +210,9 @@ const topTags = filterTags
     display: inline-block;
     padding: 3px 10px;
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
     color: #888;
     letter-spacing: 0.3px;
     white-space: nowrap;
@@ -274,17 +238,10 @@ const topTags = filterTags
     }
   }
 
-  :root[data-theme="light"] .note-title { color: #1a1a1a; }
+  :root[data-theme="light"] .note-title { color: var(--text-bright); }
   :root[data-theme="light"] .note-row:hover .note-title { color: var(--accent); }
-  :root[data-theme="light"] .note-desc { color: #555; }
-  :root[data-theme="light"] .note-tag { color: #555; border-color: rgba(0,0,0,0.15); }
+  :root[data-theme="light"] .note-desc { color: var(--text-dim); }
+  :root[data-theme="light"] .note-tag { color: var(--text-dim); border-color: var(--border-strong); }
   :root[data-theme="light"] .note-row { border-bottom-color: rgba(0,0,0,0.08); }
-  :root[data-theme="light"] .note-row:hover { background: rgba(0,0,0,0.03); }
-  :root[data-theme="light"] .tag-chip { color: #555; border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.03); }
-  :root[data-theme="light"] .tag-chip:hover { color: #333; border-color: rgba(0,0,0,0.3); background: rgba(0,0,0,0.06); }
-  :root[data-theme="light"] .tag-chip.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
+  :root[data-theme="light"] .note-row:hover { background: var(--hover-bg); }
 </style>

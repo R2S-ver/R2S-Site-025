@@ -227,7 +227,7 @@ const projectsPath = getLocalizedPath("/projects", language);
 
 <style>
   .hero {
-    max-width: 1400px;
+    max-width: var(--container-wide);
     margin: auto;
     min-height: calc(100vh - 75px);
     display: flex;
@@ -297,8 +297,8 @@ const projectsPath = getLocalizedPath("/projects", language);
   .coords {
     position: absolute;
     font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 1.5px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-wider);
     color: rgba(232, 160, 64, 0.4);
   }
   .coord-top {
@@ -325,9 +325,9 @@ const projectsPath = getLocalizedPath("/projects", language);
     align-items: center;
     gap: 8px;
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
     color: var(--accent);
     border: 1px solid var(--accent);
     padding: 8px 14px;
@@ -423,10 +423,10 @@ const projectsPath = getLocalizedPath("/projects", language);
 
   h1 {
     font-family: var(--font-mono);
-    font-size: clamp(80px, 10vw, 110px);
+    font-size: var(--text-scale-hero);
     font-weight: 900;
     line-height: 0.9;
-    letter-spacing: -6px;
+    letter-spacing: var(--tracking-hero);
     min-height: 1.8em;
   }
   h1 .accent {
@@ -456,7 +456,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     gap: 20px;
     margin-top: 45px;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: var(--text-scale-2xs);
     color: var(--accent);
   }
 
@@ -532,9 +532,9 @@ const projectsPath = getLocalizedPath("/projects", language);
   .description {
     margin-top: 35px;
     max-width: 620px;
-    font-size: 18px;
+    font-size: var(--text-scale-body);
     line-height: 1.8;
-    color: #ddd;
+    color: var(--text-soft);
     border-left: 3px solid var(--accent);
     padding-left: 20px;
     min-height: 3.6em;
@@ -549,7 +549,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     border: 1px solid transparent;
     font-family: var(--font-mono);
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
     transition:
       background 0.25s var(--ease-out),
       color 0.25s var(--ease-out),
@@ -585,7 +585,7 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
 
   .btn-icon {
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
     color: var(--accent);
   }
   @keyframes btnTextIn {
@@ -606,10 +606,10 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
   .button:hover {
     background: var(--accent);
-    color: black;
+    color: var(--on-accent);
   }
   .button:hover .btn-icon {
-    color: black;
+    color: var(--on-accent);
   }
 
   /* ═══════════════════════════════════════════
@@ -620,13 +620,13 @@ const projectsPath = getLocalizedPath("/projects", language);
     flex-shrink: 0;
     margin-top: 70px;
     padding: 32px;
-    background: rgba(5, 5, 10, 0.85);
+    background: var(--surface-night);
     border: 1px solid var(--accent);
     box-shadow:
       0 0 30px rgba(255, 95, 31, 0.12),
       inset 0 0 80px rgba(232, 120, 53, 0.02);
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: var(--text-scale-xs);
     position: relative;
     z-index: 1;
     opacity: 0;
@@ -674,8 +674,8 @@ const projectsPath = getLocalizedPath("/projects", language);
     padding-bottom: 14px;
     margin-bottom: 14px;
     border-bottom: 1px solid rgba(255, 95, 31, 0.15);
-    font-size: 9px;
-    letter-spacing: 1px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
     color: rgba(232, 160, 64, 0.55);
     font-weight: 700;
   }
@@ -688,7 +688,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     margin-bottom: 20px;
     border-bottom: 1px dashed rgba(255, 95, 31, 0.4);
     font-weight: bold;
-    color: white;
+    color: var(--text-bright);
     line-height: 1.8;
   }
   .terminal-header span {
@@ -714,7 +714,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      rgba(5, 5, 10, 1) 0%,
+      var(--surface-night-solid) 0%,
       transparent 100%
     );
   }
@@ -751,7 +751,7 @@ const projectsPath = getLocalizedPath("/projects", language);
   /* ── Light mode ── */
   :root[data-theme="light"] .terminal {
     border-color: rgba(0,0,0,0.08);
-    background: #e8e3da;
+    background: var(--paper);
     box-shadow:
       inset 0 2px 6px rgba(0,0,0,0.06),
       inset 0 -1px 3px rgba(0,0,0,0.04),
@@ -765,21 +765,21 @@ const projectsPath = getLocalizedPath("/projects", language);
     background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), rgba(0,0,0,0.1));
   }
   :root[data-theme="light"] .crt-fade-top {
-    background: linear-gradient(to bottom, #e8e3da 0%, transparent 100%);
+    background: linear-gradient(to bottom, var(--paper) 0%, transparent 100%);
   }
   :root[data-theme="light"] .crt-fade-bot {
-    background: linear-gradient(to top, #e8e3da 0%, transparent 100%);
+    background: linear-gradient(to top, var(--paper) 0%, transparent 100%);
   }
   :root[data-theme="light"] .telemetry-strip {
-    color: #666;
+    color: var(--text-tertiary);
     border-bottom-color: rgba(0,0,0,0.1);
   }
   :root[data-theme="light"] .terminal-header {
-    color: #1a1a1a;
+    color: var(--text-bright);
     border-bottom-color: rgba(0,0,0,0.12);
   }
   :root[data-theme="light"] .terminal-header span {
-    color: #8b4513;
+    color: var(--accent-deep);
   }
   :root[data-theme="light"] .tel-sep {
     color: rgba(0,0,0,0.12);
@@ -788,6 +788,6 @@ const projectsPath = getLocalizedPath("/projects", language);
     color: rgba(0,0,0,0.25);
   }
   :root[data-theme="light"] .hero h1 {
-    color: #1a1a1a;
+    color: var(--text-bright);
   }
 </style>

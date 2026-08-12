@@ -7,7 +7,7 @@ const lang = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(lang);
 ---
 
-<Layout title={`${t.sections.about.title} | R2S Studio`}>
+<Layout title={`${t.sections.about.title} | R2S Studio`} description={t.meta.description}>
   <main class="about-page">
     <!-- =====================================================
     HERO
@@ -2053,7 +2053,7 @@ const t = getTranslations(lang);
   }
 
   .about-page {
-    max-width: 1400px;
+    max-width: var(--container-wide);
     margin: 0 auto;
     padding: 80px 40px 120px;
     font-family: var(--font-mono);
@@ -2063,14 +2063,14 @@ const t = getTranslations(lang);
   .section-label {
     margin-bottom: 30px;
     color: var(--accent);
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .system-tag {
-    color: #777;
-    font-size: 10px;
-    letter-spacing: 2px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   /* =====================================================
@@ -2078,7 +2078,7 @@ const t = getTranslations(lang);
   ====================================================== */
 
   .about-hero {
-    margin-bottom: 120px;
+    margin-bottom: var(--section-gap);
   }
 
   .hero-meta {
@@ -2086,9 +2086,9 @@ const t = getTranslations(lang);
     justify-content: space-between;
     padding-bottom: 15px;
     border-bottom: 1px dashed var(--border);
-    color: #777;
-    font-size: 10px;
-    letter-spacing: 2px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .hero-meta span:last-child {
@@ -2105,8 +2105,8 @@ const t = getTranslations(lang);
   .eyebrow {
     margin-bottom: 20px;
     color: var(--accent);
-    font-size: 11px;
-    letter-spacing: 3px;
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-wide);
   }
 
   h1 {
@@ -2121,7 +2121,7 @@ const t = getTranslations(lang);
     max-width: 700px;
     margin-top: 35px;
     color: #aaa;
-    font-size: 18px;
+    font-size: var(--text-scale-body);
     line-height: 1.8;
   }
 
@@ -2133,8 +2133,8 @@ const t = getTranslations(lang);
   }
 
   .hero-index span {
-    font-size: 10px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .hero-index strong {
@@ -2153,7 +2153,7 @@ const t = getTranslations(lang);
   .capabilities-section,
   .journey-section,
   .current-section {
-    margin-bottom: 120px;
+    margin-bottom: var(--section-gap);
   }
 
   .intro-layout {
@@ -2181,9 +2181,9 @@ const t = getTranslations(lang);
   .intro-marker span {
     padding: 7px 10px;
     border: 1px solid var(--border);
-    color: #777;
-    font-size: 9px;
-    letter-spacing: 1px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
   }
 
   .intro-content {
@@ -2192,13 +2192,13 @@ const t = getTranslations(lang);
 
   .intro-content p {
     margin: 0 0 25px;
-    color: #999;
+    color: var(--text-tertiary);
     font-size: 16px;
     line-height: 1.9;
   }
 
   .intro-content .intro-lead {
-    color: white;
+    color: var(--text-bright);
     font-size: 21px;
     line-height: 1.7;
   }
@@ -2214,13 +2214,13 @@ const t = getTranslations(lang);
 
   .intro-statement span {
     margin-bottom: 10px;
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .intro-statement strong {
     font-size: 20px;
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
     white-space: normal;
   }
 
@@ -2239,8 +2239,8 @@ const t = getTranslations(lang);
     padding: 18px 25px;
     border-bottom: 1px dashed var(--border);
     color: var(--accent);
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .online {
@@ -2259,21 +2259,21 @@ const t = getTranslations(lang);
 
   .identity-label {
     margin-bottom: 15px;
-    color: #777;
-    font-size: 10px;
-    letter-spacing: 2px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .identity h2 {
     margin: 0 0 15px;
     font-size: 44px;
-    letter-spacing: -2px;
+    letter-spacing: var(--tracking-tight);
   }
 
   .identity p {
     margin: 0;
     color: var(--terminal-green);
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
     font-weight: bold;
   }
 
@@ -2288,7 +2288,7 @@ const t = getTranslations(lang);
     padding: 18px 0;
     border-bottom: 1px solid var(--border);
     color: #bbb;
-    font-size: 12px;
+    font-size: var(--text-scale-2xs);
     line-height: 1.6;
   }
 
@@ -2298,7 +2298,7 @@ const t = getTranslations(lang);
 
   .data-label {
     color: #666;
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
   }
 
   /* =====================================================
@@ -2325,13 +2325,13 @@ const t = getTranslations(lang);
 
   .philosophy-copy p {
     margin: 0 0 25px;
-    color: #999;
+    color: var(--text-tertiary);
     font-size: 16px;
     line-height: 1.9;
   }
 
   .philosophy-copy .lead {
-    color: white;
+    color: var(--text-bright);
     font-size: 21px;
   }
 
@@ -2347,21 +2347,21 @@ const t = getTranslations(lang);
   }
 
   .motto-label {
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .motto-content strong {
     display: block;
     margin-bottom: 12px;
     font-size: clamp(20px, 3vw, 32px);
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
   }
 
   .motto-content p {
     max-width: 650px;
     margin: 0;
-    font-size: 12px;
+    font-size: var(--text-scale-2xs);
     line-height: 1.7;
   }
 
@@ -2406,8 +2406,8 @@ const t = getTranslations(lang);
   .process-header p {
     max-width: 600px;
     margin: 0;
-    color: #999;
-    font-size: 15px;
+    color: var(--text-tertiary);
+    font-size: var(--text-scale-sm);
     line-height: 1.9;
   }
 
@@ -2415,7 +2415,7 @@ const t = getTranslations(lang);
     position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    gap: var(--grid-gap-tight);
     padding-top: 40px;
   }
 
@@ -2518,8 +2518,8 @@ const t = getTranslations(lang);
     top: 4px;
     left: 38px;
     color: #444;
-    font-size: 9px;
-    letter-spacing: 1px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
   }
 
   .station-content {
@@ -2532,7 +2532,7 @@ const t = getTranslations(lang);
     margin-bottom: 8px;
     color: #444;
     font-size: 7px;
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
     transition: color 0.4s var(--ease-out);
   }
 
@@ -2546,8 +2546,8 @@ const t = getTranslations(lang);
 
   .station-code {
     color: var(--accent);
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .station-content h3 {
@@ -2557,8 +2557,8 @@ const t = getTranslations(lang);
 
   .station-content p {
     margin: 0;
-    color: #777;
-    font-size: 12px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-2xs);
     line-height: 1.8;
   }
 
@@ -2604,7 +2604,7 @@ const t = getTranslations(lang);
     margin-top: 12px;
     color: #555;
     font-size: 8px;
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
   }
 
   /* =====================================================
@@ -2622,9 +2622,9 @@ const t = getTranslations(lang);
     justify-content: space-between;
     padding: 14px 20px;
     border-bottom: 1px dashed var(--border);
-    color: #777;
-    font-size: 9px;
-    letter-spacing: 2px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .console-top b {
@@ -2651,7 +2651,7 @@ const t = getTranslations(lang);
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     background: #08080c;
-    color: #777;
+    color: var(--text-dim);
     font-family: var(--font-mono);
     text-align: left;
     cursor: pointer;
@@ -2673,19 +2673,19 @@ const t = getTranslations(lang);
     display: block;
     margin-bottom: 20px;
     color: #444;
-    font-size: 9px;
+    font-size: var(--text-scale-5xs);
   }
 
   .cap-button strong {
     display: block;
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    font-size: var(--text-scale-xs);
+    letter-spacing: var(--tracking-micro);
     white-space: pre-line;
   }
 
   .cap-button:hover {
     background: #111116;
-    color: white;
+    color: var(--text-bright);
   }
 
   .cap-button.active {
@@ -2694,7 +2694,7 @@ const t = getTranslations(lang);
       rgba(232, 160, 64, 0.15),
       rgba(232, 160, 64, 0.025)
     );
-    color: white;
+    color: var(--text-bright);
     border-left-color: var(--accent);
   }
 
@@ -2715,8 +2715,8 @@ const t = getTranslations(lang);
     justify-content: space-between;
     padding: 15px 20px;
     color: #666;
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
     flex-shrink: 0;
   }
 
@@ -2761,7 +2761,7 @@ const t = getTranslations(lang);
     position: absolute;
     color: rgba(232, 160, 64, 0.45);
     font-size: 7px;
-    letter-spacing: 1.5px;
+    letter-spacing: var(--tracking-wider);
     pointer-events: none;
   }
 
@@ -2783,8 +2783,8 @@ const t = getTranslations(lang);
 
   .display-kicker {
     color: var(--accent);
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .display-body h3 {
@@ -2792,7 +2792,7 @@ const t = getTranslations(lang);
     margin: 16px 0 12px;
     font-size: clamp(26px, 3.5vw, 46px);
     line-height: 1.05;
-    letter-spacing: -2px;
+    letter-spacing: var(--tracking-tight);
     white-space: pre-line;
   }
 
@@ -2816,7 +2816,7 @@ const t = getTranslations(lang);
   }
 
   .journey-header h2 {
-    max-width: 900px;
+    max-width: var(--container-text);
     margin: 25px 0 0;
     font-size: clamp(40px, 6vw, 72px);
     line-height: 0.95;
@@ -2857,7 +2857,7 @@ const t = getTranslations(lang);
     justify-content: space-between;
     color: #4b4b50;
     font-size: 8px;
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
     z-index: 5;
   }
 
@@ -2929,14 +2929,14 @@ const t = getTranslations(lang);
     margin-bottom: 7px;
     color: var(--accent);
     font-size: 7px;
-    letter-spacing: 1.5px;
+    letter-spacing: var(--tracking-wider);
   }
 
   .skill-node-content strong {
     display: block;
     margin-bottom: 7px;
-    color: #ddd;
-    font-size: 12px;
+    color: var(--text-soft);
+    font-size: var(--text-scale-2xs);
     letter-spacing: 0.8px;
   }
 
@@ -3159,12 +3159,12 @@ const t = getTranslations(lang);
     padding-left: 25px;
     border-left: 1px solid var(--border);
     color: #888;
-    font-size: 15px;
+    font-size: var(--text-scale-sm);
     line-height: 1.9;
   }
 
   .journey-copy .lead {
-    color: white;
+    color: var(--text-bright);
     font-size: 19px;
   }
 
@@ -3182,9 +3182,9 @@ const t = getTranslations(lang);
     justify-content: space-between;
     padding: 13px 20px;
     border-bottom: 1px dashed var(--border);
-    color: #777;
-    font-size: 9px;
-    letter-spacing: 2px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .research-screen {
@@ -3207,8 +3207,8 @@ const t = getTranslations(lang);
     display: block;
     margin-bottom: 25px;
     color: var(--accent);
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .research-column strong {
@@ -3219,8 +3219,8 @@ const t = getTranslations(lang);
 
   .research-column p {
     margin: 0;
-    color: #777;
-    font-size: 11px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-3xs);
     line-height: 1.8;
   }
 
@@ -3248,8 +3248,8 @@ const t = getTranslations(lang);
 
   .future-heading > span {
     color: var(--accent);
-    font-size: 10px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .future-arrow {
@@ -3262,12 +3262,12 @@ const t = getTranslations(lang);
   .future-text p {
     margin: 0 0 25px;
     color: #888;
-    font-size: 15px;
+    font-size: var(--text-scale-sm);
     line-height: 1.9;
   }
 
   .future-text .lead {
-    color: white;
+    color: var(--text-bright);
     font-size: 20px;
   }
 
@@ -3306,8 +3306,8 @@ const t = getTranslations(lang);
     display: block;
     margin-bottom: 20px;
     color: var(--accent);
-    font-size: 9px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .closing-section p {
@@ -3323,13 +3323,13 @@ const t = getTranslations(lang);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 25px;
+    gap: var(--grid-gap-tight);
   }
 
   .closing-status {
     color: var(--terminal-green);
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-tag);
   }
 
   .enter-key {
@@ -3344,7 +3344,7 @@ const t = getTranslations(lang);
     background: linear-gradient(180deg, #1a1a1d, #0b0b0d);
     color: #aaa;
     font-family: var(--font-mono);
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
     cursor: pointer;
     transition:
       transform 0.15s ease,
@@ -3379,11 +3379,11 @@ const t = getTranslations(lang);
 
   .enter-key b {
     color: var(--accent);
-    font-size: 34px;
+    font-size: var(--text-scale-h3);
   }
 
   .enter-key:hover {
-    color: white;
+    color: var(--text-bright);
     border-color: var(--accent);
     box-shadow: 0 0 20px rgba(232, 160, 64, 0.08);
   }
@@ -3470,16 +3470,16 @@ const t = getTranslations(lang);
     gap: 10px;
     padding-bottom: 18px;
     border-bottom: 1px solid var(--border);
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
     color: var(--accent);
   }
 
   .annex-status {
     color: #888;
     font-weight: normal;
-    letter-spacing: 1px;
+    letter-spacing: var(--tracking-label);
   }
 
   .annex-intro {
@@ -3492,7 +3492,7 @@ const t = getTranslations(lang);
   .annex-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px 40px;
+    gap: var(--grid-gap) 40px;
     margin-top: 15px;
   }
 
@@ -3518,37 +3518,37 @@ const t = getTranslations(lang);
   }
 
   .annex-code {
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
     font-weight: bold;
-    letter-spacing: 1.5px;
-    color: white;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-bright);
   }
 
   .annex-era {
-    font-size: 10px;
-    letter-spacing: 1px;
-    color: #777;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--text-dim);
   }
 
   .annex-entry p {
     margin: 0;
-    font-size: 13px;
+    font-size: var(--text-scale-xs);
     line-height: 1.9;
     color: #aaa;
   }
 
   .annex-refs {
     margin-top: 12px;
-    font-size: 10px;
-    letter-spacing: 0.5px;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-micro);
     color: var(--terminal-green);
     opacity: 0.7;
   }
 
   .annex-style-index {
     margin-top: 35px;
-    font-size: 10px;
-    letter-spacing: 2px;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
     color: var(--accent);
   }
 
@@ -3569,19 +3569,19 @@ const t = getTranslations(lang);
     flex-wrap: wrap;
     gap: 6px 10px;
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: var(--text-scale-xs);
     line-height: 1.8;
-    color: #999;
+    color: var(--text-tertiary);
   }
 
   .annex-work-title {
-    color: white;
+    color: var(--text-bright);
     font-weight: bold;
-    letter-spacing: 0.5px;
+    letter-spacing: var(--tracking-micro);
   }
 
   .annex-work-note {
-    color: #999;
+    color: var(--text-tertiary);
   }
 
   :root[data-theme="light"] .annex-panel {
@@ -3590,29 +3590,29 @@ const t = getTranslations(lang);
   }
 
   :root[data-theme="light"] .annex-code {
-    color: #1a1a1a;
+    color: var(--text-bright);
   }
 
   :root[data-theme="light"] .annex-status,
   :root[data-theme="light"] .annex-era {
-    color: #666;
+    color: var(--text-tertiary);
   }
 
   :root[data-theme="light"] .annex-intro {
-    color: #444;
+    color: var(--text-soft);
   }
 
   :root[data-theme="light"] .annex-entry p {
-    color: #555;
+    color: var(--text-dim);
   }
 
   :root[data-theme="light"] .annex-work-title {
-    color: #1a1a1a;
+    color: var(--text-bright);
   }
 
   :root[data-theme="light"] .annex-work-note,
   :root[data-theme="light"] .annex-works-list li {
-    color: #555;
+    color: var(--text-dim);
   }
 
   @media (max-width: 800px) {
@@ -3629,9 +3629,9 @@ const t = getTranslations(lang);
   LIGHT MODE
   ====================================================== */
 
-  :root[data-theme="light"] .subtitle { color: #444; }
+  :root[data-theme="light"] .subtitle { color: var(--text-soft); }
   :root[data-theme="light"] .hero-index { color: #888; }
-  :root[data-theme="light"] .hero-meta { color: #555; border-bottom-color: rgba(0,0,0,0.12); }
+  :root[data-theme="light"] .hero-meta { color: var(--text-dim); border-bottom-color: rgba(0,0,0,0.12); }
   :root[data-theme="light"] h1 { color: #111; }
   :root[data-theme="light"] .intro-heading h2 { color: #111; }
   :root[data-theme="light"] .process-heading h2 { color: #111; }
@@ -3640,89 +3640,89 @@ const t = getTranslations(lang);
 
   /* Cards → light background */
   :root[data-theme="light"] .dossier {
-    background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
   }
   :root[data-theme="light"] .capability-console {
-    background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
   }
   :root[data-theme="light"] .cap-button {
-    background: #e8e3da;
-    color: #555;
+    background: var(--paper);
+    color: var(--text-dim);
   }
   :root[data-theme="light"] .cap-button:hover {
     background: #dcd7cc;
-    color: #1a1a1a;
+    color: var(--text-bright);
   }
   :root[data-theme="light"] .cap-button.active {
     background: linear-gradient(135deg, rgba(232,160,64,0.12), rgba(232,160,64,0.03));
-    color: #1a1a1a;
+    color: var(--text-bright);
     box-shadow: inset 3px 0 0 var(--accent);
   }
   :root[data-theme="light"] .cap-button span { color: #888; }
   :root[data-theme="light"] .cap-button.active span { color: var(--accent); }
   :root[data-theme="light"] .skill-tree {
-    background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
   }
-  :root[data-theme="light"] .skill-node-dot { background: #e8e3da; box-shadow: 0 0 0 5px #e8e3da; }
-  :root[data-theme="light"] .skill-node:hover .skill-node-dot { box-shadow: 0 0 0 5px #e8e3da, 0 0 18px rgba(232,160,64,0.45); }
+  :root[data-theme="light"] .skill-node-dot { background: var(--paper); box-shadow: 0 0 0 5px var(--paper); }
+  :root[data-theme="light"] .skill-node:hover .skill-node-dot { box-shadow: 0 0 0 5px var(--paper), 0 0 18px rgba(232,160,64,0.45); }
   :root[data-theme="light"] .skill-node-content strong { color: #333; }
   :root[data-theme="light"] .skill-node-content small { color: #777; }
   :root[data-theme="light"] .skill-tree-label { color: #999; }
   :root[data-theme="light"] .research-terminal {
-    background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
   }
   :root[data-theme="light"] .future-panel {
-    background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
   }
 
   /* Text → dark */
-  :root[data-theme="light"] .intro-content p { color: #444; }
-  :root[data-theme="light"] .intro-content .intro-lead { color: #1a1a1a; }
-  :root[data-theme="light"] .philosophy-copy p { color: #444; }
-  :root[data-theme="light"] .philosophy-copy .lead { color: #1a1a1a; }
-  :root[data-theme="light"] .journey-copy p { color: #444; }
-  :root[data-theme="light"] .journey-copy .lead { color: #1a1a1a; }
-  :root[data-theme="light"] .future-text p { color: #444; }
-  :root[data-theme="light"] .future-text .lead { color: #1a1a1a; }
+  :root[data-theme="light"] .intro-content p { color: var(--text-soft); }
+  :root[data-theme="light"] .intro-content .intro-lead { color: var(--text-bright); }
+  :root[data-theme="light"] .philosophy-copy p { color: var(--text-soft); }
+  :root[data-theme="light"] .philosophy-copy .lead { color: var(--text-bright); }
+  :root[data-theme="light"] .journey-copy p { color: var(--text-soft); }
+  :root[data-theme="light"] .journey-copy .lead { color: var(--text-bright); }
+  :root[data-theme="light"] .future-text p { color: var(--text-soft); }
+  :root[data-theme="light"] .future-text .lead { color: var(--text-bright); }
   :root[data-theme="light"] .closing-section p { color: #333; }
-  :root[data-theme="light"] .data-row { color: #444; }
+  :root[data-theme="light"] .data-row { color: var(--text-soft); }
   :root[data-theme="light"] .identity h2 { color: #111; }
-  :root[data-theme="light"] .research-column strong { color: #1a1a1a; }
-  :root[data-theme="light"] .research-column p { color: #555; }
-  :root[data-theme="light"] .station-content h3 { color: #1a1a1a; }
-  :root[data-theme="light"] .station-content p { color: #555; }
+  :root[data-theme="light"] .research-column strong { color: var(--text-bright); }
+  :root[data-theme="light"] .research-column p { color: var(--text-dim); }
+  :root[data-theme="light"] .station-content h3 { color: var(--text-bright); }
+  :root[data-theme="light"] .station-content p { color: var(--text-dim); }
   :root[data-theme="light"] .display-body h3 { color: #111; }
-  :root[data-theme="light"] .display-body p { color: #555; }
-  :root[data-theme="light"] .process-header p { color: #555; }
+  :root[data-theme="light"] .display-body p { color: var(--text-dim); }
+  :root[data-theme="light"] .process-header p { color: var(--text-dim); }
   :root[data-theme="light"] .dossier-header { color: #c07820; }
   :root[data-theme="light"] .display-header,
   :root[data-theme="light"] .display-footer { color: #888; }
   :root[data-theme="light"] .console-top { color: #888; }
 
   /* Borders / misc in light mode */
-  :root[data-theme="light"] .station-light { background: #e8e3da; }
-  :root[data-theme="light"] .display-visual { background: #e8e3da; }
-  :root[data-theme="light"] .intro-marker span { color: #555; border-color: rgba(0,0,0,0.15); }
+  :root[data-theme="light"] .station-light { background: var(--paper); }
+  :root[data-theme="light"] .display-visual { background: var(--paper); }
+  :root[data-theme="light"] .intro-marker span { color: var(--text-dim); border-color: var(--border-strong); }
 
   :root[data-theme="light"] .enter-key {
-    background: linear-gradient(180deg, #f0ebe0, #e8e3da);
-    border-color: #ccc;
+    background: linear-gradient(180deg, #f0ebe0, var(--paper));
+    border-color: var(--border-divider);
     border-bottom-color: #bbb;
-    color: #555;
+    color: var(--text-dim);
   }
   :root[data-theme="light"] .enter-key:hover {
-    color: #1a1a1a;
+    color: var(--text-bright);
     border-color: var(--accent);
     box-shadow: 0 0 20px rgba(232, 160, 64, 0.1);
   }
   :root[data-theme="light"] .enter-key::before,
   :root[data-theme="light"] .enter-key::after {
-    border-color: #ccc;
+    border-color: var(--border-divider);
   }
   :root[data-theme="light"] .closing-status { color: #00703c; }
 
@@ -3741,7 +3741,7 @@ const t = getTranslations(lang);
 
     .process-station {
       grid-template-columns: repeat(2, 1fr);
-      gap: 55px 25px;
+      gap: 55px var(--grid-gap-tight);
     }
 
     .station-track {
@@ -3786,7 +3786,7 @@ const t = getTranslations(lang);
 
     .motto-panel {
       grid-template-columns: 1fr;
-      gap: 25px;
+      gap: var(--grid-gap-tight);
     }
 
     .motto-symbol {
@@ -3808,7 +3808,7 @@ const t = getTranslations(lang);
 
     .process-station {
       grid-template-columns: repeat(2, 1fr);
-      gap: 60px 25px;
+      gap: 60px var(--grid-gap-tight);
     }
 
     .skill-tree {
@@ -3883,7 +3883,7 @@ const t = getTranslations(lang);
     .intro-heading h2,
     .philosophy-main h2,
     .journey-header h2 {
-      letter-spacing: -3px;
+      letter-spacing: var(--tracking-display);
     }
 
     .process-heading h2 {

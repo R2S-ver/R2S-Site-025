@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://r2s-site-025.pages.dev/sitemap.xml

@@ -1,18 +1,12 @@
 ---
-import { getLanguageFromPath, getLocalizedPath } from "../../utils/i18n";
+import { getLanguageFromPath } from "../../utils/i18n";
 import { getTranslations } from "../../utils/translations";
+import { buildEntryUrl } from "../../utils/routes";
 
 const { entries = [] } = Astro.props;
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
-
-const routeMap = {
-  projects: "projects",
-  lab: "lab",
-  art: "art",
-  note: "notes",
-};
 ---
 
 <section class="latest">
@@ -24,10 +18,6 @@ const routeMap = {
     <div class="logs">
       {
         entries.map((entry, index) => {
-          const route = routeMap[entry.data.type];
-
-          const basePath = getLocalizedPath(`/${route}`, language);
-
           const date = entry.data.date.toLocaleDateString(
             language === "zh" ? "zh-CN" : "en-US",
             {
@@ -37,7 +27,7 @@ const routeMap = {
           );
 
           return (
-            <a href={`${basePath}/${entry.id.split("/")[0]}`} class="log">
+            <a href={buildEntryUrl(entry, language)} class="log">
               <div class="log-left">
                 <div class="entry">
                   ENTRY_{String(index + 1).padStart(3, "0")}
@@ -74,13 +64,13 @@ const routeMap = {
 
 <style>
   .latest {
-    margin: 0 auto 120px;
+    margin: 0 auto var(--section-gap);
 
     font-family: var(--font-mono);
   }
 
   .panel {
-    max-width: 1320px;
+    max-width: var(--container-main);
 
     width: calc(100% - 80px);
 
@@ -90,7 +80,7 @@ const routeMap = {
 
     border: 1px solid var(--border);
 
-    border-radius: 6px;
+    border-radius: var(--radius-md);
   }
 
   @media (max-width: 800px) {
@@ -102,9 +92,9 @@ const routeMap = {
 
     border-bottom: 1px dashed var(--border);
 
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
 
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
 
     color: var(--accent);
   }
@@ -128,7 +118,7 @@ const routeMap = {
 
     text-decoration: none;
 
-    color: white;
+    color: var(--text-bright);
 
     transition:
       background 0.3s var(--ease-out),
@@ -160,7 +150,7 @@ const routeMap = {
   }
 
   .log:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--hover-bg);
   }
 
   .log:hover::before {
@@ -168,11 +158,11 @@ const routeMap = {
   }
 
   .entry {
-    font-size: 10px;
+    font-size: var(--text-scale-4xs);
 
     color: var(--terminal-green);
 
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-tag);
 
     margin-bottom: 10px;
   }
@@ -186,9 +176,9 @@ const routeMap = {
   }
 
   .log p {
-    font-size: 12px;
+    font-size: var(--text-scale-2xs);
 
-    color: #999;
+    color: var(--text-tertiary);
 
     max-width: 700px;
 
@@ -206,9 +196,9 @@ const routeMap = {
 
     gap: 10px;
 
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
 
-    color: #777;
+    color: var(--text-dim);
 
     white-space: nowrap;
   }
@@ -216,9 +206,9 @@ const routeMap = {
   .footer {
     padding: 18px 25px;
 
-    font-size: 11px;
+    font-size: var(--text-scale-3xs);
 
-    color: #777;
+    color: var(--text-dim);
   }
 
   .footer span {
@@ -244,16 +234,16 @@ const routeMap = {
   }
 
   :root[data-theme="light"] .latest .panel {
-    background: #e8e3da;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.6);
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
   }
-  :root[data-theme="light"] .latest .header { color: #444; }
-  :root[data-theme="light"] .latest .log h3 { color: #1a1a1a; }
-  :root[data-theme="light"] .latest .log .entry { color: #555; }
-  :root[data-theme="light"] .latest .log p { color: #555; }
+  :root[data-theme="light"] .latest .header { color: var(--text-soft); }
+  :root[data-theme="light"] .latest .log h3 { color: var(--text-bright); }
+  :root[data-theme="light"] .latest .log .entry { color: var(--text-dim); }
+  :root[data-theme="light"] .latest .log p { color: var(--text-dim); }
   :root[data-theme="light"] .latest .meta { color: #777; }
-  :root[data-theme="light"] .latest .log { border-bottom-color: #ddd; color: #1a1a1a; }
-  :root[data-theme="light"] .latest .log:hover { background: rgba(0,0,0,0.03); }
-  :root[data-theme="light"] .latest .footer { color: #555; }
+  :root[data-theme="light"] .latest .log { border-bottom-color: #ddd; color: var(--text-bright); }
+  :root[data-theme="light"] .latest .log:hover { background: var(--hover-bg); }
+  :root[data-theme="light"] .latest .footer { color: var(--text-dim); }
   :root[data-theme="light"] .latest .footer span { color: #00703c; }
 </style>

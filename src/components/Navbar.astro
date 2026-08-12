@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import { getLanguageFromPath, getLocalizedPath } from "../utils/i18n";
+import { getTranslations } from "../utils/translations";
+import { typeToRoute } from "../utils/routes";
 
 const currentLanguage = getLanguageFromPath(Astro.url.pathname);
 
@@ -25,13 +27,6 @@ LANGUAGE SWITCH
 */
 
 const entries = await getCollection("entries");
-
-const routeMap: Record<string, string> = {
-  projects: "projects",
-  lab: "lab",
-  note: "notes",
-  art: "art",
-};
 
 const pathSegments = Astro.url.pathname
   .replace(/^\/+|\/+$/g, "")
@@ -58,7 +53,7 @@ if (pathWithoutLanguage.length >= 2) {
   const section = pathWithoutLanguage[0];
   const slug = pathWithoutLanguage[1];
 
-  const type = Object.entries(routeMap).find(
+  const type = Object.entries(typeToRoute).find(
     ([, route]) => route === section,
   )?.[0];
 
@@ -110,51 +105,7 @@ if (pathWithoutLanguage.length >= 2) {
  * =========================================================
  */
 
-const translations = {
-  en: {
-    nav: {
-      home: "HOME",
-      projects: "PROJECTS",
-      lab: "LAB",
-      art: "ART",
-      notes: "NOTES",
-      about: "ABOUT",
-      language: "中文",
-    },
-
-    system: {
-      status: "SYS_STATUS:",
-      online: "ONLINE",
-    },
-
-    language: {
-      unavailable: "暂无中文版本",
-    },
-  },
-
-  zh: {
-    nav: {
-      home: "首页",
-      projects: "项目",
-      lab: "实验室",
-      art: "艺术",
-      notes: "笔记",
-      about: "关于",
-      language: "EN",
-    },
-
-    system: {
-      status: "系统状态:",
-      online: "在线",
-    },
-
-    language: {
-      unavailable: "暂无英文版本",
-    },
-  },
-};
-
-const t = translations[currentLanguage];
+const t = getTranslations(currentLanguage);
 ---
 
 <nav>
@@ -460,7 +411,7 @@ const t = translations[currentLanguage];
 
       z-index: 100;
 
-      background: rgba(7, 7, 13, 0.9);
+      background: var(--surface-nav);
 
       backdrop-filter: blur(12px) saturate(1.2);
 
@@ -475,14 +426,14 @@ const t = translations[currentLanguage];
     }
 
     :root[data-theme="light"] nav {
-      background: rgba(243, 239, 231, 0.92);
+      background: var(--surface-nav);
     }
 
     :root[data-theme="light"] .brand-link { color: #2a2a2a; }
     :root[data-theme="light"] .brand-link:hover { color: var(--accent); }
-    :root[data-theme="light"] .links a { color: #555; }
-    :root[data-theme="light"] .links a:hover { color: #1a1a1a; }
-    :root[data-theme="light"] .status .label { color: #666; }
+    :root[data-theme="light"] .links a { color: var(--text-dim); }
+    :root[data-theme="light"] .links a:hover { color: var(--text-bright); }
+    :root[data-theme="light"] .status .label { color: var(--text-tertiary); }
     :root[data-theme="light"] #clock { color: #333; }
     :root[data-theme="light"] .status .online { color: var(--terminal-green); }
 
@@ -514,8 +465,8 @@ const t = translations[currentLanguage];
       gap: 8px;
       font-weight: 900;
       font-size: 14px;
-      letter-spacing: 1px;
-      color: white;
+      letter-spacing: var(--tracking-label);
+      color: var(--text-bright);
       text-decoration: none;
       transition: 0.2s;
     }
@@ -602,9 +553,9 @@ const t = translations[currentLanguage];
     .links a {
       position: relative;
 
-      font-size: 12px;
+      font-size: var(--text-scale-2xs);
 
-      letter-spacing: 1.5px;
+      letter-spacing: var(--tracking-wider);
 
       color: #aaa;
 
@@ -663,9 +614,9 @@ const t = translations[currentLanguage];
     .lang-switch:active { transform: scale(0.95); }
 
     .lang-pos {
-      font-size: 12px;
+      font-size: var(--text-scale-2xs);
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: var(--tracking-micro);
       color: #666;
       transition: color 0.2s var(--ease-out);
     }
@@ -682,7 +633,7 @@ const t = translations[currentLanguage];
     }
 
     :root[data-theme="light"] .lang-sep {
-      background: #ccc;
+      background: var(--border-divider);
     }
 
     /* ========== THEME SWITCH ========== */
@@ -764,9 +715,9 @@ const t = translations[currentLanguage];
     */
 
     .status {
-      font-size: 11px;
+      font-size: var(--text-scale-3xs);
 
-      letter-spacing: 1px;
+      letter-spacing: var(--tracking-label);
 
       display: flex;
 
@@ -776,7 +727,7 @@ const t = translations[currentLanguage];
     }
 
     .label {
-      color: #777;
+      color: var(--text-dim);
     }
 
     .online {
@@ -790,7 +741,7 @@ const t = translations[currentLanguage];
     }
 
     #clock {
-      color: white;
+      color: var(--text-bright);
     }
 
     /* ── Vacuum tube cluster ── */
@@ -864,7 +815,7 @@ const t = translations[currentLanguage];
       background:
         radial-gradient(
           circle at center,
-          rgba(232, 148, 58, 0.035),
+          rgba(var(--accent-rgb), 0.035),
           transparent 45%
         ),
         rgba(0, 0, 0, 0.35);
@@ -944,9 +895,9 @@ const t = translations[currentLanguage];
       border: 1px solid var(--accent);
 
       box-shadow:
-        0 0 0 1px rgba(232, 148, 58, 0.08),
-        0 0 40px rgba(232, 148, 58, 0.16),
-        0 0 120px rgba(232, 148, 58, 0.08),
+        0 0 0 1px rgba(var(--accent-rgb), 0.08),
+        0 0 40px rgba(var(--accent-rgb), 0.16),
+        0 0 120px rgba(var(--accent-rgb), 0.08),
         0 40px 120px rgba(0, 0, 0, 0.8);
 
       overflow: visible;
@@ -987,11 +938,11 @@ const t = translations[currentLanguage];
 
       font-family: var(--font-mono);
 
-      font-size: 11px;
+      font-size: var(--text-scale-3xs);
 
       font-weight: 700;
 
-      letter-spacing: 2px;
+      letter-spacing: var(--tracking-tag);
     }
 
     .header-line {
@@ -1034,8 +985,8 @@ const t = translations[currentLanguage];
       font-weight: 900;
 
       box-shadow:
-        0 0 15px rgba(232, 148, 58, 0.2),
-        inset 0 0 15px rgba(232, 148, 58, 0.05);
+        0 0 15px rgba(var(--accent-rgb), 0.2),
+        inset 0 0 15px rgba(var(--accent-rgb), 0.05);
 
       position: relative;
     }
@@ -1076,7 +1027,7 @@ const t = translations[currentLanguage];
 
       z-index: 2;
 
-      color: white;
+      color: var(--text-bright);
 
       font-family: var(--font-mono);
 
@@ -1084,7 +1035,7 @@ const t = translations[currentLanguage];
 
       font-weight: 900;
 
-      letter-spacing: 3px;
+      letter-spacing: var(--tracking-wide);
 
       line-height: 1.4;
 
@@ -1116,9 +1067,9 @@ const t = translations[currentLanguage];
 
       font-family: var(--font-mono);
 
-      font-size: 10px;
+      font-size: var(--text-scale-4xs);
 
-      letter-spacing: 2px;
+      letter-spacing: var(--tracking-tag);
 
       white-space: nowrap;
     }
@@ -1228,7 +1179,7 @@ const t = translations[currentLanguage];
 
       height: 26px;
 
-      border: 1px solid rgba(232, 148, 58, 0.45);
+      border: 1px solid rgba(var(--accent-rgb), 0.45);
 
       pointer-events: none;
     }
@@ -1346,7 +1297,7 @@ const t = translations[currentLanguage];
       .alert-message {
         font-size: 22px;
 
-        letter-spacing: 1px;
+        letter-spacing: var(--tracking-label);
       }
 
       .alert-icon {
@@ -1362,7 +1313,7 @@ const t = translations[currentLanguage];
       .header-text {
         font-size: 8px;
 
-        letter-spacing: 1px;
+        letter-spacing: var(--tracking-label);
       }
 
       .header-line {

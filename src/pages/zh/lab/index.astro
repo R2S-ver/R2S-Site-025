@@ -29,7 +29,7 @@ const topTags = filterTags
   .map((t) => [t, labEntries.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title={`${t.sections.lab.title} | R2S Studio`}>
+<Layout title={`${t.sections.lab.title} | R2S Studio`} description={t.meta.description}>
   <main class="lab-page">
     <header class="lab-header">
       <h1>{t.sections.lab.title}</h1>
@@ -76,55 +76,20 @@ const topTags = filterTags
 
 <style>
   .lab-page {
-    max-width: 1400px;
+    max-width: var(--container-wide);
     margin: auto;
     padding: 0 40px 80px;
   }
   .lab-header { margin-bottom: 30px; }
-  .lab-header h1 { font-size: 64px; line-height: 1.2; }
+  .lab-header h1 { font-size: var(--text-scale-h1); line-height: 1.2; }
   .lab-header p { font-size: 20px; color: #666; margin-top: 8px; }
 
-  .tag-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 40px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
-  }
-  .tag-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 16px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 999px;
-    background: rgba(255,255,255,0.04);
-    color: #999;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .tag-chip:hover {
-    border-color: rgba(255,255,255,0.3);
-    color: #ddd;
-    background: rgba(255,255,255,0.08);
-  }
-  .tag-chip.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #000;
-    font-weight: 700;
-  }
-  .tag-count { font-size: 10px; opacity: 0.6; }
-  .tag-chip.active .tag-count { color: rgba(0,0,0,0.5); }
+  /* ── Tag chips: global styles in global.css §12 ── */
 
   .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: var(--grid-gap);
   }
   @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 700px) {

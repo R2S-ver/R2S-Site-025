@@ -27,6 +27,8 @@ const entries = defineCollection({
 
     category: z.string().optional(),
 
+    collaboration: z.string().optional(),
+
     tags: z.array(z.string()).optional(),
 
     tools: z.array(z.string()).optional(),

@@ -3,7 +3,8 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import ProjectDetail from "../../../components/ProjectDetail.astro";
 import ArtGallery from "../../../components/ArtGallery.astro";
-import { findTranslation } from "../../../utils/i18n";
+import { findTranslation, getLocalizedPath } from "../../../utils/i18n";
+import { getProjectImage } from "../../../utils/images";
 
 export async function getStaticPaths() {
   const entries = await getCollection("entries");
@@ -33,9 +34,34 @@ export async function getStaticPaths() {
 const { project, projectId, translation } = Astro.props;
 
 const { Content } = await render(project);
+
+// getProjectImage returns a URL string, or an ImageMetadata object
+// (Astro image globs) whose .src holds the final URL.
+const coverRaw = project.data.cover
+  ? (getProjectImage(projectId, project.data.cover) as
+      | string
+      | { src: unknown }
+      | null)
+  : null;
+
+const coverImage =
+  typeof coverRaw === "string"
+    ? coverRaw
+    : coverRaw && "src" in coverRaw
+      ? String(coverRaw.src)
+      : null;
+
+const alternateHref = translation
+  ? getLocalizedPath(Astro.url.pathname, translation.data.lang)
+  : null;
 ---
 
-<Layout title={project.data.title}>
+<Layout
+  title={project.data.title}
+  description={project.data.description}
+  ogImage={coverImage}
+  alternateHref={alternateHref}
+>
   {project.data.type === "art" ? (
     <ArtGallery project={project} projectId={projectId} />
   ) : (

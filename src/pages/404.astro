@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Served statically as /404.html — Cloudflare Pages picks it up for any
+// missing route. Content is bilingual so it works under both / and /zh.
+---
+
+<Layout title="404 // SIGNAL_LOST" noIndex>
+  <div class="err-404">
+    <div class="panel">
+      <div class="code-line">
+        ERR_404 // <span class="dim">SIGNAL_LOST</span>
+      </div>
+
+      <div class="code-line dim">
+        信号丢失 // 请求的页面不存在
+      </div>
+
+      <div class="divider" />
+
+      <div class="code-line small">
+        &gt; SEARCH_TRANSMISSION_TERMINATED
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="/">[ RETURN_TO_HOME ]</a>
+
+        <a class="btn" href="/zh">[ 返回首页 ]</a>
+
+        <a class="btn" href="/projects">[ PROJECTS ]</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .err-404 {
+    min-height: calc(100vh - 72px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+
+  .panel {
+    width: min(560px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 32px;
+  }
+
+  .code-line {
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-body);
+    color: var(--text-bright);
+    letter-spacing: var(--tracking-label);
+    line-height: 1.8;
+  }
+
+  .code-line.small {
+    font-size: var(--text-scale-xs);
+    color: var(--text-tertiary);
+  }
+
+  .dim {
+    color: var(--text-dim);
+  }
+
+  .divider {
+    border-top: 1px dashed var(--border-divider);
+    margin: 20px 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .btn {
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--accent);
+    border: 1px solid var(--border-accent);
+    padding: 10px 16px;
+    transition:
+      background 0.2s var(--ease-out),
+      color 0.2s var(--ease-out);
+  }
+
+  .btn:hover {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+</style>

@@ -9,8 +9,10 @@ import LatestUpdates from "../../components/home/LatestUpdates.astro";
 import AboutPreview from "../../components/home/AboutPreview.astro";
 
 import { getLanguageFromPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
 
 const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
 
 const entries = await getCollection("entries");
 
@@ -29,12 +31,17 @@ const totalProjectLabCount = languageEntries
   .filter((entry) => entry.data.type === "projects" || entry.data.type === "lab")
   .length;
 
+/*
+Art entries have no detail pages — exclude
+them so SYS.LOG never links to a 404.
+*/
 const latestEntries = [...languageEntries]
+  .filter((entry) => entry.data.type !== "art")
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
 ---
 
-<Layout title="R2S Studio">
+<Layout title="R2S Studio" description={t.meta.description}>
   <Hero />
 
   <FeaturedProjects projects={featuredEntries} totalCount={totalProjectLabCount} />
