@@ -417,7 +417,7 @@ const translationAvailable = !!translation;
 
   .content-layout {
     display: grid;
-    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-columns: 260px minmax(0, 1fr);
     gap: 30px;
     max-width: 1150px;
     margin: 0 auto;
@@ -428,8 +428,6 @@ const translationAvailable = !!translation;
     top: 100px;
     align-self: start;
     height: fit-content;
-    max-height: calc(100vh - 140px);
-    overflow-y: auto;
 
     box-sizing: border-box;
 
@@ -483,18 +481,18 @@ const translationAvailable = !!translation;
 
     width: 100%;
 
-    font-size: 12px;
+    font-size: 11.5px;
 
-    line-height: 1.5;
+    line-height: 1.45;
 
-    color: #aaa;
+    color: #999;
 
     text-decoration: none;
 
-    padding: 12px 10px;
+    padding: 13px 8px;
 
-    /* ═══ The divider ═══ */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+    /* ═══ Strong visible divider ═══ */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.30);
 
     transition:
       color 0.15s var(--ease-out),
@@ -509,22 +507,36 @@ const translationAvailable = !!translation;
   .toc-list a.toc-h2 {
     font-weight: 700;
     font-size: 12px;
-    color: #ccc;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    color: #ddd;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.40);
+    padding: 15px 8px 13px;
   }
 
   /* H3 — sub-items */
   .toc-list a.toc-h3 {
-    padding-left: 22px;
+    padding-left: 18px;
     font-size: 11px;
     color: #888;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   }
 
-  /* Hover */
+  /* Hover — dark mode: solid light-gray block for clear visibility */
   .toc-list a:hover {
     color: #fff !important;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.20);
+    border-radius: 4px;
+  }
+
+  .toc-list a.toc-h2:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 4px;
+  }
+
+  .toc-list a.toc-h3:hover {
+    color: #ddd !important;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 4px;
   }
 
   .toc .sub {
@@ -864,21 +876,22 @@ const translationAvailable = !!translation;
   /* ── TOC light mode ── */
   :root[data-theme="light"] .toc-list a {
     color: #555;
-    border-bottom-color: rgba(0, 0, 0, 0.18);
+    border-bottom-color: rgba(0, 0, 0, 0.22);
   }
 
   :root[data-theme="light"] .toc-list a.toc-h2 {
-    color: #222;
-    border-bottom-color: rgba(0, 0, 0, 0.25);
+    color: #111;
+    border-bottom-color: rgba(0, 0, 0, 0.32);
   }
 
   :root[data-theme="light"] .toc-list a.toc-h3 {
     color: #666;
-    border-bottom-color: rgba(0, 0, 0, 0.12);
+    border-bottom-color: rgba(0, 0, 0, 0.15);
   }
 
   :root[data-theme="light"] .toc-list a:hover {
     color: #000 !important;
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
   }
 </style>
