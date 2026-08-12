@@ -13,9 +13,36 @@ const { title = "R2S Studio" } = Astro.props;
 <!doctype html>
 <html lang={getLanguageFromPath(Astro.url.pathname) || "en"}>
   <head>
+    <!--
+      THEME GUARD — must be the first thing in <head>.
+      1. Synchronous script sets data-theme on <html> before any paint.
+      2. CSS guard hides <body> until data-theme is present — safety net
+         for browsers that paint progressively before scripts execute.
+    -->
+    <script is:inline>
+      (() => {
+        var key = "r2s-theme", stored;
+        try { stored = localStorage.getItem(key); } catch (_) { stored = null; }
+        if (stored === "light" || stored === "dark") {
+          document.documentElement.setAttribute("data-theme", stored);
+        } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          document.documentElement.setAttribute("data-theme", "light");
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
+    <style is:global>
+      html:not([data-theme]) body { visibility: hidden; }
+    </style>
+
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f3efe7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#050507" media="(prefers-color-scheme: dark)" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
@@ -39,9 +66,6 @@ const { title = "R2S Studio" } = Astro.props;
     <!-- =========================================
          GLOBAL CONTENT
     ========================================== -->
-
-    <!-- Boot flash overlay -->
-    <div id="boot-overlay"></div>
 
     <div class="site-content">
       <Navbar />
@@ -334,6 +358,8 @@ const { title = "R2S Studio" } = Astro.props;
 
     <style is:global>
       :root {
+        color-scheme: dark;
+
         --bg: #050507;
 
         --panel: #0d0d14;
@@ -372,6 +398,8 @@ const { title = "R2S Studio" } = Astro.props;
 
       /* Light theme — warm terminal "day mode" */
       :root[data-theme="light"] {
+        color-scheme: light;
+
         --bg: #f3efe7;
 
         --panel: #e8e3da;
@@ -709,24 +737,6 @@ const { title = "R2S Studio" } = Astro.props;
         color: black;
       }
 
-      /* =========================================
-         BOOT OVERLAY
-      ========================================== */
-
-      #boot-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 10001;
-        pointer-events: none;
-        background: var(--bg);
-        opacity: 1;
-        transition: opacity 0.4s ease-out;
-      }
-
-      #boot-overlay.done {
-        opacity: 0;
-      }
-
       /* ── Content fade-in on page load ── */
       main {
         animation: pageIn 0.65s var(--spring-gentle) both;
@@ -830,42 +840,15 @@ const { title = "R2S Studio" } = Astro.props;
         mix-blend-mode: screen;
       }
     </style>
-    <!-- ── Boot overlay dismiss ── -->
+    <!-- ── Theme toggle (init is in <head> to prevent flash) ── -->
     <script>
       (() => {
-        const overlay = document.getElementById("boot-overlay");
-        if (!overlay) return;
-        window.addEventListener("load", () => {
-          setTimeout(() => overlay.classList.add("done"), 150);
-        });
-        setTimeout(() => overlay.classList.add("done"), 2000);
-      })();
-    </script>
-
-    <!-- ── Theme toggle ── -->
-    <script>
-      (() => {
-        const KEY = "r2s-theme";
-
-        function apply(theme) {
-          document.documentElement.setAttribute("data-theme", theme);
-          try { localStorage.setItem(KEY, theme); } catch (_) {}
-        }
-
-        // Init — prefer stored, then system, fallback dark
-        const stored = (() => { try { return localStorage.getItem(KEY); } catch (_) { return null; } })();
-        if (stored === "light" || stored === "dark") {
-          apply(stored);
-        } else if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-          apply("light");
-        } else {
-          apply("dark");
-        }
-
-        // Expose toggle globally so the navbar switch can call it
+        var KEY = "r2s-theme";
         window.__toggleTheme = function () {
-          const current = document.documentElement.getAttribute("data-theme");
-          apply(current === "light" ? "dark" : "light");
+          var cur = document.documentElement.getAttribute("data-theme");
+          var next = cur === "light" ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", next);
+          try { localStorage.setItem(KEY, next); } catch (_) {}
         };
       })();
     </script>
