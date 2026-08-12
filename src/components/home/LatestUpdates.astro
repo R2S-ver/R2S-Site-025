@@ -130,7 +130,9 @@ const routeMap = {
 
     color: white;
 
-    transition: 0.25s;
+    transition:
+      background 0.3s var(--ease-out),
+      transform 0.2s var(--spring-snappy);
 
     position: relative;
   }
@@ -150,7 +152,11 @@ const routeMap = {
 
     background: transparent;
 
-    transition: 0.25s;
+    transition: background 0.3s var(--ease-out);
+  }
+
+  .log:active {
+    transform: scale(0.99);
   }
 
   .log:hover {

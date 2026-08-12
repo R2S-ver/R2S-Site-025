@@ -467,7 +467,9 @@ const translationAvailable = !!translation;
 
     padding: 4px 0;
 
-    transition: 0.2s;
+    transition:
+      color 0.2s var(--ease-out),
+      transform 0.3s var(--spring-snappy);
   }
 
   .toc a::before {
@@ -476,6 +478,7 @@ const translationAvailable = !!translation;
     margin-right: 8px;
 
     opacity: 0.4;
+    transition: opacity 0.2s var(--ease-out);
   }
 
   .toc-list {
@@ -493,7 +496,7 @@ const translationAvailable = !!translation;
   .toc a:hover {
     color: var(--stripe-teal);
 
-    transform: translateX(5px);
+    transform: translateX(6px);
   }
 
   .toc .sub {
@@ -641,6 +644,10 @@ const translationAvailable = !!translation;
 
   article :global(tr:last-child td) {
     border-bottom: none;
+  }
+
+  article :global(tr td) {
+    transition: background 0.2s var(--ease-out);
   }
 
   article :global(tr:hover td) {

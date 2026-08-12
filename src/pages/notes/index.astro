@@ -143,13 +143,22 @@ const topTags = filterTags
     font-size: 11px;
     letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition:
+      background 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      color 0.2s var(--ease-out),
+      transform 0.2s var(--spring-snappy);
   }
 
   .tag-chip:hover {
     border-color: rgba(255,255,255,0.3);
     color: #ddd;
     background: rgba(255,255,255,0.08);
+  }
+
+  .tag-chip:active {
+    transform: scale(0.93);
+    transition: transform 0.08s var(--spring-snappy);
   }
 
   .tag-chip.active {
@@ -183,7 +192,7 @@ const topTags = filterTags
     border-bottom: 1px solid rgba(255,255,255,0.06);
     text-decoration: none;
     color: inherit;
-    transition: background 0.15s ease;
+    transition: background 0.2s var(--ease-out);
   }
 
   .note-row:hover {
@@ -273,4 +282,9 @@ const topTags = filterTags
   :root[data-theme="light"] .note-row:hover { background: rgba(0,0,0,0.03); }
   :root[data-theme="light"] .tag-chip { color: #555; border-color: rgba(0,0,0,0.15); background: rgba(0,0,0,0.03); }
   :root[data-theme="light"] .tag-chip:hover { color: #333; border-color: rgba(0,0,0,0.3); background: rgba(0,0,0,0.06); }
+  :root[data-theme="light"] .tag-chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
 </style>

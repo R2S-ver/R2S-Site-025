@@ -132,13 +132,22 @@ const topTags = filterTags
     font-size: 12px;
     letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition:
+      background 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out),
+      color 0.2s var(--ease-out),
+      transform 0.2s var(--spring-snappy);
   }
 
   .tag-chip:hover {
     border-color: rgba(255,255,255,0.3);
     color: #ddd;
     background: rgba(255,255,255,0.08);
+  }
+
+  .tag-chip:active {
+    transform: scale(0.93);
+    transition: transform 0.08s var(--spring-snappy);
   }
 
   .tag-chip.active {

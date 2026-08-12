@@ -164,13 +164,14 @@ const notesPath = getLocalizedPath("/notes", language);
     overflow: hidden;
 
     transition:
-      transform 0.25s var(--ease-out),
-      border-color 0.25s var(--ease-out),
-      box-shadow 0.25s var(--ease-out);
+      transform 0.4s var(--spring-bounce),
+      border-color 0.35s var(--ease-out),
+      box-shadow 0.4s var(--spring-gentle);
   }
 
   .explore-card:active {
-    transform: scale(0.97) !important;
+    transform: scale(0.97);
+    transition: transform 0.1s var(--spring-snappy);
   }
 
   .explore-card::before {

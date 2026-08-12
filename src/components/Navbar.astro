@@ -520,7 +520,8 @@ const t = translations[currentLanguage];
     }
 
     .brand-link:active {
-      transform: scale(0.97);
+      transform: scale(0.94);
+      transition: transform 0.08s var(--spring-snappy);
     }
 
     .brand-mark {
@@ -608,11 +609,12 @@ const t = translations[currentLanguage];
 
       transition:
         color 0.2s var(--ease-out),
-        transform 0.16s var(--ease-out);
+        transform 0.2s var(--spring-snappy);
     }
 
     .links a:active {
-      transform: scale(0.95);
+      transform: scale(0.93);
+      transition: transform 0.08s var(--spring-snappy);
     }
 
     .links a::after {
@@ -630,7 +632,7 @@ const t = translations[currentLanguage];
 
       background: var(--accent);
 
-      transition: width 0.2s var(--ease-out);
+      transition: width 0.3s var(--spring-gentle);
     }
 
     .links a:hover {
@@ -688,13 +690,13 @@ const t = translations[currentLanguage];
       transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out), transform 0.16s var(--ease-out);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 3px rgba(0,0,0,0.4);
     }
-    .theme-switch:active { transform: scale(0.96); }
+    .theme-switch:active { transform: scale(0.92); transition: transform 0.08s var(--spring-snappy); }
     .theme-switch:hover { border-color: var(--accent); }
 
     .switch-knob {
       position: absolute; top: 2px; left: 2px; z-index: 2;
       display: block; width: 16px; height: 16px; border-radius: 50%;
-      transition: transform 0.3s var(--ease-out);
+      transition: transform 0.4s var(--spring-bounce);
     }
     .knob-face {
       display: block; width: 100%; height: 100%; border-radius: 50%;
@@ -868,9 +870,11 @@ const t = translations[currentLanguage];
 
       isolation: isolate;
 
-      transition: opacity 0.25s ease;
+      transition:
+        opacity 0.3s var(--ease-out),
+        backdrop-filter 0.3s var(--ease-out);
 
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(0px);
     }
 
     /*
@@ -883,6 +887,17 @@ const t = translations[currentLanguage];
       opacity: 1;
 
       pointer-events: auto;
+
+      backdrop-filter: blur(2px);
+    }
+
+    .language-toast .alert-panel {
+      transform: scale(0.85);
+      transition: transform 0.5s var(--spring-expressive);
+    }
+
+    .language-toast.show .alert-panel {
+      transform: scale(1);
     }
 
     /*

@@ -173,7 +173,7 @@ export const translations = {
         },
         philosophy: {
           header: "PERSONAL_PROTOCOL // DESIGN_PHILOSOPHY",
-          title: "STANDING ON THE SHOULDERS OF GIANTS",
+          title: "standing on the\nshoulders\nof giants",
           text:
             "Design is never created in isolation. I believe in learning from what already exists, studying references, understanding the work of others and combining those accumulated ideas into something new.",
           second:

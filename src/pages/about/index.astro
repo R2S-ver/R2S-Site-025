@@ -2320,8 +2320,8 @@ const t = getTranslations(lang);
     min-width: 0;
     opacity: 0.35;
     transition:
-      opacity 0.55s ease,
-      transform 0.55s ease;
+      opacity 0.55s var(--ease-out),
+      transform 0.55s var(--spring-gentle);
   }
 
   .station-item.process-active {
@@ -2345,8 +2345,8 @@ const t = getTranslations(lang);
     align-items: center;
     justify-content: center;
     transition:
-      border-color 0.4s ease,
-      box-shadow 0.4s ease;
+      border-color 0.4s var(--ease-out),
+      box-shadow 0.4s var(--spring-gentle);
   }
 
   .station-light span {
@@ -2355,9 +2355,9 @@ const t = getTranslations(lang);
     background: #333;
     box-shadow: none;
     transition:
-      background 0.4s ease,
-      box-shadow 0.4s ease,
-      transform 0.4s ease;
+      background 0.4s var(--ease-out),
+      box-shadow 0.4s var(--spring-gentle),
+      transform 0.4s var(--spring-bounce);
   }
 
   .station-item.process-active .station-light {
@@ -2401,7 +2401,7 @@ const t = getTranslations(lang);
     color: #444;
     font-size: 7px;
     letter-spacing: 2px;
-    transition: color 0.4s ease;
+    transition: color 0.4s var(--ease-out);
   }
 
   .process-active .station-state {
@@ -2523,9 +2523,13 @@ const t = getTranslations(lang);
     text-align: left;
     cursor: pointer;
     transition:
-      background 0.25s ease,
-      color 0.25s ease,
-      transform 0.25s ease;
+      background 0.25s var(--ease-out),
+      color 0.25s var(--ease-out),
+      transform 0.2s var(--spring-snappy);
+  }
+
+  .cap-button:active {
+    transform: scale(0.97);
   }
 
   .cap-button:nth-child(even) {

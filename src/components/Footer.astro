@@ -155,18 +155,27 @@ const aboutPath = getLocalizedPath("/about", language);
 
   .tri-color span {
     flex: 1;
+    animation: triBreathe 4s var(--ease-in-out) infinite;
   }
 
   .tri-color span:nth-child(1) {
     background: var(--stripe-red);
+    animation-delay: 0s;
   }
 
   .tri-color span:nth-child(2) {
     background: var(--stripe-yellow);
+    animation-delay: 0.4s;
   }
 
   .tri-color span:nth-child(3) {
     background: var(--stripe-teal);
+    animation-delay: 0.8s;
+  }
+
+  @keyframes triBreathe {
+    0%, 100% { opacity: 0.65; }
+    50% { opacity: 1; }
   }
 
   .system {
@@ -272,17 +281,18 @@ const aboutPath = getLocalizedPath("/about", language);
 
     transition:
       color 0.2s var(--ease-out),
-      transform 0.2s var(--ease-out);
+      transform 0.3s var(--spring-snappy);
   }
 
   .links a:hover {
     color: var(--accent);
 
-    transform: translateX(5px);
+    transform: translateX(6px);
   }
 
   .links a:active {
-    transform: scale(0.95);
+    transform: scale(0.94);
+    transition: transform 0.08s var(--spring-snappy);
   }
 
   .qq {

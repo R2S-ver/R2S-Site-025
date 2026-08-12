@@ -200,7 +200,7 @@ const aboutPath = getLocalizedPath("/about", language);
 
     transition:
       color 0.2s var(--ease-out),
-      transform 0.16s var(--ease-out);
+      transform 0.2s var(--spring-snappy);
   }
 
   .footer a:hover {
@@ -208,7 +208,8 @@ const aboutPath = getLocalizedPath("/about", language);
   }
 
   .footer a:active {
-    transform: scale(0.95);
+    transform: scale(0.93);
+    transition: transform 0.08s var(--spring-snappy);
   }
 
   @media (max-width: 900px) {
