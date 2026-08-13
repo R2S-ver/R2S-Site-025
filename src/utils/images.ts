@@ -39,3 +39,30 @@ export function getProjectImage(
     return images[key] as string;
 
 }
+
+
+/**
+ * Same as getProjectImage but always returns the final URL string.
+ * (Astro image globs actually yield ImageMetadata objects at runtime —
+ *  their .src property holds the URL. getProjectImage's "as string" cast
+ *  hides this, so consumers that render plain <img> must normalize.)
+ * Used by ProjectCard / ProjectDetail. ArtGallery (frozen) and the detail
+ * page templates keep consuming getProjectImage's raw output.
+ */
+export function getProjectImageUrl(
+    id:string,
+    filename:string
+): string | null {
+
+    const raw = getProjectImage(id, filename) as
+        | string
+        | { src: unknown }
+        | null;
+
+    if(!raw){
+        return null;
+    }
+
+    return typeof raw === "string" ? raw : String(raw.src);
+
+}

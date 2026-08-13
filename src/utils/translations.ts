@@ -563,7 +563,7 @@ export const translations = {
       },
       notes: {
         title: "笔记",
-        description: "研究、学习与技术记录",
+        description: "研究、学习与技术记录。",
       },
 
       about: {

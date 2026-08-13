@@ -44,5 +44,5 @@ Manage it with `astro dev stop`, `astro dev status`, `astro dev logs`. Build wit
 
 ## Repository hygiene
 
-- `输入/` is gitignored (skill input files, not part of the site).
+- `输入/` is the AI's input drop-box (user drops materials for the AI to read and turn into site content). Gitignored and untracked — never commit or upload it.
 - Dead files removed in 2026-08 cleanup: legacy `src/content/config.ts`, `ContentList.astro`, empty `retro-ui.css`/`variables.css`.

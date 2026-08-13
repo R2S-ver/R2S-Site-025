@@ -1,7 +1,7 @@
 ---
-import { getProjectImage } from "../utils/images";
-import { Image } from "astro:assets";
+import { getProjectImageUrl } from "../utils/images";
 import { getLanguageFromPath } from "../utils/i18n";
+import { buildEntryUrl } from "../utils/routes";
 import { getTranslations } from "../utils/translations";
 
 const { project } = Astro.props;
@@ -18,7 +18,7 @@ const t = getTranslations(language);
 const slug = project.id.split("/")[0];
 
 const image = project.data.cover
-  ? getProjectImage(slug, project.data.cover)
+  ? getProjectImageUrl(slug, project.data.cover)
   : null;
 
 const date = project.data.date.toLocaleDateString(
@@ -29,17 +29,9 @@ const date = project.data.date.toLocaleDateString(
   },
 );
 
-const routeMap: Record<string, string> = {
-  projects: "projects",
-  lab: "lab",
-  note: "note",
-  art: "art",
-};
-
-// 中文页面统一使用 /zh 前缀
-const languagePrefix = project.data.lang === "zh" ? "/zh" : "";
-
-const url = `${languagePrefix}/${routeMap[project.data.type]}/${slug}`;
+// URL 单一来源：utils/routes.ts 的 buildEntryUrl
+// （历史教训：组件内自建路由映射曾产生 404）
+const url = buildEntryUrl(project, project.data.lang);
 
 const type = project.data.type.toUpperCase();
 ---
@@ -71,7 +63,7 @@ const type = project.data.type.toUpperCase();
           )
         }
 
-        <Image class="cover" src={image} alt={project.data.title} />
+        <img class="cover" src={image} alt={project.data.title} loading="lazy" decoding="async" />
       </div>
     )
   }

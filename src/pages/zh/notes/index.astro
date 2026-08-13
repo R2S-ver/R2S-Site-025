@@ -31,11 +31,11 @@ const topTags = filterTags
   .map((t) => [t, notes.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title="笔记 | R2S Studio" description={t.meta.description}>
+<Layout title={`${t.sections.notes.title} | R2S Studio`} description={t.meta.description}>
   <main class="notes-page">
     <header class="notes-header">
-      <h1>笔记</h1>
-      <p>研究、学习与技术记录。</p>
+      <h1>{t.sections.notes.title}</h1>
+      <p>{t.sections.notes.description}</p>
     </header>
 
     {

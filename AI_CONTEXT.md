@@ -4,7 +4,7 @@
 > 接手任何新任务时：**先读本文件 → 再用快速索引（§11）定位文件 → 只读必要的源文件 → 动手。**
 > 与 `CLAUDE.md` 的分工：CLAUDE.md 是**规则与政策**（必须遵守的约束），本文件是**架构事实与原因**（"现在怎么组织的、为什么、去哪改"）。`AGENTS.md` 只讲开发服务器的工作方式。
 >
-> - 最后更新：2026-08-14（基于 commit `54b08ad` 的代码状态）
+> - 最后更新：2026-08-14 v1.1（技术债小修批次：ProjectCard 路由单一来源 / sharp 依赖声明 / zh-notes 翻译键 / 输入-取消跟踪；新增 §12 规则 12–13）
 > - 维护规则见 §12：代码若与本文件冲突，**以代码为准**，并更新本文件。
 
 ---
@@ -58,7 +58,7 @@ MyPortfolio/
 │   ├── styles/
 │   │   └── global.css         # ★ 设计系统唯一事实来源（14 个 section，955 行）
 │   └── utils/                 # 4 个工具模块（见下表）
-├── 输入/                      # skill 输入材料（web-design-engineer skill 包），不属于网站
+├── 输入/                      # ★ 用户给 AI 的"投递箱"：素材放这里，AI 读取后转写为站内内容（§12 规则 13）。已移出版本控制，永不提交/上传
 ├── node_modules/ .astro/ dist/  # 依赖/构建产物（gitignored，勿读勿改）
 ```
 
@@ -69,7 +69,7 @@ MyPortfolio/
 | `routes.ts` | **详情 URL 单一事实来源** | `typeToRoute`（projects→projects, lab→lab, **note→note 单数**, art→art）、`buildEntryUrl(entry, language)` |
 | `i18n.ts` | 语言判定与路径换算 | `Language` 类型、`defaultLanguage="en"`、`getLanguageFromPath`（`/zh` 前缀判定）、`getLocalizedPath`（加/剥 `/zh` 前缀）、`findTranslation`（按 `translationKey`+`lang` 配对译文条目） |
 | `translations.ts` | **全部文案唯一事实来源**（13 个 section：meta/nav/common/language/card/hero/featured/explore/latest/aboutPreview/footer/sections/system） | `translations`（`{en, zh}`）、`getTranslations(language)`；用法 `const t = getTranslations(lang)` 后按路径取文案 |
-| `images.ts` | 内容图片解析 | `getProjectImage(id, filename)`：`import.meta.glob(eager)` 扫描 entries 图片；**特例**：`fashion-design` 的 PNG 返回 `/art/fashion-design/{file}`（走 public 保留透明通道） |
+| `images.ts` | 内容图片解析 | `getProjectImage(id, filename)`：`import.meta.glob(eager)` 扫描 entries 图片；**特例**：`fashion-design` 的 PNG 返回 `/art/fashion-design/{file}`（走 public 保留透明通道）。**注意**：Astro 图片 glob 运行时返回的是 ImageMetadata 对象（`.src` 才是 URL），`getProjectImage` 返回原始值（ArtGallery 冻结区与详情页模板自行归一化）；渲染原生 `<img>` 时用 `getProjectImageUrl`（归一化为 URL 字符串，ProjectCard/ProjectDetail 在用） |
 
 **在哪里改什么：**
 
@@ -183,6 +183,8 @@ const translation = findTranslation(entries, entry, "zh" | "en");
 
 **新增艺术条目（art）：** 目前 art 条目 4 个已与冻结的 `/art` 页面硬编码分类绑定（§7.7、§10），**新增 art 条目需要先与用户确认**——冻结政策只允许改 SEO 相关 frontmatter。
 
+> 素材来源：用户可能把图片/文档放在 `输入/` 里让 AI 转写（见 §12 规则 13）。
+
 ---
 
 ## 5. Component / Layout 架构
@@ -215,7 +217,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 | 组件 | Props | 职责 | 被谁用 |
 |---|---|---|---|
-| `ProjectCard.astro` | `project`（必填） | 条目卡片（整卡是 `<a>`）：PRJ_NODE//TYPE 头、cover+IMAGE_STREAM 角标、**TEAM badge（collaboration 驱动）**、title/description/tags、category+date 底栏 | projects/lab 列表页 ×4 + 首页 FeaturedProjects。**注意：内部有自建 routeMap（未用 buildEntryUrl），是已知偏差，见 §10** |
+| `ProjectCard.astro` | `project`（必填） | 条目卡片（整卡是 `<a>`）：PRJ_NODE//TYPE 头、cover+IMAGE_STREAM 角标、**TEAM badge（collaboration 驱动）**、title/description/tags、category+date 底栏 | projects/lab 列表页 ×4 + 首页 FeaturedProjects。链接经 `buildEntryUrl`（单一来源） |
 | `ProjectDetail.astro` | `project`、`projectId`、`Content` 必填；`translation?` | 详情主体：hero、info 四格（年份/类型/分类/工具）、tags、正文 `<Content/>`、**侧边 TOC**、翻译不可用提示；客户端 JS：修复正文 `./` 图片 src、图片全屏灯箱、process 滚动轨道、TOC 生成（note 取 h2，其余取 h1，剥数字编号前缀） | 两张详情页模板 |
 | `ArtGallery.astro` | `project`、`projectId` | **冻结**：art 条目详情展示（masonry 三列 + lightbox），消费 `gallery` 字段 | 详情模板 art 分支（**实际不可达**，见 §3.2-5） |
 
@@ -347,14 +349,14 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 | 状态 | 问题 | 说明 / 注意 |
 |---|---|---|
-| 🟡 | **ProjectCard 自建 routeMap** | `src/components/ProjectCard.astro` 内部有 `{projects,lab,note,art}` 映射且**未用 `buildEntryUrl`**——是 CLAUDE.md "单一来源"原则的唯一现存违反者（历史 404 教训正是这类自建映射）。当前值与 `typeToRoute` 恰好一致所以没炸。**改路由映射时必须同步这里**，或顺手重构为 `buildEntryUrl`。 |
+| 🟢 | ProjectCard 自建 routeMap | 已修复（2026-08-14）：改用 `buildEntryUrl(project, project.data.lang)`，行为等价，与 `typeToRoute` 单一来源对齐。 |
 | 🟡 | Hero 终端被隐藏（实验状态） | global.css §14。用户尚未决定保留还是恢复。改首页 Hero 视觉时勿被"终端不见了"误导。 |
 | 🟡 | ArtGallery 是死代码 + gallery 双实现 | 详情模板的 art 分支不可达（getStaticPaths 过滤 art）；实际 art 展示由两个冻结的 art 页各自实现的 marquee/lightbox 承担。两套实现并存且 en/zh 版还有细节差异。受冻结政策约束，**动它们需要用户解冻**。 |
-| 🟡 | zh/notes 页未用翻译键 | zh 版标题/描述硬编码（"笔记 | R2S Studio"），与 en 版不一致；两版样式覆盖也有漂移（en 有更多 light 主题覆盖）。 |
+| 🟢 | zh/notes 页未用翻译键 | 已修复（2026-08-14）：改用 `t.sections.notes.*`，zh 翻译描述补句号与 en 对齐。两版样式覆盖的细微漂移仍存在，见 🔴 清单。 |
 | 🟡 | about 页双文件臃肿且实现漂移 | en 3977 行 / zh 4274 行，canvas 动画脚本双份维护，动画参数与样式有独立差异。重构（共享模板）需要用户同意——这是当前最大的维护成本点。 |
-| 🟡 | README.md 是 Astro 模板默认 README | 未定制，对访客无项目信息（不影响功能）。 |
-| 🟡 | `og-card-gen.mjs` 依赖 sharp 传递依赖 | sharp 不在 package.json 声明（靠 astro 的传递依赖 hoisting）；无 npm script。若升级依赖后脚本报错，需显式安装 sharp 并补 script。 |
-| 🟡 | `输入/` 与 .gitignore 不一致 | .gitignore 有 `输入/` 条目，但该目录 39 个文件**已被 git 跟踪**（规则只对未跟踪文件生效）。git ls-files 仍会列出它们。清理需 `git rm -r --cached`（用户未要求，勿擅自动）。 |
+| 🟢 | README.md 是 Astro 模板默认 README | 已修复（2026-08-14）：重写为面向访客的项目介绍（中英双语，由浅入深）。 |
+| 🟢 | og-card 脚本依赖 sharp 传递依赖 | 已修复（2026-08-14）：sharp 声明为 devDependency（^0.35.3），新增 `npm run og-card` 脚本（已运行验证）。 |
+| 🟢 | `输入/` 与 .gitignore 不一致 | 已解决（2026-08-14）：`git rm -r --cached 输入` 取消跟踪（本地文件保留）。该目录重新定义为**用户给 AI 的投递箱**，永不提交（§12 规则 13）。 |
 | 🟡 | Navbar 无当前页高亮 | 无 `aria-current`/active 样式。属功能缺失而非 bug；加高亮属合理新需求。 |
 | 🟡 | zoem-bike 的 translationKey ≠ 文件夹名 | 文件夹 `zoem-bike-bakfiets`，translationKey 是 `zoem-bike-cargo-box`。配对依赖 translationKey（不依赖文件夹名），所以无功能性影响，但容易让新读者困惑。 |
 | 🟡 | 无 en→zh 的 `/zh/404` 独立页 | 404 页双语混合固定内容，未按语言适配（可接受）。 |
@@ -362,7 +364,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | 🔵 | 滚动条隐藏 | 用户偏好，勿"修复"。 |
 | 🔵 | `featured` 字段不参与自动筛选 | 首页精选靠硬编码 `featuredKeys`（用户偏好人工策展）。 |
 | 🔵 | 卡片/详情无 cover 的 note 条目 | 5 个早期 note 无 cover，卡片与详情做了无封面降级渲染，属正常设计。 |
-| 🔴 | 可选重构清单 | ProjectCard 改用 `buildEntryUrl`；ArtGallery 与 art 页 gallery 实现统一（需解冻）；about 页双语言共享模板化；zh/notes 文案走翻译键。**这些都需要用户同意，不要擅自执行。** |
+| 🔴 | 可选重构清单 | ArtGallery 与 art 页 gallery 实现统一（需解冻）；about 页双语言共享模板化；zh/notes 与 en 版样式漂移收敛。**这些都需要用户同意，不要擅自执行。** |
 
 已解决的历史问题（勿回退）：详情路由 404（`/notes/{slug}` 发散映射，靠 `routes.ts` 单一来源解决）；TechArticle 缺 `dateModified`/日期无时区（2026-08 修复）；`translationOfWork` 嵌套字段不全（2026-08 补全）；Person 实体补 `alternateName: RrSuika`；2026-08 清理删除的遗留文件（旧 `src/content/config.ts`、`ContentList.astro`、空 `retro-ui.css`/`variables.css`）——**不要再创建同名遗留文件**。
 
@@ -377,7 +379,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | 改首页 SYS.LOG 规则 | `src/pages/index.astro`（zh 同）frontmatter `latestEntries` 逻辑 |
 | 改导航 / 语言切换 / 主题按钮 | `src/components/Navbar.astro` |
 | 改页脚链接/版权 | `src/components/Footer.astro` |
-| 改项目/实验卡片 | `src/components/ProjectCard.astro`（注意自建 routeMap） |
+| 改项目/实验卡片 | `src/components/ProjectCard.astro` |
 | 改详情页排版/TOC/灯箱 | `src/components/ProjectDetail.astro` |
 | 改滚动进度条 | `src/components/ScrollMeter.astro` |
 | 改列表筛选标签 | 各列表页 frontmatter `filterTags` + global.css §12（`.tag-bar/.tag-chip`） |
@@ -392,7 +394,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | 改 sitemap | `src/pages/sitemap.xml.ts` |
 | 改 robots | `public/robots.txt` |
 | 改 404 | `src/pages/404.astro` |
-| 改分享卡 | `scripts/og-card-gen.mjs`（改后手动重跑）+ `public/og-card.png` |
+| 改分享卡 | `scripts/og-card-gen.mjs`（改后 `npm run og-card` 重跑）+ `public/og-card.png` |
 | 改 art 展示 | ⚠️ 冻结区：`src/pages/art/index.astro`、`zh/art/index.astro`、`ArtGallery.astro`、`gallery` 字段——仅允许 SEO frontmatter |
 | 改 about 页 | `src/pages/about/index.astro` + `src/pages/zh/about/index.astro`（双文件都要改） |
 | 构建/部署问题 | `package.json`、`astro.config.mjs`；Cloudflare 控制台（仓库内无部署配置） |
@@ -412,3 +414,5 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 9. **完成较大架构修改后，主动更新本文档**（目录树、路由、组件职责、决策记录、技术债状态）。
 10. **敏感信息禁入本文档**：不写密码、Token、API Key；调试临时代码的痕迹也不写入。
 11. 开发服务器按 AGENTS.md 用后台模式（`astro dev --background`）；验证用 `npm run build`。
+12. **用户的新约定必须写进本文件**：用户在对话中传达的任何新规则、新决策、新流程（例："`输入/` 是给 AI 的投递箱"），执行任务后要主动写入本文件（必要时同步 CLAUDE.md 和记忆），让未来的 AI 无需用户重复提醒。
+13. **`输入/` 投递箱工作流**：用户会把新素材（项目图片、文档、skill 包等）放进 `输入/`。AI 应主动读取其中内容并转化为站内产物（写入 `src/content/entries/` 或合适位置），完成后与用户确认是否清理原文件。该目录**永不提交/上传 GitHub**（已移出版本控制）。

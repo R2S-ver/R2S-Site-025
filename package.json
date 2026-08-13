@@ -9,10 +9,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "og-card": "node scripts/og-card-gen.mjs"
   },
   "dependencies": {
     "astro": "^7.1.6",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3"
   }
 }

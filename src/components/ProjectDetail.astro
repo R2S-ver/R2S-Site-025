@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import { getProjectImage } from "../utils/images";
+import { getProjectImageUrl } from "../utils/images";
 import { getLanguageFromPath } from "../utils/i18n";
 import { getTranslations } from "../utils/translations";
 
@@ -17,7 +16,7 @@ const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
 
 const cover = project.data.cover
-  ? getProjectImage(projectId, project.data.cover)
+  ? getProjectImageUrl(projectId, project.data.cover)
   : null;
 
 // Resolve all images in this project folder for fixing raw <img> tags in markdown
@@ -49,7 +48,7 @@ const translationAvailable = !!translation;
 <main class="project">
   <section class="hero">
     <div class="cover">
-      {cover && <Image src={cover} alt={project.data.title} />}
+      {cover && <img src={cover} alt={project.data.title} loading="lazy" decoding="async" />}
     </div>
 
     <div class="hero-text">
