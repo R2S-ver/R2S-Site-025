@@ -20,7 +20,7 @@
 | 设计方向 | 复古科幻 CRT 终端 / 技术手册 HUD 风（retro-futurism）：暗色默认 + 亮色"蓝图纸"（Soviet technical manual）主题 |
 | 阶段 | 生产运行中。架构稳定；art 页面**冻结**（用户决定）；首页 Hero 终端处于**临时隐藏实验**状态（§14，见 §10） |
 
-**GitHub**：仓库 MyPortfolio（账号 R2S-ver），主分支 `main`，工作树干净即代表生产状态。
+**GitHub**：远程仓库 `R2S-Site-025`（账号 R2S-ver；本地文件夹名为 MyPortfolio），主分支 `main`，工作树干净即代表生产状态。
 
 ---
 
