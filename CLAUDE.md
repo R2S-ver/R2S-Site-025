@@ -1,22 +1,46 @@
+# R2S Studio Portfolio — Project Conventions
+
+Personal portfolio (Astro 7, static, no integrations), deployed to Cloudflare Pages at https://r2s-site-025.pages.dev (auto-deploys on push to main).
+
 ## Development
 
-When starting the dev server, use background mode:
+Start the dev server in background mode:
 
 ```
 astro dev --background
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+Manage it with `astro dev stop`, `astro dev status`, `astro dev logs`. Build with `npm run build`.
 
-## Documentation
+## Design system — READ THIS BEFORE TOUCHING STYLES
 
-Full documentation: https://docs.astro.build
+- **`src/styles/global.css` is the single source of truth** for all design tokens (14 sections), imported once by `Layout.astro` frontmatter.
+- **Token fidelity policy**: every token value was copied 1:1 from the original pre-cleanup styles. When replacing literals, use a token **only if its value is identical in both themes**; otherwise leave the literal. Never invent new colors, never "harmonize" values, never recolor.
+- Theme contract: `data-theme` on `<html>` (dark default), `localStorage["r2s-theme"]`, toggle via `window.__toggleTheme`.
+- **⚠️ Hero terminal is temporarily hidden**: `global.css` §14 contains `.hero .terminal { display: none; }` with restore instructions. Deleting that block restores the terminal (element is intact in `Hero.astro`).
+- Background layers (§10): weakened particle canvas (`#neural-canvas`, script in Layout.astro — 140/70 particles, CONNECTION_DIST 140, shadowBlur 8, opacity 0.25 dark / 0.10 light) + hex grid + noise + scanlines (0.28 dark / 0.08 light) + vignette.
+- CJK: `html[lang="zh"]` headings get `letter-spacing: 0; line-height: 1.2` (§13); `.hero h1` is Latin and keeps its display tracking.
+- Scrollbar is intentionally fully hidden (original behavior, kept by user preference).
+- Fonts: Google Fonts JetBrains Mono 400/700/800/900. `--font-mono`/`--font-body` include CJK fallbacks.
+- Old-palette literals (`#ff5f1f`, brand dots `#ff3333/#ffd400/#00b0ff`, `rgba(255,95,31,…)`, light greens `#00703c/#145a28`) are deliberate — the user chose to keep the original look. Do not recolor them.
 
-Consult these guides before working on related tasks:
+## Architecture conventions
 
-- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
-- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
-- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
-- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
-- [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
-- [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+- **`src/utils/routes.ts` is the single source for entry URLs** (`typeToRoute`, `buildEntryUrl`). Note detail routes use singular `note` (`/note/{slug}`), while the listing page is `/notes`. Never create per-component route maps — that bug produced 404s.
+- **`src/utils/translations.ts` is the single translation source** (nav/common/hero/featured/explore/latest/aboutPreview/footer/sections/meta). Never add inline translation dictionaries in components.
+- **i18n is manual** (no Astro i18n routing): `/zh` prefix detected via `getLanguageFromPath`; every en page needs a zh mirror file. Use `getLocalizedPath`/`findTranslation` from `src/utils/i18n.ts`.
+- **Content**: single collection `entries` (glob loader, `src/content.config.ts`); URL slug = entry folder name; en/cn paired by `translationKey`. `collaboration` field drives the TEAM badge in ProjectCard.
+- **Home page**: featured projects use a hardcoded `featuredKeys` list (user preference); SYS.LOG excludes `type === "art"` entries (art has no detail pages).
+- **Art pages are FROZEN (user decision)**: no structural or CSS changes to `src/pages/art/index.astro`, `src/pages/zh/art/index.astro`, `src/components/ArtGallery.astro`, or the `gallery` schema field. Only SEO props in frontmatter are allowed there.
+
+## SEO conventions
+
+- `Layout` Props: `title` (append `| R2S Studio` for pages), `description` (falls back to `t.meta.description`), `ogImage` (absolute path string), `alternateHref` (`undefined` = assume page exists in the other language; `null` = omit hreflang), `noIndex`.
+- Structured data (JSON-LD, `is:inline`): `WebSite` in Layout head; `Person` on both About pages (name R2S Studio, alternateName R2S/RrSuika, sameAs GitHub/pixiv); `TechArticle` on detail templates (full ISO-8601 dates — schema.org requires timezone info; `translationOfWork` links the paired article).
+- `sitemap.xml.ts` endpoint excludes art entries (no detail pages). `public/robots.txt` allows all crawlers except AI-training bots, which are disallowed from `/art/` and `/zh/art/` (Googlebot unaffected).
+- Site URL is configured in `astro.config.mjs` — canonical/hreflang/OG depend on it.
+
+## Repository hygiene
+
+- `输入/` is gitignored (skill input files, not part of the site).
+- Dead files removed in 2026-08 cleanup: legacy `src/content/config.ts`, `ContentList.astro`, empty `retro-ui.css`/`variables.css`.
