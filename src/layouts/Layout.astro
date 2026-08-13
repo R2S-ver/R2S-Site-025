@@ -49,7 +49,11 @@ const xDefaultPath =
 
 const xDefaultUrl = Astro.site ? new URL(xDefaultPath, Astro.site).href : null;
 
-const ogImageUrl = ogImage && Astro.site ? new URL(ogImage, Astro.site).href : null;
+// Default share card; detail pages override with their cover image.
+const ogImageUrl =
+  Astro.site && (ogImage || "/og-card.png")
+    ? new URL(ogImage ?? "/og-card.png", Astro.site).href
+    : null;
 
 // Structured data — WebSite entity, declared on every page.
 const websiteSchema = {
