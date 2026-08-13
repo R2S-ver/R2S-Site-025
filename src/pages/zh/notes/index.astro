@@ -212,6 +212,14 @@ const topTags = filterTags
     white-space: nowrap;
   }
 
+  /* Light theme — mirrors the en notes page overrides */
+  :root[data-theme="light"] .note-title { color: var(--text-bright); }
+  :root[data-theme="light"] .note-row:hover .note-title { color: var(--accent); }
+  :root[data-theme="light"] .note-desc { color: var(--text-dim); }
+  :root[data-theme="light"] .note-tag { color: var(--text-dim); border-color: var(--border-strong); }
+  :root[data-theme="light"] .note-row { border-bottom-color: rgba(0,0,0,0.08); }
+  :root[data-theme="light"] .note-row:hover { background: var(--hover-bg); }
+
   @media (max-width: 700px) {
     .notes-page {
       padding: 0 16px 60px;

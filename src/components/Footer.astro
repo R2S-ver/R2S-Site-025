@@ -132,10 +132,9 @@ const aboutPath = getLocalizedPath("/about", language);
   :root[data-theme="light"] .footer .copyright { color: #888; }
   :root[data-theme="light"] .footer .meta strong { color: #333; }
   :root[data-theme="light"] .footer .green { color: #00703c !important; }
-  :root[data-theme="light"] .footer .barcode {
-    filter: invert(1);
-    opacity: 0.2;
-  }
+  /* barcode light-mode styling lives in global.css §11
+     (dark #333 bars) — a component-level invert here would
+     flip them back to near-white and make them invisible */
 
   .footer-line {
     height: 70px;

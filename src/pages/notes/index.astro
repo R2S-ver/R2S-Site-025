@@ -131,11 +131,11 @@ const topTags = filterTags
     font-size: 11px;
   }
 
-  :root[data-theme="light"] .notes-page .tag-chip {
+  :root[data-theme="light"] .notes-page .tag-chip:not(.active) {
     background: rgba(0,0,0,0.03);
   }
 
-  :root[data-theme="light"] .notes-page .tag-chip:hover {
+  :root[data-theme="light"] .notes-page .tag-chip:not(.active):hover {
     color: #333;
     border-color: rgba(0,0,0,0.3);
     background: rgba(0,0,0,0.06);
