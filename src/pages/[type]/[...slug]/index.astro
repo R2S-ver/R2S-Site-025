@@ -55,29 +55,53 @@ const alternateHref = translation
   ? getLocalizedPath(Astro.url.pathname, translation.data.lang)
   : null;
 
+// Translation entry's cover image (for the nested translationOfWork item).
+const translationCoverRaw = translation?.data.cover
+  ? (getProjectImage(
+      translation.id.split("/")[0],
+      translation.data.cover,
+    ) as string | { src: unknown } | null)
+  : null;
+
+const translationCover =
+  typeof translationCoverRaw === "string"
+    ? translationCoverRaw
+    : translationCoverRaw && "src" in translationCoverRaw
+      ? String(translationCoverRaw.src)
+      : null;
+
+const authorRef = {
+  "@type": "Person",
+  name: "R2S Studio",
+  url: "https://r2s-site-025.pages.dev/about",
+};
+
 // Structured data — TechArticle entity for detail pages.
+// Dates are full ISO-8601 datetimes (schema.org requires timezone info).
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
   headline: project.data.title,
   description: project.data.description ?? undefined,
   image: coverImage ?? undefined,
-  datePublished: project.data.date.toISOString().split("T")[0],
-  // 无独立修改日期数据，回退为发布日期（富结果测试的 dateModified 提示）
-  dateModified: project.data.date.toISOString().split("T")[0],
+  datePublished: project.data.date.toISOString(),
+  // 无独立修改日期数据，回退为发布日期
+  dateModified: project.data.date.toISOString(),
   inLanguage: project.data.lang === "zh" ? "zh-CN" : "en",
-  author: {
-    "@type": "Person",
-    name: "R2S Studio",
-    url: "https://r2s-site-025.pages.dev/about",
-  },
+  author: authorRef,
   mainEntityOfPage: Astro.site
     ? new URL(Astro.url.pathname, Astro.site).href
     : undefined,
   translationOfWork: translation
     ? {
         "@type": "TechArticle",
-        name: translation.data.title,
+        headline: translation.data.title,
+        description: translation.data.description ?? undefined,
+        image: translationCover ?? undefined,
+        datePublished: translation.data.date.toISOString(),
+        dateModified: translation.data.date.toISOString(),
+        inLanguage: translation.data.lang === "zh" ? "zh-CN" : "en",
+        author: authorRef,
         url: Astro.site
           ? new URL(
               getLocalizedPath(Astro.url.pathname, translation.data.lang),
