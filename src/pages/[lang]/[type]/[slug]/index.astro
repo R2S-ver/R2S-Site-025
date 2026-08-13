@@ -64,6 +64,8 @@ const articleSchema = {
   description: project.data.description ?? undefined,
   image: coverImage ?? undefined,
   datePublished: project.data.date.toISOString().split("T")[0],
+  // 无独立修改日期数据，回退为发布日期（富结果测试的 dateModified 提示）
+  dateModified: project.data.date.toISOString().split("T")[0],
   inLanguage: project.data.lang === "zh" ? "zh-CN" : "en",
   author: {
     "@type": "Person",
