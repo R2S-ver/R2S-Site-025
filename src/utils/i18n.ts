@@ -1,8 +1,29 @@
 import type { CollectionEntry } from "astro:content";
 
-export type Language = "en" | "zh";
+export type Language = "en" | "zh" | "nl";
 
 export const defaultLanguage: Language = "en";
+
+/** hreflang / og:locale code per language */
+export const languageCodes: Record<Language, string> = {
+  en: "en",
+  zh: "zh-CN",
+  nl: "nl-NL",
+};
+
+/** og:locale value per language */
+export const languageLocales: Record<Language, string> = {
+  en: "en_US",
+  zh: "zh_CN",
+  nl: "nl_NL",
+};
+
+/** date.toLocaleDateString locale per language */
+export const languageDateLocales: Record<Language, string> = {
+  en: "en-US",
+  zh: "zh-CN",
+  nl: "nl-NL",
+};
 
 /**
  * Get the current language from the URL.
@@ -12,6 +33,11 @@ export const defaultLanguage: Language = "en";
  * /lab/project
  *       → en
  *
+ * /nl/lab
+ * /nl/projects
+ * /nl/lab/project
+ *       → nl
+ *
  * /zh/lab
  * /zh/projects
  * /zh/lab/project
@@ -20,6 +46,10 @@ export const defaultLanguage: Language = "en";
 export function getLanguageFromPath(
   pathname: string
 ): Language {
+  if (pathname === "/nl" || pathname.startsWith("/nl/")) {
+    return "nl";
+  }
+
   if (pathname === "/zh" || pathname.startsWith("/zh/")) {
     return "zh";
   }
@@ -31,7 +61,7 @@ export function getLanguageFromPath(
  * Convert an existing path to another language.
  *
  * /lab/project
- *      → /zh/lab/project
+ *      → /zh/lab/project  ·  /nl/lab/project
  *
  * /zh/lab/project
  *      → /lab/project
@@ -41,13 +71,13 @@ export function getLocalizedPath(
   language: Language
 ): string {
   const cleanPath =
-    pathname.replace(/^\/zh(?:\/|$)/, "/") || "/";
+    pathname.replace(/^\/(?:zh|nl)(?:\/|$)/, "/") || "/";
 
   if (language === "en") {
     return cleanPath;
   }
 
-  return `/zh${cleanPath}`;
+  return `/${language}${cleanPath}`;
 }
 
 /**

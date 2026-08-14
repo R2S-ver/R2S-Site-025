@@ -94,7 +94,6 @@ The rig is a vertical measurement stand: light source at the bottom, adjustable 
     <div class="step"><img src="./13-polarity-check.png" alt="Polarity Check" /><span>STEP 8: Polarity Check</span></div>
     <div class="step"><img src="./14-subassembly-2.png" alt="Subassembly" /><span>STEP 9: Final Assembly</span></div>
     <div class="step"><img src="./15-circuit-testing.png" alt="Circuit Testing" /><span>STEP 10: Circuit Testing</span></div>
-
     <div class="step"><img src="./06-3d-modelling.png" alt="3D Modelling" /><span>STEP 1: 3D Modelling</span></div>
     <div class="step"><img src="./07-laser-cutting.png" alt="Laser Cutting" /><span>STEP 2: Laser Cutting</span></div>
     <div class="step"><img src="./08-test-build.png" alt="Test Build" /><span>STEP 3: Test Build</span></div>
@@ -105,7 +104,6 @@ The rig is a vertical measurement stand: light source at the bottom, adjustable 
     <div class="step"><img src="./13-polarity-check.png" alt="Polarity Check" /><span>STEP 8: Polarity Check</span></div>
     <div class="step"><img src="./14-subassembly-2.png" alt="Subassembly" /><span>STEP 9: Final Assembly</span></div>
     <div class="step"><img src="./15-circuit-testing.png" alt="Circuit Testing" /><span>STEP 10: Circuit Testing</span></div>
-
     <div class="step"><img src="./06-3d-modelling.png" alt="3D Modelling" /><span>STEP 1: 3D Modelling</span></div>
     <div class="step"><img src="./07-laser-cutting.png" alt="Laser Cutting" /><span>STEP 2: Laser Cutting</span></div>
     <div class="step"><img src="./08-test-build.png" alt="Test Build" /><span>STEP 3: Test Build</span></div>
@@ -116,7 +114,6 @@ The rig is a vertical measurement stand: light source at the bottom, adjustable 
     <div class="step"><img src="./13-polarity-check.png" alt="Polarity Check" /><span>STEP 8: Polarity Check</span></div>
     <div class="step"><img src="./14-subassembly-2.png" alt="Subassembly" /><span>STEP 9: Final Assembly</span></div>
     <div class="step"><img src="./15-circuit-testing.png" alt="Circuit Testing" /><span>STEP 10: Circuit Testing</span></div>
-
   </div>
 </div>
 

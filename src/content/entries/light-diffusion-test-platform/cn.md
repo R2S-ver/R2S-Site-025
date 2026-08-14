@@ -94,7 +94,6 @@ translationKey: light-diffusion-test-platform
     <div class="step"><img src="./13-polarity-check.png" alt="极性检查" /><span>步骤 8: 极性检查</span></div>
     <div class="step"><img src="./14-subassembly-2.png" alt="总装" /><span>步骤 9: 总装</span></div>
     <div class="step"><img src="./15-circuit-testing.png" alt="电路测试" /><span>步骤 10: 电路测试</span></div>
-
     <div class="step"><img src="./06-3d-modelling.png" alt="三维建模" /><span>步骤 1: 三维建模</span></div>
     <div class="step"><img src="./07-laser-cutting.png" alt="激光切割" /><span>步骤 2: 激光切割</span></div>
     <div class="step"><img src="./08-test-build.png" alt="试装" /><span>步骤 3: 试装</span></div>
@@ -105,7 +104,6 @@ translationKey: light-diffusion-test-platform
     <div class="step"><img src="./13-polarity-check.png" alt="极性检查" /><span>步骤 8: 极性检查</span></div>
     <div class="step"><img src="./14-subassembly-2.png" alt="总装" /><span>步骤 9: 总装</span></div>
     <div class="step"><img src="./15-circuit-testing.png" alt="电路测试" /><span>步骤 10: 电路测试</span></div>
-
     <div class="step"><img src="./06-3d-modelling.png" alt="三维建模" /><span>步骤 1: 三维建模</span></div>
     <div class="step"><img src="./07-laser-cutting.png" alt="激光切割" /><span>步骤 2: 激光切割</span></div>
     <div class="step"><img src="./08-test-build.png" alt="试装" /><span>步骤 3: 试装</span></div>
@@ -116,7 +114,6 @@ translationKey: light-diffusion-test-platform
     <div class="step"><img src="./13-polarity-check.png" alt="极性检查" /><span>步骤 8: 极性检查</span></div>
     <div class="step"><img src="./14-subassembly-2.png" alt="总装" /><span>步骤 9: 总装</span></div>
     <div class="step"><img src="./15-circuit-testing.png" alt="电路测试" /><span>步骤 10: 电路测试</span></div>
-
   </div>
 </div>
 

@@ -17,6 +17,7 @@ export const GET: APIRoute = async ({ site }) => {
   for (const path of staticPaths) {
     urls.set(`${base}${path}`, "");
     urls.set(`${base}/zh${path}`, "");
+    urls.set(`${base}/nl${path}`, "");
   }
 
   for (const entry of entries) {
@@ -24,9 +25,9 @@ export const GET: APIRoute = async ({ site }) => {
 
     const slug = entry.id.split("/")[0];
     const lastmod = entry.data.date.toISOString().slice(0, 10);
+    const prefix = entry.data.lang === "en" ? "" : `/${entry.data.lang}`;
 
-    urls.set(`${base}/${entry.data.type}/${slug}`, lastmod);
-    urls.set(`${base}/zh/${entry.data.type}/${slug}`, lastmod);
+    urls.set(`${base}${prefix}/${entry.data.type}/${slug}`, lastmod);
   }
 
   const body = [...urls.entries()]

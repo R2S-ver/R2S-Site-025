@@ -1,6 +1,6 @@
 ---
 import { getProjectImageUrl } from "../utils/images";
-import { getLanguageFromPath } from "../utils/i18n";
+import { getLanguageFromPath, languageDateLocales } from "../utils/i18n";
 import { getTranslations } from "../utils/translations";
 
 interface Props {
@@ -35,7 +35,7 @@ for (const [path, mod] of Object.entries(allImagesRaw)) {
 }
 
 const date = project.data.date.toLocaleDateString(
-  language === "zh" ? "zh-CN" : "en-US",
+  languageDateLocales[language],
   {
     year: "numeric",
     month: "long",
@@ -144,19 +144,59 @@ const translationAvailable = !!translation;
       const filename = img.getAttribute("src")!.replace("./", "");
       if (__IMAGES__[filename]) img.src = __IMAGES__[filename];
     });
-    // ── Image click → fullscreen overlay ──
+    // ── Image click → fullscreen overlay (with click-vs-drag discrimination) ──
+    const openOverlay = (src: string) => {
+      const overlay = document.createElement("div");
+      overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;cursor:zoom-out;";
+      const clone = document.createElement("img");
+      clone.src = src;
+      clone.style.cssText = "max-width:92vw;max-height:92vh;object-fit:contain;";
+      overlay.appendChild(clone);
+      overlay.addEventListener("click", () => overlay.remove());
+      document.body.appendChild(overlay);
+    };
     document.querySelectorAll<HTMLImageElement>("article img").forEach(img => {
-      img.style.cursor = "zoom-in";
-      img.addEventListener("click", () => {
-        const overlay = document.createElement("div");
-        overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;cursor:zoom-out;";
-        const clone = document.createElement("img");
-        clone.src = img.src;
-        clone.style.cssText = "max-width:92vw;max-height:92vh;object-fit:contain;";
-        overlay.appendChild(clone);
-        overlay.addEventListener("click", () => overlay.remove());
-        document.body.appendChild(overlay);
+      if (img.closest(".drawer-stack")) return; // drawer stacks have their own interaction
+      let pressX = 0, pressY = 0;
+      img.addEventListener("mousedown", (e) => { pressX = e.clientX; pressY = e.clientY; });
+      img.addEventListener("click", (e) => {
+        // only zoom on a real click, not the end of a drag (e.g. process track)
+        const dx = Math.abs(e.clientX - pressX), dy = Math.abs(e.clientY - pressY);
+        if (dx < 4 && dy < 4) openOverlay(img.src);
       });
+      img.style.cursor = "zoom-in";
+    });
+    // ── Drawer stacks: hover pulls a card out (CSS); on touch, tap toggles, tap again zooms ──
+    document.querySelectorAll<HTMLElement>(".drawer-card").forEach(card => {
+      card.addEventListener("click", () => {
+        const img = card.querySelector<HTMLImageElement>("img");
+        if (window.matchMedia("(hover: hover)").matches) {
+          if (img) openOverlay(img.src);
+        } else {
+          if (card.classList.contains("open")) {
+            if (img) openOverlay(img.src);
+            card.classList.remove("open");
+          } else {
+            card.classList.add("open");
+          }
+        }
+      });
+    });
+    // ── Info tabs: hover/click a title on the left → show its panel on the right ──
+    document.querySelectorAll<HTMLElement>(".info-tabs").forEach(tabs => {
+      const items = Array.from(tabs.querySelectorAll<HTMLElement>(".tab-item"));
+      const panels = Array.from(tabs.querySelectorAll<HTMLElement>(".tab-panel"));
+      const activate = (idx: number) => {
+        items.forEach((it, i) => it.classList.toggle("active", i === idx));
+        panels.forEach((p, i) => p.classList.toggle("active", i === idx));
+      };
+      items.forEach((item, i) => {
+        item.addEventListener("mouseenter", () => {
+          if (window.matchMedia("(hover: hover)").matches) activate(i);
+        });
+        item.addEventListener("click", () => activate(i));
+      });
+      activate(0);
     });
     // ── Process scroll auto-advance ──
     const sc = document.getElementById("process-scroll");
@@ -195,11 +235,11 @@ const translationAvailable = !!translation;
       requestAnimationFrame(anim);
     }
     const article = document.querySelector("article");
-    const toc = document.querySelector("#toc-list");
+    const toc = document.querySelector<HTMLElement>("#toc-list");
 
     if (!article || !toc) return;
 
-    const headings = article.querySelectorAll(toc.dataset.tocLevel || "h1");
+    const headings = article.querySelectorAll<HTMLElement>(toc.dataset.tocLevel || "h1");
 
     headings.forEach((heading, index) => {
       if (!heading.id) {
@@ -243,6 +283,8 @@ const translationAvailable = !!translation;
 
     align-items: center;
 
+    margin-top: 48px;
+
     margin-bottom: 80px;
 
     max-width: var(--container-narrow);
@@ -278,6 +320,8 @@ const translationAvailable = !!translation;
     line-height: 1.15;
 
     margin-bottom: 25px;
+
+    white-space: pre-line;
   }
 
   .description {
@@ -864,6 +908,244 @@ const translationAvailable = !!translation;
     margin: 0 !important;
   }
   .side-by-side p { text-align: center; font-size: var(--text-scale-2xs); color: #888; margin-top: 6px; font-family: var(--font-mono); }
+
+  /* --- Drawer stack: overlapping files on the left, hover pulls one out to the right --- */
+  .drawer-stack {
+    float: left;
+    width: 280px;
+    margin: 8px 56px 48px 0;
+  }
+  .drawer-card {
+    position: relative;
+    width: 280px;
+    height: 170px;
+    cursor: pointer;
+    z-index: 1;
+    transition: transform 0.5s var(--spring-bounce);
+  }
+  /* cards overlap: only the top strip of each underlying card stays visible */
+  .drawer-card:not(:first-child) { margin-top: -108px; }
+  .drawer-card:nth-child(odd) { rotate: -0.5deg; }
+  .drawer-card:nth-child(even) { rotate: 0.5deg; }
+  .drawer-card img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong);
+    margin: 0 !important;
+    display: block;
+    background: var(--panel);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+  :root[data-theme="light"] .drawer-card img { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); }
+  /* pulled out to the right of the stack */
+  .drawer-card:hover,
+  .drawer-card.open {
+    transform: translateX(calc(100% + 28px));
+    z-index: 30;
+  }
+  .drawer-card .card-caption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 26px 12px 9px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    color: #ddd;
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-2xs);
+    letter-spacing: var(--tracking-micro);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.35s var(--spring-gentle);
+    pointer-events: none;
+  }
+  .drawer-card:hover .card-caption,
+  .drawer-card.open .card-caption { opacity: 1; }
+  /* description shown below the card when it is pulled out */
+  .drawer-card .card-desc {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 330px;
+    background: var(--panel);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-family: var(--font-body);
+    font-size: var(--text-scale-2xs);
+    line-height: 1.6;
+    color: var(--text-soft);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.3s var(--spring-gentle),
+      transform 0.35s var(--spring-gentle);
+    pointer-events: none;
+  }
+  :root[data-theme="light"] .drawer-card .card-desc { box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15); }
+  .drawer-card:hover .card-desc,
+  .drawer-card.open .card-desc { opacity: 1; transform: translateY(0); }
+  @media (max-width: 700px) {
+    .drawer-stack { float: none; margin: 10px auto 40px; }
+    .drawer-card:hover,
+    .drawer-card.open { transform: translateX(calc(100% + 16px)); }
+    .drawer-card .card-desc { width: 280px; }
+  }
+
+  /* --- Horizontal version grid (left → right) --- */
+  .versions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 30px 0;
+  }
+  .version-cell {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+  }
+  .version-cell img {
+    width: 100% !important;
+    height: 200px !important;
+    max-height: none !important;
+    object-fit: contain;
+    margin: 0 0 12px !important;
+    border-radius: var(--radius-sm);
+  }
+  .version-cell h4 {
+    margin: 0 0 10px;
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .version-cell p {
+    font-size: var(--text-scale-2xs);
+    line-height: 1.6;
+    color: var(--text-soft);
+    margin: 0 0 6px;
+  }
+  .version-cell p:last-child { margin-bottom: 0; }
+  @media (max-width: 1000px) { .versions-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .versions-grid { grid-template-columns: 1fr; } }
+
+  /* --- Showcase: center hero flanked by detail images, hover pop --- */
+  .showcase {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr;
+    gap: 22px;
+    align-items: center;
+    margin: 36px 0 10px;
+  }
+  .showcase .show-item {
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+    transition: transform 0.45s var(--spring-bounce);
+  }
+  .showcase .show-item:hover { transform: translateY(-8px) scale(1.04); z-index: 5; }
+  .showcase img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 420px !important;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin: 0 !important;
+    display: block;
+    transition: box-shadow 0.4s var(--spring-gentle);
+  }
+  .showcase .show-item:hover img { box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5); }
+  :root[data-theme="light"] .showcase .show-item:hover img { box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2); }
+  .showcase .show-item p {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-2xs);
+    letter-spacing: var(--tracking-micro);
+    color: var(--text-tertiary);
+    margin-top: 10px;
+  }
+  @media (max-width: 800px) { .showcase { grid-template-columns: 1fr; } }
+
+  /* --- Info tabs: titles on the left, content panel on the right --- */
+  .info-tabs {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 26px;
+    align-items: start;
+    margin: 30px 0;
+  }
+  .tab-nav {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .tab-item {
+    padding: 14px 18px;
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-2xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--text-soft);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-divider);
+    position: relative;
+    transition:
+      background 0.2s var(--ease-out),
+      color 0.2s var(--ease-out);
+  }
+  .tab-item:last-child { border-bottom: none; }
+  .tab-item:hover { background: rgba(255, 255, 255, 0.07); }
+  .tab-item.active { color: var(--accent); background: rgba(255, 255, 255, 0.04); }
+  .tab-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+  :root[data-theme="light"] .tab-item:hover { background: rgba(0, 0, 0, 0.05); }
+  :root[data-theme="light"] .tab-item.active { background: rgba(0, 0, 0, 0.04); }
+  .tab-panel {
+    display: none;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    box-sizing: border-box;
+    height: 340px;
+    overflow-y: auto;
+  }
+  .tab-panel.active { display: block; }
+  .tab-panel h4 {
+    margin: 0 0 14px;
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .tab-panel p {
+    font-size: var(--text-scale-2xs);
+    line-height: 1.7;
+    color: var(--text-soft);
+    margin: 0 0 8px;
+  }
+  .tab-panel p:last-child { margin-bottom: 0; }
+  .tab-panel p.src {
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    font-size: var(--text-scale-3xs);
+    margin-top: 12px;
+  }
+  @media (max-width: 800px) { .info-tabs { grid-template-columns: 1fr; } }
 
   /* --- Process scroll track --- */
   .process-scroll { overflow: hidden; cursor: grab; margin: 30px 0 0; user-select: none; -webkit-user-select: none; position: relative; height: 310px; }

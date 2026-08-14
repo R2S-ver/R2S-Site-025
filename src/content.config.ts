@@ -43,6 +43,7 @@ const entries = defineCollection({
     lang: z.enum([
       'en',
       'zh',
+      'nl',
     ]),
 
     translationKey: z.string(),

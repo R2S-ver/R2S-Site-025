@@ -1,0 +1,3976 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getLanguageFromPath } from "../../../utils/i18n";
+import { getTranslations } from "../../../utils/translations";
+
+const lang = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(lang);
+
+// Structured data — Person entity: identity card for search results.
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "R2S Studio",
+  alternateName: ["R2S", "RrSuika"],
+  url: "https://r2s-site-025.pages.dev/",
+  jobTitle: lang === "zh" ? "设计师 / 创客" : "Ontwerper & Maker",
+  description: t.meta.description,
+  email: "mailto:ranrsuika@gmail.com",
+  sameAs: [
+    "https://github.com/R2S-ver",
+    "https://www.pixiv.net/users/71884225",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Rotterdam",
+    addressCountry: "NL",
+  },
+};
+---
+
+<Layout title={`${t.sections.about.title} | R2S Studio`} description={t.meta.description}>
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(personSchema)}
+  />
+
+  <main class="about-page">
+    <!-- =====================================================
+    HERO
+    ====================================================== -->
+
+    <section class="about-hero">
+      <div class="hero-meta">
+        <span>{t.sections.about.pageTag}</span>
+        <span>{t.sections.about.pageStatus}</span>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-main">
+          <div class="eyebrow">
+            {t.sections.about.eyebrow}
+          </div>
+
+          <h1>
+            {t.sections.about.title}
+          </h1>
+
+          <p class="subtitle">
+            {t.sections.about.subtitle}
+          </p>
+        </div>
+
+        <div class="hero-index">
+          <span>MODULE</span>
+          <strong>01</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    01 — INTRODUCTION + IDENTITY
+    ====================================================== -->
+
+    <section class="intro-section">
+      <div class="section-label">// 01: INTRODUCTIE // IDENTITEIT</div>
+
+      <div class="intro-layout">
+        <div class="intro-heading">
+          <span class="system-tag"> R2S_STUDIO / PROFIEL </span>
+
+          <h2>
+            {t.sections.about.introTitle}
+          </h2>
+
+          <div class="intro-marker">
+            <span>Ontwerp</span>
+            <span>Engineering</span>
+            <span>Visuele kunst</span>
+          </div>
+        </div>
+
+        <div class="intro-content">
+          <p class="intro-lead">
+            {t.sections.about.description}
+          </p>
+
+          <p>
+            {t.sections.about.introText}
+          </p>
+
+          <p>
+            {t.sections.about.identity.text}
+          </p>
+
+          <div class="intro-statement">
+            <span>// PAD</span>
+
+            <strong>
+              {t.sections.about.identity.title}
+            </strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    02 — PERSONNEL DOSSIER
+    ====================================================== -->
+
+    <section class="dossier-section">
+      <div class="section-label">// 02: PERSONEELSDOSSIER</div>
+
+      <div class="dossier">
+        <div class="dossier-header">
+          <span>
+            {t.sections.about.dossier.header}
+          </span>
+
+          <span class="online">
+            {t.sections.about.dossier.status}
+          </span>
+        </div>
+
+        <div class="dossier-body">
+          <div class="identity">
+            <div class="identity-label">
+              {t.sections.about.dossier.operator}
+            </div>
+
+            <h2>R2S Studio</h2>
+
+            <p>
+              {t.sections.about.dossier.role}
+            </p>
+          </div>
+
+          <div class="dossier-data">
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.locationLabel}
+              </span>
+
+              <span>
+                {t.sections.about.dossier.location}
+              </span>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.fieldLabel}
+              </span>
+
+              <span>
+                {t.sections.about.dossier.field}
+              </span>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.focusLabel}
+              </span>
+
+              <span>
+                {t.sections.about.dossier.focus}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    03 — PERSONAL PROTOCOL
+    ====================================================== -->
+
+    <section class="philosophy-section">
+      <div class="section-label">// 03: PERSOONLIJK PROTOCOL</div>
+
+      <div class="philosophy-layout">
+        <div class="philosophy-main">
+          <span class="system-tag">
+            {t.sections.about.philosophy.header}
+          </span>
+
+          <h2>
+            {t.sections.about.philosophy.title}
+          </h2>
+        </div>
+
+        <div class="philosophy-copy">
+          <p class="lead">
+            {t.sections.about.philosophy.text}
+          </p>
+
+          <p>
+            {t.sections.about.philosophy.second}
+          </p>
+        </div>
+      </div>
+
+      <div class="motto-panel">
+        <div class="motto-label">
+          {t.sections.about.philosophy.mottoLabel}
+        </div>
+
+        <div class="motto-content">
+          <strong>
+            {t.sections.about.philosophy.motto}
+          </strong>
+
+          <p>
+            {t.sections.about.philosophy.mottoText}
+          </p>
+        </div>
+
+        <div class="motto-symbol">→</div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    04 — DESIGN PROCESS
+    ====================================================== -->
+
+    <section class="process-section">
+      <div class="section-label">// 04: ONTWERPPROCES</div>
+
+      <div class="process-header">
+        <div class="process-heading">
+          <span class="system-tag"> CREATIEVE PIPELINE </span>
+
+          <h2>
+            IDEE
+            <span class="process-arrow" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="100%"
+                height="100%"
+              >
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <polyline points="14 6 20 12 14 18"></polyline>
+              </svg>
+            </span>
+            OBJECT
+          </h2>
+        </div>
+
+        <p>
+          {t.sections.about.approach.description}
+        </p>
+      </div>
+
+      <div class="process-station" data-process-sequence>
+        <div class="station-track">
+          <span class="station-track-progress"></span>
+        </div>
+
+        <!-- 01 -->
+
+        <div class="station-item process-active" data-process-step="0">
+          <div class="station-light">
+            <span></span>
+          </div>
+
+          <div class="station-number">01</div>
+
+          <div class="station-content">
+            <span class="station-state"> ACTIEF </span>
+
+            <div class="station-code">ONDERZOEK</div>
+
+            <h3>
+              {t.sections.about.approach.research.title}
+            </h3>
+
+            <p>
+              {t.sections.about.approach.research.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- 02 -->
+
+        <div class="station-item" data-process-step="1">
+          <div class="station-light">
+            <span></span>
+          </div>
+
+          <div class="station-number">02</div>
+
+          <div class="station-content">
+            <span class="station-state"> INACTIEF </span>
+
+            <div class="station-code">CONCEPT</div>
+
+            <h3>
+              {t.sections.about.approach.concept.title}
+            </h3>
+
+            <p>
+              {t.sections.about.approach.concept.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- 03 -->
+
+        <div class="station-item" data-process-step="2">
+          <div class="station-light">
+            <span></span>
+          </div>
+
+          <div class="station-number">03</div>
+
+          <div class="station-content">
+            <span class="station-state"> INACTIEF </span>
+
+            <div class="station-code">BOUW</div>
+
+            <h3>
+              {t.sections.about.approach.build.title}
+            </h3>
+
+            <p>
+              {t.sections.about.approach.build.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- 04 -->
+
+        <div class="station-item" data-process-step="3">
+          <div class="station-light">
+            <span></span>
+          </div>
+
+          <div class="station-number">04</div>
+
+          <div class="station-content">
+            <span class="station-state"> INACTIEF </span>
+
+            <div class="station-code">ITEREREN</div>
+
+            <h3>
+              {t.sections.about.approach.refine.title}
+            </h3>
+
+            <p>
+              {t.sections.about.approach.refine.description}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-progress">
+        <div class="pipeline-progress-line">
+          <span></span>
+        </div>
+
+        <div class="pipeline-progress-label">
+          <span>SEQUENTIE</span>
+          <span>01 → 02 → 03 → 04 → HERHALEN</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    05 — CAPABILITY MATRIX
+    ====================================================== -->
+
+    <section class="capabilities-section">
+      <div class="section-label">// 05: CAPACITEITSMATRIX</div>
+
+      <div class="capability-console">
+        <div class="console-top">
+          <span> R2S_CAPACITEITSMATRIX </span>
+
+          <span>
+            INVOER:
+            <b>SELECTEER MODULE</b>
+          </span>
+        </div>
+
+        <div class="capability-layout">
+          <div class="capability-buttons">
+            <button class="cap-button active" data-cap="industrial">
+              <span>01</span>
+              <strong>
+                {t.sections.about.capabilities.industrial.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="mechanical">
+              <span>02</span>
+              <strong>
+                {t.sections.about.capabilities.mechanical.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="electronics">
+              <span>03</span>
+              <strong>
+                {t.sections.about.capabilities.electronics.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="embedded">
+              <span>04</span>
+              <strong>
+                {t.sections.about.capabilities.embedded.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="fabrication">
+              <span>05</span>
+              <strong>
+                {t.sections.about.capabilities.fabrication.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="visual">
+              <span>06</span>
+              <strong>
+                {t.sections.about.capabilities.visual.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="software">
+              <span>07</span>
+              <strong>
+                {t.sections.about.capabilities.software.title}
+              </strong>
+            </button>
+
+            <button class="cap-button" data-cap="teaching">
+              <span>08</span>
+              <strong>
+                {t.sections.about.capabilities.teaching.title}
+              </strong>
+            </button>
+          </div>
+
+          <div class="capability-display">
+            <div class="display-header">
+              <span id="cap-status"> MODULE_01 </span>
+
+              <span class="display-light"> ● ACTIEF </span>
+            </div>
+
+            <div class="display-visual">
+              <canvas id="capabilityCanvas" aria-hidden="true"></canvas>
+
+              <div class="cap-scanlines"></div>
+
+              <div class="cap-corner cap-corner-tl">
+                R2S // VISUELE TELEMETRIE
+              </div>
+
+              <div class="cap-corner cap-corner-br">LIVE</div>
+            </div>
+
+            <div class="display-body">
+              <span class="display-kicker"> CAPACITEIT </span>
+
+              <h3 id="cap-title">
+                {t.sections.about.capabilities.industrial.title}
+              </h3>
+
+              <p id="cap-description">
+                {t.sections.about.capabilities.industrial.description}
+              </p>
+            </div>
+
+            <div class="display-footer">
+              <span> AUTO SEQUENTIE </span>
+
+              <span> SELECTEER ANDERE MODULE → </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    06 — DEVELOPMENT PATH
+    ====================================================== -->
+
+    <section class="journey-section">
+      <div class="section-label">// 06: ONTWIKKELINGSPAD</div>
+
+      <div class="journey-header">
+        <span class="system-tag"> {t.sections.about.journey.header} </span>
+
+        <h2>
+          {t.sections.about.journey.title}
+        </h2>
+      </div>
+
+      <!-- SKILL TREE -->
+
+      <div class="skill-tree">
+        <div class="skill-grid"></div>
+
+        <div class="skill-tree-label">
+          <span>KENNISOPBOUW</span>
+          <span>TIJD →</span>
+        </div>
+
+        <!-- MAIN DEVELOPMENT PATH -->
+
+        <div class="skill-main-line">
+          <span></span>
+        </div>
+
+        <!-- =================================================
+        LEVEL 01
+        ================================================== -->
+
+        <div class="skill-node skill-origin">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 01 / BASIS </span>
+
+            <strong> MAKEN </strong>
+
+            <small> Leren hoe dingen worden gemaakt </small>
+          </div>
+        </div>
+
+        <!-- =================================================
+        LEVEL 02
+        ================================================== -->
+
+        <div class="skill-node skill-cad">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 02 / VORM </span>
+
+            <strong> CAD </strong>
+
+            <small> 3D-modelleren · Geometrie · Structuur </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-drawing">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 02 / VISUEEL </span>
+
+            <strong> TEKENEN </strong>
+
+            <small> Observatie · Compositie · Vorm </small>
+          </div>
+        </div>
+
+        <!-- =================================================
+        LEVEL 03
+        ================================================== -->
+
+        <div class="skill-node skill-render">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 03 / VISUALISATIE </span>
+
+            <strong> 3D RENDERING </strong>
+
+            <small> Materialen · Belichting · Visuele communicatie </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-print">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 03 / FABRICAGE </span>
+
+            <strong> 3D-PRINTEN </strong>
+
+            <small> Prototyping · Iteratie · Additief </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-graphic">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 03 / GRAFISCH </span>
+
+            <strong> GRAFISCH ONTWERP </strong>
+
+            <small> Typografie · Lay-out · Visuele systemen </small>
+          </div>
+        </div>
+
+        <!-- =================================================
+        LEVEL 04
+        ================================================== -->
+
+        <div class="skill-node skill-cmf">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 04 / MATERIAAL </span>
+
+            <strong> CMF </strong>
+
+            <small> Kleur · Materiaal · Afwerking · Oppervlakken </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-prototype">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 04 / OBJECT </span>
+
+            <strong> PROTOTYPING </strong>
+
+            <small> Van digitale geometrie naar fysiek object </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-character">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 04 / KUNST </span>
+
+            <strong> KARAKTERKUNST </strong>
+
+            <small> Anatomie · Expressie · Visueel vertellen </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-electronics">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 04 / SYSTEMEN </span>
+
+            <strong> ELEKTRONICA </strong>
+
+            <small> Circuits · Componenten · Signalen </small>
+          </div>
+        </div>
+
+        <!-- =================================================
+        LEVEL 05
+        ================================================== -->
+
+        <div class="skill-node skill-welding">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 05 / FABRICAGE </span>
+
+            <strong> LASSEN </strong>
+
+            <small> Metaalverbinden · Structuur · Fabricage </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-soldering">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 05 / HARDWARE </span>
+
+            <strong> SOLDEERWERK </strong>
+
+            <small> Assemblage · Reparatie · Modificatie </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-embedded">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 05 / COMPUTING </span>
+
+            <strong> EMBEDDED SYSTEMEN </strong>
+
+            <small> Microcontrollers · Sensoren · Besturing </small>
+          </div>
+        </div>
+
+        <div class="skill-node skill-materials">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 05 / MATERIAAL </span>
+
+            <strong> MATERIAALONDERZOEK </strong>
+
+            <small> Eigenschappen · Processen · Gedrag </small>
+          </div>
+        </div>
+
+        <!-- =================================================
+        LEVEL 06
+        ================================================== -->
+
+        <!-- Swapped positions: IDEA → OBJECT on left, SYSTEM DESIGN on right -->
+
+        <div class="skill-node skill-integration">
+          <div class="skill-node-dot"></div>
+
+          <div class="skill-node-content">
+            <span class="skill-index"> 06 / REALISATIE </span>
+
+            <strong> IDEE → OBJECT </strong>
+
+            <small> Concepten omzetten in tastbare dingen </small>
+          </div>
+        </div>
+
+        <!-- BRANCH CONNECTIONS -->
+
+        <div class="skill-branch branch-a"></div>
+        <div class="skill-branch branch-b"></div>
+        <div class="skill-branch branch-c"></div>
+        <div class="skill-branch branch-d"></div>
+        <div class="skill-branch branch-e"></div>
+        <div class="skill-branch branch-f"></div>
+        <div class="skill-branch branch-g"></div>
+        <div class="skill-branch branch-h"></div>
+        <div class="skill-branch branch-i"></div>
+        <div class="skill-branch branch-j"></div>
+      </div>
+
+      <div class="journey-copy">
+        <p class="lead">
+          {t.sections.about.journey.text}
+        </p>
+
+        <p>
+          {t.sections.about.journey.second}
+        </p>
+
+        <p>
+          {t.sections.about.journey.third}
+        </p>
+
+        <p>
+          {t.sections.about.journey.fourth}
+        </p>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    07 — CURRENT RESEARCH
+    ====================================================== -->
+
+    <section class="current-section">
+      <div class="section-label">// 07: HUIDIG ONDERZOEK</div>
+
+      <div class="research-terminal">
+        <div class="terminal-bar">
+          <span> HUIDIG_ONDERZOEK.exe </span>
+
+          <span> 2026 </span>
+        </div>
+
+        <div class="research-screen">
+          <div class="research-column">
+            <span> ONTWERP_01 </span>
+
+            <strong>
+              {t.sections.about.current.modules.design.title}
+            </strong>
+
+            <p>
+              {t.sections.about.current.design}
+            </p>
+          </div>
+
+          <div class="research-column">
+            <span> TECH_02 </span>
+
+            <strong>
+              {t.sections.about.current.modules.technology.title}
+            </strong>
+
+            <p>
+              {t.sections.about.current.technology}
+            </p>
+          </div>
+
+          <div class="research-column">
+            <span> MAKEN_03 </span>
+
+            <strong>
+              {t.sections.about.current.modules.making.title}
+            </strong>
+
+            <p>
+              {t.sections.about.current.making}
+            </p>
+          </div>
+
+          <div class="research-column">
+            <span> KUNST_04 </span>
+
+            <strong>
+              {t.sections.about.current.modules.visual.title}
+            </strong>
+
+            <p>
+              {t.sections.about.current.visual}
+            </p>
+          </div>
+
+          <div class="research-column research-wide">
+            <span> AI_05 </span>
+
+            <strong>
+              {t.sections.about.current.modules.ai.title}
+            </strong>
+
+            <p>
+              {t.sections.about.current.ai}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    08 — FUTURE
+    ====================================================== -->
+
+    <section class="future-section">
+      <div class="section-label">// 08: VOLGENDE ITERATIE</div>
+
+      <div class="future-panel">
+        <div class="future-heading">
+          <span>
+            {t.sections.about.future.header}
+          </span>
+
+          <div class="future-arrow">→</div>
+        </div>
+
+        <div class="future-text">
+          <p class="lead">
+            {t.sections.about.future.text}
+          </p>
+
+          <p>
+            {t.sections.about.future.second}
+          </p>
+
+          <p>
+            {t.sections.about.future.third}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    CLOSING
+    ====================================================== -->
+
+    <section class="closing-section">
+      <div class="closing-line"></div>
+
+      <div class="closing-grid">
+        <div class="closing-copy">
+          <span class="closing-kicker"> // SLOTPROTOCOL </span>
+
+          <p>{t.sections.about.closing}</p>
+        </div>
+
+        <div class="closing-terminal">
+          <div class="closing-status">&gt; SYSTEEM_GEREED_</div>
+
+          <button
+            class="enter-key"
+            type="button"
+            aria-label="Stijl-genealogie openen"
+            aria-expanded="false"
+            aria-controls="style-annex-panel"
+          >
+            <span>ENTER</span>
+            <b>↵</b>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+    ANNEX 09 — STYLE GENEALOGY (EASTER EGG)
+    ====================================================== -->
+
+    <section class="style-annex">
+      <div class="annex-panel" id="style-annex-panel" hidden>
+        <div class="annex-header">
+          <span>{t.sections.about.annex.header}</span>
+          <span class="annex-status">{t.sections.about.annex.status}</span>
+        </div>
+
+        <p class="annex-intro">
+          {t.sections.about.annex.intro}
+        </p>
+
+        <div class="annex-style-index">
+          {t.sections.about.annex.styleIndex}
+        </div>
+
+        <div class="annex-grid">
+          {t.sections.about.annex.styles.map((style) => (
+            <article class="annex-entry">
+              <div class="annex-entry-head">
+                <span class="annex-code">{style.code}</span>
+                <span class="annex-era">{style.era}</span>
+              </div>
+              <p>{style.body}</p>
+              <div class="annex-refs">&gt; REF: {style.refs}</div>
+            </article>
+          ))}
+        </div>
+
+        <div class="annex-works">
+          <div class="annex-style-index">
+            {t.sections.about.annex.worksIndex}
+          </div>
+
+          <ul class="annex-works-list">
+            {t.sections.about.annex.works.map((work) => (
+              <li>
+                <span class="annex-work-title">{work.title}</span>
+                <span class="annex-work-note">: {work.note}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script
+  define:vars={{
+    industrial: {
+      title: t.sections.about.capabilities.industrial.title,
+      description: t.sections.about.capabilities.industrial.description,
+    },
+    mechanical: {
+      title: t.sections.about.capabilities.mechanical.title,
+      description: t.sections.about.capabilities.mechanical.description,
+    },
+    electronics: {
+      title: t.sections.about.capabilities.electronics.title,
+      description: t.sections.about.capabilities.electronics.description,
+    },
+    embedded: {
+      title: t.sections.about.capabilities.embedded.title,
+      description: t.sections.about.capabilities.embedded.description,
+    },
+    fabrication: {
+      title: t.sections.about.capabilities.fabrication.title,
+      description: t.sections.about.capabilities.fabrication.description,
+    },
+    visual: {
+      title: t.sections.about.capabilities.visual.title,
+      description: t.sections.about.capabilities.visual.description,
+    },
+    software: {
+      title: t.sections.about.capabilities.software.title,
+      description: t.sections.about.capabilities.software.description,
+    },
+    teaching: {
+      title: t.sections.about.capabilities.teaching.title,
+      description: t.sections.about.capabilities.teaching.description,
+    },
+  }}
+>
+  /* =====================================================
+  04 — SEQUENTIAL DESIGN PROCESS
+  ====================================================== */
+
+  const processStation = document.querySelector("[data-process-sequence]");
+  const processItems = processStation
+    ? Array.from(processStation.querySelectorAll("[data-process-step]"))
+    : [];
+  const processProgress = document.querySelector(".station-track-progress");
+
+  let processIndex = 0;
+  let processTimer = null;
+  let processStarted = false;
+  let processVisible = false;
+
+  function updateProcess(index) {
+    if (!processItems.length) return;
+    processIndex = index;
+
+    processItems.forEach((item, i) => {
+      item.classList.remove("process-active", "process-complete");
+      const state = item.querySelector(".station-state");
+      if (i < index) {
+        item.classList.add("process-complete");
+        if (state) state.textContent = "VOLTOOID";
+      } else if (i === index) {
+        item.classList.add("process-active");
+        if (state) state.textContent = "ACTIEF";
+      } else {
+        if (state) state.textContent = "INACTIEF";
+      }
+    });
+
+    if (processProgress) {
+      const progress =
+        processItems.length <= 1 ? 0 : index / (processItems.length - 1);
+      processProgress.style.width = `${progress * 100}%`;
+    }
+  }
+
+  function nextProcessStation() {
+    if (!processStarted || !processVisible) return;
+    processIndex = (processIndex + 1) % processItems.length;
+    updateProcess(processIndex);
+  }
+
+  function startProcessSequence() {
+    if (processStarted || !processItems.length) return;
+    processStarted = true;
+    updateProcess(0);
+  }
+
+  function pauseProcess() {
+    if (processTimer) {
+      clearInterval(processTimer);
+      processTimer = null;
+    }
+  }
+
+  function resumeProcess() {
+    if (!processVisible || !processStarted) return;
+    if (!processTimer) {
+      processTimer = setInterval(nextProcessStation, 1500);
+    }
+  }
+
+  if (processStation) {
+    const processObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          processVisible = entry.isIntersecting;
+          if (processVisible) {
+            if (!processStarted) {
+              startProcessSequence();
+            }
+            resumeProcess();
+          } else {
+            pauseProcess();
+          }
+        });
+      },
+      { threshold: 0.1 }, // 露出 10% 就激活
+    );
+    processObserver.observe(processStation);
+  }
+
+  /* =====================================================
+  05 — CAPABILITY MATRIX
+  ====================================================== */
+
+  const modules = {
+    industrial,
+    mechanical,
+    electronics,
+    embedded,
+    fabrication,
+    visual,
+    software,
+    teaching,
+  };
+
+  const buttons = Array.from(document.querySelectorAll(".cap-button"));
+  const title = document.querySelector("#cap-title");
+  const description = document.querySelector("#cap-description");
+  const status = document.querySelector("#cap-status");
+  const canvas = document.querySelector("#capabilityCanvas");
+  const ctx = canvas?.getContext("2d");
+
+  let activeIndex = 0;
+  let animationId = null;
+  let moduleTimer = null;
+  let canvasVisible = false;
+
+  let mouseX = 0.5;
+  let mouseY = 0.5;
+  let W = 0;
+  let H = 0;
+  let time = 0;
+  let manualInteraction = false;
+
+  function resizeCanvas() {
+    if (!canvas || !ctx) return;
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // 限制像素比，降低压力
+    W = rect.width;
+    H = rect.height;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function updateMouse(e) {
+    if (!canvas) return;
+    const rect = canvas.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left) / rect.width;
+    mouseY = (e.clientY - rect.top) / rect.height;
+    mouseX = Math.max(0, Math.min(1, mouseX));
+    mouseY = Math.max(0, Math.min(1, mouseY));
+    manualInteraction = true;
+  }
+
+  canvas?.addEventListener("mousemove", updateMouse);
+  canvas?.addEventListener("mouseleave", () => {
+    mouseX = 0.5;
+    mouseY = 0.5;
+  });
+
+  function roundedRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function drawGrid() {
+    ctx.strokeStyle = "rgba(255,255,255,0.035)";
+    ctx.lineWidth = 0.5;
+    const spacing = 38;
+    for (let x = 0; x < W; x += spacing) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = 0; y < H; y += spacing) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
+  }
+
+  /* =====================================================
+  DRAW: Industrial & Product Design — 3D Torus
+  ====================================================== */
+  function draw3DModel() {
+    const cx = W / 2;
+    const cy = H / 2;
+    const R = Math.min(W, H) * 0.28;
+    const r = R * 0.4;
+
+    const rotX = time * 0.6;
+    const rotY = time * 0.9;
+
+    ctx.strokeStyle = "rgba(232,160,64,0.55)";
+    ctx.lineWidth = 1.2;
+    ctx.shadowColor = "rgba(232,160,64,0.25)";
+    ctx.shadowBlur = 6;
+
+    const stepU = (Math.PI * 2) / 16;
+    const stepV = (Math.PI * 2) / 20;
+
+    // Horizontal rings
+    for (let v = 0; v < Math.PI * 2; v += stepV) {
+      ctx.beginPath();
+      for (let u = 0; u <= Math.PI * 2; u += 0.1) {
+        const px = (R + r * Math.cos(v)) * Math.cos(u);
+        const py = (R + r * Math.cos(v)) * Math.sin(u);
+        const pz = r * Math.sin(v);
+        const x1 = px * Math.cos(rotY) - pz * Math.sin(rotY);
+        const z1 = px * Math.sin(rotY) + pz * Math.cos(rotY);
+        const y1 = py * Math.cos(rotX) - z1 * Math.sin(rotX);
+        const z2 = py * Math.sin(rotX) + z1 * Math.cos(rotX);
+        const scale = 400 / (400 + z2);
+        const sx = cx + x1 * scale;
+        const sy = cy - y1 * scale;
+        if (u === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.stroke();
+    }
+
+    // Vertical rings
+    for (let u = 0; u < Math.PI * 2; u += stepU) {
+      ctx.beginPath();
+      for (let v = 0; v <= Math.PI * 2; v += 0.1) {
+        const px = (R + r * Math.cos(v)) * Math.cos(u);
+        const py = (R + r * Math.cos(v)) * Math.sin(u);
+        const pz = r * Math.sin(v);
+        const x1 = px * Math.cos(rotY) - pz * Math.sin(rotY);
+        const z1 = px * Math.sin(rotY) + pz * Math.cos(rotY);
+        const y1 = py * Math.cos(rotX) - z1 * Math.sin(rotX);
+        const z2 = py * Math.sin(rotX) + z1 * Math.cos(rotX);
+        const scale = 400 / (400 + z2);
+        const sx = cx + x1 * scale;
+        const sy = cy - y1 * scale;
+        if (v === 0) ctx.moveTo(sx, sy);
+        else ctx.lineTo(sx, sy);
+      }
+      ctx.stroke();
+    }
+
+    ctx.shadowBlur = 0;
+  }
+
+  /* =====================================================
+  DRAW: CMF — Large Rotating Color Blocks
+  ====================================================== */
+  function drawCMF() {
+    const cols = 8;
+    const rows = 6;
+    const pad = 6;
+    const cellW = (W - pad * (cols + 1)) / cols;
+    const cellH = (H - pad * (rows + 1)) / rows;
+    const totalW = cellW * cols + pad * (cols - 1);
+    const totalH = cellH * rows + pad * (rows - 1);
+    const startX = (W - totalW) / 2;
+    const startY = (H - totalH) / 2;
+
+    // Material drawing functions
+    function drawGlossy(cx, cy, w, h, hue, sat, light) {
+      const grad = ctx.createLinearGradient(cx, cy - h / 2, cx, cy + h / 2);
+      grad.addColorStop(0, `hsl(${hue},${sat}%,${light + 20}%)`);
+      grad.addColorStop(0.3, `hsl(${hue},${sat}%,${light}%)`);
+      grad.addColorStop(1, `hsl(${hue},${sat * 0.8}%,${light - 10}%)`);
+      ctx.fillStyle = grad;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 4);
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(255,255,255,0.55)`;
+      ctx.beginPath();
+      roundedRect(cx - w / 2 + 2, cy - h / 2 + 2, w - 4, h * 0.28, 4);
+      ctx.fill();
+    }
+
+    function drawMatte(cx, cy, w, h, hue, sat, light) {
+      ctx.fillStyle = `hsl(${hue},${sat * 0.6}%,${light * 0.9}%)`;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 4);
+      ctx.fill();
+
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 4);
+      ctx.clip();
+      const dotCount = Math.floor(w * h * 0.25);
+      for (let i = 0; i < dotCount; i++) {
+        const dx = cx - w / 2 + Math.random() * w;
+        const dy = cy - h / 2 + Math.random() * h;
+        const alpha = 0.05 + Math.random() * 0.08;
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.beginPath();
+        ctx.arc(dx, dy, 0.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `rgba(0,0,0,${alpha * 0.8})`;
+        ctx.beginPath();
+        ctx.arc(dx + 0.5, dy + 0.5, 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawMetallic(cx, cy, w, h, hue, sat, light) {
+      const grad = ctx.createLinearGradient(
+        cx - w / 2,
+        cy - h / 2,
+        cx + w / 2,
+        cy + h / 2,
+      );
+      grad.addColorStop(0, `hsl(${hue},${sat}%,${light + 25}%)`);
+      grad.addColorStop(0.3, `hsl(${hue},${sat * 0.6}%,${light}%)`);
+      grad.addColorStop(0.6, `hsl(${hue},${sat}%,${light - 5}%)`);
+      grad.addColorStop(1, `hsl(${hue},${sat * 0.7}%,${light - 18}%)`);
+      ctx.fillStyle = grad;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 2);
+      ctx.fill();
+
+      ctx.strokeStyle = `hsla(${hue},80%,75%,0.45)`;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+
+    function drawPlastic(cx, cy, w, h, hue, sat, light) {
+      ctx.fillStyle = `hsl(${hue},${sat}%,${light}%)`;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 5);
+      ctx.fill();
+
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 5);
+      ctx.clip();
+      ctx.strokeStyle = `rgba(255,255,255,0.6)`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      const glowGrad = ctx.createRadialGradient(
+        cx - w * 0.2,
+        cy - h * 0.25,
+        0,
+        cx,
+        cy,
+        w * 0.5,
+      );
+      glowGrad.addColorStop(0, `rgba(255,255,255,0.4)`);
+      glowGrad.addColorStop(1, `rgba(255,255,255,0)`);
+      ctx.fillStyle = glowGrad;
+      ctx.fillRect(cx - w / 2, cy - h / 2, w, h);
+      ctx.restore();
+    }
+
+    function drawLeather(cx, cy, w, h, hue, sat, light) {
+      const baseColor = `hsl(${hue},${sat * 0.5}%,${light * 0.7}%)`;
+      ctx.fillStyle = baseColor;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.fill();
+
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.clip();
+      for (let i = 0; i < 15; i++) {
+        const dx = cx - w / 2 + 4 + ((i * 6.7) % (w - 8));
+        const dy = cy - h / 2 + 3 + ((i * 8.3) % (h - 6));
+        ctx.fillStyle = `rgba(0,0,0,0.15)`;
+        ctx.beginPath();
+        ctx.arc(dx, dy, 0.6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = `rgba(255,255,255,0.1)`;
+        ctx.beginPath();
+        ctx.arc(dx + 1.2, dy - 0.8, 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawTextured(cx, cy, w, h, hue, sat, light) {
+      ctx.fillStyle = `hsl(${hue},${sat}%,${light}%)`;
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.fill();
+
+      ctx.save();
+      ctx.beginPath();
+      roundedRect(cx - w / 2, cy - h / 2, w, h, 3);
+      ctx.clip();
+      ctx.strokeStyle = `rgba(255,255,255,0.18)`;
+      ctx.lineWidth = 0.6;
+      for (let lx = -w; lx < w; lx += 5) {
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2 + lx, cy - h / 2);
+        ctx.lineTo(cx - w / 2 + lx + h, cy + h / 2);
+        ctx.stroke();
+      }
+      for (let lx = -w; lx < w; lx += 5) {
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2 + lx + h, cy - h / 2);
+        ctx.lineTo(cx - w / 2 + lx, cy + h / 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    const materialDraw = [
+      drawGlossy,
+      drawMatte,
+      drawMetallic,
+      drawPlastic,
+      drawLeather,
+      drawTextured,
+    ];
+
+    for (let r = 0; r < rows; r++) {
+      const drawFn = materialDraw[r];
+      for (let c = 0; c < cols; c++) {
+        const x = startX + c * (cellW + pad) + cellW / 2;
+        const y = startY + r * (cellH + pad) + cellH / 2;
+        const hue = ((c / cols) * 360 + (r / rows) * 40 + time * 8) % 360;
+        let sat = 55 + 20 * Math.sin(time * 0.5 + r + c);
+        // Boost orange (~15-45) and purple (~260-300)
+        if ((hue > 15 && hue < 45) || (hue > 260 && hue < 300)) {
+          sat = Math.min(100, sat * 1.35);
+        }
+        const light = 38 + 15 * Math.cos(time * 0.4 + c);
+        drawFn(x, y, cellW, cellH, hue, sat, light);
+      }
+    }
+  }
+
+  /* =====================================================
+  DRAW: Electronics
+  ====================================================== */
+  function drawElectronics() {
+    const mx = mouseX * W;
+    const my = mouseY * H;
+    const t = time;
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+
+    ctx.fillStyle = isLight ? "#e8e3da" : "#070a08";
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = isLight ? "rgba(0,0,0,0.06)" : "rgba(30,60,45,0.25)";
+    ctx.lineWidth = 0.4;
+    for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+    for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+    const amp = H * 0.10;
+
+    const channels = [
+      { baseY: H * 0.22, color: isLight ? "rgba(0,120,60,0.9)" : "rgba(100,220,160,0.85)", type: "square",   freq: 4.5, label: "CH1: BLOKGOLF" },
+      { baseY: H * 0.50, color: isLight ? "rgba(30,80,140,0.85)" : "rgba(160,200,230,0.8)",  type: "sine",     freq: 3.0, label: "CH2: SINUS"   },
+      { baseY: H * 0.78, color: isLight ? "rgba(120,40,100,0.8)" : "rgba(200,160,220,0.75)", type: "triangle", freq: 5.5, label: "CH3: DRIEHOEK"    },
+    ];
+
+    // Dividers
+    channels.forEach(ch => {
+      ctx.strokeStyle = isLight ? "rgba(0,0,0,0.08)" : "rgba(60,100,80,0.25)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(0, ch.baseY); ctx.lineTo(W, ch.baseY); ctx.stroke();
+    });
+
+    function waveVal(ch, prog) {
+      const arg = prog * Math.PI * 2 * ch.freq + t * 1.67;
+      if (ch.type === "square")   return Math.sin(arg) >= 0 ? 1 : -1;
+      if (ch.type === "sine")     return Math.sin(arg);
+      if (ch.type === "triangle") { const ph = ((arg / (Math.PI * 2)) % 1 + 1) % 1; return ph < 0.5 ? 4 * ph - 1 : 3 - 4 * ph; }
+      return 0;
+    }
+
+    // Draw
+    channels.forEach(ch => {
+      ctx.strokeStyle = ch.color;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      for (let px = 0; px < W; px += 1.5) {
+        const wy = ch.baseY - waveVal(ch, px / W) * amp;
+        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+      }
+      ctx.stroke();
+    });
+
+    // Labels
+    channels.forEach(ch => {
+      ctx.fillStyle = ch.color.replace(/[\d.]+\)$/, "0.5)");
+      ctx.font = "8px monospace";
+      ctx.textAlign = "left";
+      ctx.fillText(ch.label, 8, ch.baseY - amp - 8);
+    });
+
+    // Mouse highlight
+    let nearest = -1, nearestDist = Infinity;
+    channels.forEach((ch, i) => {
+      const wy = ch.baseY - waveVal(ch, mx / W) * amp;
+      const d = Math.abs(my - wy);
+      if (d < nearestDist && d < 40) { nearestDist = d; nearest = i; }
+    });
+
+    if (nearest >= 0) {
+      const ch = channels[nearest];
+      ctx.strokeStyle = ch.color.replace(/[\d.]+\)$/, "1)");
+      ctx.lineWidth = 2.2;
+      ctx.shadowColor = ch.color.replace(/[\d.]+\)$/, "0.6)");
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      for (let px = 0; px < W; px += 1.5) {
+        const wy = ch.baseY - waveVal(ch, px / W) * amp;
+        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+      }
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    }
+
+    ctx.fillStyle = "rgba(160,180,170,0.3)";
+    ctx.font = "7px monospace";
+    ctx.textAlign = "right";
+    ctx.fillText("TRIG:AUTO · 1V/div", W - 8, H * 0.06);
+  }
+  function drawEmbedded() {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    for (let i = 0; i < 18; i++) {
+      ctx.beginPath();
+      const y = H * 0.18 + i * H * 0.035;
+      for (let x = 0; x <= W; x += 5) {
+        const distance = Math.abs(x - W * 0.5) / W;
+        const amplitude = (1 - distance) * 30;
+        const wave = Math.sin(x * 0.035 + time * 1.8 + i * 0.35) * amplitude;
+        const yy = y + wave;
+        if (x === 0) ctx.moveTo(x, yy);
+        else ctx.lineTo(x, yy);
+      }
+      ctx.strokeStyle =
+        i === 9 ? "#e8a040" : (isLight ? `rgba(80,80,80,${0.06 + i * 0.004})` : `rgba(220,220,220,${0.08 + i * 0.005})`);
+      ctx.stroke();
+    }
+  }
+
+  /* =====================================================
+  DRAW: Fabrication — Refined Conveyor
+  ====================================================== */
+  function drawFabrication() {
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const beltH = 22;
+    const gap = 30;
+    const beltCount = 3;
+    const totalH = beltCount * beltH + (beltCount - 1) * gap;
+    const startY = (H - totalH) / 2 + H * 0.04;
+
+    for (let b = 0; b < beltCount; b++) {
+      const by = startY + b * (beltH + gap);
+      const dir = b % 2 === 0 ? 1 : -1; // alternate directions
+      const speed = 8 + b * 2; // much slower
+
+      // ── Belt body with gradient ──
+      const beltGrad = ctx.createLinearGradient(0, by, 0, by + beltH);
+      if (isLight) {
+        beltGrad.addColorStop(0, "#d5d0c8");
+        beltGrad.addColorStop(0.5, "#c8c3ba");
+        beltGrad.addColorStop(1, "#d5d0c8");
+      } else {
+        beltGrad.addColorStop(0, "#1a1c1e");
+        beltGrad.addColorStop(0.5, "#222528");
+        beltGrad.addColorStop(1, "#1a1c1e");
+      }
+      ctx.fillStyle = beltGrad;
+      ctx.fillRect(0, by, W, beltH);
+
+      // ── Belt edge lines ──
+      ctx.strokeStyle = isLight ? "rgba(150,140,130,0.25)" : "rgba(180,190,180,0.15)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(0, by); ctx.lineTo(W, by); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, by + beltH); ctx.lineTo(W, by + beltH); ctx.stroke();
+
+      // ── Moving tread marks (slow) ──
+      const treadW = 5;
+      const treadGap = 16;
+      const shift = ((time * speed * dir * 0.6) % (treadW + treadGap) + (treadW + treadGap)) % (treadW + treadGap);
+      for (let tx = -treadW + shift; tx < W + treadW; tx += treadW + treadGap) {
+        ctx.fillStyle = isLight ? "rgba(140,130,120,0.18)" : "rgba(100,110,100,0.18)";
+        ctx.fillRect(tx, by + 1, treadW, beltH - 2);
+      }
+
+      // ── Ores ──
+      const itemCount = 9 + b;
+      for (let p = 0; p < itemCount; p++) {
+        const phase = (((time * 0.003 * speed * dir + p * 0.22) % 1) + 1) % 1;
+        const ix = phase * W;
+        const bob = Math.sin(time * 2.5 + p + b) * 1.5;
+        const iy = by + beltH / 2 + bob;
+
+        // Rarity: 60% coal, 30% iron, 9% gold, 1% diamond (deterministic per item)
+        // Rarity: 59.9% coal, 30% iron, 9% gold, 1% diamond, 0.1% prismatic
+        let seed = (p * 127 + b * 3571) | 0;
+        seed = ((seed >> 16) ^ seed) * 0x45d9f3b;
+        seed = ((seed >> 16) ^ seed) >>> 0;
+        const rarity = (seed % 10000) / 10000;
+
+        let oreType, oreSize, oreColors;
+        if (rarity < 0.599) {
+          oreType = "coal"; oreSize = 11;
+          oreColors = ["#6a6a72", "#3a3a42"];
+        } else if (rarity < 0.899) {
+          oreType = "iron"; oreSize = 10;
+          oreColors = ["#d09070", "#8a4030"];
+        } else if (rarity < 0.989) {
+          oreType = "gold"; oreSize = 12;
+          oreColors = ["#f5d060", "#c08820"];
+        } else if (rarity < 0.999) {
+          oreType = "diamond"; oreSize = 10;
+          oreColors = ["#e8f4ff", "#a0c8f0"];
+        } else {
+          oreType = "prismatic"; oreSize = 9;
+          oreColors = ["#ffffff", "#e0d0ff"];
+        }
+
+        ctx.save();
+        ctx.translate(ix, iy);
+
+        // ── Diamond / Prismatic sparkle aura ──
+        if (oreType === "diamond" || oreType === "prismatic") {
+          const sparkle = Math.sin(time * 8 + p) * 0.3 + 0.7;
+          const halo = ctx.createRadialGradient(0, 0, 0, 0, 0, oreSize * 2.2);
+          halo.addColorStop(0, `rgba(200,220,255,${0.5 * sparkle})`);
+          halo.addColorStop(0.5, `rgba(180,200,255,${0.2 * sparkle})`);
+          halo.addColorStop(1, "rgba(0,0,0,0)");
+          ctx.fillStyle = halo;
+          ctx.beginPath(); ctx.arc(0, 0, oreSize * 2.2, 0, Math.PI * 2); ctx.fill();
+          // Rainbow facets
+          for (let f = 0; f < 6; f++) {
+            const fa = (f / 6) * Math.PI * 2 + time * 0.8;
+            ctx.fillStyle = `hsla(${(f * 60 + time * 40) % 360},70%,75%,${0.12 * sparkle})`;
+            ctx.beginPath();
+            ctx.arc(Math.cos(fa) * oreSize * 0.45, Math.sin(fa) * oreSize * 0.45, oreSize * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        // ── Shadow (offset) ──
+        ctx.save();
+        ctx.translate(2, 2);
+        ctx.fillStyle = "rgba(0,0,0,0.3)";
+        ctx.beginPath();
+
+        // ── Ore shapes ──
+        if (oreType === "coal") {
+          // Coal chunk: irregular rocky blob
+          const s = oreSize;
+          ctx.moveTo(-s*0.6, s*0.5); ctx.lineTo(-s, s*0.1); ctx.lineTo(-s*0.8, -s*0.4);
+          ctx.lineTo(-s*0.3, -s*0.7); ctx.lineTo(s*0.2, -s*0.8); ctx.lineTo(s*0.7, -s*0.3);
+          ctx.lineTo(s*0.9, s*0.2); ctx.lineTo(s*0.4, s*0.6); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.closePath();
+        } else if (oreType === "iron") {
+          // Raw iron ore: jagged crystalline
+          const s = oreSize;
+          ctx.moveTo(-s*0.3, s*0.6); ctx.lineTo(-s*0.8, s*0.2); ctx.lineTo(-s, -s*0.3);
+          ctx.lineTo(-s*0.5, -s*0.6); ctx.lineTo(s*0.1, -s*0.8); ctx.lineTo(s*0.6, -s*0.4);
+          ctx.lineTo(s*0.9, s*0.1); ctx.lineTo(s*0.4, s*0.5); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.closePath();
+        } else if (oreType === "gold") {
+          // Gold ingot: rounded trapezoid bar
+          const s = oreSize;
+          ctx.moveTo(-s*0.75, s*0.3); ctx.lineTo(-s*0.85, -s*0.15); ctx.lineTo(-s*0.65, -s*0.4);
+          ctx.lineTo(s*0.65, -s*0.4); ctx.lineTo(s*0.85, -s*0.15); ctx.lineTo(s*0.75, s*0.3);
+          ctx.lineTo(-s*0.75, s*0.3);
+          ctx.closePath();
+        } else if (oreType === "diamond") {
+          // Diamond gem shape
+          const s = oreSize;
+          ctx.moveTo(0, -s); ctx.lineTo(s*0.4, -s*0.15); ctx.lineTo(s*0.7, s*0.1);
+          ctx.lineTo(s*0.3, s*0.15); ctx.lineTo(0, s*0.7); ctx.lineTo(-s*0.3, s*0.15);
+          ctx.lineTo(-s*0.7, s*0.1); ctx.lineTo(-s*0.4, -s*0.15);
+          ctx.closePath();
+        } else {
+          // Prismatic shard: sharp crystal spike
+          const s = oreSize;
+          ctx.moveTo(0, -s); ctx.lineTo(s*0.25, -s*0.2); ctx.lineTo(s*0.9, s*0.05);
+          ctx.lineTo(s*0.3, s*0.25); ctx.lineTo(s*0.6, s*0.8); ctx.lineTo(0, s*0.45);
+          ctx.lineTo(-s*0.6, s*0.8); ctx.lineTo(-s*0.3, s*0.25);
+          ctx.lineTo(-s*0.9, s*0.05); ctx.lineTo(-s*0.25, -s*0.2);
+          ctx.closePath();
+        }
+        ctx.fill();
+        ctx.restore();
+        // Body
+        const g = ctx.createLinearGradient(-oreSize, -oreSize, oreSize, oreSize);
+        g.addColorStop(0, oreColors[0]);
+        g.addColorStop(1, oreColors[1]);
+        ctx.fillStyle = g;
+        // Stroke varies by type
+        if (oreType === "gold") { ctx.strokeStyle = "rgba(255,220,100,0.5)"; ctx.lineWidth = 1; }
+        else if (oreType === "diamond") { ctx.strokeStyle = "rgba(200,220,255,0.55)"; ctx.lineWidth = 0.7; }
+        else if (oreType === "prismatic") { ctx.strokeStyle = "rgba(255,200,255,0.55)"; ctx.lineWidth = 0.7; }
+        else { ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 0.5; }
+        ctx.stroke();
+        ctx.fill();
+
+        // ── Specular ──
+        if (oreType === "diamond") {
+          ctx.fillStyle = "rgba(255,255,255,0.7)";
+          ctx.beginPath(); ctx.arc(0, -oreSize*0.4, oreSize*0.15, 0, Math.PI*2); ctx.fill();
+        } else if (oreType === "prismatic") {
+          ctx.fillStyle = "rgba(255,255,255,0.8)";
+          ctx.beginPath(); ctx.arc(0, -oreSize*0.3, oreSize*0.13, 0, Math.PI*2); ctx.fill();
+          // Extra rainbow sparkle
+          for (let rf = 0; rf < 3; rf++) {
+            const ra = (rf / 3) * Math.PI * 2 + time * 1.2;
+            ctx.fillStyle = `hsla(${(rf * 120 + time * 60) % 360},80%,70%,0.6)`;
+            ctx.beginPath();
+            ctx.arc(Math.cos(ra) * oreSize*0.35, Math.sin(ra) * oreSize*0.35, oreSize*0.12, 0, Math.PI*2);
+            ctx.fill();
+          }
+        } else if (oreType === "gold") {
+          ctx.fillStyle = "rgba(255,255,220,0.5)";
+          ctx.beginPath(); ctx.arc(-oreSize*0.15, -oreSize*0.2, oreSize*0.18, 0, Math.PI*2); ctx.fill();
+          // Second bar highlight
+          ctx.fillStyle = "rgba(255,255,255,0.2)";
+          ctx.fillRect(-oreSize*0.5, -oreSize*0.35, oreSize, oreSize*0.12);
+        }
+
+        ctx.restore();
+      }
+    }
+  }
+
+  /* =====================================================
+  DRAW: Illustration & Visual Design
+  ====================================================== */
+  function drawVisual() {
+    const cols = 10;
+    const rows = 6;
+    const cw = W / cols;
+    const ch = H / rows;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const nx = (c + 0.5) / cols;
+        const ny = (r + 0.5) / rows;
+        const dx = nx - mouseX;
+        const dy = ny - mouseY;
+        const dist = Math.hypot(dx, dy);
+        const hue =
+          (330 +
+            nx * 70 +
+            ny * 95 +
+            time * 12 +
+            Math.sin(dist * 12 - time) * 35) %
+          360;
+        const sat = 55 + 35 * (1 - Math.min(1, dist * 1.8));
+        const light = 32 + 28 * (1 - Math.min(1, dist * 1.5));
+        const pad = 4 + 6 * (1 - Math.min(1, dist * 1.6));
+        const x = c * cw + pad;
+        const y = r * ch + pad;
+        const w = cw - pad * 2;
+        const h = ch - pad * 2;
+        ctx.fillStyle = `hsla(${hue},${sat}%,${light}%,0.82)`;
+        ctx.shadowColor = `hsla(${hue},80%,60%,0.18)`;
+        ctx.shadowBlur = 12;
+        roundedRect(x, y, w, h, 4);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = "rgba(255,255,255,0.035)";
+        ctx.fillRect(x + w * 0.22, y + h * 0.34, w * 0.56, h * 0.2);
+        ctx.fillStyle = "rgba(255,190,100,0.18)";
+        ctx.beginPath();
+        ctx.arc(x + w * 0.18, y + h * 0.78, 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    const glow = ctx.createRadialGradient(
+      mouseX * W,
+      mouseY * H,
+      0,
+      mouseX * W,
+      mouseY * H,
+      100,
+    );
+    glow.addColorStop(0, "rgba(232,160,64,0.13)");
+    glow.addColorStop(1, "rgba(232,160,64,0)");
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(mouseX * W, mouseY * H, 100, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  /* =====================================================
+  DRAW: Digital Tools
+  ====================================================== */
+  function drawSoftware() {
+    ctx.font = "10px monospace";
+    ctx.textAlign = "left";
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const lines = [
+      "> init_r2s();",
+      "> load_design_system();",
+      "> compile_geometry();",
+      "> build.prototype();",
+      "> test();",
+      "> iterate();",
+      "> system_ready_",
+    ];
+    lines.forEach((line, i) => {
+      const alpha = 0.15 + 0.1 * Math.sin(time * 2 - i);
+      ctx.fillStyle = i === 6 ? "#e8a040" : (isLight ? `rgba(60,60,60,${alpha + 0.25})` : `rgba(220,220,220,${alpha})`);
+      ctx.fillText(line, W * 0.2, H * 0.22 + i * 25);
+    });
+    ctx.strokeStyle = "rgba(232,160,64,0.35)";
+    ctx.beginPath();
+    ctx.moveTo(W * 0.18, H * 0.82);
+    ctx.lineTo(W * 0.82, H * 0.82);
+    ctx.stroke();
+    const progress = (Math.sin(time) + 1) / 2;
+    ctx.fillStyle = "#e8a040";
+    ctx.fillRect(W * 0.18, H * 0.82 - 2, W * 0.64 * progress, 4);
+  }
+
+  /* =====================================================
+  DRAW: Teaching — Double DNA Helix
+  ====================================================== */
+  function drawTeaching() {
+    const cx = W / 2, cy = H / 2;
+    const helixR = Math.min(W, H) * 0.18;   // width of the helix
+    const helixH = H * 0.64;                // total height
+    const turns = 5;
+    const steps = 400;
+    const phaseShift = time * 0.5;          // slow vertical wave
+
+    // Strand 1: x = R * cos(θ), y = vertical position, strand1 displaced to left
+    // Strand 2: x = R * cos(θ + π), displaced to right
+    // θ = prog * turns * 2π + phaseShift
+
+    ctx.strokeStyle = "rgba(100,220,180,0.8)";
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = "rgba(100,220,180,0.35)";
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    for (let i = 0; i <= steps; i++) {
+      const prog = i / steps;
+      const py = cy - helixH / 2 + prog * helixH;
+      const theta = prog * turns * Math.PI * 2 + phaseShift;
+      const px = cx + Math.cos(theta) * helixR;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(232,160,64,0.8)";
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = "rgba(232,160,64,0.35)";
+    ctx.shadowBlur = 4;
+    ctx.beginPath();
+    for (let i = 0; i <= steps; i++) {
+      const prog = i / steps;
+      const py = cy - helixH / 2 + prog * helixH;
+      const theta = prog * turns * Math.PI * 2 + Math.PI + phaseShift;
+      const px = cx + Math.cos(theta) * helixR;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Base-pair rungs (every 12 steps)
+    for (let i = 0; i <= steps; i += 12) {
+      const prog = i / steps;
+      const py = cy - helixH / 2 + prog * helixH;
+      const theta = prog * turns * Math.PI * 2 + phaseShift;
+      const x1 = cx + Math.cos(theta) * helixR;
+      const x2 = cx + Math.cos(theta + Math.PI) * helixR;
+      ctx.strokeStyle = "rgba(180,200,220,0.35)";
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      ctx.moveTo(x1, py);
+      ctx.lineTo(x2, py);
+      ctx.stroke();
+    }
+  }
+
+  /* =====================================================
+  CAPABILITY DISPATCH
+  ====================================================== */
+  function drawCapability() {
+    if (!ctx || !canvasVisible) return; // 不可见时直接退出
+    ctx.clearRect(0, 0, W, H);
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    ctx.fillStyle = isLight ? "#e8e3da" : "#09090b";
+    ctx.fillRect(0, 0, W, H);
+    if (!isLight) drawGrid();
+
+    const key = buttons[activeIndex]?.dataset.cap;
+    switch (key) {
+      case "industrial":
+        draw3DModel();
+        break;
+      case "mechanical":
+        drawCMF();
+        break;
+      case "electronics":
+        drawElectronics();
+        break;
+      case "embedded":
+        drawEmbedded();
+        break;
+      case "fabrication":
+        drawFabrication();
+        break;
+      case "visual":
+        drawVisual();
+        break;
+      case "software":
+        drawSoftware();
+        break;
+      case "teaching":
+        drawTeaching();
+        break;
+    }
+
+    time += 0.016;
+    animationId = requestAnimationFrame(drawCapability);
+  }
+
+  function activateModule(index, manual = false) {
+    if (index < 0 || index >= buttons.length) return;
+    activeIndex = index;
+    const button = buttons[index];
+    const key = button.dataset.cap;
+    if (!key || !modules[key]) return;
+
+    buttons.forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    title.textContent = modules[key].title;
+    description.textContent = modules[key].description;
+    status.textContent = `MODULE_${String(index + 1).padStart(2, "0")}`;
+
+    if (manual) {
+      manualInteraction = true;
+    }
+  }
+
+  buttons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      activateModule(index, true);
+      clearInterval(moduleTimer);
+      moduleTimer = setInterval(nextModule, 4200);
+    });
+  });
+
+  function nextModule() {
+    activeIndex = (activeIndex + 1) % buttons.length;
+    activateModule(activeIndex);
+  }
+
+  // 自动轮播定时器控制
+  function startModuleAutoRotate() {
+    if (moduleTimer) return;
+    moduleTimer = setInterval(nextModule, 4200);
+  }
+
+  function stopModuleAutoRotate() {
+    clearInterval(moduleTimer);
+    moduleTimer = null;
+  }
+
+  // Canvas 可见性控制
+  function startCanvas() {
+    if (!canvasVisible || animationId) return;
+    resizeCanvas();
+    drawCapability();
+    startModuleAutoRotate();
+  }
+
+  function stopCanvas() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+    stopModuleAutoRotate();
+  }
+
+  // 监听 Canvas 所在容器是否进入视口
+  const displayVisual = document.querySelector(".display-visual");
+  if (displayVisual && canvas) {
+    const canvasObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          canvasVisible = entry.isIntersecting;
+          if (canvasVisible) {
+            startCanvas();
+          } else {
+            stopCanvas();
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+    canvasObserver.observe(displayVisual);
+  }
+
+  // 窗口大小变化时重绘 Canvas（如果可见）
+  window.addEventListener("resize", () => {
+    resizeCanvas();
+  });
+
+  // 初始激活第一个模块并准备 Canvas（但不要自动开始动画，等进入视口）
+  activateModule(0);
+  // 注意：不再直接调用 drawCapability()，由 Observer 触发
+</script>
+
+<script>
+  /* =====================================================
+  09 — STYLE GENEALOGY ANNEX (easter egg)
+  独立脚本：与页面主脚本隔离，主脚本出错也不会影响彩蛋
+  ====================================================== */
+
+  const annexPanel = document.getElementById("style-annex-panel");
+  const enterKey = document.querySelector(".enter-key");
+
+  // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
+  function typeAnnexBlock(el, original, speed) {
+    return new Promise((resolve) => {
+      const temp = document.createElement("div");
+      temp.innerHTML = original;
+      const text = temp.textContent || "";
+      let i = 0;
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          el.textContent = text.slice(0, i + 1);
+          i++;
+        } else {
+          clearInterval(timer);
+          el.innerHTML = original;
+          el.classList.remove("typing");
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  // 每类区块的输出速度（毫秒/字符）：正文快而不抢读，标签更快
+  function annexSpeed(el) {
+    if (el.classList.contains("annex-intro")) return 5;
+    if (el.classList.contains("annex-style-index")) return 2;
+    if (el.classList.contains("annex-refs")) return 3;
+    return 4;
+  }
+
+  let annexTyped = false;
+
+  if (annexPanel && enterKey) {
+    enterKey.addEventListener("click", () => {
+      const wasOpen = !annexPanel.hidden;
+      if (wasOpen) {
+        annexPanel.hidden = true;
+        enterKey.setAttribute("aria-expanded", "false");
+        return;
+      }
+
+      enterKey.setAttribute("aria-expanded", "true");
+
+      if (!annexTyped) {
+        annexTyped = true;
+        const blocks = annexPanel.querySelectorAll(
+          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
+        );
+        // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
+        blocks.forEach((el) => {
+          el.dataset.annexOriginal = el.innerHTML;
+          el.innerHTML = "";
+          el.classList.add("typing");
+        });
+        annexPanel.hidden = false;
+        annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        (async () => {
+          for (const el of blocks) {
+            await typeAnnexBlock(el, el.dataset.annexOriginal || "", annexSpeed(el));
+          }
+        })();
+      } else {
+        annexPanel.hidden = false;
+        annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+</script>
+
+<style>
+  /* =====================================================
+  BASE
+  ====================================================== */
+  .philosophy-main h2 {
+    white-space: pre-line;
+  }
+
+  .about-page {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+    font-family: var(--font-mono);
+    will-change: scroll-position;
+  }
+
+  .section-label {
+    margin-bottom: 30px;
+    color: var(--accent);
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .system-tag {
+    color: var(--text-dim);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  /* =====================================================
+  HERO
+  ====================================================== */
+
+  .about-hero {
+    margin-bottom: var(--section-gap);
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text-dim);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .hero-meta span:last-child {
+    color: var(--terminal-green);
+  }
+
+  .hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 60px;
+  }
+
+  .eyebrow {
+    margin-bottom: 20px;
+    color: var(--accent);
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(64px, 10vw, 140px);
+    line-height: 0.85;
+    letter-spacing: -7px;
+    font-weight: 900;
+  }
+
+  .subtitle {
+    max-width: 700px;
+    margin-top: 35px;
+    color: #aaa;
+    font-size: var(--text-scale-body);
+    line-height: 1.8;
+  }
+
+  .hero-index {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #555;
+  }
+
+  .hero-index span {
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .hero-index strong {
+    color: var(--accent);
+    font-size: 72px;
+  }
+
+  /* =====================================================
+  INTRO
+  ====================================================== */
+
+  .intro-section,
+  .dossier-section,
+  .philosophy-section,
+  .process-section,
+  .capabilities-section,
+  .journey-section,
+  .current-section {
+    margin-bottom: var(--section-gap);
+  }
+
+  .intro-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 90px;
+  }
+
+  .intro-heading h2 {
+    max-width: 650px;
+    margin: 25px 0 40px;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: -4px;
+    text-transform: uppercase;
+    white-space: pre-line; /* 让 \n 换行生效 */
+  }
+
+  .intro-marker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .intro-marker span {
+    padding: 7px 10px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
+  }
+
+  .intro-content {
+    max-width: 760px;
+  }
+
+  .intro-content p {
+    margin: 0 0 25px;
+    color: var(--text-tertiary);
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  .intro-content .intro-lead {
+    color: var(--text-bright);
+    font-size: 21px;
+    line-height: 1.7;
+  }
+
+  .intro-statement {
+    display: flex;
+    flex-direction: column;
+    margin-top: 45px;
+    padding: 25px 30px;
+    background: var(--accent);
+    color: #08080c;
+  }
+
+  .intro-statement span {
+    margin-bottom: 10px;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .intro-statement strong {
+    font-size: 20px;
+    letter-spacing: var(--tracking-label);
+    white-space: normal;
+  }
+
+  /* =====================================================
+  DOSSIER
+  ====================================================== */
+
+  .dossier {
+    background: rgba(8, 8, 12, 0.9);
+    border: 1px solid var(--border);
+  }
+
+  .dossier-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 25px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--accent);
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .online {
+    color: var(--terminal-green);
+  }
+
+  .dossier-body {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+  }
+
+  .identity {
+    padding: 55px;
+    border-right: 1px solid var(--border);
+  }
+
+  .identity-label {
+    margin-bottom: 15px;
+    color: var(--text-dim);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .identity h2 {
+    margin: 0 0 15px;
+    font-size: 44px;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .identity p {
+    margin: 0;
+    color: var(--terminal-green);
+    font-size: var(--text-scale-3xs);
+    font-weight: bold;
+  }
+
+  .dossier-data {
+    padding: 35px 45px;
+  }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    color: #bbb;
+    font-size: var(--text-scale-2xs);
+    line-height: 1.6;
+  }
+
+  .data-row:last-child {
+    border-bottom: none;
+  }
+
+  .data-label {
+    color: #666;
+    letter-spacing: var(--tracking-label);
+  }
+
+  /* =====================================================
+  PHILOSOPHY
+  ====================================================== */
+
+  .philosophy-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+  }
+
+  .philosophy-main h2 {
+    max-width: 600px;
+    margin: 25px 0 0;
+    font-size: clamp(42px, 6vw, 75px);
+    line-height: 0.95;
+    letter-spacing: -4px;
+  }
+
+  .philosophy-copy {
+    max-width: 700px;
+  }
+
+  .philosophy-copy p {
+    margin: 0 0 25px;
+    color: var(--text-tertiary);
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  .philosophy-copy .lead {
+    color: var(--text-bright);
+    font-size: 21px;
+  }
+
+  .motto-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 170px 1fr 100px;
+    align-items: center;
+    margin-top: 65px;
+    padding: 35px;
+    background: var(--accent);
+    color: #08080c;
+  }
+
+  .motto-label {
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .motto-content strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: clamp(20px, 3vw, 32px);
+    letter-spacing: var(--tracking-label);
+  }
+
+  .motto-content p {
+    max-width: 650px;
+    margin: 0;
+    font-size: var(--text-scale-2xs);
+    line-height: 1.7;
+  }
+
+  .motto-symbol {
+    text-align: right;
+    font-size: 70px;
+    line-height: 1;
+  }
+
+  /* =====================================================
+  04 — PROCESS
+  ====================================================== */
+
+  .process-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 70px;
+  }
+
+  .process-heading h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.28em;
+    margin: 25px 0 0;
+    font-size: clamp(42px, 6vw, 75px);
+    line-height: 0.9;
+    letter-spacing: -4px;
+    white-space: nowrap;
+  }
+
+  .process-arrow {
+    display: inline-flex;
+    align-items: center;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--accent);
+    margin: 0 0.1em;
+    vertical-align: middle;
+  }
+
+  .process-header p {
+    max-width: 600px;
+    margin: 0;
+    color: var(--text-tertiary);
+    font-size: var(--text-scale-sm);
+    line-height: 1.9;
+  }
+
+  .process-station {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--grid-gap-tight);
+    padding-top: 40px;
+  }
+
+  .station-track {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      var(--border) 0,
+      var(--border) 8px,
+      transparent 8px,
+      transparent 15px
+    );
+  }
+
+  .station-track-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--accent);
+    box-shadow:
+      0 0 10px var(--accent),
+      0 0 24px rgba(232, 160, 64, 0.22);
+    transition: width 1.2s cubic-bezier(0.65, 0, 0.25, 1);
+  }
+
+  .station-item {
+    position: relative;
+    min-width: 0;
+    opacity: 0.35;
+    transition:
+      opacity 0.55s var(--ease-out),
+      transform 0.55s var(--spring-gentle);
+  }
+
+  .station-item.process-active {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+
+  .station-item.process-complete {
+    opacity: 0.62;
+  }
+
+  .station-light {
+    position: relative;
+    z-index: 3;
+    width: 26px;
+    height: 26px;
+    margin-bottom: 25px;
+    border: 1px solid #333;
+    background: #08080c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      border-color 0.4s var(--ease-out),
+      box-shadow 0.4s var(--spring-gentle);
+  }
+
+  .station-light span {
+    width: 6px;
+    height: 6px;
+    background: #333;
+    box-shadow: none;
+    transition:
+      background 0.4s var(--ease-out),
+      box-shadow 0.4s var(--spring-gentle),
+      transform 0.4s var(--spring-bounce);
+  }
+
+  .station-item.process-active .station-light {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(232, 160, 64, 0.025);
+  }
+
+  .station-item.process-active .station-light span {
+    background: var(--accent);
+    box-shadow:
+      0 0 8px var(--accent),
+      0 0 20px rgba(232, 160, 64, 0.35);
+    animation: stationPulse 1.2s ease-in-out infinite;
+  }
+
+  .station-item.process-complete .station-light {
+    border-color: rgba(232, 160, 64, 0.45);
+  }
+
+  .station-item.process-complete .station-light span {
+    background: rgba(232, 160, 64, 0.65);
+  }
+
+  .station-number {
+    position: absolute;
+    top: 4px;
+    left: 38px;
+    color: #444;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
+  }
+
+  .station-content {
+    padding-right: 25px;
+  }
+
+  .station-state {
+    display: block;
+    min-height: 12px;
+    margin-bottom: 8px;
+    color: #444;
+    font-size: 7px;
+    letter-spacing: var(--tracking-tag);
+    transition: color 0.4s var(--ease-out);
+  }
+
+  .process-active .station-state {
+    color: var(--terminal-green);
+  }
+
+  .process-complete .station-state {
+    color: #6d5132;
+  }
+
+  .station-code {
+    color: var(--accent);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .station-content h3 {
+    margin: 15px 0 12px;
+    font-size: 22px;
+  }
+
+  .station-content p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: var(--text-scale-2xs);
+    line-height: 1.8;
+  }
+
+  @keyframes stationPulse {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(0.75);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+
+  .pipeline-progress {
+    margin-top: 45px;
+  }
+
+  .pipeline-progress-line {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .pipeline-progress-line span {
+    display: block;
+    width: 25%;
+    height: 100%;
+    background: var(--accent);
+    box-shadow:
+      0 0 10px var(--accent),
+      0 0 20px rgba(232, 160, 64, 0.2);
+    transition: width 1.2s cubic-bezier(0.65, 0, 0.25, 1);
+  }
+
+  .pipeline-progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    color: #555;
+    font-size: 8px;
+    letter-spacing: var(--tracking-tag);
+  }
+
+  /* =====================================================
+  05 — CAPABILITY
+  ====================================================== */
+
+  .capability-console {
+    border: 1px solid var(--border);
+    background: #08080c;
+    overflow: hidden;
+  }
+
+  .console-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text-dim);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .console-top b {
+    color: var(--terminal-green);
+  }
+
+  .capability-layout {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+  }
+
+  .capability-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-right: 1px solid var(--border);
+  }
+
+  .cap-button {
+    position: relative;
+    height: 110px;
+    padding: 20px;
+    border: none;
+    border-left: 3px solid transparent;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: #08080c;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    text-align: left;
+    cursor: pointer;
+    transition:
+      background 0.25s var(--ease-out),
+      color 0.25s var(--ease-out),
+      border-color 0.25s var(--ease-out);
+  }
+
+  .cap-button:nth-child(even) {
+    border-right: none;
+  }
+
+  .cap-button:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .cap-button span {
+    display: block;
+    margin-bottom: 20px;
+    color: #444;
+    font-size: var(--text-scale-5xs);
+  }
+
+  .cap-button strong {
+    display: block;
+    font-size: var(--text-scale-xs);
+    letter-spacing: var(--tracking-micro);
+    white-space: pre-line;
+  }
+
+  .cap-button:hover {
+    background: #111116;
+    color: var(--text-bright);
+  }
+
+  .cap-button.active {
+    background: linear-gradient(
+      135deg,
+      rgba(232, 160, 64, 0.15),
+      rgba(232, 160, 64, 0.025)
+    );
+    color: var(--text-bright);
+    border-left-color: var(--accent);
+  }
+
+  .cap-button.active span {
+    color: var(--accent);
+  }
+
+  .capability-display {
+    display: flex;
+    flex-direction: column;
+    height: 585px;
+    overflow: hidden;
+  }
+
+  .display-header,
+  .display-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    color: #666;
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+    flex-shrink: 0;
+  }
+
+  .display-header {
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .display-light {
+    color: var(--terminal-green);
+  }
+
+  .display-visual {
+    position: relative;
+    height: 280px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #09090b;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #capabilityCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cap-scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.055) 0,
+      rgba(0, 0, 0, 0.055) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+    mix-blend-mode: overlay;
+  }
+
+  .cap-corner {
+    position: absolute;
+    color: rgba(232, 160, 64, 0.45);
+    font-size: 7px;
+    letter-spacing: var(--tracking-wider);
+    pointer-events: none;
+  }
+
+  .cap-corner-tl {
+    top: 12px;
+    left: 14px;
+  }
+
+  .cap-corner-br {
+    right: 14px;
+    bottom: 12px;
+  }
+
+  .display-body {
+    flex: 1;
+    padding: 30px 35px;
+    min-height: 0;
+  }
+
+  .display-kicker {
+    color: var(--accent);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .display-body h3 {
+    max-width: 500px;
+    margin: 16px 0 12px;
+    font-size: clamp(26px, 3.5vw, 46px);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-tight);
+    white-space: pre-line;
+  }
+
+  .display-body p {
+    max-width: 520px;
+    color: #888;
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  .display-footer {
+    border-top: 1px dashed var(--border);
+  }
+
+  /* =====================================================
+  06 — DEVELOPMENT PATH / SKILL TREE
+  ====================================================== */
+
+  .journey-header {
+    margin-bottom: 55px;
+  }
+
+  .journey-header h2 {
+    max-width: var(--container-text);
+    margin: 25px 0 0;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -4px;
+  }
+
+  .skill-tree {
+    position: relative;
+    height: 650px;
+    margin-bottom: 70px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 80% 40%,
+        rgba(80, 180, 170, 0.035),
+        transparent 35%
+      ),
+      #08080c;
+  }
+
+  .skill-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.45;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .skill-tree-label {
+    position: absolute;
+    top: 18px;
+    left: 22px;
+    right: 22px;
+    display: flex;
+    justify-content: space-between;
+    color: #4b4b50;
+    font-size: 8px;
+    letter-spacing: var(--tracking-tag);
+    z-index: 5;
+  }
+
+  .skill-main-line {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    top: 51%;
+    height: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(232, 160, 64, 0.35) 0,
+      rgba(232, 160, 64, 0.35) 8px,
+      transparent 8px,
+      transparent 16px
+    );
+    z-index: 1;
+  }
+
+  .skill-main-line span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      rgba(232, 160, 64, 0.05),
+      rgba(232, 160, 64, 0.55),
+      rgba(100, 210, 190, 0.75)
+    );
+    opacity: 0.65;
+  }
+
+  .skill-node {
+    position: absolute;
+    z-index: 4;
+  }
+
+  .skill-node-dot {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border: 1px solid var(--accent);
+    background: #08080c;
+    transform: translate(-50%, -50%) rotate(45deg);
+    box-shadow: 0 0 0 5px #08080c;
+    transition:
+      transform 0.25s ease,
+      background 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .skill-node:hover .skill-node-dot {
+    background: var(--accent);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1.35);
+    box-shadow:
+      0 0 0 5px #08080c,
+      0 0 18px rgba(232, 160, 64, 0.45);
+  }
+
+  .skill-node-content {
+    position: absolute;
+    width: 170px;
+  }
+
+  .skill-index {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--accent);
+    font-size: 7px;
+    letter-spacing: var(--tracking-wider);
+  }
+
+  .skill-node-content strong {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--text-soft);
+    font-size: var(--text-scale-2xs);
+    letter-spacing: 0.8px;
+  }
+
+  .skill-node-content small {
+    display: block;
+    color: #5f5f64;
+    font-size: 8px;
+    line-height: 1.6;
+  }
+
+  .skill-origin {
+    left: 7%;
+    top: 51%;
+  }
+  .skill-origin .skill-node-content {
+    left: 15px;
+    top: 20px;
+  }
+
+  .skill-cad {
+    left: 20%;
+    top: 51%;
+  }
+  .skill-cad .skill-node-content {
+    left: 15px;
+    top: 23px;
+  }
+
+  .skill-drawing {
+    left: 20%;
+    top: 32%;
+  }
+  .skill-drawing .skill-node-content {
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .skill-render {
+    left: 34%;
+    top: 51%;
+  }
+  .skill-render .skill-node-content {
+    left: 15px;
+    top: 23px;
+  }
+
+  .skill-print {
+    left: 34%;
+    top: 69%;
+  }
+  .skill-print .skill-node-content {
+    left: 15px;
+    top: 20px;
+  }
+
+  .skill-graphic {
+    left: 34%;
+    top: 30%;
+  }
+  .skill-graphic .skill-node-content {
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .skill-cmf {
+    left: 49%;
+    top: 51%;
+  }
+  .skill-cmf .skill-node-content {
+    left: 15px;
+    top: 23px;
+  }
+
+  .skill-prototype {
+    left: 49%;
+    top: 40%;
+  }
+  .skill-prototype .skill-node-content {
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .skill-character {
+    left: 49%;
+    top: 73%;
+  }
+  .skill-character .skill-node-content {
+    left: 15px;
+    top: 20px;
+  }
+
+  .skill-electronics {
+    left: 49%;
+    top: 18%;
+  }
+  .skill-electronics .skill-node-content {
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .skill-welding {
+    left: 65%;
+    top: 51%;
+  }
+  .skill-welding .skill-node-content {
+    left: 15px;
+    top: 23px;
+  }
+
+  .skill-soldering {
+    left: 65%;
+    top: 22%;
+  }
+  .skill-soldering .skill-node-content {
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .skill-embedded {
+    left: 65%;
+    top: 75%;
+  }
+  .skill-embedded .skill-node-content {
+    left: 15px;
+    top: 20px;
+  }
+
+  .skill-materials {
+    left: 65%;
+    top: 42%;
+  }
+  .skill-materials .skill-node-content {
+    left: 15px;
+    bottom: 20px;
+  }
+
+  .skill-integration {
+    left: 82%;
+    top: 51%;
+  }
+  .skill-integration .skill-node-content {
+    left: 15px;
+    top: 23px;
+  }
+
+  .skill-realization {
+    left: 93%;
+    top: 55%;
+  }
+  .skill-realization .skill-node-content {
+    right: 15px;
+    top: 23px;
+    text-align: right;
+  }
+
+  .skill-branch {
+    position: absolute;
+    z-index: 2;
+    height: 1px;
+    transform-origin: left center;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(232, 160, 64, 0.28) 0,
+      rgba(232, 160, 64, 0.28) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+
+  .branch-a {
+    left: 7%;
+    top: 51%;
+    width: 13%;
+  }
+
+  .branch-b {
+    left: 20%;
+    top: 51%;
+    width: 14%;
+  }
+
+  .branch-c {
+    left: 34%;
+    top: 51%;
+    width: 15%;
+  }
+
+  .branch-d {
+    left: 49%;
+    top: 51%;
+    width: 16%;
+  }
+
+  .branch-e {
+    left: 65%;
+    top: 51%;
+    width: 17%;
+  }
+
+  .branch-f {
+    left: 82%;
+    top: 51%;
+    width: 11%;
+  }
+
+  .branch-g,
+  .branch-h,
+  .branch-i,
+  .branch-j {
+    display: none;
+  }
+
+  .journey-copy {
+    max-width: 800px;
+    margin-left: auto;
+  }
+
+  .journey-copy p {
+    margin: 0 0 25px;
+    padding-left: 25px;
+    border-left: 1px solid var(--border);
+    color: #888;
+    font-size: var(--text-scale-sm);
+    line-height: 1.9;
+  }
+
+  .journey-copy .lead {
+    color: var(--text-bright);
+    font-size: 19px;
+  }
+
+  /* =====================================================
+  07 — CURRENT RESEARCH
+  ====================================================== */
+
+  .research-terminal {
+    border: 1px solid var(--border);
+    background: #08080c;
+  }
+
+  .terminal-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 20px;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text-dim);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .research-screen {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .research-column {
+    min-height: 180px;
+    padding: 30px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .research-column:nth-child(even) {
+    border-right: none;
+  }
+
+  .research-column span {
+    display: block;
+    margin-bottom: 25px;
+    color: var(--accent);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .research-column strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 17px;
+  }
+
+  .research-column p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: var(--text-scale-3xs);
+    line-height: 1.8;
+  }
+
+  .research-wide {
+    grid-column: span 2;
+    min-height: 150px;
+    border-right: none;
+  }
+
+  /* =====================================================
+  08 — FUTURE
+  ====================================================== */
+
+  .future-section {
+    margin-bottom: 100px;
+  }
+
+  .future-panel {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    padding: 45px;
+    border: 1px solid var(--border);
+  }
+
+  .future-heading > span {
+    color: var(--accent);
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .future-arrow {
+    margin-top: 40px;
+    color: var(--accent);
+    font-size: 110px;
+    line-height: 0.7;
+  }
+
+  .future-text p {
+    margin: 0 0 25px;
+    color: #888;
+    font-size: var(--text-scale-sm);
+    line-height: 1.9;
+  }
+
+  .future-text .lead {
+    color: var(--text-bright);
+    font-size: 20px;
+  }
+
+  /* =====================================================
+  CLOSING
+  ====================================================== */
+
+  .closing-section {
+    padding-top: 20px;
+  }
+
+  .closing-line {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 40px;
+    background: linear-gradient(
+      90deg,
+      var(--border),
+      rgba(232, 160, 64, 0.35),
+      var(--border)
+    );
+  }
+
+  .closing-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+
+  .closing-copy {
+    max-width: 850px;
+  }
+
+  .closing-kicker {
+    display: block;
+    margin-bottom: 20px;
+    color: var(--accent);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .closing-section p {
+    max-width: 850px;
+    margin: 0;
+    color: #aaa;
+    font-size: clamp(18px, 2.2vw, 27px);
+    line-height: 1.65;
+    letter-spacing: -0.5px;
+  }
+
+  .closing-terminal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--grid-gap-tight);
+  }
+
+  .closing-status {
+    color: var(--terminal-green);
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-tag);
+  }
+
+  .enter-key {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 260px;
+    padding: 28px 36px;
+    border: 1px solid #555;
+    border-bottom: 4px solid #222;
+    background: linear-gradient(180deg, #1a1a1d, #0b0b0d);
+    color: #aaa;
+    font-family: var(--font-mono);
+    letter-spacing: var(--tracking-tag);
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .enter-key::before,
+  .enter-key::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #444;
+  }
+
+  .enter-key::before {
+    top: 6px;
+    left: 6px;
+  }
+
+  .enter-key::after {
+    right: 6px;
+    bottom: 7px;
+  }
+
+  .enter-key span {
+    margin-right: 16px;
+    font-size: 19px;
+  }
+
+  .enter-key b {
+    color: var(--accent);
+    font-size: var(--text-scale-h3);
+  }
+
+  .enter-key:hover {
+    color: var(--text-bright);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(232, 160, 64, 0.08);
+  }
+
+  .enter-key:active {
+    transform: translateY(3px);
+    border-bottom-width: 1px;
+  }
+
+  /* ENTER key invitation — breathing glow + bouncing arrow */
+  .enter-key {
+    animation: enterPulse 2.6s ease-in-out infinite;
+  }
+
+  .enter-key b {
+    display: inline-block;
+    animation: arrowNudge 1.4s ease-in-out infinite;
+  }
+
+  .enter-key:hover {
+    animation: none;
+    box-shadow: 0 0 26px rgba(232, 160, 64, 0.22);
+  }
+
+  @keyframes enterPulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 rgba(232, 160, 64, 0);
+      border-color: #555;
+    }
+    50% {
+      box-shadow: 0 0 18px rgba(232, 160, 64, 0.28);
+      border-color: rgba(232, 160, 64, 0.65);
+    }
+  }
+
+  @keyframes arrowNudge {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* =====================================================
+  ANNEX 09 — STYLE GENEALOGY (easter egg)
+  ====================================================== */
+
+  .style-annex {
+    padding-top: 60px;
+  }
+
+  .annex-panel {
+    padding: 40px 45px;
+    border: 1px dashed rgba(232, 160, 64, 0.3);
+    background: rgba(232, 160, 64, 0.02);
+    font-family: var(--font-mono);
+  }
+
+  /* Typewriter cursor while a block is being typed */
+  .annex-panel .typing::after {
+    content: "_";
+    color: var(--terminal-green);
+    animation: annexBlink 0.6s infinite;
+    font-weight: 400;
+  }
+
+  @keyframes annexBlink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .annex-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-scale-3xs);
+    font-weight: bold;
+    letter-spacing: var(--tracking-tag);
+    color: var(--accent);
+  }
+
+  .annex-status {
+    color: #888;
+    font-weight: normal;
+    letter-spacing: var(--tracking-label);
+  }
+
+  .annex-intro {
+    margin: 30px 0 0;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ccc;
+  }
+
+  .annex-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gap) 40px;
+    margin-top: 15px;
+  }
+
+  .annex-entry {
+    border-left: 2px solid var(--stripe-red);
+    padding-left: 18px;
+  }
+
+  .annex-entry:nth-child(3n + 2) {
+    border-left-color: var(--stripe-yellow);
+  }
+
+  .annex-entry:nth-child(3n) {
+    border-left-color: var(--stripe-teal);
+  }
+
+  .annex-entry-head {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .annex-code {
+    font-size: var(--text-scale-3xs);
+    font-weight: bold;
+    letter-spacing: var(--tracking-wider);
+    color: var(--text-bright);
+  }
+
+  .annex-era {
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--text-dim);
+  }
+
+  .annex-entry p {
+    margin: 0;
+    font-size: var(--text-scale-xs);
+    line-height: 1.9;
+    color: #aaa;
+  }
+
+  .annex-refs {
+    margin-top: 12px;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-micro);
+    color: var(--terminal-green);
+    opacity: 0.7;
+  }
+
+  .annex-style-index {
+    margin-top: 35px;
+    font-size: var(--text-scale-4xs);
+    letter-spacing: var(--tracking-tag);
+    color: var(--accent);
+  }
+
+  .annex-works {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .annex-works-list {
+    margin: 15px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .annex-works-list li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-bottom: 10px;
+    font-size: var(--text-scale-xs);
+    line-height: 1.8;
+    color: var(--text-tertiary);
+  }
+
+  .annex-work-title {
+    color: var(--text-bright);
+    font-weight: bold;
+    letter-spacing: var(--tracking-micro);
+  }
+
+  .annex-work-note {
+    color: var(--text-tertiary);
+  }
+
+  :root[data-theme="light"] .annex-panel {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(176, 112, 32, 0.3);
+  }
+
+  :root[data-theme="light"] .annex-code {
+    color: var(--text-bright);
+  }
+
+  :root[data-theme="light"] .annex-status,
+  :root[data-theme="light"] .annex-era {
+    color: var(--text-tertiary);
+  }
+
+  :root[data-theme="light"] .annex-intro {
+    color: var(--text-soft);
+  }
+
+  :root[data-theme="light"] .annex-entry p {
+    color: var(--text-dim);
+  }
+
+  :root[data-theme="light"] .annex-work-title {
+    color: var(--text-bright);
+  }
+
+  :root[data-theme="light"] .annex-work-note,
+  :root[data-theme="light"] .annex-works-list li {
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 800px) {
+    .annex-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .annex-panel {
+      padding: 30px 22px;
+    }
+  }
+
+  /* =====================================================
+  LIGHT MODE
+  ====================================================== */
+
+  :root[data-theme="light"] .subtitle { color: var(--text-soft); }
+  :root[data-theme="light"] .hero-index { color: #888; }
+  :root[data-theme="light"] .hero-meta { color: var(--text-dim); border-bottom-color: rgba(0,0,0,0.12); }
+  :root[data-theme="light"] h1 { color: #111; }
+  :root[data-theme="light"] .intro-heading h2 { color: #111; }
+  :root[data-theme="light"] .process-heading h2 { color: #111; }
+  :root[data-theme="light"] .philosophy-main h2 { color: #111; }
+  :root[data-theme="light"] .journey-header h2 { color: #111; }
+
+  /* Cards → light background */
+  :root[data-theme="light"] .dossier {
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
+  }
+  :root[data-theme="light"] .capability-console {
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
+  }
+  :root[data-theme="light"] .cap-button {
+    background: var(--paper);
+    color: var(--text-dim);
+  }
+  :root[data-theme="light"] .cap-button:hover {
+    background: #dcd7cc;
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .cap-button.active {
+    background: linear-gradient(135deg, rgba(232,160,64,0.12), rgba(232,160,64,0.03));
+    color: var(--text-bright);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  :root[data-theme="light"] .cap-button span { color: #888; }
+  :root[data-theme="light"] .cap-button.active span { color: var(--accent); }
+  :root[data-theme="light"] .skill-tree {
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
+  }
+  :root[data-theme="light"] .skill-node-dot { background: var(--paper); box-shadow: 0 0 0 5px var(--paper); }
+  :root[data-theme="light"] .skill-node:hover .skill-node-dot { box-shadow: 0 0 0 5px var(--paper), 0 0 18px rgba(232,160,64,0.45); }
+  :root[data-theme="light"] .skill-node-content strong { color: #333; }
+  :root[data-theme="light"] .skill-node-content small { color: #777; }
+  :root[data-theme="light"] .skill-tree-label { color: #999; }
+  :root[data-theme="light"] .research-terminal {
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
+  }
+  :root[data-theme="light"] .future-panel {
+    background: var(--paper);
+    box-shadow: var(--shadow-paper);
+  }
+
+  /* Text → dark */
+  :root[data-theme="light"] .intro-content p { color: var(--text-soft); }
+  :root[data-theme="light"] .intro-content .intro-lead { color: var(--text-bright); }
+  :root[data-theme="light"] .philosophy-copy p { color: var(--text-soft); }
+  :root[data-theme="light"] .philosophy-copy .lead { color: var(--text-bright); }
+  :root[data-theme="light"] .journey-copy p { color: var(--text-soft); }
+  :root[data-theme="light"] .journey-copy .lead { color: var(--text-bright); }
+  :root[data-theme="light"] .future-text p { color: var(--text-soft); }
+  :root[data-theme="light"] .future-text .lead { color: var(--text-bright); }
+  :root[data-theme="light"] .closing-section p { color: #333; }
+  :root[data-theme="light"] .data-row { color: var(--text-soft); }
+  :root[data-theme="light"] .identity h2 { color: #111; }
+  :root[data-theme="light"] .research-column strong { color: var(--text-bright); }
+  :root[data-theme="light"] .research-column p { color: var(--text-dim); }
+  :root[data-theme="light"] .station-content h3 { color: var(--text-bright); }
+  :root[data-theme="light"] .station-content p { color: var(--text-dim); }
+  :root[data-theme="light"] .display-body h3 { color: #111; }
+  :root[data-theme="light"] .display-body p { color: var(--text-dim); }
+  :root[data-theme="light"] .process-header p { color: var(--text-dim); }
+  :root[data-theme="light"] .dossier-header { color: #c07820; }
+  :root[data-theme="light"] .display-header,
+  :root[data-theme="light"] .display-footer { color: #888; }
+  :root[data-theme="light"] .console-top { color: #888; }
+
+  /* Borders / misc in light mode */
+  :root[data-theme="light"] .station-light { background: var(--paper); }
+  :root[data-theme="light"] .display-visual { background: var(--paper); }
+  :root[data-theme="light"] .intro-marker span { color: var(--text-dim); border-color: var(--border-strong); }
+
+  :root[data-theme="light"] .enter-key {
+    background: linear-gradient(180deg, #f0ebe0, var(--paper));
+    border-color: var(--border-divider);
+    border-bottom-color: #bbb;
+    color: var(--text-dim);
+  }
+  :root[data-theme="light"] .enter-key:hover {
+    color: var(--text-bright);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(232, 160, 64, 0.1);
+  }
+  :root[data-theme="light"] .enter-key::before,
+  :root[data-theme="light"] .enter-key::after {
+    border-color: var(--border-divider);
+  }
+  :root[data-theme="light"] .closing-status { color: #00703c; }
+
+  /* =====================================================
+  RESPONSIVE
+  ====================================================== */
+
+  @media (max-width: 1050px) {
+    .intro-layout,
+    .philosophy-layout,
+    .process-header,
+    .future-panel,
+    .closing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-station {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 55px var(--grid-gap-tight);
+    }
+
+    .station-track {
+      display: none;
+    }
+
+    .capability-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .capability-buttons {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-tree {
+      height: 720px;
+    }
+
+    .closing-terminal {
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .about-page {
+      padding: 60px 20px 100px;
+    }
+
+    .hero-index {
+      display: none;
+    }
+
+    .dossier-body {
+      grid-template-columns: 1fr;
+    }
+
+    .identity {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .motto-panel {
+      grid-template-columns: 1fr;
+      gap: var(--grid-gap-tight);
+    }
+
+    .motto-symbol {
+      text-align: left;
+    }
+
+    .research-screen {
+      grid-template-columns: 1fr;
+    }
+
+    .research-column,
+    .research-column:nth-child(even) {
+      border-right: none;
+    }
+
+    .research-wide {
+      grid-column: auto;
+    }
+
+    .process-station {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px var(--grid-gap-tight);
+    }
+
+    .skill-tree {
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+      padding: 70px 25px 50px;
+    }
+
+    .skill-grid,
+    .skill-main-line,
+    .skill-branch,
+    .skill-tree-label {
+      display: none;
+    }
+
+    .skill-node {
+      position: relative;
+      left: auto !important;
+      top: auto !important;
+      margin-bottom: 45px;
+      padding-left: 25px;
+    }
+
+    .skill-node-dot {
+      left: 0;
+      top: 4px;
+      transform: rotate(45deg);
+    }
+
+    .skill-node-content {
+      position: relative !important;
+      left: auto !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: auto !important;
+      width: auto;
+      text-align: left !important;
+    }
+
+    .skill-node:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 20px;
+      width: 1px;
+      height: 45px;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(232, 160, 64, 0.35) 0,
+        rgba(232, 160, 64, 0.35) 5px,
+        transparent 5px,
+        transparent 10px
+      );
+    }
+
+    .closing-terminal {
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      letter-spacing: -4px;
+    }
+
+    .hero-meta {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .intro-heading h2,
+    .philosophy-main h2,
+    .journey-header h2 {
+      letter-spacing: var(--tracking-display);
+    }
+
+    .process-heading h2 {
+      white-space: normal;
+      flex-wrap: wrap;
+    }
+
+    .process-station {
+      grid-template-columns: 1fr;
+    }
+
+    .capability-buttons {
+      grid-template-columns: 1fr;
+    }
+
+    .cap-button,
+    .cap-button:nth-child(even) {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cap-button:last-child {
+      border-bottom: none;
+    }
+
+    .display-visual {
+      height: 230px;
+    }
+
+    .display-body {
+      padding: 30px;
+    }
+
+    .future-panel {
+      padding: 30px;
+    }
+
+    .future-arrow {
+      font-size: 80px;
+    }
+
+    .data-row {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+
+    .identity {
+      padding: 35px;
+    }
+
+    .dossier-data {
+      padding: 25px 30px;
+    }
+
+    .closing-grid {
+      gap: 45px;
+    }
+
+    .closing-section p {
+      font-size: 19px;
+    }
+  }
+</style>

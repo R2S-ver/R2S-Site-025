@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+import Hero from "../../components/home/Hero.astro";
+import FeaturedProjects from "../../components/home/FeaturedProjects.astro";
+import ExploreLinks from "../../components/home/ExploreLinks.astro";
+import LatestUpdates from "../../components/home/LatestUpdates.astro";
+import AboutPreview from "../../components/home/AboutPreview.astro";
+
+import { getLanguageFromPath } from "../../utils/i18n";
+import { getTranslations } from "../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const entries = await getCollection("entries");
+
+/*
+========================================
+CURRENT LANGUAGE CONTENT
+========================================
+
+English homepage:
+    /               → en
+
+Chinese homepage:
+    /zh             → zh
+
+Only show content matching the current
+language.
+*/
+const languageEntries = entries.filter((entry) => entry.data.lang === language);
+
+/*
+========================================
+FEATURED PROJECTS
+========================================
+*/
+
+const featuredKeys = [
+  "light-diffusion-test-platform",
+  "body-armor-protective-vest",
+  "studio-electrical-optimization",
+];
+
+const featuredEntries = languageEntries
+  .filter((entry) => featuredKeys.includes(entry.data.translationKey));
+
+const totalProjectLabCount = languageEntries
+  .filter((entry) => entry.data.type === "projects" || entry.data.type === "lab")
+  .length;
+
+/*
+========================================
+LATEST UPDATES
+========================================
+
+Art entries have no detail pages — exclude
+them so SYS.LOG never links to a 404.
+*/
+const latestEntries = [...languageEntries]
+  .filter((entry) => entry.data.type !== "art")
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+---
+
+<Layout title={`R2S Studio`} description={t.meta.description}>
+  <Hero />
+
+  <FeaturedProjects projects={featuredEntries} totalCount={totalProjectLabCount} />
+
+  <ExploreLinks />
+
+  <LatestUpdates entries={latestEntries} />
+
+  <AboutPreview />
+</Layout>

@@ -3,7 +3,12 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import ProjectDetail from "../../../components/ProjectDetail.astro";
 import ArtGallery from "../../../components/ArtGallery.astro";
-import { findTranslation, getLocalizedPath } from "../../../utils/i18n";
+import {
+  findTranslation,
+  getLocalizedPath,
+  languageCodes,
+  type Language,
+} from "../../../utils/i18n";
 import { getProjectImage } from "../../../utils/images";
 
 export async function getStaticPaths() {
@@ -26,12 +31,18 @@ export async function getStaticPaths() {
         project: entry,
         projectId: projectSlug,
         translation,
+        translations: entries.filter(
+          (e) =>
+            e.data.translationKey === entry.data.translationKey &&
+            e.data.lang !== "en" &&
+            e.data.type !== "art",
+        ),
       },
     };
   });
 }
 
-const { project, projectId, translation } = Astro.props;
+const { project, projectId, translation, translations } = Astro.props;
 
 const { Content } = await render(project);
 
@@ -51,30 +62,30 @@ const coverImage =
       ? String(coverRaw.src)
       : null;
 
-const alternateHref = translation
-  ? getLocalizedPath(Astro.url.pathname, translation.data.lang)
-  : null;
-
-// Translation entry's cover image (for the nested translationOfWork item).
-const translationCoverRaw = translation?.data.cover
-  ? (getProjectImage(
-      translation.id.split("/")[0],
-      translation.data.cover,
-    ) as string | { src: unknown } | null)
-  : null;
-
-const translationCover =
-  typeof translationCoverRaw === "string"
-    ? translationCoverRaw
-    : translationCoverRaw && "src" in translationCoverRaw
-      ? String(translationCoverRaw.src)
-      : null;
+const alternateHrefs = (translations as { data: { lang: Language } }[]).map(
+  (tr) => ({
+    lang: languageCodes[tr.data.lang],
+    href: getLocalizedPath(Astro.url.pathname, tr.data.lang),
+  }),
+);
 
 const authorRef = {
   "@type": "Person",
   name: "R2S Studio",
   url: "https://r2s-site-025.pages.dev/about",
 };
+
+/** Resolve a cover reference to a URL string, or undefined. */
+function resolveCoverUrl(entryId: string, cover?: string): string | undefined {
+  if (!cover) return undefined;
+  const raw = getProjectImage(entryId, cover) as
+    | string
+    | { src: unknown }
+    | null;
+  if (typeof raw === "string") return raw;
+  if (raw && "src" in raw) return String(raw.src);
+  return undefined;
+}
 
 // Structured data — TechArticle entity for detail pages.
 // Dates are full ISO-8601 datetimes (schema.org requires timezone info).
@@ -87,29 +98,29 @@ const articleSchema = {
   datePublished: project.data.date.toISOString(),
   // 无独立修改日期数据，回退为发布日期
   dateModified: project.data.date.toISOString(),
-  inLanguage: project.data.lang === "zh" ? "zh-CN" : "en",
+  inLanguage: languageCodes[project.data.lang],
   author: authorRef,
   mainEntityOfPage: Astro.site
     ? new URL(Astro.url.pathname, Astro.site).href
     : undefined,
-  translationOfWork: translation
-    ? {
-        "@type": "TechArticle",
-        headline: translation.data.title,
-        description: translation.data.description ?? undefined,
-        image: translationCover ?? undefined,
-        datePublished: translation.data.date.toISOString(),
-        dateModified: translation.data.date.toISOString(),
-        inLanguage: translation.data.lang === "zh" ? "zh-CN" : "en",
-        author: authorRef,
-        url: Astro.site
-          ? new URL(
-              getLocalizedPath(Astro.url.pathname, translation.data.lang),
-              Astro.site,
-            ).href
-          : undefined,
-      }
-    : undefined,
+  translationOfWork: (translations as { id: string; data: any }[]).map(
+    (tr) => ({
+      "@type": "TechArticle",
+      headline: tr.data.title,
+      description: tr.data.description ?? undefined,
+      image: resolveCoverUrl(tr.id.split("/")[0], tr.data.cover),
+      datePublished: tr.data.date.toISOString(),
+      dateModified: tr.data.date.toISOString(),
+      inLanguage: languageCodes[tr.data.lang],
+      author: authorRef,
+      url: Astro.site
+        ? new URL(
+            getLocalizedPath(Astro.url.pathname, tr.data.lang),
+            Astro.site,
+          ).href
+        : undefined,
+    }),
+  ),
 };
 ---
 
@@ -117,7 +128,7 @@ const articleSchema = {
   title={`${project.data.title} | R2S Studio`}
   description={project.data.description}
   ogImage={coverImage}
-  alternateHref={alternateHref}
+  alternateHrefs={alternateHrefs}
 >
   <script
     type="application/ld+json"

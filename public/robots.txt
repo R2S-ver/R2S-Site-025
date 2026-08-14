@@ -2,7 +2,7 @@
 User-agent: *
 Allow: /
 
-# AI 训练爬虫：禁止抓取艺术栏目（/art 与 /zh/art）
+# AI 训练爬虫：禁止抓取艺术栏目（/art、/zh/art 与 /nl/art）
 # Googlebot 不受影响，网站照常被 Google 搜索收录
 User-agent: GPTBot
 User-agent: ChatGPT-User
@@ -17,5 +17,6 @@ User-agent: cohere-ai
 User-agent: Bytespider
 Disallow: /art/
 Disallow: /zh/art/
+Disallow: /nl/art/
 
 Sitemap: https://r2s-site-025.pages.dev/sitemap.xml

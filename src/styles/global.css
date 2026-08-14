@@ -938,6 +938,24 @@ html[lang="zh"] .hero h1 {
 }
 
 /* ═══════════════════════════════════════════
+   §13b  DUTCH — long compound words need
+   hyphenation; enable word breaking in
+   headings, nav links and card titles.
+   ═══════════════════════════════════════════ */
+html[lang="nl"] {
+  hyphens: auto;
+}
+
+html[lang="nl"] h1,
+html[lang="nl"] h2,
+html[lang="nl"] h3,
+html[lang="nl"] .links a,
+html[lang="nl"] .tab-item,
+html[lang="nl"] .version-cell h4 {
+  overflow-wrap: break-word;
+}
+
+/* ═══════════════════════════════════════════
    §14  TEMPORARY EXPERIMENT — hero terminal hidden
    ═══════════════════════════════════════════
    状态：首页右侧 SYS.BOOT 终端被临时隐藏（用户评估

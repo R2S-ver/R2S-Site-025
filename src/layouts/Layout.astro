@@ -4,15 +4,21 @@ import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import ScrollMeter from "../components/ScrollMeter.astro";
-import { getLanguageFromPath, getLocalizedPath } from "../utils/i18n";
+import {
+  getLanguageFromPath,
+  getLocalizedPath,
+  languageCodes,
+  languageLocales,
+  type Language,
+} from "../utils/i18n";
 import { getTranslations } from "../utils/translations";
 
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string | null;
-  /** undefined → page assumed to exist in the other language; null → omit hreflang */
-  alternateHref?: string | null;
+  /** explicit alternate-language versions; undefined → all other languages auto-assumed; null → no alternates */
+  alternateHrefs?: { lang: string; href: string }[] | null;
   noIndex?: boolean;
 }
 
@@ -20,7 +26,7 @@ const {
   title = "R2S Studio",
   description,
   ogImage,
-  alternateHref,
+  alternateHrefs,
   noIndex = false,
 } = Astro.props;
 
@@ -30,22 +36,29 @@ const t = getTranslations(language);
 
 const metaDescription = description ?? t.meta.description;
 
-const otherLanguage = language === "zh" ? "en" : "zh";
+const allLanguages: Language[] = ["en", "zh", "nl"];
 
-const hreflang =
-  alternateHref === undefined
-    ? getLocalizedPath(Astro.url.pathname, otherLanguage)
-    : alternateHref;
+const alternates: { lang: string; href: string }[] =
+  alternateHrefs === null
+    ? []
+    : alternateHrefs && alternateHrefs.length > 0
+      ? alternateHrefs
+      : allLanguages
+          .filter((l) => l !== language)
+          .map((l) => ({
+            lang: languageCodes[l],
+            href: getLocalizedPath(Astro.url.pathname, l),
+          }));
 
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
   : null;
 
-const hreflangUrl = canonical && hreflang ? new URL(hreflang, Astro.site).href : null;
-
 // x-default: the default-language version of this page.
 const xDefaultPath =
-  language === "zh" ? getLocalizedPath(Astro.url.pathname, "en") : Astro.url.pathname;
+  language === "en"
+    ? Astro.url.pathname
+    : getLocalizedPath(Astro.url.pathname, "en");
 
 const xDefaultUrl = Astro.site ? new URL(xDefaultPath, Astro.site).href : null;
 
@@ -61,7 +74,7 @@ const websiteSchema = {
   "@type": "WebSite",
   name: "R2S Studio",
   url: "https://r2s-site-025.pages.dev/",
-  inLanguage: ["en", "zh"],
+  inLanguage: ["en", "zh", "nl"],
 };
 ---
 
@@ -121,13 +134,14 @@ const websiteSchema = {
     {canonical && <link rel="canonical" href={canonical} />}
 
     {
-      hreflangUrl && (
-        <link
-          rel="alternate"
-          hreflang={otherLanguage}
-          href={hreflangUrl}
-        />
-      )
+      Astro.site &&
+        alternates.map((a) => (
+          <link
+            rel="alternate"
+            hreflang={a.lang}
+            href={new URL(a.href, Astro.site).href}
+          />
+        ))
     }
 
     {xDefaultUrl && <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />}
@@ -136,8 +150,14 @@ const websiteSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content={isZh ? "zh_CN" : "en_US"} />
-    <meta property="og:locale:alternate" content={isZh ? "en_US" : "zh_CN"} />
+    <meta property="og:locale" content={languageLocales[language]} />
+    {
+      allLanguages
+        .filter((l) => l !== language)
+        .map((l) => (
+          <meta property="og:locale:alternate" content={languageLocales[l]} />
+        ))
+    }
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
 
@@ -168,11 +188,13 @@ const websiteSchema = {
     <div id="mobile-notice" role="status">
       <span class="notice-dot" aria-hidden="true"></span>
       <span class="notice-text">
-        {isZh
+        {language === "zh"
           ? "系统提示 // 建议使用电脑访问，桌面模式效果最佳"
-          : "SYSTEM_NOTICE // BEST VIEWED IN DESKTOP MODE"}
+          : language === "nl"
+            ? "SYSTEEM_MELDING // HET BESTE TE BEKIJKEN IN DESKTOPMODUS"
+            : "SYSTEM_NOTICE // BEST VIEWED IN DESKTOP MODE"}
       </span>
-      <button class="notice-close" type="button" aria-label={isZh ? "关闭提示" : "Dismiss"}>
+      <button class="notice-close" type="button" aria-label={isZh ? "关闭提示" : language === "nl" ? "Sluiten" : "Dismiss"}>
         ×
       </button>
     </div>

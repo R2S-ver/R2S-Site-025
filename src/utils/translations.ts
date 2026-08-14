@@ -434,7 +434,6 @@ export const translations = {
       art: "艺术",
       notes: "笔记",
       about: "关于",
-      language: "EN",
     },
 
     common: {
@@ -814,6 +813,425 @@ export const translations = {
     system: {
       status: "系统状态:",
       online: "在线",
+    },
+  },
+
+  nl: {
+    meta: {
+      description:
+        "R2S Studio — multidisciplinair makerportfolio: industrieel ontwerp, embedded systems, elektronica-notities en visuele kunst.",
+    },
+
+    nav: {
+      home: "HOME",
+      projects: "PROJECTEN",
+      lab: "LAB",
+      art: "ART",
+      notes: "NOTITIES",
+      about: "OVER MIJ",
+    },
+
+    common: {
+      year: "Jaar",
+      type: "Type",
+      category: "Categorie",
+      tools: "Gereedschap",
+      contents: "Inhoud",
+    },
+
+    language: {
+      code: "TRANSLATION // UNAVAILABLE",
+      unavailable: "Deze pagina is nog niet beschikbaar in die taal",
+      description: "Bekijk de beschikbare taalversies",
+    },
+
+    card: {
+      projectNode: "PRJ_NODE //",
+      online: "● ONLINE",
+      team: "/TEAMWERK/",
+      imageStream: "IMAGE_STREAM // ACTIEF",
+      category: "CATEGORIE:",
+      archive: "ARCHIEF:",
+    },
+
+    hero: {
+      title: {
+        line1: "FUNCTIONAL",
+        line2: "AESTHETICS",
+      },
+      cassette: "[ DESIGN_DATABASE // GELADEN ]",
+      description: {
+        line1:
+          "Overbrug de kloof tussen TECH en AESTHETIEK door artistieke intuïtie te combineren met een onderzoeksgerichte aanpak.",
+      },
+      button: "TOEGANG PROJECTDATABASE",
+    },
+
+    featured: {
+      tag: "PROJECT_DATABASE // FEATURED_ARCHIEF",
+      title: "Geselecteerde projecten",
+      description: "> TOEGANG TOT ONTWERP- EN ENGINEERINGGEGEVENS...",
+      total: "TOTAAL_BESTANDEN:",
+      active: "ACTIEF",
+    },
+
+    explore: {
+      projects: {
+        header: "MODULE_01 // WERKEN",
+        title: "PROJECTEN",
+        description: "FABRICAGE_ARCHIEF",
+        access: "DATABASE OPENEN >",
+      },
+      lab: {
+        header: "MODULE_02 // EXPERIMENTEN",
+        title: "LAB",
+        description: "HARDWARE_EN_PROTOTYPELOG",
+        access: "MODULE OPENEN >",
+      },
+      art: {
+        header: "MODULE_03 // VISUEEL",
+        title: "ART",
+        description: "VISUELE_ASSET_MATRIX",
+        access: "ARCHIEF OPENEN >",
+      },
+      notes: {
+        header: "MODULE_04 // KENNIS",
+        title: "NOTITIES",
+        description: "ONDERZOEK_DATABASE",
+        access: "DOCUMENTEN LADEN >",
+      },
+    },
+
+    latest: {
+      header: "SYS.LOG // RECENTE_ACTIVITEITSTREAM",
+      type: "TYPE:",
+      updated: "BIJGEWERKT",
+    },
+
+    aboutPreview: {
+      header: "PERSONEELSDOSSIER // PROFIELMODULE",
+      operator: "OPERATOR",
+      status: "● ACTIEVE ONTWERPER // MAKER",
+      description: {
+        line1:
+          "Een ontwerper en maker die de verbinding verkent tussen fysieke producten, technologie en kunst.",
+        line2:
+          "Gericht op het omzetten van concepten naar realiteit via industrieel ontwerp, embedded systems en experimenteel prototypen.",
+      },
+      location: "LOCATIE: ROTTERDAM // NL",
+      field: "VELD: ONTWERP + TECHNOLOGIE",
+      access: "VOLLEDIG DOSSIER OPENEN >",
+    },
+
+    footer: {
+      system: "FOOTER_NODE // BEËINDIGINGSSEQUENTIE",
+      status: "SYS_STATUS:",
+      online: "ONLINE",
+      identity:
+        "Industrieel Ontwerp × Embedded Systems × Creatief Maken",
+      location: "LOCATIE:",
+      statusLabel: "STATUS:",
+      operational: "OPERATIONEEL",
+      version: "VERSIE:",
+      uplink: "DATA_UPLINK",
+      github: "GitHub",
+      email: "E-mail",
+      pixiv: "pixiv",
+      about: "Over mij",
+      copyright: "ALLE KERNDATAPAKKETTEN GEÏNTEGREERD",
+    },
+
+    sections: {
+      lab: {
+        title: "Lab",
+        description: "Experimenten, elektronica en prototypes.",
+      },
+      projects: {
+        title: "Projecten",
+        description: "Industrieel ontwerp en productontwikkeling.",
+      },
+      art: {
+        title: "Art",
+        description: "Illustratie, visuele experimenten en kunstwerk.",
+      },
+      notes: {
+        title: "Notities",
+        description: "Onderzoek, leren en technische notities.",
+      },
+      about: {
+        pageTag: "PERSONEELSDOSSIER // PROFIELMODULE",
+        pageStatus: "● SYSTEEM_ACTIEF",
+        eyebrow: "R2S STUDIO // ONTWERPER + MAKER + ARTIST",
+        title: "Over mij",
+        introTitle: "TUSSEN DESIGN\nMAKEN\nKUNST",
+        subtitle: "Industrieel ontwerper & maker in Rotterdam, met een brug tussen technisch denken en visuele creativiteit.",
+        description:
+          "Ik ben industrieel productontwerper en digitaal artiest, met een sterke interesse in dingen echt maken.",
+        introText:
+          "Mijn werk bevindt zich ergens tussen design, engineering en visuele kunst. Ik neem graag een idee vanaf een schets of concept, zoek referenties, ontwikkel de vorm, bouw een prototype en maak er uiteindelijk iets fysieks en functioneels van.",
+        identity: {
+          title: "DESIGNER // MAKER // ARTIST",
+          text:
+            "Het meest op mijn plek tussen ontwerper en maker; ik geef veel om esthetiek, maar wil ook begrijpen hoe dingen werken, hoe ze gemaakt worden en hoe verschillende technologieën gecombineerd kunnen worden tot een compleet object.",
+          second:
+            "Industrieel ontwerp is mijn belangrijkste professionele richting, terwijl illustratie en visuele creatie een belangrijk deel van mij blijven.",
+        },
+        dossier: {
+          header: "PERSONEELSDOSSIER // ABOUT_MODULE",
+          operator: "OPERATOR",
+          role: "INDUSTRIEEL + PRODUCTONTWERPER",
+          status: "● ACTIEVE ONTWERPER // MAKER",
+          locationLabel: "LOCATIE",
+          location: "ROTTERDAM // NL",
+          fieldLabel: "VELD",
+          field: "ESTHETIEK + ONTWERP + TECHNOLOGIE",
+          focusLabel: "HUIDIGE_FOCUS",
+          focus:
+            "Industrieel ontwerp, embedded systems, elektronica, prototypen, visuele communicatie en experimenteel maken.",
+        },
+        philosophy: {
+          header: "PERSOONLIJK_PROTOCOL // ONTWERPFILOSOFIE",
+          title: "OP DE\nSCHOUDERS\nVAN\nREUZEN",
+          text:
+            "Design ontstaat nooit in isolatie. Ik geloof in leren van wat al bestaat: referenties bestuderen, het werk van anderen begrijpen en die verzamelde ideeën combineren tot iets nieuws.",
+          second:
+            "Ik geniet van het verbinden van kennis uit verschillende vakgebieden en het gebruiken daarvan om dingen te maken die ik vanuit één discipline alleen nooit had kunnen maken.",
+          mottoLabel: "PERSOONLIJK_MOTTO",
+          motto: "FAKE IT TILL YOU MAKE IT.",
+          mottoText:
+            "Niet doen alsof ik alles al weet, maar bereid zijn onbekend terrein te betreden, te leren wat nodig is en door te blijven bouwen totdat het idee echt wordt.",
+        },
+        approach: {
+          description: "",
+          research: {
+            title: "ONDERZOEK",
+            description:
+              "Referenties, materialen, mechanismen en bestaande oplossingen bestuderen voordat wordt besloten hoe iets gemaakt moet worden.",
+          },
+          concept: {
+            title: "CONCEPT",
+            description:
+              "Schetsen, illustratie, visuele referenties en conceptdesign gebruiken om te verkennen wat een object kan worden.",
+          },
+          build: {
+            title: "BOUWEN",
+            description:
+              "Ideeën zo vroeg mogelijk omzetten in CAD-modellen, elektronica, 3D-geprinte onderdelen en fysieke prototypes.",
+          },
+          refine: {
+            title: "VERFIJNEN",
+            description:
+              "Testen, aanpassen en itereren totdat esthetiek, functie, bruikbaarheid en maakbaarheid samen beginnen te werken.",
+          },
+        },
+        workflow: {
+          header: "CREATIEVE_PIJPLIJN // IDEE_NAAR_OBJECT",
+          concept: {
+            title: "01 // CONCEPT",
+            description:
+              "Ideegeneratie, schetsen, illustratie en visuele verkenning.",
+          },
+          design: {
+            title: "02 // ONTWERP",
+            description:
+              "Vormontwikkeling, CAD-modelleren, CMF-denken en technisch onderzoek.",
+          },
+          prototype: {
+            title: "03 // PROTOTYPE",
+            description:
+              "3D-printen, fabricage, elektronica en fysieke experimenten.",
+          },
+          system: {
+            title: "04 // SYSTEEM",
+            description:
+              "Hardware, software en mechanische componenten combineren tot iets functioneels.",
+          },
+          iteration: {
+            title: "05 // ITEREREN",
+            description:
+              "Het resultaat testen, problemen identificeren en het object blijven verbeteren.",
+          },
+        },
+        capabilities: {
+          header: "R2S_CAPABILITY_MATRIX",
+          industrial: {
+            title: "Industrieel\nProductontwerp",
+            description:
+              "Productontwikkeling, vormverkenning, CAD-modelleren, materiaalonderzoek, CMF en fysiek prototypen.",
+          },
+          mechanical: {
+            title: "CMF Design",
+            description:
+              "Color, Material and Surface Finish: glanzend, mat, metallic, plastic, leer, texturen en andere veelvoorkomende oppervlaktebehandelingen.",
+          },
+          electronics: {
+            title: "Elektronica",
+            description:
+              "Elektrische basisprincipes, elektronica, Arduino, ESP32 en de integratie van elektronische componenten in fysieke producten.",
+          },
+          embedded: {
+            title: "Embedded Systems",
+            description:
+              "Microcontrollers, sensoren, actuatoren en software-gestuurde fysieke interactie verkennen, met AI-ondersteunde ontwikkeling als onderdeel van de workflow.",
+          },
+          fabrication: {
+            title: "Fabricage",
+            description:
+              "FDM 3D-printen, materiaaltesten, lasersnijden, basislassen en hands-on fabricage.",
+          },
+          visual: {
+            title: "Illustratie\nVisueel ontwerp",
+            description:
+              "Digitale illustratie, conceptart, posterdesign, visuele communicatie en esthetische ontwikkeling.",
+          },
+          software: {
+            title: "Digitale tools",
+            description:
+              "SolidWorks, KeyShot, Photoshop en Clip Studio Paint, met eerdere ervaring in Blender.",
+          },
+          teaching: {
+            title: "Tekenen lesgeven",
+            description:
+              "Soms leer ik beginners tekenen. Lesgeven helpt me kennis in heldere systemen te ordenen, terwijl ik mijn eigen begrip herzie en versterk.",
+          },
+        },
+        journey: {
+          header: "PROCESS_LOG // ONTWIKKELPAD",
+          title:
+            "TO THE GALAXY AND BEYOND",
+          nodes: {
+            hardware: "START",
+            design: "KRUISPUNT",
+            maker: "PRAKTIJK",
+            technology: "VOLGENDE FASE",
+          },
+          text:
+            "Mijn pad begon niet bij industrieel ontwerp. Ik verkende eerst hardware-engineering, maar realiseerde me uiteindelijk dat ik een vakgebied wilde waar technisch denken en visuele creativiteit naast elkaar kunnen bestaan.",
+          second:
+            "Industrieel en productontwerp werd een natuurlijk midden: een discipline waarin vorm, functie, materialen, productie en visuele communicatie allemaal deel uitmaken van hetzelfde proces.",
+          third:
+            "Vandaag beweeg ik langzaam weer richting de technische kant. Elektronica, embedded systems, mechanische eigenschappen, materiaaltesten en fabricage worden een steeds belangrijker deel van mijn leren en persoonlijke projecten.",
+          fourth:
+            "Het doel is niet de specialist te worden die elke componentparameter uit het hoofd kent. Ik ben meer geïnteresseerd in hoe verschillende technologieën samenwerken en hoe ze onderdeel kunnen worden van een compleet, bruikbaar product.",
+        },
+        current: {
+          header: "HUIDIG_ONDERZOEK // 2026",
+          modules: {
+            design: {
+              title: "COMPOSITIE / GRAFISCH ONTWERP / ESTHETIEK",
+            },
+            technology: {
+              title: "ELEKTRONICA / EMBEDDED SYSTEMS / ELEKTRO",
+            },
+            making: {
+              title: "3D-PRINTEN / FABRICAGE",
+            },
+            visual: {
+              title: "ILLUSTRATIE / CONCEPTDESIGN",
+            },
+            ai: {
+              title: "AI-ONDERSTEUNDE WORKFLOW",
+            },
+          },
+          design:
+            "Compositie, grafisch ontwerp, esthetiek en visuele systemen.",
+          technology:
+            "Elektronica, embedded systems, Arduino, ESP32 en elektrische basisprincipes.",
+          making:
+            "3D-printen, materialen, fabricage en fysiek prototypen.",
+          visual:
+            "Illustratie, karaktertekenen, conceptdesign en visuele communicatie.",
+          ai:
+            "AI-ondersteund coderen en technische workflows, met AI als implementatietool terwijl menselijk oordeel, smaak en richting centraal blijven.",
+        },
+        future: {
+          header: "VOLGENDE_ITERATIE // TOEKOMSTRICHTING",
+          text:
+            "Ik wil dat industrieel ontwerp mijn belangrijkste professionele richting blijft, terwijl ik me blijf ontwikkelen als maker en illustrator.",
+          second:
+            "Op lange termijn steeds beter in staat worden een idee helemaal te dragen: van concept en visuele ontwikkeling tot elektronica, software, mechanische structuur, inkoop en een afgewerkt fysiek prototype.",
+          third:
+            "Tegelijk blijven tekenen en visueel creëren als tweede identiteit, in plaats van het te laten vervangen door technisch werk.",
+        },
+        closing:
+          "Het doel is simpel: ideeën serieus genoeg nemen om ze te bouwen, en nieuwsgierig genoeg blijven om nieuwe te blijven maken...",
+        annex: {
+          header: "STYLE_GENEALOGIE // DESIGN_ORIGINS_RECORD",
+          status: "RECORD_STATUS: UNCLASSIFIED — GEDEELD UIT NIEUWSGIERIGHEID",
+          intro:
+            "Ik hou gewoon van retro-futurisme!! Wanneer alles om ons heen wordt platgeslagen tot minimalisme en koud, klinisch design, worden mensen gekwantificeerd en verliezen producten hun emotie en persoonlijkheid. Net als mensen die van Y2K houden of in de Backrooms worden gezogen, ben ik nieuwsgierig naar hoe stijl zich ontwikkelde vanaf de Koude Oorlog tot het einde van de vorige eeuw. Het is een traceerbare, constant muterende esthetiek die zich blijft hervormen met de maatschappij en cultuur eromheen. Dat fascineert me.",
+          styleIndex: "// STYLE_INDEX — DE BELANGRIJKSTE DIALECTEN DIE DEZE SITE SPREEKT",
+          styles: [
+            {
+              code: "STYLE_01 // BAUHAUS_&_DE_STIJL",
+              era: "1919 — 1933",
+              body:
+                "Primaire-kleurentrits als ontwerpgrammatica: de overlappende rode/gele/blauwe stippen in de navbar, de driekleurenbalken naast de kop. Geometrie als moreel kader.",
+              refs: "Bauhaus Dessau · Mondriaan-composities · Moholy-Nagy typografie",
+            },
+            {
+              code: "STYLE_02 // SWISS_INTERNATIONAL",
+              era: "Jaren 50 — 60",
+              body:
+                "Systematische rasters, genummerde modules, micro-labels in hoofdletters. Tekst geschreven als instrumentmarkeringen — MODULE_01, ENTRY_001, DATA_UPLINK.",
+              refs: "Josef Müller-Brockmann, Grid Systems in Graphic Design",
+            },
+            {
+              code: "STYLE_03 // CASSETTE_FUTURISM",
+              era: "Jaren 70 — 80",
+              body:
+                "Groene fosfor, scanlines, magneetband, streepjescodes, boot-terminals. De CRT is het ware materiaal van de site: elk scherm hier is een opgewarmde monitor.",
+              refs: "Alien (1979) · 2001: A Space Odyssey · Sovjet Sojoez-panelen",
+            },
+            {
+              code: "STYLE_04 // NASA_PUNK",
+              era: "Jaren 60",
+              body:
+                "Mission-control telemetrie: lengte-/breedtegraad, LED-segmentmeters, hex-raster, partikelnetwerken. De pagina leest zichzelf als een instrumentenpaneel.",
+              refs: "Apollo Mission Control · AGC-uitlezingen · Arknights: Lone Trail UI",
+            },
+            {
+              code: "STYLE_05 // CYBERPUNK_TERMINAL",
+              era: "Jaren 80 — 90",
+              body:
+                "Donker scherm + groene systeemlogs, de hacker-terminal sfeer. Het toevallige vijfde dialect — het kwam met het donkere thema en vertrok nooit meer.",
+              refs: "Blade Runner · The Matrix",
+            },
+          ],
+          worksIndex: "// WORKS_INDEX — VISUEEL WERK OP DEZELFDE FREQUENTIE",
+          works: [
+            {
+              title: "Arknights: Lone Trail",
+              note: "koude onderzoeksstations en lanceerbases, instrumentenpaneel-verhalen",
+            },
+            {
+              title: "Reverse: 1999",
+              note: "retro-futurisme verstrengeld met het occulte",
+            },
+            {
+              title: "Atomic Heart",
+              note: "Sovjet-futurisme en machine-esthetiek in de eerste persoon",
+            },
+            {
+              title: "Fallout-serie",
+              note: "de atoompunk-benchmark — CRT-terminals en woestenij-optimisme",
+            },
+            {
+              title: "Alien (1979) · 2001: A Space Odyssey",
+              note: "de cinematografische broncode van cassette-futurisme",
+            },
+            {
+              title: "Blade Runner · The Matrix",
+              note: "waar donkere schermen en groene logs popcultuur werden",
+            },
+          ],
+        },
+      },
+    },
+
+    system: {
+      status: "SYS_STATUS:",
+      online: "ONLINE",
     },
   },
 } satisfies Record<Language, unknown>;

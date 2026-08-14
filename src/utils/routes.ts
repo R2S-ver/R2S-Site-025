@@ -25,6 +25,6 @@ export function buildEntryUrl(
 ): string {
   const slug = entry.id.split("/")[0];
   const route = typeToRoute[entry.data.type] ?? entry.data.type;
-  const base = language === "zh" ? `/zh/${route}` : `/${route}`;
+  const base = language === "en" ? `/${route}` : `/${language}/${route}`;
   return `${base}/${slug}`;
 }

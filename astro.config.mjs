@@ -4,7 +4,7 @@ export default defineConfig({
   site: 'https://r2s-site-025.pages.dev',
 
   i18n: {
-    locales: ['en', 'zh'],
+    locales: ['en', 'zh', 'nl'],
     defaultLocale: 'en',
 
     routing: {

@@ -1,0 +1,247 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { getLanguageFromPath, getLocalizedPath } from "../../../utils/i18n";
+import { getTranslations } from "../../../utils/translations";
+
+const language = getLanguageFromPath(Astro.url.pathname);
+const t = getTranslations(language);
+
+const entries = await getCollection("entries");
+const notes = entries
+  .filter((e) => e.data.type === "note" && e.data.lang === language)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Curated filter tags — meaningful, non-overlapping categories
+const filterTags = [
+  "Elektronica",
+  "Voeding",
+  "Signaalverwerking",
+  "Invoerontwerp",
+  "Circuitbeveiliging",
+  "Analoge schakelingen",
+  "MOSFET",
+  "Vermogensdriver",
+];
+
+// Only show tags that actually exist in note entries
+const allTags = new Set(notes.flatMap((e) => e.data.tags || []));
+const topTags = filterTags
+  .filter((t) => allTags.has(t))
+  .map((t) => [t, notes.filter((e) => (e.data.tags || []).includes(t)).length] as const);
+---
+
+<Layout title={`${t.sections.notes.title} | R2S Studio`} description={t.meta.description}>
+  <main class="notes-page">
+    <header class="notes-header">
+      <h1>{t.sections.notes.title}</h1>
+      <p>{t.sections.notes.description}</p>
+    </header>
+
+    {
+      topTags.length > 0 && (
+        <div class="tag-bar" id="tag-bar">
+          <button class="tag-chip active" data-tag="">ALLES</button>
+          {topTags.map(([tag, count]) => (
+            <button class="tag-chip" data-tag={tag}>
+              {tag}<span class="tag-count">{count}</span>
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="notes-list" id="notes-list">
+      {notes.map((entry) => (
+        <a
+          href={`${getLocalizedPath("/note", language)}/${entry.id.split("/")[0]}`}
+          class="note-row"
+          data-tags={JSON.stringify(entry.data.tags || [])}
+        >
+          <div class="note-left">
+            <h2 class="note-title">{entry.data.title}</h2>
+            <p class="note-desc">{entry.data.description}</p>
+          </div>
+          <div class="note-tags">
+            {(entry.data.tags || []).slice(0, 3).map((tag: string) => (
+              <span class="note-tag">{tag}</span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>(".tag-chip");
+  const rows = document.querySelectorAll<HTMLAnchorElement>(".note-row");
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const tag = chip.dataset.tag || "";
+
+      // Toggle UI
+      chips.forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+
+      // Filter
+      rows.forEach((row) => {
+        const tags: string[] = JSON.parse(row.dataset.tags || "[]");
+        if (!tag || tags.includes(tag)) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .notes-page {
+    max-width: var(--container-text);
+    margin: auto;
+    padding: 0 40px 80px;
+  }
+
+  .notes-header {
+    margin-bottom: 20px;
+  }
+
+  .notes-header h1 {
+    font-size: var(--text-scale-h1);
+    line-height: 1.2;
+  }
+
+  .notes-header p {
+    font-size: 20px;
+    color: #666;
+    margin-top: 8px;
+  }
+
+  /* ── Tag chips — global styles in global.css §12; local density overrides ── */
+  .notes-page .tag-bar {
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+  }
+
+  .notes-page .tag-chip {
+    padding: 6px 14px;
+    font-size: 11px;
+  }
+
+  :root[data-theme="light"] .notes-page .tag-chip:not(.active) {
+    background: rgba(0,0,0,0.03);
+  }
+
+  :root[data-theme="light"] .notes-page .tag-chip:not(.active):hover {
+    color: #333;
+    border-color: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.06);
+  }
+
+  /* ── Row list ── */
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .note-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s var(--ease-out);
+  }
+
+  .note-row:hover {
+    background: rgba(255,255,255,0.02);
+    margin: 0 -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  .note-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .note-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #eee;
+    margin: 0 0 4px 0;
+    line-height: 1.4;
+    font-family: var(--font-mono);
+    letter-spacing: 0.3px;
+  }
+
+  .note-row:hover .note-title {
+    color: var(--accent);
+  }
+
+  .note-desc {
+    font-size: var(--text-scale-xs);
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex-shrink: 0;
+    align-items: center;
+    padding-top: 2px;
+  }
+
+  .note-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-4xs);
+    color: #888;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .notes-page {
+      padding: 0 16px 60px;
+    }
+
+    .notes-header h1 {
+      font-size: 42px;
+    }
+
+    .note-row {
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px 0;
+    }
+
+    .note-tags {
+      padding-top: 0;
+    }
+  }
+
+  :root[data-theme="light"] .note-title { color: var(--text-bright); }
+  :root[data-theme="light"] .note-row:hover .note-title { color: var(--accent); }
+  :root[data-theme="light"] .note-desc { color: var(--text-dim); }
+  :root[data-theme="light"] .note-tag { color: var(--text-dim); border-color: var(--border-strong); }
+  :root[data-theme="light"] .note-row { border-bottom-color: rgba(0,0,0,0.08); }
+  :root[data-theme="light"] .note-row:hover { background: var(--hover-bg); }
+</style>
