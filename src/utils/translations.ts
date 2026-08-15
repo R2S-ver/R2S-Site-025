@@ -149,7 +149,7 @@ export const translations = {
         pageStatus: "● SYSTEM_ACTIVE",
         eyebrow: "RrSuika STUDIO // DESIGNER + MAKER + ARTIST",
         title: "About ME",
-        introTitle: "BETWEEN\nDESIGN\nMAKING\nART",
+        introTitle: "BETWEEN\nMAKING\nDESIGN\nART",
         subtitle: "Industrial designer & maker based in Rotterdam, bridging technical thinking with visual creativity.",
         description:
           "I am an industrial product designer and digital artist with a strong interest in making things real.",
@@ -963,7 +963,7 @@ export const translations = {
         pageStatus: "● SYSTEEM_ACTIEF",
         eyebrow: "RrSuika STUDIO // ONTWERPER + MAKER + ARTIST",
         title: "Over mij",
-        introTitle: "TUSSEN\nDESIGN\nMAKEN\nKUNST",
+        introTitle: "TUSSEN\nMAKEN\nDESIGN\nKUNST",
         subtitle: "Industrieel ontwerper & maker in Rotterdam, met een brug tussen technisch denken en visuele creativiteit.",
         description:
           "Ik ben industrieel productontwerper en digitaal artiest, met een sterke interesse in dingen echt maken.",
