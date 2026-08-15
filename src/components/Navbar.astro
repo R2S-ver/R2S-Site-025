@@ -18,22 +18,6 @@ const notesPath = getLocalizedPath("/notes", currentLanguage);
 
 const aboutPath = getLocalizedPath("/about", currentLanguage);
 
-/* Current-page highlight (B10) */
-function isCurrent(base: string): boolean {
-  if (base === "/" || base === "/zh" || base === "/nl") {
-    return (
-      Astro.url.pathname === "/" ||
-      Astro.url.pathname === "/zh" ||
-      Astro.url.pathname === "/nl"
-    );
-  }
-
-  return (
-    Astro.url.pathname === base ||
-    Astro.url.pathname.startsWith(base + "/")
-  );
-}
-
 /*
 =========================================================
 LANGUAGE SWITCH (NL | EN | 中文)
@@ -126,34 +110,34 @@ const t = getTranslations(currentLanguage);
           <span class="rgb-dot dot-y"></span>
           <span class="rgb-dot dot-b"></span>
         </div>
-        <span> RrS // STUDIO </span>
+        <span> RrSuika // STUDIO </span>
       </a>
     </div>
 
     <!-- NAVIGATION -->
 
     <div class="links">
-      <a href={homePath} aria-current={isCurrent(homePath) ? "page" : undefined}>
+      <a href={homePath}>
         {t.nav.home}
       </a>
 
-      <a href={projectsPath} aria-current={isCurrent(projectsPath) ? "page" : undefined}>
+      <a href={projectsPath}>
         {t.nav.projects}
       </a>
 
-      <a href={labPath} aria-current={isCurrent(labPath) ? "page" : undefined}>
+      <a href={labPath}>
         {t.nav.lab}
       </a>
 
-      <a href={artPath} aria-current={isCurrent(artPath) ? "page" : undefined}>
+      <a href={artPath}>
         {t.nav.art}
       </a>
 
-      <a href={notesPath} aria-current={isCurrent(notesPath) ? "page" : undefined}>
+      <a href={notesPath}>
         {t.nav.notes}
       </a>
 
-      <a href={aboutPath} aria-current={isCurrent(aboutPath) ? "page" : undefined}>
+      <a href={aboutPath}>
         {t.nav.about}
       </a>
 
@@ -177,17 +161,6 @@ const t = getTranslations(currentLanguage);
         <span class="switch-knob"><span class="knob-face"></span></span>
         <span class="switch-stars" aria-hidden="true"></span>
         <span class="switch-cloud" aria-hidden="true"></span>
-      </button>
-
-      <button
-        class="snd-switch"
-        type="button"
-        data-snd-btn
-        onclick="this.classList.toggle('on', window.__r2sSnd?.toggle())"
-        aria-label="Toggle sound effects"
-      >
-        <span class="snd-label">SND</span>
-        <span class="snd-led" aria-hidden="true"></span>
       </button>
     </div>
 
@@ -300,18 +273,6 @@ const t = getTranslations(currentLanguage);
 
     /*
     =========================================================
-    SOUND — nav click blip (engine defaults to OFF)
-    =========================================================
-    */
-
-    document.querySelectorAll<HTMLAnchorElement>(".links a").forEach((a) => {
-      a.addEventListener("click", () => {
-        window.__r2sSnd?.click();
-      });
-    });
-
-    /*
-    =========================================================
     MOVE LANGUAGE TOAST TO BODY
     =========================================================
 
@@ -355,8 +316,8 @@ const t = getTranslations(currentLanguage);
     这样即使 Astro 页面发生
     client-side navigation，
     语言按钮仍然可以工作。
-    每次点击时实时查找 toast 元素，
-    因为换页后旧元素会被替换。
+    每次点击实时查找 toast（换页后旧元素会被替换），
+    且只绑定一次，避免重复执行叠加监听器。
     */
 
     const navState = window as unknown as { __r2sToastBound?: boolean };
@@ -651,15 +612,6 @@ const t = getTranslations(currentLanguage);
       width: 100%;
     }
 
-    /* ── Current page (B10) ── */
-    .links a[aria-current="page"] {
-      color: var(--text-bright);
-    }
-
-    .links a[aria-current="page"]::after {
-      width: 100%;
-    }
-
     /* ========== LANGUAGE SWITCH ========== */
 
     .lang-switch {
@@ -770,86 +722,6 @@ const t = getTranslations(currentLanguage);
       background: linear-gradient(180deg, #87ceeb 0%, #b8e4f0 50%, #e0f0ff 100%);
       border-color: #8ab8cc;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.08);
-    }
-
-    /* ========== SND SWITCH (B9) ========== */
-
-    .snd-switch {
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 5px;
-
-      padding: 4px 8px;
-
-      margin-top: 2px;
-
-      background: rgba(255, 255, 255, 0.04);
-
-      border: 1px solid #3a3a44;
-
-      border-radius: 3px;
-
-      cursor: pointer;
-
-      flex-shrink: 0;
-
-      transition:
-        border-color 0.25s var(--ease-out),
-        transform 0.12s var(--spring-snappy);
-    }
-
-    .snd-switch:active {
-      transform: scale(0.92);
-    }
-
-    .snd-switch:hover {
-      border-color: var(--accent);
-    }
-
-    .snd-label {
-      font-family: var(--font-mono);
-
-      font-size: 9px;
-
-      font-weight: 700;
-
-      letter-spacing: 1px;
-
-      color: #888;
-
-      transition: color 0.25s var(--ease-out);
-    }
-
-    .snd-led {
-      width: 6px;
-
-      height: 6px;
-
-      border-radius: 50%;
-
-      background: #333;
-
-      transition:
-        background 0.25s var(--ease-out),
-        box-shadow 0.25s var(--ease-out);
-    }
-
-    .snd-switch.on .snd-led {
-      background: var(--terminal-green);
-
-      box-shadow: 0 0 6px rgba(58, 240, 79, 0.7);
-    }
-
-    .snd-switch.on .snd-label {
-      color: var(--terminal-green);
-    }
-
-    :root[data-theme="light"] .snd-switch {
-      border-color: var(--border-strong);
-
-      background: rgba(0, 0, 0, 0.03);
     }
 
     /*

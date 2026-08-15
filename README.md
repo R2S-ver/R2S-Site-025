@@ -1,9 +1,9 @@
-# RrSuika — Portfolio Site
+# RrSuika Studio — Portfolio Site
 
-The personal portfolio of **RrSuika** — industrial design × embedded systems × creative making.
+The personal portfolio of **RrSuika Studio** — industrial design × embedded systems × creative making.
 Live at **[r2s-site-025.pages.dev](https://r2s-site-025.pages.dev)** (Cloudflare Pages).
 
-> 中文简介：这是 RrSuika 的个人作品集网站，展示工业设计、嵌入式系统与创意制造作品，全站支持中英双语（中文位于 `/zh` 前缀）。技术栈为 Astro 7 纯静态构建 + 原生 CSS/JS，内容以 Markdown 内容集合管理，推送 `main` 分支即自动部署。
+> 中文简介：这是 RrSuika Studio 的个人作品集网站，展示工业设计、嵌入式系统与创意制造作品，全站支持中英双语（中文位于 `/zh` 前缀）。技术栈为 Astro 7 纯静态构建 + 原生 CSS/JS，内容以 Markdown 内容集合管理，推送 `main` 分支即自动部署。
 
 ## What's inside
 
@@ -64,6 +64,6 @@ Push to `main` → Cloudflare Pages builds and deploys automatically.
 
 - Website: [r2s-site-025.pages.dev](https://r2s-site-025.pages.dev)
 - GitHub: [RrSuika](https://github.com/RrSuika)
-- pixiv: [RrSuika](https://www.pixiv.net/users/71884225)
+- pixiv: [RrSuika Studio](https://www.pixiv.net/users/71884225)
 
-© RrSuika
+© RrSuika Studio

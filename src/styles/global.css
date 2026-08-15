@@ -1,11 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════
-   RrS STUDIO — GLOBAL DESIGN SYSTEM
+   RrSuika STUDIO — GLOBAL DESIGN SYSTEM
    Single source of truth. Imported once by Layout.astro.
 
    BREAKPOINT REGISTRY — CSS custom properties are not valid inside
    @media queries, so breakpoints stay literal. Keep this list in
    sync when adding responsive rules:
-     1100 / 1000 / 900 / 800 / 768 / 769 / 700 / 600 / 500
+     2328 / 1100 / 1000 / 900 / 800 / 768 / 769 / 700 / 600 / 500
 
    FIDELITY POLICY — every token value below is copied 1:1 from the
    original (pre-cleanup) styles. Literals that had no exact token
@@ -651,7 +651,7 @@ body::after {
 
   z-index: 0;
 
-  opacity: 0.07;
+  opacity: 0.035;
 
   /* Subtle noise via tiny SVG data URI */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -659,7 +659,7 @@ body::after {
 }
 
 :root[data-theme="light"] body::after {
-  opacity: 0.05;
+  opacity: 0.025;
 }
 
 /* ── CRT scanline overlay (original opacity) ── */
@@ -824,8 +824,8 @@ body::after {
   box-shadow: var(--shadow-paper);
 }
 
-/* Decorative numbers — retro-red ghost (A7) */
-:root[data-theme="light"] .number { color: rgba(184, 74, 58, 0.45) !important; }
+/* Decorative numbers */
+:root[data-theme="light"] .number { color: rgba(0, 0, 0, 0.12) !important; }
 
 /* Tag filter area */
 :root[data-theme="light"] .tag-filter,
@@ -937,8 +937,10 @@ html[lang="zh"] h3 {
 }
 
 /* Hero headline is Latin text — restore its display settings */
-html[lang="zh"] .hero h1 {
-  letter-spacing: var(--tracking-hero);
+html[lang="zh"] body .hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -2px;
   line-height: 0.9;
 }
 
@@ -961,14 +963,29 @@ html[lang="nl"] .version-cell h4 {
 }
 
 /* ═══════════════════════════════════════════
-   §15  BEAUTIFY PACK 2026-08 — cassette / NASA
-   Display fonts, cassette surfaces, HUD chrome,
-   view transitions, glitch, scroll reveal.
-   Art pages stay frozen: font rules exclude
-   them via body.art-route (set in Layout.astro).
+   §14  TEMPORARY EXPERIMENT — hero terminal hidden
+   ═══════════════════════════════════════════
+   状态：首页右侧 SYS.BOOT 终端被临时隐藏（用户评估
+   无终端首页是否更清爽）。终端元素本身仍完整存在于
+   Hero.astro 中，未被删除。
+
+   ── 如何恢复终端 ──
+   删除本区块内的整条 `.hero .terminal { display: none; }`
+   规则（即下面这 3 行），终端即恢复显示。
+   无需修改任何其他文件。
+   ═══════════════════════════════════════════ */
+.hero .terminal {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════
+   §15  BEAUTIFY SUBSET 2026-08 — fonts, glow,
+   HUD readouts, transitions, reveal, CRT boot.
+   (Applied on top of the old baseline; cassette
+   deck / tape labels / glitch NOT included.)
    ═══════════════════════════════════════════ */
 
-/* ── Display type for headings ── */
+/* ── Display type for headings (art pages stay frozen) ── */
 body:not(.art-route) h1,
 body:not(.art-route) h2,
 body:not(.art-route) h3 {
@@ -984,15 +1001,13 @@ html[lang="zh"] body:not(.art-route) h3 {
   font-weight: 400;
 }
 
-.hero h1 {
-  font-family: var(--font-display);
-}
-
-/* Hero headline stays Latin even on zh/nl — restore display family */
+/* Hero headline stays Latin on zh/nl too — restore display family.
+   Must come AFTER the zh heading rule above (same specificity, order wins). */
 html[lang="zh"] body .hero h1,
 html[lang="nl"] body .hero h1 {
   font-family: var(--font-display);
   font-weight: 900;
+  letter-spacing: -2px;
 }
 
 /* ── Pixel OSD text ── */
@@ -1006,47 +1021,10 @@ html[lang="nl"] body .hero h1 {
 
 .terminal-content {
   font-size: 17px;
-  line-height: 1.9;
 }
 
 .telemetry-strip {
   font-size: 14px;
-}
-
-/* ── Cassette label strip (paper label + torn edges) ── */
-.tape-label {
-  position: relative;
-  display: inline-block;
-  padding: 7px 18px 9px;
-  background: var(--paper);
-  color: #1a1815;
-  border-radius: 2px;
-  box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.35),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  transform: rotate(-1.2deg);
-}
-
-.tape-label::before,
-.tape-label::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0 6px,
-    rgba(0, 0, 0, 0.14) 6px 12px
-  );
-}
-
-.tape-label::before {
-  top: -3px;
-}
-
-.tape-label::after {
-  bottom: -3px;
 }
 
 /* ── List page telemetry readout strip ── */
@@ -1075,11 +1053,12 @@ html[lang="nl"] body .hero h1 {
   background: rgba(0, 0, 0, 0.02);
 }
 
-/* ── View Transitions: CRT collapse / expand (B8) ── */
+/* ── View Transitions: CRT collapse / expand ── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.38s;
   animation-timing-function: var(--ease-in-out);
+  animation-fill-mode: both;
 }
 
 ::view-transition-old(root) {
@@ -1093,16 +1072,10 @@ html[lang="nl"] body .hero h1 {
 @keyframes vt-crt-out {
   0% {
     transform: scale(1);
-    filter: brightness(1);
     opacity: 1;
-  }
-  55% {
-    transform: scale(1.004);
-    filter: brightness(2.2);
   }
   100% {
     transform: scale(1, 0.004);
-    filter: brightness(3);
     opacity: 0.9;
   }
 }
@@ -1110,15 +1083,10 @@ html[lang="nl"] body .hero h1 {
 @keyframes vt-crt-in {
   0% {
     transform: scale(1, 0.004);
-    filter: brightness(3);
     opacity: 0.9;
-  }
-  35% {
-    filter: brightness(1.7);
   }
   100% {
     transform: scale(1);
-    filter: brightness(1);
     opacity: 1;
   }
 }
@@ -1130,77 +1098,7 @@ html[lang="nl"] body .hero h1 {
   }
 }
 
-/* ── CRT glitch overlay (B7) ── */
-#crt-glitch {
-  position: fixed;
-  inset: 0;
-  z-index: 9997;
-  pointer-events: none;
-  opacity: 0;
-}
-
-#crt-glitch.active {
-  opacity: 1;
-}
-
-#crt-glitch::before,
-#crt-glitch::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 36px;
-  mix-blend-mode: screen;
-}
-
-#crt-glitch::before {
-  top: 12%;
-  background: linear-gradient(
-    90deg,
-    rgba(94, 223, 255, 0.05),
-    rgba(232, 148, 58, 0.07),
-    rgba(94, 223, 255, 0.05)
-  );
-}
-
-#crt-glitch::after {
-  top: 66%;
-  background: rgba(232, 148, 58, 0.05);
-}
-
-#crt-glitch.active::before {
-  animation: glitchBand 0.12s steps(2) 2;
-}
-
-#crt-glitch.active::after {
-  animation: glitchBandB 0.14s steps(2) 2;
-}
-
-@keyframes glitchBand {
-  0% {
-    transform: translateX(-4px) skewX(2deg);
-  }
-  50% {
-    transform: translateX(5px) skewX(-3deg);
-  }
-  100% {
-    transform: translateX(-2px);
-  }
-}
-
-@keyframes glitchBandB {
-  0% {
-    transform: translateX(6px);
-  }
-  50% {
-    transform: translateX(-7px) skewX(4deg);
-  }
-  100% {
-    transform: translateX(3px);
-  }
-}
-
-/* ── Scroll reveal (B5) — JS-only hiding via html.js ── */
+/* ── Scroll reveal — JS-only hiding via html.js ── */
 html.js [data-reveal] {
   opacity: 0;
   transform: translateY(14px);
@@ -1219,5 +1117,85 @@ html.js [data-reveal].revealed {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* ── CRT power-on boot for cards (load-triggered, once) ──
+   Filter-free on purpose: animated filter layers caused a
+   stuck black screen on some GPUs. ── */
+.crt-boot .image-wrapper::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 46%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 54%
+  );
+
+  background-size: 100% 260%;
+
+  background-position: 50% -30%;
+
+  animation: crtBootLine 0.55s var(--ease-in-out) 1 both;
+
+  animation-delay: var(--boot-delay, 0ms);
+}
+
+@keyframes crtBootLine {
+  0% {
+    background-position: 50% -30%;
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  70% {
+    background-position: 50% 130%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 50% 130%;
+    opacity: 0;
+  }
+}
+
+.crt-boot img.cover {
+  animation: crtBootImg 0.55s var(--ease-out) 1 both;
+  animation-delay: var(--boot-delay, 0ms);
+}
+
+@keyframes crtBootImg {
+  0% {
+    opacity: 0.2;
+    transform: scale(1.045);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.006);
+  }
+  70% {
+    transform: translateY(1px) scale(1.004);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-boot .image-wrapper::after {
+    display: none;
+  }
+
+  .crt-boot img.cover {
+    animation: none;
   }
 }

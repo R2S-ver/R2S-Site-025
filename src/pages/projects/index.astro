@@ -34,7 +34,7 @@ const topTags = filterTags
   .map((t) => [t, projectEntries.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title={`${t.sections.projects.title} | RrSuika`} description={t.meta.description}>
+<Layout title={`${t.sections.projects.title} | RrSuika Studio`} description={t.meta.description}>
   <main class="projects-page">
     <header class="projects-header">
       <h1>{t.sections.projects.title}</h1>
@@ -63,7 +63,7 @@ const topTags = filterTags
 
     <div class="grid" id="projects-grid">
       {projectEntries.map((entry) => (
-        <div class="project-wrapper" data-reveal data-tags={JSON.stringify(entry.data.tags || [])}>
+        <div class="project-wrapper" data-tags={JSON.stringify(entry.data.tags || [])}>
           <ProjectCard project={entry} />
         </div>
       ))}

@@ -16,7 +16,7 @@ const notesPath = getLocalizedPath("/notes", language);
        MODULE 01 // PROJECTS
   ========================== -->
 
-  <a href={projectsPath} class="explore-card" data-reveal>
+  <a href={projectsPath} class="explore-card">
     <div class="header">
       {t.explore.projects.header}
     </div>
@@ -46,7 +46,7 @@ const notesPath = getLocalizedPath("/notes", language);
        MODULE 02 // LAB
   ========================== -->
 
-  <a href={labPath} class="explore-card" data-reveal>
+  <a href={labPath} class="explore-card">
     <div class="header">
       {t.explore.lab.header}
     </div>
@@ -76,7 +76,7 @@ const notesPath = getLocalizedPath("/notes", language);
        MODULE 03 // ART
   ========================== -->
 
-  <a href={artPath} class="explore-card" data-reveal>
+  <a href={artPath} class="explore-card">
     <div class="header">
       {t.explore.art.header}
     </div>
@@ -106,7 +106,7 @@ const notesPath = getLocalizedPath("/notes", language);
        MODULE 04 // NOTES
   ========================== -->
 
-  <a href={notesPath} class="explore-card" data-reveal>
+  <a href={notesPath} class="explore-card">
     <div class="header">
       {t.explore.notes.header}
     </div>
@@ -218,13 +218,11 @@ const notesPath = getLocalizedPath("/notes", language);
 
     margin-top: 35px;
 
-    font-family: var(--font-display);
-
     font-size: var(--text-scale-2xs);
 
-    font-weight: 900;
+    font-weight: bold;
 
-    color: var(--retro-red);
+    color: var(--accent);
   }
 
   h3 {

@@ -39,11 +39,6 @@ const type = project.data.type.toUpperCase();
 <a href={url} class="card">
   <div class="corner"></div>
 
-  <span class="hud hud-tl" aria-hidden="true"></span>
-  <span class="hud hud-tr" aria-hidden="true"></span>
-  <span class="hud hud-bl" aria-hidden="true"></span>
-  <span class="hud hud-br" aria-hidden="true"></span>
-
   <div class="card-header">
     <span>
       {t.card.projectNode}
@@ -74,11 +69,9 @@ const type = project.data.type.toUpperCase();
   }
 
   <div class="content">
-    <div class="tape-label">
-      <h2>
-        {project.data.title}
-      </h2>
-    </div>
+    <h2>
+      {project.data.title}
+    </h2>
 
     <p class="description">
       {project.data.description}
@@ -100,16 +93,9 @@ const type = project.data.type.toUpperCase();
         {type}
       </span>
 
-      <span class="footer-right">
-        <span>
-          {t.card.archive}
-          {date}
-        </span>
-
-        <span class="tape-counter" aria-hidden="true">
-          <span class="tc-reel"></span>
-          000/100
-        </span>
+      <span>
+        {t.card.archive}
+        {date}
       </span>
     </div>
   </div>
@@ -121,12 +107,7 @@ const type = project.data.type.toUpperCase();
 
     position: relative;
 
-    background:
-      radial-gradient(circle at 13px 13px, rgba(255, 255, 255, 0.11) 0 1.7px, transparent 2.6px),
-      radial-gradient(circle at calc(100% - 13px) 13px, rgba(255, 255, 255, 0.11) 0 1.7px, transparent 2.6px),
-      radial-gradient(circle at 13px calc(100% - 13px), rgba(255, 255, 255, 0.11) 0 1.7px, transparent 2.6px),
-      radial-gradient(circle at calc(100% - 13px) calc(100% - 13px), rgba(255, 255, 255, 0.11) 0 1.7px, transparent 2.6px),
-      var(--surface-ink);
+    background: var(--surface-ink);
 
     border: 1px solid var(--border);
 
@@ -144,15 +125,6 @@ const type = project.data.type.toUpperCase();
       transform 0.4s var(--spring-bounce),
       border-color 0.45s var(--ease-warmup),
       box-shadow 0.45s var(--ease-warmup);
-  }
-
-  :root[data-theme="light"] .card {
-    background:
-      radial-gradient(circle at 13px 13px, rgba(0, 0, 0, 0.2) 0 1.7px, transparent 2.6px),
-      radial-gradient(circle at calc(100% - 13px) 13px, rgba(0, 0, 0, 0.2) 0 1.7px, transparent 2.6px),
-      radial-gradient(circle at 13px calc(100% - 13px), rgba(0, 0, 0, 0.2) 0 1.7px, transparent 2.6px),
-      radial-gradient(circle at calc(100% - 13px) calc(100% - 13px), rgba(0, 0, 0, 0.2) 0 1.7px, transparent 2.6px),
-      var(--paper);
   }
 
   .card:active {
@@ -499,207 +471,5 @@ const type = project.data.type.toUpperCase();
     font-size: var(--text-scale-4xs);
 
     color: var(--text-dim);
-  }
-
-  /* ═══════════════════════════════════════════
-     BEAUTIFY 2026-08 — HUD brackets, cassette
-     label title, tape counter, CRT power-on
-     ═══════════════════════════════════════════ */
-
-  /* ── HUD corner brackets (A4, Arknights-style) ── */
-  .hud {
-    position: absolute;
-
-    width: 14px;
-
-    height: 14px;
-
-    pointer-events: none;
-
-    z-index: 2;
-
-    opacity: 0;
-
-    transition: opacity 0.3s var(--ease-out);
-  }
-
-  .hud::before,
-  .hud::after {
-    content: "";
-
-    position: absolute;
-
-    background: var(--accent);
-  }
-
-  .hud::before {
-    width: 100%;
-
-    height: 1px;
-  }
-
-  .hud::after {
-    width: 1px;
-
-    height: 100%;
-  }
-
-  .hud-tl {
-    top: 6px;
-    left: 6px;
-  }
-
-  .hud-tr {
-    top: 6px;
-    right: 6px;
-    transform: rotate(90deg);
-  }
-
-  .hud-br {
-    bottom: 6px;
-    right: 6px;
-    transform: rotate(180deg);
-  }
-
-  .hud-bl {
-    bottom: 6px;
-    left: 6px;
-    transform: rotate(270deg);
-  }
-
-  .card:hover .hud {
-    opacity: 0.85;
-  }
-
-  /* ── Cassette label strip title (A2) ── */
-  .content .tape-label {
-    margin-bottom: 15px;
-  }
-
-  .tape-label h2 {
-    margin: 0;
-
-    font-size: 20px;
-
-    font-weight: 800;
-
-    line-height: 1.15;
-
-    letter-spacing: var(--tracking-slight);
-
-    color: #1a1815;
-  }
-
-  :root[data-theme="light"] .tape-label h2 {
-    color: #1a1815;
-  }
-
-  /* ── CRT power-on hover (B4) ── */
-  .image-wrapper::after {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 3;
-
-    pointer-events: none;
-
-    opacity: 0;
-
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      transparent 44%,
-      rgba(255, 255, 255, 0.5) 50%,
-      transparent 56%,
-      transparent 100%
-    );
-  }
-
-  .card:hover .image-wrapper::after {
-    animation: crtOn 0.38s steps(3) 1;
-  }
-
-  @keyframes crtOn {
-    0% {
-      opacity: 0;
-      transform: scaleY(0.02);
-      filter: brightness(6);
-    }
-    35% {
-      opacity: 1;
-      transform: scaleY(1);
-    }
-    55% {
-      opacity: 0.9;
-      transform: scaleY(0.92) translateY(1px);
-      filter: brightness(2.4);
-    }
-    100% {
-      opacity: 0;
-      transform: scaleY(1);
-      filter: brightness(1);
-    }
-  }
-
-  .card:hover .cover {
-    animation: crtJitter 0.3s steps(2) 1;
-  }
-
-  @keyframes crtJitter {
-    0% {
-      transform: scale(1.06);
-    }
-    40% {
-      transform: scale(1.028) translateY(1px);
-    }
-    100% {
-      transform: scale(1.05);
-    }
-  }
-
-  /* ── Tape counter (B11) ── */
-  .footer-right {
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-  }
-
-  .tape-counter {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    color: var(--text-dim);
-
-    transition: color 0.25s var(--ease-out);
-  }
-
-  .tc-reel {
-    width: 9px;
-
-    height: 9px;
-
-    border-radius: 50%;
-
-    border: 2px solid currentColor;
-
-    border-top-color: var(--accent);
-
-    transition: transform 0.5s var(--spring-gentle);
-  }
-
-  .card:hover .tc-reel {
-    transform: rotate(360deg);
-  }
-
-  .card:hover .tape-counter {
-    color: var(--terminal-green);
   }
 </style>

@@ -10,7 +10,7 @@ const t = getTranslations(lang);
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "RrSuika",
+  name: "RrSuika Studio",
   alternateName: ["RrS"],
   url: "https://r2s-site-025.pages.dev/",
   jobTitle: lang === "zh" ? "设计师 / 创客" : "Ontwerper & Maker",
@@ -28,7 +28,7 @@ const personSchema = {
 };
 ---
 
-<Layout title={`${t.sections.about.title} | RrSuika`} description={t.meta.description}>
+<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.meta.description}>
   <script
     type="application/ld+json"
     is:inline
@@ -77,7 +77,7 @@ const personSchema = {
 
       <div class="intro-layout">
         <div class="intro-heading">
-          <span class="system-tag"> RrS_STUDIO / PROFIEL </span>
+          <span class="system-tag"> RrSuika_STUDIO / PROFIEL </span>
 
           <h2>
             {t.sections.about.introTitle}
@@ -138,7 +138,7 @@ const personSchema = {
               {t.sections.about.dossier.operator}
             </div>
 
-            <h2>RrSuika</h2>
+            <h2>RrSuika Studio</h2>
 
             <p>
               {t.sections.about.dossier.role}
@@ -388,7 +388,7 @@ const personSchema = {
 
       <div class="capability-console">
         <div class="console-top">
-          <span> RrS_CAPACITEITSMATRIX </span>
+          <span> RrSuika_CAPACITEITSMATRIX </span>
 
           <span>
             INVOER:
@@ -468,7 +468,7 @@ const personSchema = {
               <div class="cap-scanlines"></div>
 
               <div class="cap-corner cap-corner-tl">
-                RrS // VISUELE TELEMETRIE
+                RrSuika // VISUELE TELEMETRIE
               </div>
 
               <div class="cap-corner cap-corner-br">LIVE</div>
@@ -927,9 +927,8 @@ const personSchema = {
         </div>
 
         <div class="annex-grid">
-          {t.sections.about.annex.styles.map((style, i) => (
+          {t.sections.about.annex.styles.map((style) => (
             <article class="annex-entry">
-              <span class={`annex-badge annex-badge-${i + 1}`} aria-hidden="true"></span>
               <div class="annex-entry-head">
                 <span class="annex-code">{style.code}</span>
                 <span class="annex-era">{style.era}</span>
@@ -2025,12 +2024,12 @@ const personSchema = {
     });
   }
 
-  // 每类区块的输出速度（毫秒/字符）：正文快而不抢读，标签更快
+  // 每类区块的输出速度（毫秒/字符）：2026-08 提速（用户要求打字更快）
   function annexSpeed(el) {
-    if (el.classList.contains("annex-intro")) return 5;
-    if (el.classList.contains("annex-style-index")) return 2;
-    if (el.classList.contains("annex-refs")) return 3;
-    return 4;
+    if (el.classList.contains("annex-intro")) return 2;
+    if (el.classList.contains("annex-style-index")) return 1;
+    if (el.classList.contains("annex-refs")) return 1;
+    return 2;
   }
 
   let annexTyped = false;
@@ -2141,7 +2140,7 @@ const personSchema = {
     margin: 0;
     font-size: clamp(64px, 10vw, 140px);
     line-height: 0.85;
-    letter-spacing: -7px;
+    letter-spacing: -2px;
     font-weight: 900;
   }
 
@@ -2195,7 +2194,7 @@ const personSchema = {
     margin: 25px 0 40px;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 0.95;
-    letter-spacing: -4px;
+    letter-spacing: -2px;
     text-transform: uppercase;
     white-space: pre-line; /* 让 \n 换行生效 */
   }
@@ -2344,7 +2343,7 @@ const personSchema = {
     margin: 25px 0 0;
     font-size: clamp(42px, 6vw, 75px);
     line-height: 0.95;
-    letter-spacing: -4px;
+    letter-spacing: -2px;
   }
 
   .philosophy-copy {
@@ -2417,7 +2416,7 @@ const personSchema = {
     margin: 25px 0 0;
     font-size: clamp(42px, 6vw, 75px);
     line-height: 0.9;
-    letter-spacing: -4px;
+    letter-spacing: -2px;
     white-space: nowrap;
   }
 
@@ -2848,7 +2847,7 @@ const personSchema = {
     margin: 25px 0 0;
     font-size: clamp(40px, 6vw, 72px);
     line-height: 0.95;
-    letter-spacing: -4px;
+    letter-spacing: -2px;
   }
 
   .skill-tree {
@@ -3537,69 +3536,6 @@ const personSchema = {
     border-left-color: var(--stripe-teal);
   }
 
-  /* ── Style genealogy badges (A9) ── */
-  .annex-badge {
-    display: block;
-    width: 30px;
-    height: 30px;
-    margin-bottom: 12px;
-    position: relative;
-  }
-
-  .annex-badge-1 {
-    background:
-      radial-gradient(circle at 30% 35%, var(--stripe-red) 0 6px, transparent 6.5px),
-      radial-gradient(circle at 70% 35%, var(--stripe-yellow) 0 6px, transparent 6.5px),
-      radial-gradient(circle at 50% 72%, var(--stripe-teal) 0 6px, transparent 6.5px);
-  }
-
-  .annex-badge-2 {
-    border: 1px solid var(--border-strong);
-    background:
-      linear-gradient(var(--accent), var(--accent)) center / 100% 2px no-repeat,
-      linear-gradient(var(--accent), var(--accent)) center / 2px 100% no-repeat,
-      repeating-linear-gradient(90deg, rgba(232, 148, 58, 0.3) 0 2px, transparent 2px 9px),
-      repeating-linear-gradient(0deg, rgba(232, 148, 58, 0.3) 0 2px, transparent 2px 9px);
-  }
-
-  .annex-badge-3 {
-    border-radius: 50%;
-    border: 2px solid var(--border-strong);
-    background:
-      radial-gradient(circle at 50% 50%, var(--accent-deep) 0 4px, transparent 5px),
-      repeating-conic-gradient(rgba(255, 255, 255, 0.07) 0deg 10deg, transparent 10deg 20deg);
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-  }
-
-  .annex-badge-4::before {
-    content: "";
-    position: absolute;
-    inset: 7px;
-    background: var(--accent);
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    opacity: 0.9;
-  }
-
-  .annex-badge-4::after {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    border: 1px solid rgba(232, 148, 58, 0.45);
-    border-radius: 50%;
-  }
-
-  .annex-badge-5 {
-    background: var(--terminal-green);
-    box-shadow: 0 0 8px rgba(58, 240, 79, 0.45);
-    animation: badgeBlink 1.2s steps(1) infinite;
-  }
-
-  @keyframes badgeBlink {
-    50% {
-      opacity: 0.35;
-    }
-  }
-
   .annex-entry-head {
     display: flex;
     justify-content: space-between;
@@ -3963,7 +3899,7 @@ const personSchema = {
 
   @media (max-width: 600px) {
     h1 {
-      letter-spacing: -4px;
+      letter-spacing: -2px;
     }
 
     .hero-meta {

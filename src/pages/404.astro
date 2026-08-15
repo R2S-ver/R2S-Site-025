@@ -16,20 +16,47 @@ import Layout from "../layouts/Layout.astro";
         信号丢失 // 请求的页面不存在
       </div>
 
-      <div class="lost-tape" aria-hidden="true">
-        <div class="lt-reel"></div>
-        <div class="lt-window">
-          <span class="lt-track"></span>
-          <span class="lt-track"></span>
-          <span class="lt-track"></span>
-        </div>
-        <div class="lt-reel"></div>
+      <!-- PM5544 test card — the classic Philips pattern -->
+      <div class="pm5544" aria-hidden="true">
+        <svg viewBox="0 0 320 240" width="320" height="240" role="presentation">
+          <rect x="0" y="0" width="320" height="240" fill="#0a0a0a" />
+          <!-- 75% colour bars -->
+          <rect x="8" y="8" width="43.4" height="52" fill="#b8b8b8" />
+          <rect x="51.4" y="8" width="43.4" height="52" fill="#b8b800" />
+          <rect x="94.8" y="8" width="43.4" height="52" fill="#00b8b8" />
+          <rect x="138.2" y="8" width="43.4" height="52" fill="#00b800" />
+          <rect x="181.6" y="8" width="43.4" height="52" fill="#b800b8" />
+          <rect x="225" y="8" width="43.4" height="52" fill="#b80000" />
+          <rect x="268.4" y="8" width="43.4" height="52" fill="#0000b8" />
+          <!-- big circle -->
+          <circle cx="160" cy="132" r="86" fill="#1a1a1a" stroke="#666" stroke-width="1.5" />
+          <circle cx="160" cy="132" r="58" fill="#0f0f0f" stroke="#555" stroke-width="1" />
+          <!-- centre grid -->
+          <g stroke="#3a3a3a" stroke-width="0.8">
+            <line x1="160" y1="48" x2="160" y2="216" />
+            <line x1="76" y1="132" x2="244" y2="132" />
+          </g>
+          <!-- centre circle + crosshair -->
+          <circle cx="160" cy="132" r="22" fill="#101010" stroke="#888" stroke-width="1" />
+          <g stroke="#bbb" stroke-width="1">
+            <line x1="160" y1="118" x2="160" y2="146" />
+            <line x1="146" y1="132" x2="174" y2="132" />
+          </g>
+          <!-- black/white patches -->
+          <rect x="84" y="60" width="24" height="24" fill="#ddd" />
+          <rect x="212" y="60" width="24" height="24" fill="#000" />
+          <rect x="84" y="180" width="24" height="24" fill="#000" />
+          <rect x="212" y="180" width="24" height="24" fill="#ddd" />
+          <!-- bottom black strip -->
+          <rect x="0" y="196" width="320" height="12" fill="#000" />
+          <rect x="0" y="210" width="320" height="12" fill="#0d0d0d" />
+        </svg>
       </div>
 
       <div class="divider" />
 
       <div class="code-line small">
-        &gt; SEARCH_TRANSMISSION_TERMINATED // SIDE_B // EMPTY_TAIL
+        &gt; SEARCH_TRANSMISSION_TERMINATED // PM5544 // NO_SIGNAL
       </div>
 
       <div class="actions">
@@ -78,91 +105,21 @@ import Layout from "../layouts/Layout.astro";
     color: var(--text-dim);
   }
 
-  /* ── Lost cassette (A8) ── */
-  .lost-tape {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 14px;
-
-    margin-top: 28px;
+  /* ── PM5544 test card ── */
+  .pm5544 {
+    margin: 24px auto 4px;
+    width: fit-content;
+    max-width: 100%;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    line-height: 0;
   }
 
-  .lt-reel {
-    width: 46px;
-
-    height: 46px;
-
-    border-radius: 50%;
-
-    border: 2px solid var(--border-strong);
-
-    background:
-      radial-gradient(circle at 50% 50%, var(--accent-deep) 0 5px, transparent 6px),
-      repeating-conic-gradient(rgba(255, 255, 255, 0.06) 0deg 12deg, transparent 12deg 24deg);
-
-    animation: ltSpin 7s linear infinite;
-  }
-
-  .lt-reel:nth-child(3) {
-    animation-direction: reverse;
-  }
-
-  @keyframes ltSpin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .lt-window {
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    gap: 5px;
-
-    width: 110px;
-
-    height: 34px;
-
-    padding: 0 12px;
-
-    background: rgba(5, 5, 10, 0.9);
-
-    border: 1px solid rgba(232, 148, 58, 0.4);
-  }
-
-  .lt-track {
+  .pm5544 svg {
     display: block;
-
-    height: 2px;
-
-    background: var(--terminal-green);
-
-    opacity: 0.55;
-  }
-
-  .lt-track:nth-child(1) {
-    width: 78%;
-  }
-
-  .lt-track:nth-child(2) {
-    width: 100%;
-  }
-
-  .lt-track:nth-child(3) {
-    width: 60%;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .lt-reel {
-      animation: none;
-    }
+    max-width: 100%;
+    height: auto;
+    image-rendering: pixelated;
   }
 
   .divider {

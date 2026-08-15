@@ -4,7 +4,7 @@ export const translations = {
   en: {
     meta: {
       description:
-        "RrSuika — multidisciplinary maker portfolio: industrial design, embedded systems, electronics notes, and visual art.",
+        "RrSuika Studio — multidisciplinary maker portfolio: industrial design, embedded systems, electronics notes, and visual art.",
     },
 
     nav: {
@@ -147,9 +147,9 @@ export const translations = {
       about: {
         pageTag: "PERSONNEL_DOSSIER // PROFILE_MODULE",
         pageStatus: "● SYSTEM_ACTIVE",
-        eyebrow: "RrS STUDIO // DESIGNER + MAKER + ARTIST",
+        eyebrow: "RrSuika STUDIO // DESIGNER + MAKER + ARTIST",
         title: "About ME",
-        introTitle: "BETWEEN DESIGN\nMAKING\nART",
+        introTitle: "BETWEEN\nDESIGN\nMAKING\nART",
         subtitle: "Industrial designer & maker based in Rotterdam, bridging technical thinking with visual creativity.",
         description:
           "I am an industrial product designer and digital artist with a strong interest in making things real.",
@@ -239,7 +239,7 @@ export const translations = {
           },
         },
         capabilities: {
-          header: "RrS_CAPABILITY_MATRIX",
+          header: "RrSuika_CAPABILITY_MATRIX",
           industrial: {
             title: "Industrial\nProduct Design",
             description:
@@ -424,7 +424,7 @@ export const translations = {
   zh: {
     meta: {
       description:
-        "RrSuika — 多学科创客作品集：工业设计、嵌入式系统、电子学笔记与视觉艺术。",
+        "RrSuika Studio — 多学科创客作品集：工业设计、嵌入式系统、电子学笔记与视觉艺术。",
     },
 
     nav: {
@@ -568,7 +568,7 @@ export const translations = {
       about: {
         pageTag: "个人档案 // 资料模块",
         pageStatus: "● 系统运行中",
-        eyebrow: "RrS STUDIO // 设计师 + 创客 + 画师",
+        eyebrow: "RrSuika STUDIO // 设计师 + 创客 + 画师",
         title: "关于我",
 
         introTitle: "设计、工程与视觉艺术之间",
@@ -637,7 +637,7 @@ export const translations = {
         },
 
         capabilities: {
-          header: "RrS 能力矩阵",
+          header: "RrSuika 能力矩阵",
           industrial: {
             title: "工业及产品设计",
             description:
@@ -819,7 +819,7 @@ export const translations = {
   nl: {
     meta: {
       description:
-        "RrSuika — multidisciplinair makerportfolio: industrieel ontwerp, embedded systems, elektronica-notities en visuele kunst.",
+        "RrSuika Studio — multidisciplinair makerportfolio: industrieel ontwerp, embedded systems, elektronica-notities en visuele kunst.",
     },
 
     nav: {
@@ -961,9 +961,9 @@ export const translations = {
       about: {
         pageTag: "PERSONEELSDOSSIER // PROFIELMODULE",
         pageStatus: "● SYSTEEM_ACTIEF",
-        eyebrow: "RrS STUDIO // ONTWERPER + MAKER + ARTIST",
+        eyebrow: "RrSuika STUDIO // ONTWERPER + MAKER + ARTIST",
         title: "Over mij",
-        introTitle: "TUSSEN DESIGN\nMAKEN\nKUNST",
+        introTitle: "TUSSEN\nDESIGN\nMAKEN\nKUNST",
         subtitle: "Industrieel ontwerper & maker in Rotterdam, met een brug tussen technisch denken en visuele creativiteit.",
         description:
           "Ik ben industrieel productontwerper en digitaal artiest, met een sterke interesse in dingen echt maken.",
@@ -1053,7 +1053,7 @@ export const translations = {
           },
         },
         capabilities: {
-          header: "RrS_CAPABILITY_MATRIX",
+          header: "RrSuika_CAPABILITY_MATRIX",
           industrial: {
             title: "Industrieel\nProductontwerp",
             description:
