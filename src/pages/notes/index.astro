@@ -31,12 +31,19 @@ const topTags = filterTags
   .map((t) => [t, notes.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title={`${t.sections.notes.title} | R2S Studio`} description={t.meta.description}>
+<Layout title={`${t.sections.notes.title} | RrSuika`} description={t.meta.description}>
   <main class="notes-page">
     <header class="notes-header">
       <h1>{t.sections.notes.title}</h1>
       <p>{t.sections.notes.description}</p>
     </header>
+
+    <div class="list-readout">
+      <span>ENTRY_CNT: <b>{notes.length}</b></span>
+      <span>SIGNAL: <b>97%</b></span>
+      <span>FILTER: <b>ACTIVE</b></span>
+      <span>SORT: <b>DATE_DESC</b></span>
+    </div>
 
     {
       topTags.length > 0 && (
@@ -56,6 +63,7 @@ const topTags = filterTags
         <a
           href={`${getLocalizedPath("/note", language)}/${entry.id.split("/")[0]}`}
           class="note-row"
+          data-reveal
           data-tags={JSON.stringify(entry.data.tags || [])}
         >
           <div class="note-left">

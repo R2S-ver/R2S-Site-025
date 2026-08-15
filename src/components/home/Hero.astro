@@ -10,18 +10,19 @@ const projectsPath = getLocalizedPath("/projects", language);
 <section class="hero">
   <!-- ── Decorative background ── -->
   <div class="hero-bg" aria-hidden="true">
-    <div class="grid-cross cross-tl"></div>
-    <div class="grid-cross cross-tr"></div>
-    <div class="grid-cross cross-bl"></div>
-    <div class="grid-cross cross-br"></div>
-    <div class="coords coord-top">N 51°55′ // LON 004°28′</div>
-    <div class="coords coord-bot">SIGMA-09 // TELEMETRY ACTIVE</div>
+    <div class="grid-cross cross-tl" data-plx="6"></div>
+    <div class="grid-cross cross-tr" data-plx="10"></div>
+    <div class="grid-cross cross-bl" data-plx="8"></div>
+    <div class="grid-cross cross-br" data-plx="12"></div>
+    <div class="coords coord-top" data-plx="5">N 51°55′ // LON 004°28′</div>
+    <div class="coords coord-bot" data-plx="7">SIGMA-09 // TELEMETRY ACTIVE</div>
+    <div class="radar" data-plx="9"></div>
   </div>
 
   <div class="hero-left">
     <div class="data-tag type-line">
       <span class="tag-dot"></span>
-      R2S_STUDIO // DESIGN_SYSTEM_v1.0
+      RrS_STUDIO // DESIGN_SYSTEM_v1.0
     </div>
 
     <div class="title-wrapper">
@@ -52,7 +53,8 @@ const projectsPath = getLocalizedPath("/projects", language);
     </a>
   </div>
 
-  <div class="terminal">
+  <!-- ── Cassette deck (A1) — SYS.BOOT terminal restored as the tape window (B2) ── -->
+  <div class="cassette-deck" data-hero-deck>
     <div class="telemetry-strip" aria-hidden="true">
       <span>SYS.ONLINE</span>
       <span class="tel-sep">//</span>
@@ -60,13 +62,64 @@ const projectsPath = getLocalizedPath("/projects", language);
       <span class="tel-sep">//</span>
       <span>SIGNAL:97%</span>
     </div>
-    <div class="terminal-header">
-      SYS.BOOT // KERNEL_CORE_v5.5<br />
-      DATA_DECK: <span>[MAGNETIC_TAPE_OPTIMIZED]</span>
+
+    <div class="deck-shell">
+      <span class="screw screw-tl" aria-hidden="true"></span>
+      <span class="screw screw-tr" aria-hidden="true"></span>
+      <span class="screw screw-bl" aria-hidden="true"></span>
+      <span class="screw screw-br" aria-hidden="true"></span>
+
+      <div class="deck-top">
+        <span class="deck-title">RrS_STUDIO // DATA_DECK_v5.5</span>
+        <span class="side-tag">SIDE_A</span>
+      </div>
+
+      <div class="deck-body">
+        <div class="reel-unit">
+          <div class="reel idle-spin" aria-hidden="true">
+            <div class="reel-scroll">
+              <div class="reel-face"></div>
+            </div>
+          </div>
+          <span class="reel-cap">SPOOL_A</span>
+        </div>
+
+        <div class="terminal tape-window">
+          <div class="terminal-header">
+            SYS.BOOT // KERNEL_CORE_v5.5<br />
+            DATA_DECK: <span>[MAGNETIC_TAPE_OPTIMIZED]</span>
+          </div>
+          <div class="terminal-content" id="terminal-log"></div>
+          <div class="crt-fade-top"></div>
+          <div class="crt-fade-bot"></div>
+        </div>
+
+        <div class="reel-unit">
+          <div class="reel idle-spin" aria-hidden="true">
+            <div class="reel-scroll">
+              <div class="reel-face"></div>
+            </div>
+          </div>
+          <span class="reel-cap">SPOOL_B</span>
+        </div>
+      </div>
+
+      <div class="deck-controls">
+        <button class="deck-btn" type="button" data-cmd="rew" aria-label="Rewind">
+          <span class="btn-sym">&#9198;</span> REW
+        </button>
+        <button class="deck-btn play-btn" type="button" data-cmd="play" aria-label="Play or pause">
+          <span class="btn-sym play-sym">&#9654;</span> PLAY
+        </button>
+        <button class="deck-btn" type="button" data-cmd="ff" aria-label="Fast forward">
+          FF <span class="btn-sym">&#9197;</span>
+        </button>
+        <div class="counter-window">
+          <span id="deck-counter">000</span>
+          <span class="counter-unit">TAPE_CNT</span>
+        </div>
+      </div>
     </div>
-    <div class="terminal-content" id="terminal-log"></div>
-    <div class="crt-fade-top"></div>
-    <div class="crt-fade-bot"></div>
   </div>
 </section>
 
@@ -202,7 +255,7 @@ const projectsPath = getLocalizedPath("/projects", language);
         termEl.appendChild(cursor);
         termEl.scrollTop = termEl.scrollHeight;
       });
-      while (termEl.children.length > 20) {
+      while (termEl.children.length > 14) {
         termEl.firstChild?.remove();
       }
       logIndex++;
@@ -223,6 +276,93 @@ const projectsPath = getLocalizedPath("/projects", language);
 
   typeTerminalSequence();
   typeLeftSequence();
+
+  // ── Reels + tape counter driven by scroll (B1) ──
+  const deck = document.querySelector<HTMLElement>("[data-hero-deck]");
+  const reelScrolls = deck?.querySelectorAll<HTMLElement>(".reel-scroll");
+  const counterEl = document.getElementById("deck-counter");
+
+  function updateReels() {
+    const delta = window.scrollY * 0.6;
+    const deg = delta % 360;
+    reelScrolls?.forEach((r) => {
+      r.style.transform = `rotate(${deg}deg)`;
+    });
+    if (counterEl) {
+      const v = Math.abs(Math.floor(delta / 3.6)) % 1000;
+      counterEl.textContent = String(v).padStart(3, "0");
+    }
+  }
+
+  window.addEventListener("scroll", updateReels, { passive: true });
+  updateReels();
+
+  // ── Deck transport buttons (PLAY/REW/FF) + synthesized sound ──
+  deck?.querySelectorAll<HTMLButtonElement>(".deck-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const snd = window.__r2sSnd;
+      const cmd = btn.dataset.cmd;
+
+      if (cmd === "play") {
+        const paused = deck.classList.toggle("paused");
+        btn.classList.toggle("engaged", !paused);
+        const sym = btn.querySelector(".play-sym");
+        if (sym) sym.innerHTML = paused ? "&#9654;" : "&#10074;&#10074;";
+        if (paused) snd?.load(); else snd?.play();
+        if (!paused && termEl) termEl.scrollTop = termEl.scrollHeight;
+      } else if (cmd === "rew") {
+        snd?.rewind();
+        deck.classList.add("rewinding");
+        let n = 0;
+        const tick = setInterval(() => {
+          if (!counterEl) return;
+          counterEl.textContent = String(
+            (Number(counterEl.textContent) + 997) % 1000,
+          ).padStart(3, "0");
+          if (++n > 24) clearInterval(tick);
+        }, 24);
+        setTimeout(() => deck.classList.remove("rewinding"), 700);
+      } else if (cmd === "ff") {
+        snd?.click();
+        let n = 0;
+        const tick = setInterval(() => {
+          if (!counterEl) return;
+          counterEl.textContent = String(
+            (Number(counterEl.textContent) + 1) % 1000,
+          ).padStart(3, "0");
+          if (++n > 12) clearInterval(tick);
+        }, 34);
+      }
+    });
+  });
+
+  // ── Mouse parallax on hero decoration (B3) ──
+  if (
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    window.matchMedia("(pointer: fine)").matches
+  ) {
+    const hero = document.querySelector<HTMLElement>(".hero");
+    const layers = hero?.querySelectorAll<HTMLElement>("[data-plx]");
+    let mx = 0;
+    let my = 0;
+    let raf = 0;
+
+    hero?.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      mx = (e.clientX - rect.left) / rect.width - 0.5;
+      my = (e.clientY - rect.top) / rect.height - 0.5;
+
+      if (!raf) {
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          layers?.forEach((el) => {
+            const f = parseFloat(el.dataset.plx || "0");
+            el.style.transform = `translate(${mx * f}px, ${my * f}px)`;
+          });
+        });
+      }
+    });
+  }
 </script>
 
 <style>
@@ -233,7 +373,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 100px;
+    gap: 60px;
     padding: 15px 40px 80px;
     position: relative;
     overflow: hidden;
@@ -308,6 +448,63 @@ const projectsPath = getLocalizedPath("/projects", language);
   .coord-bot {
     bottom: 10px;
     left: 40px;
+  }
+
+  /* Radar sweep (B6) — Arknights-style slow instrument scan */
+  .radar {
+    position: absolute;
+    top: 90px;
+    left: 56%;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 148, 58, 0.14);
+    opacity: 0.5;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .radar::before,
+  .radar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 148, 58, 0.1);
+  }
+  .radar::before {
+    inset: 30%;
+  }
+  .radar::after {
+    inset: 60%;
+  }
+  .radar::before,
+  .radar::after {
+    pointer-events: none;
+  }
+  .radar {
+    background:
+      linear-gradient(
+        rgba(232, 148, 58, 0.05),
+        rgba(232, 148, 58, 0.05)
+      )
+      center / 100% 1px no-repeat,
+      linear-gradient(
+        rgba(232, 148, 58, 0.05),
+        rgba(232, 148, 58, 0.05)
+      )
+      center / 1px 100% no-repeat,
+      conic-gradient(
+        from 0deg,
+        rgba(232, 148, 58, 0.28) 0deg,
+        transparent 38deg,
+        transparent 360deg
+      );
+    animation: radarSpin 9s linear infinite;
+  }
+  @keyframes radarSpin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   /* ═══════════════════════════════════════════
@@ -422,7 +619,7 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
 
   h1 {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: var(--text-scale-hero);
     font-weight: 900;
     line-height: 0.9;
@@ -613,20 +810,12 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
 
   /* ═══════════════════════════════════════════
-     TERMINAL HUD
+     CASSETTE DECK (A1) — right module
      ═══════════════════════════════════════════ */
-  .terminal {
-    width: 430px;
+  .cassette-deck {
+    width: 440px;
     flex-shrink: 0;
-    margin-top: 70px;
-    padding: 32px;
-    background: var(--surface-night);
-    border: 1px solid var(--accent);
-    box-shadow:
-      0 0 30px rgba(255, 95, 31, 0.12),
-      inset 0 0 80px rgba(232, 120, 53, 0.02);
-    font-family: var(--font-mono);
-    font-size: var(--text-scale-xs);
+    margin-top: 60px;
     position: relative;
     z-index: 1;
     opacity: 0;
@@ -636,44 +825,23 @@ const projectsPath = getLocalizedPath("/projects", language);
   @keyframes termPowerOn {
     from {
       opacity: 0;
-      box-shadow: 0 0 0px rgba(255, 95, 31, 0);
+      filter: brightness(0.4);
     }
     40% {
       opacity: 1;
-      box-shadow: 0 0 60px rgba(255, 95, 31, 0.3);
+      filter: brightness(1.35);
     }
     to {
       opacity: 1;
-      box-shadow: 0 0 30px rgba(255, 95, 31, 0.12);
+      filter: brightness(1);
     }
   }
-  .terminal::before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    width: 60px;
-    height: 3px;
-    background: var(--accent);
-  }
-  .terminal::after {
-    content: "";
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    width: 40px;
-    height: 2px;
-    background: rgba(232, 160, 64, 0.5);
-  }
 
-  /* Telemetry strip above terminal header */
   .telemetry-strip {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-bottom: 14px;
-    margin-bottom: 14px;
-    border-bottom: 1px solid rgba(255, 95, 31, 0.15);
+    padding: 0 6px 12px;
     font-size: var(--text-scale-5xs);
     letter-spacing: var(--tracking-label);
     color: rgba(232, 160, 64, 0.55);
@@ -683,22 +851,213 @@ const projectsPath = getLocalizedPath("/projects", language);
     color: rgba(255, 255, 255, 0.12);
   }
 
+  .deck-shell {
+    position: relative;
+    border: 1px solid rgba(232, 148, 58, 0.35);
+    border-radius: 12px;
+    padding: 24px 22px 20px;
+    background: linear-gradient(
+      145deg,
+      rgba(32, 32, 46, 0.92) 0%,
+      rgba(14, 14, 24, 0.94) 100%
+    );
+    box-shadow:
+      0 0 40px rgba(255, 95, 31, 0.14),
+      0 24px 60px rgba(0, 0, 0, 0.5),
+      inset 0 0 60px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  /* Frosted plastic sheen */
+  .deck-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      transparent 34%,
+      transparent 68%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Corner screws (A2) */
+  .screw {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #d8d8de, #56565f 75%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  .screw::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0.5px;
+    bottom: 0.5px;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.55);
+    transform: translateX(-50%) rotate(38deg);
+  }
+  .screw-tl { top: 9px; left: 9px; }
+  .screw-tr { top: 9px; right: 9px; }
+  .screw-bl { bottom: 9px; left: 9px; }
+  .screw-br { bottom: 9px; right: 9px; }
+
+  .deck-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed rgba(255, 95, 31, 0.4);
+  }
+  .deck-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-3xs);
+    font-weight: 900;
+    letter-spacing: var(--tracking-tag);
+    color: var(--text-bright);
+  }
+  .side-tag {
+    font-family: var(--font-pixel);
+    font-size: 16px;
+    letter-spacing: var(--tracking-tag);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 2px 8px;
+    background: rgba(232, 148, 58, 0.08);
+  }
+
+  .deck-body {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .reel-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .reel-cap {
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--text-dim);
+  }
+
+  /* Reel: idle spin on outer, scroll offset on inner */
+  .reel {
+    width: 84px;
+    height: 84px;
+  }
+  .idle-spin {
+    animation: reelIdle 12s linear infinite;
+  }
+  .cassette-deck.paused .idle-spin {
+    animation-play-state: paused;
+  }
+  .cassette-deck.rewinding .idle-spin {
+    animation: reelIdle 0.5s linear infinite reverse;
+  }
+  @keyframes reelIdle {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .reel-scroll {
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+  }
+  .reel-face {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 50% 50%, var(--accent-deep) 0 7px, #0d0d13 8px 11px, transparent 12px),
+      repeating-conic-gradient(
+        rgba(255, 255, 255, 0.055) 0deg 9deg,
+        transparent 9deg 18deg
+      ),
+      conic-gradient(from 0deg, #2c2c38, #1a1a22 45%, #23232e 80%, #1a1a22);
+    border: 2px solid rgba(255, 255, 255, 0.16);
+    box-shadow:
+      inset 0 0 14px rgba(0, 0, 0, 0.7),
+      0 2px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+  .reel-face::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 3px;
+    height: 8px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  /* Tape window = restored SYS.BOOT terminal (B2) */
+  .terminal {
+    flex: 1;
+    min-width: 0;
+    padding: 18px;
+    background: rgba(5, 5, 10, 0.96);
+    border: 1px solid rgba(232, 148, 58, 0.3);
+    box-shadow:
+      inset 0 0 26px rgba(0, 0, 0, 0.75),
+      inset 0 0 60px rgba(232, 120, 53, 0.03);
+    font-family: var(--font-mono);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .terminal::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 44px;
+    height: 3px;
+    background: var(--accent);
+  }
+  .terminal::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 30px;
+    height: 2px;
+    background: rgba(232, 160, 64, 0.5);
+  }
+
   .terminal-header {
-    padding-bottom: 18px;
-    margin-bottom: 20px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
     border-bottom: 1px dashed rgba(255, 95, 31, 0.4);
     font-weight: bold;
+    font-size: var(--text-scale-4xs);
     color: var(--text-bright);
-    line-height: 1.8;
+    line-height: 1.7;
   }
   .terminal-header span {
     color: var(--accent);
   }
 
   .terminal-content {
-    line-height: 2;
     color: var(--terminal-green);
-    height: 240px;
+    height: 128px;
     overflow-y: hidden;
     position: relative;
   }
@@ -706,24 +1065,24 @@ const projectsPath = getLocalizedPath("/projects", language);
   /* CRT fade strips */
   .crt-fade-top {
     position: absolute;
-    top: 165px;
-    left: 32px;
-    right: 32px;
-    height: 50px;
+    top: 52px;
+    left: 18px;
+    right: 18px;
+    height: 26px;
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      var(--surface-night-solid) 0%,
+      rgba(5, 5, 10, 1) 0%,
       transparent 100%
     );
   }
   .crt-fade-bot {
     position: absolute;
-    bottom: 38px;
-    left: 32px;
-    right: 32px;
-    height: 90px;
+    bottom: 14px;
+    left: 18px;
+    right: 18px;
+    height: 34px;
     z-index: 2;
     pointer-events: none;
     background: linear-gradient(to top, rgba(5, 5, 10, 1) 0%, transparent 100%);
@@ -734,58 +1093,157 @@ const projectsPath = getLocalizedPath("/projects", language);
     animation: blink 1s infinite;
   }
 
+  /* Transport controls */
+  .deck-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .deck-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 4px;
+    color: #bbb;
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-4xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-label);
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition:
+      color 0.2s var(--ease-out),
+      border-color 0.2s var(--ease-out),
+      background 0.2s var(--ease-out),
+      transform 0.08s var(--spring-snappy);
+  }
+  .deck-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .deck-btn:active {
+    transform: scale(0.92);
+  }
+  .deck-btn.engaged {
+    color: var(--on-accent);
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(232, 148, 58, 0.35);
+  }
+  .btn-sym {
+    font-size: var(--text-scale-4xs);
+  }
+  .counter-window {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(232, 148, 58, 0.3);
+    border-radius: 3px;
+  }
+  #deck-counter {
+    font-family: var(--font-pixel);
+    font-size: 22px;
+    line-height: 1;
+    color: var(--terminal-green);
+    text-shadow: 0 0 6px rgba(58, 240, 79, 0.5);
+  }
+  .counter-unit {
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-5xs);
+    letter-spacing: var(--tracking-label);
+    color: var(--text-dim);
+  }
+
   @media (max-width: 900px) {
     .hero {
       flex-direction: column;
       align-items: flex-start;
       padding: 60px 25px;
     }
-    .terminal {
+    .cassette-deck {
       width: 100%;
+      margin-top: 40px;
     }
     .hero-bg {
       display: none;
     }
+    .deck-body {
+      gap: 12px;
+    }
   }
 
   /* ── Light mode ── */
-  :root[data-theme="light"] .terminal {
-    border-color: rgba(0,0,0,0.08);
-    background: var(--paper);
+  :root[data-theme="light"] .deck-shell {
+    border-color: rgba(0, 0, 0, 0.12);
+    background: linear-gradient(145deg, #f8f4ec 0%, #ece5d8 100%);
     box-shadow:
-      inset 0 2px 6px rgba(0,0,0,0.06),
-      inset 0 -1px 3px rgba(0,0,0,0.04),
-      0 4px 16px rgba(0,0,0,0.05),
-      0 1px 0 rgba(255,255,255,0.6);
+      inset 0 2px 6px rgba(0, 0, 0, 0.06),
+      inset 0 -1px 3px rgba(0, 0, 0, 0.04),
+      0 4px 16px rgba(0, 0, 0, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.6);
   }
-  :root[data-theme="light"] .terminal::before {
-    background: linear-gradient(90deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05), transparent);
+  :root[data-theme="light"] .deck-shell::before {
+    background: linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.65) 0%,
+      transparent 40%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
   }
-  :root[data-theme="light"] .terminal::after {
-    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), rgba(0,0,0,0.1));
+  :root[data-theme="light"] .screw {
+    background: radial-gradient(circle at 35% 30%, #b9b9c0, #4e4e56 75%);
+  }
+  :root[data-theme="light"] .deck-title {
+    color: #1a1a1a;
+  }
+  :root[data-theme="light"] .side-tag {
+    color: var(--accent-deep);
+    border-color: var(--accent-deep);
+    background: rgba(192, 112, 32, 0.06);
+  }
+  :root[data-theme="light"] .terminal {
+    background: rgba(20, 20, 24, 0.96);
+    border-color: rgba(0, 0, 0, 0.14);
+  }
+  :root[data-theme="light"] .terminal-header {
+    color: #e8e6e0;
   }
   :root[data-theme="light"] .crt-fade-top {
-    background: linear-gradient(to bottom, var(--paper) 0%, transparent 100%);
+    background: linear-gradient(to bottom, rgb(20, 20, 24) 0%, transparent 100%);
   }
   :root[data-theme="light"] .crt-fade-bot {
-    background: linear-gradient(to top, var(--paper) 0%, transparent 100%);
+    background: linear-gradient(to top, rgb(20, 20, 24) 0%, transparent 100%);
+  }
+  :root[data-theme="light"] .deck-btn {
+    color: #555;
+    border-color: rgba(0, 0, 0, 0.18);
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  :root[data-theme="light"] .deck-btn:hover {
+    color: var(--accent-deep);
+    border-color: var(--accent-deep);
+  }
+  :root[data-theme="light"] .counter-window {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.15);
   }
   :root[data-theme="light"] .telemetry-strip {
     color: var(--text-tertiary);
-    border-bottom-color: rgba(0,0,0,0.1);
-  }
-  :root[data-theme="light"] .terminal-header {
-    color: var(--text-bright);
-    border-bottom-color: rgba(0,0,0,0.12);
-  }
-  :root[data-theme="light"] .terminal-header span {
-    color: var(--accent-deep);
-  }
-  :root[data-theme="light"] .tel-sep {
-    color: rgba(0,0,0,0.12);
   }
   :root[data-theme="light"] .coords {
-    color: rgba(0,0,0,0.25);
+    color: rgba(0, 0, 0, 0.25);
   }
   :root[data-theme="light"] .hero h1 {
     color: var(--text-bright);

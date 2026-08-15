@@ -34,12 +34,19 @@ const topTags = filterTags
   .map((t) => [t, projectEntries.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title={`${t.sections.projects.title} | R2S Studio`} description={t.meta.description}>
+<Layout title={`${t.sections.projects.title} | RrSuika`} description={t.meta.description}>
   <main class="projects-page">
     <header class="projects-header">
       <h1>{t.sections.projects.title}</h1>
       <p>{t.sections.projects.description}</p>
     </header>
+
+    <div class="list-readout">
+      <span>ENTRY_CNT: <b>{projectEntries.length}</b></span>
+      <span>SIGNAL: <b>97%</b></span>
+      <span>FILTER: <b>ACTIVE</b></span>
+      <span>SORT: <b>DATE_DESC</b></span>
+    </div>
 
     {
       topTags.length > 0 && (
@@ -56,7 +63,7 @@ const topTags = filterTags
 
     <div class="grid" id="projects-grid">
       {projectEntries.map((entry) => (
-        <div class="project-wrapper" data-tags={JSON.stringify(entry.data.tags || [])}>
+        <div class="project-wrapper" data-reveal data-tags={JSON.stringify(entry.data.tags || [])}>
           <ProjectCard project={entry} />
         </div>
       ))}

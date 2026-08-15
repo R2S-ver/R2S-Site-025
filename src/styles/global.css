@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   R2S STUDIO — GLOBAL DESIGN SYSTEM
+   RrS STUDIO — GLOBAL DESIGN SYSTEM
    Single source of truth. Imported once by Layout.astro.
 
    BREAKPOINT REGISTRY — CSS custom properties are not valid inside
@@ -78,6 +78,11 @@
   /* TYPOGRAPHY */
   --font-mono: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Courier New", monospace;
   --font-body: Arial, Helvetica, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+
+  /* TYPE FAMILIES — cassette/NASA additions (2026-08 beautify pass) */
+  --font-display: "Saira Condensed", "Smiley Sans Oblique", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-zh-display: "Smiley Sans Oblique", "Saira Condensed", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-pixel: "VT323", "JetBrains Mono", "Courier New", monospace;
 
   /* TYPE SCALE — exact original values */
   --text-scale-hero: clamp(80px, 10vw, 110px);
@@ -646,7 +651,7 @@ body::after {
 
   z-index: 0;
 
-  opacity: 0.035;
+  opacity: 0.07;
 
   /* Subtle noise via tiny SVG data URI */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -654,7 +659,7 @@ body::after {
 }
 
 :root[data-theme="light"] body::after {
-  opacity: 0.025;
+  opacity: 0.05;
 }
 
 /* ── CRT scanline overlay (original opacity) ── */
@@ -709,21 +714,21 @@ body::after {
   background: radial-gradient(
     ellipse at 50% 50%,
     transparent 55%,
-    rgba(240, 160, 64, 0.04) 75%,
-    rgba(200, 100, 20, 0.08) 100%
+    rgba(240, 160, 64, 0.06) 75%,
+    rgba(200, 100, 20, 0.12) 100%
   );
 
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 :root[data-theme="light"] #tube-vignette {
   background: radial-gradient(
     ellipse at 50% 50%,
     transparent 55%,
-    rgba(180, 140, 100, 0.03) 75%,
-    rgba(160, 120, 80, 0.05) 100%
+    rgba(180, 140, 100, 0.05) 75%,
+    rgba(160, 120, 80, 0.08) 100%
   );
-  opacity: 0.4;
+  opacity: 0.55;
 }
 
 /* ═══════════════════════════════════════════
@@ -819,8 +824,8 @@ body::after {
   box-shadow: var(--shadow-paper);
 }
 
-/* Decorative numbers */
-:root[data-theme="light"] .number { color: rgba(0, 0, 0, 0.12) !important; }
+/* Decorative numbers — retro-red ghost (A7) */
+:root[data-theme="light"] .number { color: rgba(184, 74, 58, 0.45) !important; }
 
 /* Tag filter area */
 :root[data-theme="light"] .tag-filter,
@@ -956,17 +961,263 @@ html[lang="nl"] .version-cell h4 {
 }
 
 /* ═══════════════════════════════════════════
-   §14  TEMPORARY EXPERIMENT — hero terminal hidden
-   ═══════════════════════════════════════════
-   状态：首页右侧 SYS.BOOT 终端被临时隐藏（用户评估
-   无终端首页是否更清爽）。终端元素本身仍完整存在于
-   Hero.astro 中，未被删除。
-
-   ── 如何恢复终端 ──
-   删除本区块内的整条 `.hero .terminal { display: none; }`
-   规则（即下面这 3 行），终端即恢复显示。
-   无需修改任何其他文件。
+   §15  BEAUTIFY PACK 2026-08 — cassette / NASA
+   Display fonts, cassette surfaces, HUD chrome,
+   view transitions, glitch, scroll reveal.
+   Art pages stay frozen: font rules exclude
+   them via body.art-route (set in Layout.astro).
    ═══════════════════════════════════════════ */
-.hero .terminal {
-  display: none;
+
+/* ── Display type for headings ── */
+body:not(.art-route) h1,
+body:not(.art-route) h2,
+body:not(.art-route) h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+/* Chinese headings → Smiley Sans (single weight, already display-bold) */
+html[lang="zh"] body:not(.art-route) h1,
+html[lang="zh"] body:not(.art-route) h2,
+html[lang="zh"] body:not(.art-route) h3 {
+  font-family: var(--font-zh-display);
+  font-weight: 400;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+}
+
+/* Hero headline stays Latin even on zh/nl — restore display family */
+html[lang="zh"] body .hero h1,
+html[lang="nl"] body .hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+
+/* ── Pixel OSD text ── */
+.terminal-content,
+.telemetry-strip,
+.meter-label,
+.meter-value,
+.meter-unit {
+  font-family: var(--font-pixel);
+}
+
+.terminal-content {
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.telemetry-strip {
+  font-size: 14px;
+}
+
+/* ── Cassette label strip (paper label + torn edges) ── */
+.tape-label {
+  position: relative;
+  display: inline-block;
+  padding: 7px 18px 9px;
+  background: var(--paper);
+  color: #1a1815;
+  border-radius: 2px;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transform: rotate(-1.2deg);
+}
+
+.tape-label::before,
+.tape-label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 6px,
+    rgba(0, 0, 0, 0.14) 6px 12px
+  );
+}
+
+.tape-label::before {
+  top: -3px;
+}
+
+.tape-label::after {
+  bottom: -3px;
+}
+
+/* ── List page telemetry readout strip ── */
+.list-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-mono);
+  font-size: var(--text-scale-3xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-dim);
+}
+
+.list-readout b {
+  color: var(--terminal-green);
+  font-weight: 700;
+}
+
+:root[data-theme="light"] .list-readout {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* ── View Transitions: CRT collapse / expand (B8) ── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.38s;
+  animation-timing-function: var(--ease-in-out);
+}
+
+::view-transition-old(root) {
+  animation-name: vt-crt-out;
+}
+
+::view-transition-new(root) {
+  animation-name: vt-crt-in;
+}
+
+@keyframes vt-crt-out {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  55% {
+    transform: scale(1.004);
+    filter: brightness(2.2);
+  }
+  100% {
+    transform: scale(1, 0.004);
+    filter: brightness(3);
+    opacity: 0.9;
+  }
+}
+
+@keyframes vt-crt-in {
+  0% {
+    transform: scale(1, 0.004);
+    filter: brightness(3);
+    opacity: 0.9;
+  }
+  35% {
+    filter: brightness(1.7);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* ── CRT glitch overlay (B7) ── */
+#crt-glitch {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#crt-glitch.active {
+  opacity: 1;
+}
+
+#crt-glitch::before,
+#crt-glitch::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 36px;
+  mix-blend-mode: screen;
+}
+
+#crt-glitch::before {
+  top: 12%;
+  background: linear-gradient(
+    90deg,
+    rgba(94, 223, 255, 0.05),
+    rgba(232, 148, 58, 0.07),
+    rgba(94, 223, 255, 0.05)
+  );
+}
+
+#crt-glitch::after {
+  top: 66%;
+  background: rgba(232, 148, 58, 0.05);
+}
+
+#crt-glitch.active::before {
+  animation: glitchBand 0.12s steps(2) 2;
+}
+
+#crt-glitch.active::after {
+  animation: glitchBandB 0.14s steps(2) 2;
+}
+
+@keyframes glitchBand {
+  0% {
+    transform: translateX(-4px) skewX(2deg);
+  }
+  50% {
+    transform: translateX(5px) skewX(-3deg);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes glitchBandB {
+  0% {
+    transform: translateX(6px);
+  }
+  50% {
+    transform: translateX(-7px) skewX(4deg);
+  }
+  100% {
+    transform: translateX(3px);
+  }
+}
+
+/* ── Scroll reveal (B5) — JS-only hiding via html.js ── */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
+}
+
+html.js [data-reveal].revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
@@ -23,7 +24,7 @@ interface Props {
 }
 
 const {
-  title = "R2S Studio",
+  title = "RrSuika",
   description,
   ogImage,
   alternateHrefs,
@@ -33,6 +34,12 @@ const {
 const language = getLanguageFromPath(Astro.url.pathname);
 const isZh = language === "zh";
 const t = getTranslations(language);
+
+// Art pages are frozen — exclude them from global heading font changes.
+const isArtRoute =
+  Astro.url.pathname === "/art" ||
+  Astro.url.pathname.startsWith("/zh/art") ||
+  Astro.url.pathname.startsWith("/nl/art");
 
 const metaDescription = description ?? t.meta.description;
 
@@ -72,7 +79,7 @@ const ogImageUrl =
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "R2S Studio",
+  name: "RrSuika",
   url: "https://r2s-site-025.pages.dev/",
   inLanguage: ["en", "zh", "nl"],
 };
@@ -97,6 +104,7 @@ const websiteSchema = {
           // First visit: default to dark mode
           document.documentElement.setAttribute("data-theme", "dark");
         }
+        document.documentElement.classList.add("js");
       })();
     </script>
     <style is:global>
@@ -116,10 +124,16 @@ const websiteSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800;900&family=Saira+Condensed:wght@500;600;700;800;900&family=VT323&display=swap"
       rel="stylesheet"
     />
 
+    <!-- 得意黑 Smiley Sans Oblique — self-hosted subsets (OFL, cn-font-split) -->
+    <link rel="stylesheet" href="/fonts/dyh/result.css" />
+
+    <ClientRouter />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
@@ -146,7 +160,7 @@ const websiteSchema = {
 
     {xDefaultUrl && <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />}
 
-    <meta property="og:site_name" content="R2S Studio" />
+    <meta property="og:site_name" content="RrSuika" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
     <meta property="og:type" content="website" />
@@ -173,7 +187,7 @@ const websiteSchema = {
     />
   </head>
 
-  <body>
+  <body class:list={{ "art-route": isArtRoute }}>
     <!-- =========================================
          SKIP LINK — keyboard navigation
     ========================================== -->
@@ -231,6 +245,8 @@ const websiteSchema = {
 
     <div id="tube-vignette"></div>
 
+    <div id="crt-glitch" aria-hidden="true"></div>
+
     <!-- =========================================
          NEURAL NETWORK SCRIPT — weakened version:
          fewer particles, softer glow, gentler
@@ -241,6 +257,14 @@ const websiteSchema = {
 
     <script>
       (() => {
+        // ClientRouter re-executes body scripts per navigation —
+        // run the particle engine only once per session.
+        const state = window as unknown as { __r2sNeuralStarted?: boolean };
+
+        if (state.__r2sNeuralStarted) return;
+
+        state.__r2sNeuralStarted = true;
+
         const canvas = document.getElementById(
           "neural-canvas",
         ) as HTMLCanvasElement | null;
@@ -262,6 +286,38 @@ const websiteSchema = {
         const CONNECTION_DIST = 140;
 
         let time = 0;
+
+        /* =========================================
+           TELEMETRY PACKETS — small bright dots
+           riding the connection lines (NASA-punk)
+        ========================================== */
+
+        const packetCap = window.innerWidth < 900 ? 3 : 7;
+
+        const packets: {
+          ax: number;
+          ay: number;
+          bx: number;
+          by: number;
+          t: number;
+          speed: number;
+          color: string;
+        }[] = [];
+
+        for (let i = 0; i < packetCap; i++) {
+          packets.push({
+            ax: 0,
+            ay: 0,
+            bx: 0,
+            by: 0,
+            t: Math.random(),
+            speed: 0.004 + Math.random() * 0.008,
+            color:
+              Math.random() > 0.5
+                ? "rgba(240,184,96,0.95)"
+                : "rgba(94,223,255,0.9)",
+          });
+        }
 
         /* =========================================
            MOUSE
@@ -341,6 +397,13 @@ const websiteSchema = {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
           time += 0.007;
+
+          const connections: {
+            ax: number;
+            ay: number;
+            bx: number;
+            by: number;
+          }[] = [];
 
           particles.forEach((particle, index) => {
             /* ---------------------------------
@@ -495,14 +558,316 @@ const websiteSchema = {
                 ctx.lineTo(other.x, other.y);
 
                 ctx.stroke();
+
+                connections.push({
+                  ax: particle.x,
+                  ay: particle.y,
+                  bx: other.x,
+                  by: other.y,
+                });
               }
             }
           });
+
+          /* ---------------------------------
+               Draw telemetry packets
+            --------------------------------- */
+
+          if (connections.length > 0) {
+            packets.forEach((packet) => {
+              packet.t += packet.speed;
+
+              if (packet.t >= 1) {
+                const line =
+                  connections[
+                    (Math.random() * connections.length) | 0
+                  ];
+
+                packet.ax = line.ax;
+                packet.ay = line.ay;
+                packet.bx = line.bx;
+                packet.by = line.by;
+
+                packet.t = 0;
+              }
+
+              const px = packet.ax + (packet.bx - packet.ax) * packet.t;
+              const py = packet.ay + (packet.by - packet.ay) * packet.t;
+
+              ctx.fillStyle = packet.color;
+
+              ctx.shadowColor = packet.color;
+
+              ctx.shadowBlur = 6;
+
+              ctx.beginPath();
+
+              ctx.arc(px, py, 1.6, 0, Math.PI * 2);
+
+              ctx.fill();
+
+              ctx.shadowBlur = 0;
+            });
+          }
 
           requestAnimationFrame(animate);
         }
 
         animate();
+      })();
+    </script>
+
+    <!-- ── Sound engine (B9) — synthesized cassette FX, default OFF ── -->
+    <script>
+      (() => {
+        const KEY = "r2s-snd";
+
+        let ctx: AudioContext | null = null;
+
+        function ac(): AudioContext | null {
+          if (!ctx) {
+            const AC =
+              window.AudioContext ||
+              (window as unknown as { webkitAudioContext?: typeof AudioContext })
+                .webkitAudioContext;
+
+            if (!AC) return null;
+
+            ctx = new AC();
+          }
+
+          if (ctx.state === "suspended") {
+            ctx.resume().catch(() => {});
+          }
+
+          return ctx;
+        }
+
+        function blip(
+          freqFrom: number,
+          freqTo: number,
+          dur: number,
+          gain = 0.08,
+          type: OscillatorType = "square",
+        ) {
+          const c = ac();
+
+          if (!c) return;
+
+          const osc = c.createOscillator();
+          const g = c.createGain();
+
+          osc.type = type;
+
+          osc.frequency.setValueAtTime(freqFrom, c.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(
+            Math.max(freqTo, 1),
+            c.currentTime + dur,
+          );
+
+          g.gain.setValueAtTime(gain, c.currentTime);
+          g.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + dur);
+
+          osc.connect(g);
+          g.connect(c.destination);
+
+          osc.start();
+          osc.stop(c.currentTime + dur);
+        }
+
+        function hiss(dur: number, freq: number, gain = 0.05) {
+          const c = ac();
+
+          if (!c) return;
+
+          const len = Math.floor(c.sampleRate * dur);
+          const buffer = c.createBuffer(1, len, c.sampleRate);
+          const data = buffer.getChannelData(0);
+
+          for (let i = 0; i < len; i++) {
+            data[i] = (Math.random() * 2 - 1) * (1 - i / len);
+          }
+
+          const src = c.createBufferSource();
+          const filter = c.createBiquadFilter();
+          const g = c.createGain();
+
+          src.buffer = buffer;
+
+          filter.type = "bandpass";
+          filter.frequency.value = freq;
+          filter.Q.value = 0.8;
+
+          g.gain.value = gain;
+
+          src.connect(filter);
+          filter.connect(g);
+          g.connect(c.destination);
+
+          src.start();
+        }
+
+        const fx = {
+          click() {
+            blip(1700, 500, 0.05, 0.05);
+            hiss(0.03, 3200, 0.03);
+          },
+          load() {
+            hiss(0.16, 900, 0.05);
+            blip(120, 320, 0.16, 0.05, "triangle");
+          },
+          rewind() {
+            for (let i = 0; i < 4; i++) {
+              setTimeout(() => blip(900 - i * 120, 300, 0.045, 0.05), i * 70);
+            }
+          },
+          play() {
+            blip(660, 990, 0.09, 0.06);
+          },
+        };
+
+        window.__r2sSnd = {
+          get enabled() {
+            try {
+              return localStorage.getItem(KEY) === "on";
+            } catch (_) {
+              return false;
+            }
+          },
+          toggle() {
+            const next = !this.enabled;
+
+            try {
+              localStorage.setItem(KEY, next ? "on" : "off");
+            } catch (_) {}
+
+            ac();
+
+            if (next) fx.click();
+
+            return next;
+          },
+          click: () => {
+            if (window.__r2sSnd.enabled) fx.click();
+          },
+          load: () => {
+            if (window.__r2sSnd.enabled) fx.load();
+          },
+          rewind: () => {
+            if (window.__r2sSnd.enabled) fx.rewind();
+          },
+          play: () => {
+            if (window.__r2sSnd.enabled) fx.play();
+          },
+        };
+
+        // Sync SND toggle UI state (navbar button)
+        document
+          .querySelectorAll<HTMLElement>("[data-snd-btn]")
+          .forEach((btn) => {
+            btn.classList.toggle("on", window.__r2sSnd.enabled);
+          });
+      })();
+    </script>
+
+    <!-- ── CRT glitch (B7) — rare, switchable, reduced-motion aware ── -->
+    <script>
+      (() => {
+        const el = document.getElementById("crt-glitch");
+
+        if (!el) return;
+
+        const reduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        let enabled = true;
+
+        try {
+          enabled = localStorage.getItem("r2s-glitch") !== "off";
+        } catch (_) {}
+
+        window.__toggleGlitch = function () {
+          enabled = !enabled;
+
+          try {
+            localStorage.setItem("r2s-glitch", enabled ? "on" : "off");
+          } catch (_) {}
+
+          el.style.display = enabled ? "" : "none";
+
+          return enabled;
+        };
+
+        if (!enabled || reduced) {
+          el.style.display = "none";
+        }
+
+        // Sync GLITCH toggle UI state (footer button)
+        document
+          .querySelectorAll<HTMLElement>("[data-glitch-btn]")
+          .forEach((btn) => {
+            btn.classList.toggle("off", !enabled);
+          });
+
+        function zap() {
+          if (!enabled || reduced) return;
+
+          el.classList.add("active");
+
+          setTimeout(
+            () => el.classList.remove("active"),
+            120 + Math.random() * 160,
+          );
+        }
+
+        function loop() {
+          setTimeout(
+            () => {
+              zap();
+              loop();
+            },
+            20000 + Math.random() * 24000,
+          );
+        }
+
+        // Single glitch loop per session (ClientRouter re-runs scripts)
+        const state = window as unknown as { __r2sGlitchLoop?: boolean };
+
+        if (!state.__r2sGlitchLoop) {
+          state.__r2sGlitchLoop = true;
+          loop();
+        }
+      })();
+    </script>
+
+    <!-- ── Scroll reveal (B5) — sections marked [data-reveal] ── -->
+    <script>
+      (() => {
+        if (
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+          !("IntersectionObserver" in window)
+        ) {
+          return;
+        }
+
+        const els = document.querySelectorAll("[data-reveal]");
+
+        if (!els.length) return;
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
+        );
+
+        els.forEach((el) => io.observe(el));
       })();
     </script>
 

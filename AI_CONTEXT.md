@@ -1,10 +1,10 @@
-# AI_CONTEXT.md — R2S Studio Portfolio 项目上下文（AI 专用）
+# AI_CONTEXT.md — RrSuika Portfolio 项目上下文（AI 专用）
 
 > **本文件是给未来 AI 助手的项目级长期记忆（Architecture & Design Memory）。**
 > 接手任何新任务时：**先读本文件 → 再用快速索引（§11）定位文件 → 只读必要的源文件 → 动手。**
 > 与 `CLAUDE.md` 的分工：CLAUDE.md 是**规则与政策**（必须遵守的约束），本文件是**架构事实与原因**（"现在怎么组织的、为什么、去哪改"）。`AGENTS.md` 只讲开发服务器的工作方式。
 >
-> - 最后更新：2026-08-14 v1.1（技术债小修批次：ProjectCard 路由单一来源 / sharp 依赖声明 / zh-notes 翻译键 / 输入-取消跟踪；新增 §12 规则 12–13）
+> - 最后更新：2026-08-15 v1.3（美化批次：磁带盒/NASA 朋克 21 项落地——Cassette Deck hero、三语风格谱系徽章、display/pixel/得意黑三族字体、ViewTransitions CRT 过渡、滚动磁带计数器、CRT glitch、音效引擎、粒子遥测包、卡片 HUD/标签条/走带计数器；修订 §1/§2/§6/§7/§9/§10/§11）
 > - 维护规则见 §12：代码若与本文件冲突，**以代码为准**，并更新本文件。
 
 ---
@@ -13,14 +13,14 @@
 
 | 项 | 内容 |
 |---|---|
-| 定位 | R2S Studio 个人作品集网站：工业设计 × 嵌入式系统 × 创意制造（Industrial Design × Embedded Systems × Creative Making） |
+| 定位 | RrSuika 个人作品集网站：工业设计 × 嵌入式系统 × 创意制造（Industrial Design × Embedded Systems × Creative Making） |
 | 技术栈 | **Astro 7.1.6**（纯静态输出）、**zod 4**（内容 schema）、TypeScript（`astro/tsconfigs/strict`）、原生 CSS + 少量原生 JS。**无任何集成**：无 React/Vue/Svelte、无 MDX、无 Tailwind、无适配器 |
 | 站点 | https://r2s-site-025.pages.dev （Cloudflare Pages，push 到 `main` 自动部署） |
-| 语言 | 英文为主（默认无前缀），中文为 `/zh` 前缀镜像。**手动 i18n**：不使用 Astro 内置 i18n routing（虽然 astro.config.mjs 里声明了 i18n 配置，实际路由全部手写，见 §3、§9） |
+| 语言 | 三语：英文（默认无前缀）、中文 `/zh`、荷兰语 `/nl`（2026-08 新增，23 个条目全部有 nl.md）。**手动 i18n**：不使用 Astro 内置 i18n routing（astro.config.mjs 的 i18n 声明只是占位，实际路由全部手写，见 §3、§9） |
 | 设计方向 | 复古科幻 CRT 终端 / 技术手册 HUD 风（retro-futurism）：暗色默认 + 亮色"蓝图纸"（Soviet technical manual）主题 |
-| 阶段 | 生产运行中。架构稳定；art 页面**冻结**（用户决定）；首页 Hero 终端处于**临时隐藏实验**状态（§14，见 §10） |
+| 阶段 | 生产运行中。架构稳定；art 页面**冻结**（用户决定）；首页 Hero 右侧为**磁带盒装置**（Cassette Deck，内置恢复后的 SYS.BOOT 终端，2026-08 美化批次，见 §9-16） |
 
-**GitHub**：远程仓库 `R2S-Site-025`（账号 R2S-ver；本地文件夹名为 MyPortfolio），主分支 `main`，工作树干净即代表生产状态。
+**GitHub**：远程仓库 `RrS-Site-025`（账号 RrSuika；本地文件夹名为 MyPortfolio），主分支 `main`，工作树干净即代表生产状态。
 
 ---
 
@@ -40,23 +40,25 @@ MyPortfolio/
 ├── scripts/
 │   └── og-card-gen.mjs        # 重新生成 public/og-card.png 的脚本（手动运行）
 ├── public/                    # 原样拷贝进站点的静态资源（不参与打包）
-│   ├── favicon.ico / favicon-32x32.png / favicon-48x48.png
-│   ├── og-card.png            # 默认 og:image（1200×630，由 scripts/og-card-gen.mjs 生成）
+│   ├── favicon.ico / favicon-32x32.png / favicon-48x48.png / favicon.svg（磁带轮廓 SVG，2026-08）
+│   ├── fonts/dyh/             # 得意黑 Smiley Sans Oblique 自托管子集（@chinese-fonts/dyh：59 woff2 + result.css，OFL）
+│   ├── og-card.png            # 默认 og:image（1200×630，磁带主题，由 scripts/og-card-gen.mjs 生成）
 │   ├── robots.txt             # 全站允许；AI 训练爬虫禁 /art/ 与 /zh/art/
 │   ├── google0d89945c0c4db4b1.html  # Google Search Console 验证文件
 │   └── art/fashion-design/    # 4 张 PNG 副本——为保留 alpha 透明通道直接以原图提供
 ├── src/
 │   ├── content.config.ts      # ★ 内容 Schema 唯一事实来源（单一 collection `entries`）
-│   ├── content/entries/       # ★ 全部内容：23 个条目文件夹，各含 en.md + cn.md + 图片
+│   ├── content/entries/       # ★ 全部内容：23 个条目文件夹，各含 en.md + cn.md + nl.md + 图片
 │   ├── layouts/
-│   │   └── Layout.astro       # ★ 全站唯一布局（head/SEO/主题/背景层/全局脚本）
-│   ├── pages/                 # 路由（静态页 + zh 镜像 + 2 个动态路由 + sitemap + 404）
+│   │   └── Layout.astro       # ★ 全站唯一布局（head/SEO/主题/背景层/全局脚本：粒子+数据包、音效引擎、CRT glitch、滚动 reveal、ClientRouter）
+│   ├── pages/                 # 路由（静态页 + zh/nl 镜像 + 2 个动态路由 + sitemap + 404）
 │   │   ├── [type]/[...slug]/index.astro   # en 详情页动态路由
-│   │   ├── [lang]/[type]/[slug]/index.astro  # zh 详情页动态路由
-│   │   └── zh/                # 全部中文静态页镜像（独立文件，非模板共享）
+│   │   ├── [lang]/[type]/[slug]/index.astro  # 非英语详情页动态路由（zh+nl 共用）
+│   │   ├── zh/                # 全部中文静态页镜像（独立文件，非模板共享）
+│   │   └── nl/                # 全部荷兰语静态页镜像（独立文件，非模板共享）
 │   ├── components/            # 11 个组件：全局 6 个 + home/ 5 个（见 §5）
 │   ├── styles/
-│   │   └── global.css         # ★ 设计系统唯一事实来源（14 个 section，955 行）
+│   │   └── global.css         # ★ 设计系统唯一事实来源（15 个 section，§15=2026-08 美化包）
 │   └── utils/                 # 4 个工具模块（见下表）
 ├── 输入/                      # ★ 用户给 AI 的"投递箱"：素材放这里，AI 读取后转写为站内内容（§12 规则 13）。已移出版本控制，永不提交/上传
 ├── node_modules/ .astro/ dist/  # 依赖/构建产物（gitignored，勿读勿改）
@@ -67,7 +69,7 @@ MyPortfolio/
 | 文件 | 职责 | 关键导出 |
 |---|---|---|
 | `routes.ts` | **详情 URL 单一事实来源** | `typeToRoute`（projects→projects, lab→lab, **note→note 单数**, art→art）、`buildEntryUrl(entry, language)` |
-| `i18n.ts` | 语言判定与路径换算 | `Language` 类型、`defaultLanguage="en"`、`getLanguageFromPath`（`/zh` 前缀判定）、`getLocalizedPath`（加/剥 `/zh` 前缀）、`findTranslation`（按 `translationKey`+`lang` 配对译文条目） |
+| `i18n.ts` | 语言判定与路径换算 | `Language` 类型 `"en"\|"zh"\|"nl"`、`defaultLanguage="en"`、`getLanguageFromPath`（`/zh`、`/nl` 前缀判定）、`getLocalizedPath`（加/剥语言前缀）、`findTranslation`（按 `translationKey`+`lang` 配对译文条目）、`languageCodes/languageLocales/languageDateLocales` 三语映射 |
 | `translations.ts` | **全部文案唯一事实来源**（13 个 section：meta/nav/common/language/card/hero/featured/explore/latest/aboutPreview/footer/sections/system） | `translations`（`{en, zh}`）、`getTranslations(language)`；用法 `const t = getTranslations(lang)` 后按路径取文案 |
 | `images.ts` | 内容图片解析 | `getProjectImage(id, filename)`：`import.meta.glob(eager)` 扫描 entries 图片；**特例**：`fashion-design` 的 PNG 返回 `/art/fashion-design/{file}`（走 public 保留透明通道）。**注意**：Astro 图片 glob 运行时返回的是 ImageMetadata 对象（`.src` 才是 URL），`getProjectImage` 返回原始值（ArtGallery 冻结区与详情页模板自行归一化）；渲染原生 `<img>` 时用 `getProjectImageUrl`（归一化为 URL 字符串，ProjectCard/ProjectDetail 在用） |
 
@@ -92,17 +94,19 @@ MyPortfolio/
 |---|---|---|
 | `/` | `src/pages/index.astro` | 首页（en） |
 | `/zh` | `src/pages/zh/index.astro` | 首页（zh，独立文件） |
+| `/nl` | `src/pages/nl/index.astro` | 首页（nl，独立文件） |
 | `/projects` `/lab` `/notes` `/art` `/about` | `src/pages/{projects,lab,notes,art,about}/index.astro` | 五个列表/静态页（en） |
 | `/zh/projects` … `/zh/about` | `src/pages/zh/{...}/index.astro` | 五个 zh 镜像（独立文件） |
+| `/nl/projects` … `/nl/about` | `src/pages/nl/{...}/index.astro` | 六个 nl 镜像（独立文件，含 art） |
 | `/{type}/{slug}` | `src/pages/[type]/[...slug]/index.astro` | **en 详情页**：`/projects/{slug}`、`/lab/{slug}`、`/note/{slug}` |
-| `/zh/{type}/{slug}` | `src/pages/[lang]/[type]/[slug]/index.astro` | **zh 详情页**（`lang` 参数**硬编码为 `"zh"`**，此文件只服务中文） |
+| `/zh/{type}/{slug}` 与 `/nl/{type}/{slug}` | `src/pages/[lang]/[type]/[slug]/index.astro` | **非英语详情页**（zh+nl 共用此文件，过滤 `entry.data.lang !== "en"`，lang 参数不再硬编码 zh） |
 | `/sitemap.xml` | `src/pages/sitemap.xml.ts` | 手写 XML 端点 |
 | `*`（未命中） | `src/pages/404.astro` | 输出 `/404.html`，Cloudflare Pages 兜底所有未匹配路由 |
 
 ### 3.2 关键路由规则（容易踩坑）
 
 1. **`note` 详情是单数 `/note/{slug}`，列表是复数 `/notes`**。历史上一份发散的路由映射生成过 `/notes/{slug}` 造成 404——`src/utils/routes.ts` 顶部注释专门记录此教训，所有链接必须经 `buildEntryUrl`/`typeToRoute`。
-2. **两个动态路由文件各管一种语言，互不重定向**：en 路由用 `[...slug]` rest 参数（当前只用到单段，rest 是为了兼容未来多段 id）；zh 路由的 `[lang]` 段实际只会是 `"zh"`（en 路径由另一个文件接管，避免了 `/en/...` 前缀）。
+2. **两个动态路由文件分工，互不重定向**：en 路由用 `[...slug]` rest 参数（当前只用到单段，rest 是为了兼容未来多段 id）；`[lang]/[type]/[slug]` 路由服务**所有非英语语言**（过滤 `entry.data.lang !== "en"`，即 zh 与 nl 共用，2026-08 起不再硬编码 zh）。
 3. **art 类型没有详情页**：两个动态路由的 `getStaticPaths` 都过滤 `entry.data.type !== "art"`，sitemap 也排除 art。art 只在 `/art` 列表页以自扫描方式展示（见 §7.7）。
 4. 详情页 `getStaticPaths` 的核心逻辑（两个文件对称）：
 
@@ -134,7 +138,7 @@ const translation = findTranslation(entries, entry, "zh" | "en");
 - 定义：`src/content.config.ts`（55 行，全文件即 schema）。
 - Loader：`glob({ pattern: "**/*.md", base: "./src/content/entries" })`。
 - **URL slug = 条目文件夹名**（`entry.id` 形如 `{文件夹名}/en`，代码里 `entry.id.split("/")[0]` 取 slug）。
-- 每个条目文件夹 = `en.md` + `cn.md` + 同目录图片。**23/23 个文件夹都有双语言文件，无缺失。**
+- 每个条目文件夹 = `en.md` + `cn.md` + `nl.md` + 同目录图片。**23/23 个文件夹都有三语言文件，无缺失。**
 
 ### 4.2 Schema 全部字段（`src/content.config.ts` 逐字为准）
 
@@ -163,10 +167,10 @@ const translation = findTranslation(entries, entry, "zh" | "en");
 | `art` | 4 | fashion-design、food-art、illustrations、product-posters |
 | `projects` | 3 | body-armor-protective-vest、light-diffusion-test-platform、zoem-bike-bakfiets |
 
-### 4.4 en/cn 配对与 frontmatter 惯例
+### 4.4 en/cn/nl 配对与 frontmatter 惯例
 
-- **两语言相同**：`type`、`date`、`cover`、`featured`、`translationKey`、`collaboration`、`gallery[].file`。
-- **两语言不同**：`title`、`description`、`category`、`lang`；`tags`/`tools` 多数翻译（个别条目两语言完全相同，如 esp32-rgbww-color-wheel 的 tags）；art 条目 `gallery[].title` 各自翻译。
+- **三语言相同**：`type`、`date`、`cover`、`featured`、`translationKey`、`collaboration`、`gallery[].file`。
+- **三语言不同**：`title`、`description`、`category`、`lang`；`tags`/`tools` 多数翻译（个别条目语言间完全相同）；art 条目 `gallery[].title` 各自翻译。
 - 图片路径：frontmatter 里写**裸文件名**（`cover: cover.png`）；正文 markdown 里用 `./` 前缀（`![...](./xxx.png)`）。
 - 图片命名惯例：专用封面 `cover.png`（7 个文件夹）；`01-描述.png` 编号+描述（多数）；纯数字（studio-electrical 的 1–16.png）；扩展名 .png/.jpg/.jpeg 混用属正常。
 
@@ -195,13 +199,13 @@ Props（都在 `src/layouts/Layout.astro` 顶部 interface）：
 
 | Prop | 语义 |
 |---|---|
-| `title?` | `<title>`/og:title，默认 `"R2S Studio"` |
+| `title?` | `<title>`/og:title，默认 `"RrSuika"` |
 | `description?` | 缺省回退 `t.meta.description`（按语言） |
 | `ogImage?` | string 或 null；缺省回退 `/og-card.png` |
 | `alternateHref?` | **`undefined` = 假定对方语言页面存在**，自动用 `getLocalizedPath` 推导 hreflang；**`null` = 不输出 hreflang**（页面无译文时，详情页无译文时传 null） |
 | `noIndex?` | 输出 `robots noindex`（404 页用） |
 
-Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/viewport/color-scheme/theme-color×2、Google Fonts JetBrains Mono 400/700/800/900、favicon、canonical、hreflang+x-default、og:*/twitter:*、**JSON-LD WebSite** `{name:"R2S Studio", url, inLanguage:["en","zh"]}`）；body 结构（skip-link、`#mobile-notice` 移动端提示、`#neural-canvas` 粒子画布、`<Navbar/>` + `<main#main-content/>`(slot) + `<Footer/>`、`<ScrollMeter/>`、`#crt-overlay` + `#tube-vignette` 背景层、粒子/主题切换/mobile-notice 三个脚本）。`global.css` 在此以 frontmatter import 引入（唯一引入点）。
+Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/viewport/color-scheme/theme-color×2、Google Fonts JetBrains Mono 400/700/800/900、favicon、canonical、hreflang+x-default、og:*/twitter:*、**JSON-LD WebSite** `{name:"RrSuika", url, inLanguage:["en","zh"]}`）；body 结构（skip-link、`#mobile-notice` 移动端提示、`#neural-canvas` 粒子画布、`<Navbar/>` + `<main#main-content/>`(slot) + `<Footer/>`、`<ScrollMeter/>`、`#crt-overlay` + `#tube-vignette` 背景层、粒子/主题切换/mobile-notice 三个脚本）。`global.css` 在此以 frontmatter import 引入（唯一引入点）。
 
 ### 5.2 组件清单（共 11 个）与复用指引
 
@@ -209,8 +213,8 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 | 组件 | 职责 | 备注 |
 |---|---|---|
-| `Navbar.astro` | sticky 顶栏：品牌三色点、6 个导航链接（`t.nav.*`，href 用 `getLocalizedPath`）、**语言切换=镜像链接**（详情页先查译文是否存在，无则拦截弹 toast，见 §7.1）、主题切换按钮（调 `window.__toggleTheme`）、`#clock` 时钟、警告条纹 | **无汉堡菜单、无当前页高亮（无 aria-current）**；≤1000px 变纵向堆叠 |
-| `Footer.astro` | 页脚：三色条纹+状态行、身份区块、链接（GitHub `R2S-ver`、email `ranrsuika@gmail.com`、pixiv `users/71884225`、QQ、Discord）、条形码、版权 | 硬编码 `ROTTERDAM // NL`、`2026.V5.5` |
+| `Navbar.astro` | sticky 顶栏：品牌三色点、6 个导航链接（`t.nav.*`，href 用 `getLocalizedPath`）、**三语切换 NL/EN/中文=镜像链接**（详情页先查译文是否存在，无则拦截弹 toast，见 §7.1）、主题切换按钮（调 `window.__toggleTheme`）、`#clock` 时钟、警告条纹 | **无汉堡菜单、无当前页高亮（无 aria-current）**；≤1000px 变纵向堆叠 |
+| `Footer.astro` | 页脚：三色条纹+状态行、身份区块、链接（GitHub `RrSuika`、email `ranrsuika@gmail.com`、pixiv `users/71884225`、QQ、Discord）、条形码、版权 | 硬编码 `ROTTERDAM // NL`、`2026.V5.5` |
 | `ScrollMeter.astro` | 右缘 LED 滚动进度条（10 段）+ 回顶/回底按钮 + 轨道拖拽滚动 | rAF 节流、`aria-hidden` 计量表、≤768px 隐藏 |
 
 **列表/详情复用：**
@@ -225,7 +229,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 | 组件 | 职责 |
 |---|---|
-| `Hero.astro` | 首屏：左列大标题（Latin 保留 display tracking）+ 描述 + CTA；右侧 SYS.BOOT 打字机终端（**被 global.css §14 隐藏，元素完好**） |
+| `Hero.astro` | 首屏：左列大标题（Latin 保留 display tracking）+ 描述 + CTA；右侧 **Cassette Deck 磁带盒装置**（双卷轴+走带计数器+PLAY/REW/FF 按键+雷达背景，卷轴随滚动旋转、鼠标视差；SYS.BOOT 终端恢复为装置的磁带窗） |
 | `FeaturedProjects.astro` | 精选区块：接收 `projects` 与 `totalCount`，渲染 3 张 ProjectCard（编号 01/02/03 叠加） |
 | `LatestUpdates.astro` | SYS.LOG 面板：最新条目列表，**正确使用 `buildEntryUrl`** 生成链接 |
 | `ExploreLinks.astro` | 4 张模块卡（PROJECTS/LAB/ART/NOTES）链到各列表页 |
@@ -266,7 +270,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | `--code-bg` | `#161625` | `#f5f5f5` |
 | 表面系列 `--surface-*`、`--paper`（两主题同值 `#e8e3da`）等 | 见 global.css §1/§2 | |
 
-**字体：** `--font-mono: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Courier New", monospace`；`--font-body: Arial, Helvetica, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif`（JetBrains Mono 由 Layout 从 Google Fonts 加载 400/700/800/900）。
+**字体：** `--font-mono: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Courier New", monospace`；`--font-body: Arial, Helvetica, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif`；2026-08 美化批次新增三族（§1 tokens）：`--font-display: "Saira Condensed"`（拉丁标题）、`--font-zh-display: "Smiley Sans Oblique"`（中文标题，自托管子集）、`--font-pixel: "VT323"`（终端/OSD 文本）。JetBrains Mono + Saira Condensed + VT323 由 Layout 从 Google Fonts 加载 400/700/800/900；Smiley Sans 走 `/fonts/dyh/result.css`。标题字体规则在 §15（`body:not(.art-route)` 作用域，art 页冻结不受影响；zh hero 大标题保持拉丁 display 字体）。
 
 **字号**（`--text-scale-*`，暗色定义亮色复用）：hero `clamp(80px,10vw,110px)`、display `clamp(36px,5vw,64px)`、h1 64、h2 48、h3 34、article-h1 42、article-h2 32、article-h3 24、body 18、sm 15、xs 13 等。
 **字距**（`--tracking-*`）：hero -6px、display -3px、tight -2px、slight -1px、micro 0.5px、label 1px、wider 1.5px、tag 2px、wide 3px。
@@ -277,12 +281,12 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 ### 6.3 背景层（§10）
 
-`#neural-canvas` 粒子画布（fixed，dark `opacity: 0.25`，light `opacity: 0.1 + filter: invert(1)`，<900px 视口粒子数降为 70）+ hex grid（`body::before` 三向 linear-gradient，`52px 90px`）+ noise（`body::after` SVG feTurbulence data-URI）+ scanlines（`#crt-overlay`，dark `opacity: 0.28` / light `0.08`，`mix-blend-mode: screen`）+ amber vignette（`#tube-vignette`，`opacity: 0.6` / `0.4`）。粒子脚本在 Layout.astro 内（参数区：`CONNECTION_DIST = 140`、`mouse.radius = 140`、`shadowBlur = 8`、粒子色 55% `rgba(255,95,31,.9)` / 45% `rgba(0,176,255,.9)`）。
+`#neural-canvas` 粒子画布（fixed，dark `opacity: 0.25`，light `opacity: 0.1 + filter: invert(1)`，<900px 视口粒子数降为 70）+ hex grid（`body::before` 三向 linear-gradient，`52px 90px`）+ noise（`body::after` SVG feTurbulence data-URI，2026-08 加强到 dark 0.07 / light 0.05）+ scanlines（`#crt-overlay`，dark `opacity: 0.28` / light `0.08`，`mix-blend-mode: screen`）+ amber vignette（`#tube-vignette`，2026-08 加强到 dark `opacity: 0.8` / light `0.55`）。粒子脚本在 Layout.astro 内（参数区：`CONNECTION_DIST = 140`、`mouse.radius = 140`、`shadowBlur = 8`、粒子色 55% `rgba(255,95,31,.9)` / 45% `rgba(0,176,255,.9)`；2026-08 新增「遥测数据包」沿连线流动，桌面 7 个 / 移动 3 个）。
 
 ### 6.4 其他全局约定
 
-- **§13 CJK**：`html[lang="zh"] h1/h2/h3 { letter-spacing: 0; line-height: 1.2; }`，但 `.hero h1` 是拉丁文本，恢复 `tracking-hero`/`line-height: 0.9`。
-- **§14 Hero 终端隐藏**：`.hero .terminal { display: none; }`——恢复方法就是删掉这条规则（注释写明"无需修改任何其他文件"）。
+- **§13 CJK**：`html[lang="zh"] h1/h2/h3 { letter-spacing: 0; line-height: 1.2; }`（§15 补充：zh 标题字体走 Smiley Sans），但 `.hero h1` 是拉丁文本，恢复 `tracking-hero`/`line-height: 0.9` + Saira Condensed。
+- **§15 美化包（2026-08）**：标题 display 字体（`body:not(.art-route)` 作用域，art 页冻结不受影响）、像素 OSD 字体、`.tape-label` 磁带标签条、`.list-readout` 列表读数条、ViewTransitions CRT 收缩/展开过渡、`#crt-glitch` 偶发故障层、滚动 reveal（`[data-reveal]`，`html.js` 门控无 JS 降级）。原 §14「hero 终端隐藏实验」已移除——终端以磁带窗形态恢复。
 - **滚动条全站完全隐藏**（`scrollbar-width: none` + `::-webkit-scrollbar { display: none }`）——用户偏好的原始行为，不要"修复"。
 - **旧调色板字面量**（刻意保留，勿重着色）：Navbar 警告条纹 `#ff5f1f`、品牌三色点 `#ff3333/#ffd400/#00b0ff`、Hero 终端 `rgba(255,95,31,…)`、亮色绿 `#00703c`（Footer/AboutPreview/LatestUpdates/about 页）、ScrollMeter 亮色深绿 `#145a28`、§11 里 art gallery 冻结样式（注释 "frozen: kept verbatim"）。
 - 通用模式：`.tag-chip`（pill 筛选按钮，§12 共享实现）、`.data-tag`（mono 大写数据标签）、`.skip-link`、hover 用 `--ease-out`、按下 `--spring-snappy`；入场动画 `pageIn`/`cardIn` + 各网格容器 nth-child stagger（§8）；`prefers-reduced-motion` 全局降级（§9，并隐藏粒子画布）。
@@ -294,18 +298,23 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 | 功能 | 实现位置 |
 |---|---|
-| **导航 + 语言切换 + 主题切换** | `Navbar.astro`。语言切换是**镜像链接**（服务端 `getLocalizedPath` 生成 href），不是 JS 切换；详情页上先查译文条目（`getCollection` + `typeToRoute` 反查）决定目标，无译文时 JS `preventDefault` 并弹 `#language-toast`（移出 nav 追加到 body 规避 stacking context）。主题按钮 `onclick="window.__toggleTheme?.()"`，函数定义在 Layout 脚本 |
+| **导航 + 三语切换（NL/EN/中文）+ 主题切换** | `Navbar.astro`。语言切换是**镜像链接**（服务端 `getLocalizedPath` 生成 href），不是 JS 切换；详情页上先查译文条目（`getCollection` + `typeToRoute` 反查）决定目标，无译文时 JS `preventDefault` 并弹 `#language-toast`（移出 nav 追加到 body 规避 stacking context）。主题按钮 `onclick="window.__toggleTheme?.()"`，函数定义在 Layout 脚本 |
 | **首页精选** | `featuredKeys` **硬编码在两个首页文件的 frontmatter**（不在组件里）：`["light-diffusion-test-platform", "body-armor-protective-vest", "studio-electrical-optimization"]`，按 `translationKey` 匹配当前语言条目。改精选=改这两个页面 |
 | **SYS.LOG 最近活动** | 首页 frontmatter：过滤 `type !== "art"`（art 无详情页，避免 404）→ 按日期倒序 → 取 3 条 → 传 `<LatestUpdates/>`（内部用 `buildEntryUrl`） |
 | **列表筛选（projects/lab/notes）** | 三个列表页各自的 `.tag-bar`/`.tag-chip`（样式在 global.css §12 共享）；页面 frontmatter 硬编码 `filterTags`（en/zh 各一套，内容不同）；客户端 JS 点击 chip 按 `data-tags` 显示/隐藏。projects/lab 用 ProjectCard 网格，notes 是自绘 `a.note-row` 列表（只显示前 3 个 tag，链接用 `getLocalizedPath("/note", lang)` + slug） |
 | **详情页交互** | `ProjectDetail.astro` 脚本：正文 `./` 图片 src 修复（依赖 `import.meta.glob` 图片表注入隐藏 div）、点击图片全屏灯箱、`#process-scroll` 无缝滚动轨道（可拖拽/悬停暂停）、侧边 TOC（锚点自动补 id、剥数字编号前缀；note 取 h2 标题级别） |
 | **ScrollMeter** | `ScrollMeter.astro`：scroll 监听（rAF 节流）→ 10 段 LED + 百分比文本；回顶/回底平滑滚动；轨道 `pointer` 拖拽滚动；≤768px 隐藏；`prefers-reduced-motion` 关闭过渡 |
-| **Hero 打字机** | `home/Hero.astro`：SYS.BOOT 启动序列 + 循环 live logs（终端整体被 global.css §14 隐藏）；左列文字逐字打字 |
+| **Hero 磁带盒装置** | `home/Hero.astro`：Cassette Deck（塑料壳+四角螺丝+SIDE_A 标签+双卷轴+走带窗 SYS.BOOT 终端+PLAY/REW/FF 按键）。卷轴空转 CSS 动画，滚动叠加旋转量（`--reel`），PLAY 暂停/继续、REW/FF 快进快退计数器；雷达扫描背景（`.radar`）；装饰层鼠标视差（`[data-plx]`，pointer:fine 才启用）；左列打字机保留 |
 | **art 页（冻结）** | `art/index.astro` + `zh/art/index.astro` 各自独立实现：`import.meta.glob(eager)` 扫描 4 个 art 条目文件夹图片（排除 `cover.png`）、硬编码 4 分类（CATEGORIES）+ 按语言作品名（TITLE_MAP）、每行无缝跑马灯（悬停暂停、拖拽 1.5×、点击 lightbox、Esc/←/→/触摸滑动）。**两语言文件实现有差异**（en 用 opacity 动画，zh 用 display 切换） |
 | **about 页动画** | 两个 about 页（en 3977 行 / zh 4274 行，独立文件）：design-process 站台自动轮播（IntersectionObserver 激活，1.5s/步）、capability matrix canvas（8 个绘制函数：3D 环面/CMF 色块/示波器/波纹/DNA 螺旋/矿石传送带/像素网格/软件终端，4.2s 轮播，`define:vars` 注入翻译）、ANNEX 打字机彩蛋 |
-| **背景粒子** | Layout.astro 脚本（参数见 §6.3）；`prefers-reduced-motion` 时隐藏 |
+| **背景粒子** | Layout.astro 脚本（参数见 §6.3）；`prefers-reduced-motion` 时隐藏；2026-08 新增连线数据包 |
+| **音效引擎（B9）** | Layout.astro 脚本 `window.__r2sSnd`：WebAudio 合成（click/load/rewind/play），默认 OFF，localStorage `r2s-snd`；Navbar SND 开关（`[data-snd-btn]`）同步状态；nav 链接点击、deck 按键触发 |
+| **CRT glitch（B7）** | Layout.astro 脚本 + `#crt-glitch` 层：每 20-44s 随机一次 120-280ms 扫描带错位，localStorage `r2s-glitch`，footer GLITCH 按钮（`[data-glitch-btn]`）开关；reduced-motion 自动关 |
+| **滚动 reveal（B5）** | Layout.astro IntersectionObserver + global.css §15：`[data-reveal]` 元素入场；卡片 grid/列表/详情/首页区块已铺设 |
+| **磁带计数器（B1）** | Hero 卷轴旋转 + deck 计数器（TAPE_CNT，3 位）+ footer `#footer-counter`（TAPE_POS，4 位），滚动驱动 rAF 节流 |
+| **页面切换（B8）** | Layout head `<ClientRouter />`（Astro 内置 ViewTransitions 的 Astro 7 名称）+ global.css §15 `::view-transition-*` CRT 收缩/展开动画 |
 | **移动端提示** | `#mobile-notice`：sessionStorage `"r2s-mobile-notice"` 记忆关闭；桌面（≥769px）隐藏 |
-| **结构化数据** | Layout head：`WebSite`（每页）；about 页：`Person`（name "R2S Studio"、alternateName `["R2S","RrSuika"]`、sameAs GitHub `R2S-ver` + pixiv、Rotterdam NL）；详情模板：`TechArticle`（含 `translationOfWork`，§3.2-6） |
+| **结构化数据** | Layout head：`WebSite`（每页）；about 页：`Person`（name "RrSuika"、alternateName `["RrS"]`、sameAs GitHub `RrSuika` + pixiv、Rotterdam NL）；详情模板：`TechArticle`（含 `translationOfWork`，§3.2-6） |
 
 ---
 
@@ -339,7 +348,8 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 12. **主题默认暗色**：不跟随系统偏好，首次访问一律 dark（防闪烁守卫 + localStorage）。
 13. **fashion-design 图片双存**：`public/art/fashion-design/` 的 PNG 副本是为保留 alpha 透明通道（`getProjectImage` 特例分支），删除会破坏 art 页透明效果。
 14. **全站 JSON-LD**：WebSite（每页）+ Person（about）+ TechArticle（详情）为 SEO 富结果服务；日期必须完整 ISO-8601 带时区（schema.org 要求）。
-15. **og-card.png 手工生成**：分享卡视觉（终端风格 + 三色条 + 中英标语）由脚本硬编码 SVG 渲染，无构建步骤——改分享卡要改脚本并手动重跑。
+15. **og-card.png 手工生成**：分享卡视觉（终端风格 + 三色条 + 中英标语）由脚本硬编码 SVG 渲染，无构建步骤——改分享卡要改脚本并手动重跑。2026-08 重绘为磁带主题（右侧 Cassette Deck）。
+16. **2026-08 美化批次（用户勾选 21 项全做）**：保留原配色与复古未来主线，注入磁带盒主义 + NASA 朋克实体质感（参考孤星/1999/原子之心）。要点：Hero 恢复终端并改造为磁带盒装置（悬案拍板）；新增三族字体 token（Saira Condensed/VT323/得意黑自托管）；卡片加螺丝角/磁带标签条标题/HUD 四角框/CRT 开机 hover/走带计数器；footer 加任务徽章/警示斜纹/铆钉/磁带计数器/GLITCH 开关；列表页加读数条；about 三语 STYLE_ANNEX 加风格徽章；404/og-card/favicon 磁带化；新增音效引擎（合成，默认关）、偶发 CRT 故障（可关）、滚动分区入场、粒子数据包、页面 CRT 过渡（ClientRouter）。动效全部原生 CSS/JS，无新依赖。
 
 ---
 
@@ -350,14 +360,14 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | 状态 | 问题 | 说明 / 注意 |
 |---|---|---|
 | 🟢 | ProjectCard 自建 routeMap | 已修复（2026-08-14）：改用 `buildEntryUrl(project, project.data.lang)`，行为等价，与 `typeToRoute` 单一来源对齐。 |
-| 🟡 | Hero 终端被隐藏（实验状态） | global.css §14。用户尚未决定保留还是恢复。改首页 Hero 视觉时勿被"终端不见了"误导。 |
+| 🟢 | Hero 终端隐藏实验 | 已解决（2026-08 美化批次）：终端以磁带盒装置（Cassette Deck）的磁带窗形态恢复，§14 已删除。 |
 | 🟡 | ArtGallery 是死代码 + gallery 双实现 | 详情模板的 art 分支不可达（getStaticPaths 过滤 art）；实际 art 展示由两个冻结的 art 页各自实现的 marquee/lightbox 承担。两套实现并存且 en/zh 版还有细节差异。受冻结政策约束，**动它们需要用户解冻**。 |
 | 🟢 | zh/notes 页未用翻译键 | 已修复（2026-08-14）：改用 `t.sections.notes.*`，zh 翻译描述补句号与 en 对齐。两版样式覆盖的细微漂移仍存在，见 🔴 清单。 |
 | 🟡 | about 页双文件臃肿且实现漂移 | en 3977 行 / zh 4274 行，canvas 动画脚本双份维护，动画参数与样式有独立差异。重构（共享模板）需要用户同意——这是当前最大的维护成本点。 |
 | 🟢 | README.md 是 Astro 模板默认 README | 已修复（2026-08-14）：重写为面向访客的项目介绍（中英双语，由浅入深）。 |
 | 🟢 | og-card 脚本依赖 sharp 传递依赖 | 已修复（2026-08-14）：sharp 声明为 devDependency（^0.35.3），新增 `npm run og-card` 脚本（已运行验证）。 |
 | 🟢 | `输入/` 与 .gitignore 不一致 | 已解决（2026-08-14）：`git rm -r --cached 输入` 取消跟踪（本地文件保留）。该目录重新定义为**用户给 AI 的投递箱**，永不提交（§12 规则 13）。 |
-| 🟡 | Navbar 无当前页高亮 | 无 `aria-current`/active 样式。属功能缺失而非 bug；加高亮属合理新需求。 |
+| 🟢 | Navbar 无当前页高亮 | 已修复（2026-08 美化批次）：`aria-current="page"` + 常亮下划线（B10）。 |
 | 🟡 | zoem-bike 的 translationKey ≠ 文件夹名 | 文件夹 `zoem-bike-bakfiets`，translationKey 是 `zoem-bike-cargo-box`。配对依赖 translationKey（不依赖文件夹名），所以无功能性影响，但容易让新读者困惑。 |
 | 🟡 | 无 en→zh 的 `/zh/404` 独立页 | 404 页双语混合固定内容，未按语言适配（可接受）。 |
 | 🔵 | 动画时长、断点未 token 化 | 断点因 CSS 限制必须字面量（有 BREAKPOINT REGISTRY 制度）；动画时长字面量是清理时的取舍。 |
@@ -374,7 +384,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 | 需求 | 优先检查位置 |
 |---|---|
-| 改首页 Hero / 恢复终端 | `src/components/home/Hero.astro` + `src/styles/global.css` §14（删除隐藏规则） |
+| 改首页 Hero / 磁带盒装置 | `src/components/home/Hero.astro` + `src/styles/global.css` §15（卷轴/雷达/视差/走带计数） |
 | 改首页精选项目 | `src/pages/index.astro` 与 `src/pages/zh/index.astro` 的 `featuredKeys` |
 | 改首页 SYS.LOG 规则 | `src/pages/index.astro`（zh 同）frontmatter `latestEntries` 逻辑 |
 | 改导航 / 语言切换 / 主题按钮 | `src/components/Navbar.astro` |
@@ -409,7 +419,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 4. **复用优先**：已有组件、已有样式模式（`.tag-chip`、`.data-tag`、卡片/详情）、已有工具函数，不要重复造。特别是：不要在组件里自建路由映射（历史 404 教训）。
 5. **不要擅自改变**：路由结构、Content schema 的 `type` 枚举、组件结构、设计语言（含旧调色板字面量）。结构性改动先与用户确认。
 6. **冻结区**（art 页面 4 处 + gallery 字段）：只允许改 SEO frontmatter。
-7. **双语言义务**：任何 en 页面/文案改动都要同步 zh 镜像文件与 `translations.ts` 两语言。新静态页面必须建 zh 镜像。
+7. **三语言义务**：任何 en 页面/文案改动都要同步 zh 与 nl 镜像文件与 `translations.ts` 三语言。新静态页面必须建 zh + nl 镜像。
 8. **发现代码与本文档不一致**：以当前代码为准完成任务，并在任务收尾时更新本文档。
 9. **完成较大架构修改后，主动更新本文档**（目录树、路由、组件职责、决策记录、技术债状态）。
 10. **敏感信息禁入本文档**：不写密码、Token、API Key；调试临时代码的痕迹也不写入。

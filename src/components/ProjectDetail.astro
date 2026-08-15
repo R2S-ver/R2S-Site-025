@@ -46,7 +46,7 @@ const translationAvailable = !!translation;
 ---
 
 <main class="project">
-  <section class="hero">
+  <section class="hero" data-reveal>
     <div class="cover">
       {cover && <img src={cover} alt={project.data.title} loading="lazy" decoding="async" />}
     </div>
@@ -128,7 +128,7 @@ const translationAvailable = !!translation;
       </nav>
     </aside>
 
-    <article>
+    <article data-reveal>
       <Content />
     </article>
   </div>
