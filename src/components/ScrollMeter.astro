@@ -54,11 +54,22 @@
     const meterPct = pctEl;
     let rafPending = false;
 
+    // 正文进度上限:footer 顶部到达视口底部 = 正文读完。
+    // footer 不是正文,不参与进度百分比计算。
+    function contentMax(): number {
+      const viewport = window.innerHeight;
+      const footer = document.querySelector<HTMLElement>("footer");
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+        return Math.max(footerTop - viewport, 0);
+      }
+      return Math.max(document.documentElement.scrollHeight - viewport, 0);
+    }
+
     function updateMeter() {
       const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+      const max = contentMax();
+      const pct = max > 0 ? Math.min(Math.max(scrollTop / max, 0), 1) : 1;
       const filled = Math.round(pct * segments.length);
 
       segments.forEach((seg, i) => {
@@ -68,7 +79,7 @@
       meterPct.textContent = String(Math.round(pct * 100)).padStart(2, "0");
 
       topBtn?.classList.toggle("visible", scrollTop > 300);
-      bottomBtn?.classList.toggle("visible", docHeight - scrollTop > 300);
+      bottomBtn?.classList.toggle("visible", max - scrollTop > 300);
 
       rafPending = false;
     }
@@ -84,6 +95,14 @@
       { passive: true },
     );
 
+    // 窗口尺寸变化(旋转/缩放)会让 footer 位置移动,重新计算上限
+    window.addEventListener("resize", () => {
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(updateMeter);
+      }
+    });
+
     // ── Drag the track to scroll ──
     if (track) {
       const meterTrack = track;
@@ -91,13 +110,12 @@
 
       function scrollFromPointer(e: PointerEvent) {
         const rect = meterTrack.getBoundingClientRect();
-        // 轨道顶部 = 页面顶部，轨道底部 = 页面底部（与填充方向一致）
+        // 轨道顶部 = 页面顶部，轨道底部 = 正文读完处（与填充方向一致）
         const ratio = Math.min(
           Math.max((e.clientY - rect.top) / rect.height, 0),
           1,
         );
-        const maxScroll =
-          document.documentElement.scrollHeight - window.innerHeight;
+        const maxScroll = contentMax();
         window.scrollTo({ top: ratio * maxScroll, behavior: "instant" });
       }
 
