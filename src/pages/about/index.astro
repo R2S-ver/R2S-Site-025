@@ -2179,13 +2179,13 @@ const personSchema = {
   .intro-layout {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
     column-gap: 90px;
     row-gap: 20px;
   }
 
-  /* 子网格:左右两列逐行对齐。
-     EN 版:BETWEEN 与导语(I am an industrial product designer...)同行对齐 */
+  /* 子网格:左右两列逐行对齐 —— 第 1 行(标签/导语),
+     第 2 行(标题/正文)顶部对齐,导语折几行都不受影响 */
   .intro-heading,
   .intro-content {
     display: grid;
@@ -2195,7 +2195,7 @@ const personSchema = {
 
   .intro-heading h2 {
     max-width: 650px;
-    margin: 0;
+    margin: 0 0 20px;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 0.95;
     letter-spacing: -2px;
@@ -2233,7 +2233,6 @@ const personSchema = {
     font-size: 21px;
     line-height: 1.7;
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
-    grid-row: 2; /* 与左侧 h2(BETWEEN)同行,顶部对齐 */
   }
 
   /* 第二段("My work sits...")与下方身份段间距收紧 */

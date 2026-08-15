@@ -28,7 +28,7 @@ const personSchema = {
 };
 ---
 
-<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.meta.description}>
+<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.sections.about.description}>
   <script
     type="application/ld+json"
     is:inline
@@ -82,12 +82,6 @@ const personSchema = {
           <h2>
             {t.sections.about.introTitle}
           </h2>
-
-          <div class="intro-marker">
-            <span>设计</span>
-            <span>工程</span>
-            <span>视觉艺术</span>
-          </div>
         </div>
 
         <div class="intro-content">
@@ -1193,7 +1187,6 @@ const personSchema = {
   let W = 0;
   let H = 0;
   let time = 0;
-  let manualInteraction = false;
 
   function resizeCanvas() {
     if (!canvas || !ctx) return;
@@ -2220,8 +2213,8 @@ const personSchema = {
   const enterKey = document.querySelector(".enter-key");
 
   // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
-  function typeAnnexBlock(el, original, speed) {
-    return new Promise((resolve) => {
+  function typeAnnexBlock(el: HTMLElement, original: string, speed: number): Promise<void> {
+    return new Promise<void>((resolve) => {
       const temp = document.createElement("div");
       temp.innerHTML = original;
       const text = temp.textContent || "";
@@ -2241,7 +2234,7 @@ const personSchema = {
   }
 
   // 每类区块的输出速度（毫秒/字符）：2026-08 提速（用户要求打字更快）
-  function annexSpeed(el) {
+  function annexSpeed(el: HTMLElement): number {
     if (el.classList.contains("annex-intro")) return 2;
     if (el.classList.contains("annex-style-index")) return 1;
     if (el.classList.contains("annex-refs")) return 1;
@@ -2263,7 +2256,7 @@ const personSchema = {
 
       if (!annexTyped) {
         annexTyped = true;
-        const blocks = annexPanel.querySelectorAll(
+        const blocks = annexPanel.querySelectorAll<HTMLElement>(
           ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
         );
         // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
@@ -2456,6 +2449,11 @@ const personSchema = {
     font-size: 21px;
     line-height: 1.7;
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
+  }
+
+  /* 第二段("从一个模糊的草图...")与下方身份段间距收紧 */
+  .intro-content .intro-lead + p {
+    margin-bottom: 0;
   }
 
   .intro-statement {
