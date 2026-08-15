@@ -2314,6 +2314,10 @@ const personSchema = {
     color: var(--text-dim);
     font-size: var(--text-scale-4xs);
     letter-spacing: var(--tracking-tag);
+    /* 移出文档流,悬浮在 h2 上方,不参与对齐计算 */
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   /* =====================================================
@@ -2405,9 +2409,14 @@ const personSchema = {
     gap: 90px;
   }
 
+  .intro-heading {
+    position: relative;
+  }
+
   .intro-heading h2 {
     max-width: 650px;
-    margin: 25px 0 40px;
+    /* 与右侧 .intro-content 相同的 margin-top,保证两者顶部对齐 */
+    margin: 30px 0 40px;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 1.35; /* 中文竖排,行距放宽 */
     letter-spacing: -2px;
@@ -2432,9 +2441,8 @@ const personSchema = {
   .intro-content {
     max-width: 760px;
 
-    /* 与左侧 h2("设计")顶部对齐:
-       system-tag 一行(4xs≈10px)≈15px + h2 上外边距 25px ≈ 40px */
-    margin-top: 40px;
+    /* 与左侧 h2("设计")顶部对齐:与 h2 相同的 margin-top */
+    margin-top: 30px;
   }
 
   .intro-content p {
