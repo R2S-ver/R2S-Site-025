@@ -5,7 +5,7 @@
    BREAKPOINT REGISTRY — CSS custom properties are not valid inside
    @media queries, so breakpoints stay literal. Keep this list in
    sync when adding responsive rules:
-     1100 / 1000 / 900 / 800 / 768 / 769 / 700 / 600 / 500
+     2328 / 1100 / 1000 / 900 / 800 / 768 / 769 / 700 / 600 / 500
 
    FIDELITY POLICY — every token value below is copied 1:1 from the
    original (pre-cleanup) styles. Literals that had no exact token
@@ -78,6 +78,11 @@
   /* TYPOGRAPHY */
   --font-mono: "JetBrains Mono", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Courier New", monospace;
   --font-body: Arial, Helvetica, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+
+  /* TYPE FAMILIES — cassette/NASA additions (2026-08 beautify pass) */
+  --font-display: "Saira Condensed", "Smiley Sans Oblique", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-zh-display: "Smiley Sans Oblique", "Saira Condensed", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-pixel: "VT323", "JetBrains Mono", "Courier New", monospace;
 
   /* TYPE SCALE — exact original values */
   --text-scale-hero: clamp(80px, 10vw, 110px);
@@ -932,8 +937,10 @@ html[lang="zh"] h3 {
 }
 
 /* Hero headline is Latin text — restore its display settings */
-html[lang="zh"] .hero h1 {
-  letter-spacing: var(--tracking-hero);
+html[lang="zh"] body .hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -2px;
   line-height: 0.9;
 }
 
@@ -969,4 +976,133 @@ html[lang="nl"] .version-cell h4 {
    ═══════════════════════════════════════════ */
 .hero .terminal {
   display: none;
+}
+
+/* ═══════════════════════════════════════════
+   §15  BEAUTIFY SUBSET 2026-08 — fonts, OSD
+   readouts, CRT card boot (ported selectively
+   from the pre-rollback design; cassette deck /
+   glitch / reveal / ClientRouter NOT included.)
+   ═══════════════════════════════════════════ */
+
+/* ── Display type for headings (art pages stay frozen) ── */
+body:not(.art-route) h1,
+body:not(.art-route) h2,
+body:not(.art-route) h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+/* Chinese headings → Smiley Sans (single weight, already display-bold) */
+html[lang="zh"] body:not(.art-route) h1,
+html[lang="zh"] body:not(.art-route) h2,
+html[lang="zh"] body:not(.art-route) h3 {
+  font-family: var(--font-zh-display);
+  font-weight: 400;
+}
+
+/* Hero headline stays Latin on zh/nl too — restore display family.
+   Must come AFTER the zh heading rule above (same specificity, order wins). */
+html[lang="zh"] body .hero h1,
+html[lang="nl"] body .hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+/* ── Pixel OSD text ── */
+.terminal-content,
+.telemetry-strip,
+.meter-label,
+.meter-value,
+.meter-unit {
+  font-family: var(--font-pixel);
+}
+
+.terminal-content {
+  font-size: 17px;
+}
+
+.telemetry-strip {
+  font-size: 14px;
+}
+
+/* ── CRT power-on boot for cards (load-triggered, once) ──
+   Filter-free on purpose: animated filter layers caused a
+   stuck black screen on some GPUs. ── */
+.crt-boot .image-wrapper::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 46%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 54%
+  );
+
+  background-size: 100% 260%;
+
+  background-position: 50% -30%;
+
+  animation: crtBootLine 0.55s var(--ease-in-out) 1 both;
+
+  animation-delay: var(--boot-delay, 0ms);
+}
+
+@keyframes crtBootLine {
+  0% {
+    background-position: 50% -30%;
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  70% {
+    background-position: 50% 130%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 50% 130%;
+    opacity: 0;
+  }
+}
+
+.crt-boot img.cover {
+  animation: crtBootImg 0.55s var(--ease-out) 1 both;
+  animation-delay: var(--boot-delay, 0ms);
+}
+
+@keyframes crtBootImg {
+  0% {
+    opacity: 0.2;
+    transform: scale(1.045);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.006);
+  }
+  70% {
+    transform: translateY(1px) scale(1.004);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-boot .image-wrapper::after {
+    display: none;
+  }
+
+  .crt-boot img.cover {
+    animation: none;
+  }
 }

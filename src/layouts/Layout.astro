@@ -34,6 +34,12 @@ const language = getLanguageFromPath(Astro.url.pathname);
 const isZh = language === "zh";
 const t = getTranslations(language);
 
+// Art pages are frozen — exclude them from global heading font changes.
+const isArtRoute =
+  Astro.url.pathname === "/art" ||
+  Astro.url.pathname.startsWith("/zh/art") ||
+  Astro.url.pathname.startsWith("/nl/art");
+
 const metaDescription = description ?? t.meta.description;
 
 const allLanguages: Language[] = ["en", "zh", "nl"];
@@ -116,9 +122,12 @@ const websiteSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800;900&family=Saira+Condensed:wght@500;600;700;800;900&family=VT323&display=swap"
       rel="stylesheet"
     />
+
+    <!-- 得意黑 Smiley Sans Oblique — self-hosted subsets (OFL, cn-font-split) -->
+    <link rel="stylesheet" href="/fonts/dyh/result.css" />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -173,7 +182,7 @@ const websiteSchema = {
     />
   </head>
 
-  <body>
+  <body class:list={{ "art-route": isArtRoute }}>
     <!-- =========================================
          SKIP LINK — keyboard navigation
     ========================================== -->
@@ -503,6 +512,33 @@ const websiteSchema = {
         }
 
         animate();
+      })();
+    </script>
+
+    <!-- ── CRT power-on boot for project cards ──
+         Plays once per page load, then removes itself. ── -->
+    <script>
+      (() => {
+        if (
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          return;
+        }
+
+        const cards = document.querySelectorAll<HTMLElement>(".card");
+
+        if (!cards.length) return;
+
+        cards.forEach((card, index) => {
+          card.classList.add("crt-boot");
+          card.style.setProperty("--boot-delay", `${index * 110}ms`);
+        });
+
+        const total = 700 + cards.length * 110;
+
+        setTimeout(() => {
+          cards.forEach((card) => card.classList.remove("crt-boot"));
+        }, total);
       })();
     </script>
 
