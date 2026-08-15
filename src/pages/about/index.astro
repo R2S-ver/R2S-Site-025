@@ -89,20 +89,22 @@ const personSchema = {
             {t.sections.about.description}
           </p>
 
-          <p>
-            {t.sections.about.introText}
-          </p>
+          <div class="intro-body">
+            <p>
+              {t.sections.about.introText}
+            </p>
 
-          <p>
-            {t.sections.about.identity.text}
-          </p>
+            <p>
+              {t.sections.about.identity.text}
+            </p>
 
-          <div class="intro-statement">
-            <span>// PATH</span>
+            <div class="intro-statement">
+              <span>// PATH</span>
 
-            <strong>
-              {t.sections.about.identity.title}
-            </strong>
+              <strong>
+                {t.sections.about.identity.title}
+              </strong>
+            </div>
           </div>
         </div>
       </div>
@@ -2081,7 +2083,7 @@ const personSchema = {
   }
 
   .section-label {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     color: var(--accent);
     font-size: var(--text-scale-3xs);
     letter-spacing: var(--tracking-tag);
@@ -2091,6 +2093,8 @@ const personSchema = {
     color: var(--text-dim);
     font-size: var(--text-scale-4xs);
     letter-spacing: var(--tracking-tag);
+    /* 贴近下方大标题:对齐到第 1 行底部(导语行高不撑开间距) */
+    align-self: end;
   }
 
   /* =====================================================
@@ -2235,9 +2239,10 @@ const personSchema = {
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
   }
 
-  /* 第二段("My work sits...")与下方身份段间距收紧 */
-  .intro-content .intro-lead + p {
-    margin-bottom: 0;
+  /* 正文+身份段+声明卡整体放入第 2 行,与左侧 h2 顶部对齐;
+     内部保持紧凑的自然文档流,不再被大标题高度拉开 */
+  .intro-content .intro-body {
+    grid-row: 2;
   }
 
   .intro-statement {

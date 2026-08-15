@@ -89,20 +89,22 @@ const personSchema = {
             {t.sections.about.description}
           </p>
 
-          <p>
-            {t.sections.about.introText}
-          </p>
+          <div class="intro-body">
+            <p>
+              {t.sections.about.introText}
+            </p>
 
-          <p>
-            {t.sections.about.identity.text}
-          </p>
+            <p>
+              {t.sections.about.identity.text}
+            </p>
 
-          <div class="intro-statement">
-            <span>// 途径</span>
+            <div class="intro-statement">
+              <span>// 途径</span>
 
-            <strong>
-              {t.sections.about.identity.title}
-            </strong>
+              <strong>
+                {t.sections.about.identity.title}
+              </strong>
+            </div>
           </div>
         </div>
       </div>
@@ -2451,9 +2453,10 @@ const personSchema = {
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
   }
 
-  /* 第二段("从一个模糊的草图...")与下方身份段间距收紧 */
-  .intro-content .intro-lead + p {
-    margin-bottom: 0;
+  /* 正文+身份段+声明卡整体放入第 2 行,与左侧 h2 顶部对齐;
+     内部保持紧凑的自然文档流,不再被大标题高度拉开 */
+  .intro-content .intro-body {
+    grid-row: 2;
   }
 
   .intro-statement {
