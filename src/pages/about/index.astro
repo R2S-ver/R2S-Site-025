@@ -28,7 +28,7 @@ const personSchema = {
 };
 ---
 
-<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.meta.description}>
+<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.sections.about.description}>
   <script
     type="application/ld+json"
     is:inline
@@ -82,12 +82,6 @@ const personSchema = {
           <h2>
             {t.sections.about.introTitle}
           </h2>
-
-          <div class="intro-marker">
-            <span>Design</span>
-            <span>Engineering</span>
-            <span>Visual Art</span>
-          </div>
         </div>
 
         <div class="intro-content">
@@ -1112,7 +1106,6 @@ const personSchema = {
   let W = 0;
   let H = 0;
   let time = 0;
-  let manualInteraction = false;
 
   function resizeCanvas() {
     if (!canvas || !ctx) return;
@@ -2004,8 +1997,8 @@ const personSchema = {
   const enterKey = document.querySelector(".enter-key");
 
   // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
-  function typeAnnexBlock(el, original, speed) {
-    return new Promise((resolve) => {
+  function typeAnnexBlock(el: HTMLElement, original: string, speed: number): Promise<void> {
+    return new Promise<void>((resolve) => {
       const temp = document.createElement("div");
       temp.innerHTML = original;
       const text = temp.textContent || "";
@@ -2025,7 +2018,7 @@ const personSchema = {
   }
 
   // 每类区块的输出速度（毫秒/字符）：2026-08 提速（用户要求打字更快）
-  function annexSpeed(el) {
+  function annexSpeed(el: HTMLElement): number {
     if (el.classList.contains("annex-intro")) return 2;
     if (el.classList.contains("annex-style-index")) return 1;
     if (el.classList.contains("annex-refs")) return 1;
@@ -2047,7 +2040,7 @@ const personSchema = {
 
       if (!annexTyped) {
         annexTyped = true;
-        const blocks = annexPanel.querySelectorAll(
+        const blocks = annexPanel.querySelectorAll<HTMLElement>(
           ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
         );
         // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
@@ -2186,13 +2179,13 @@ const personSchema = {
   .intro-layout {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
     column-gap: 90px;
     row-gap: 20px;
   }
 
-  /* 子网格:左右两列逐行对齐 —— 右侧导语行再高,
-     第二行「标题 ↔ 正文」的顶部对齐也不受影响 */
+  /* 子网格:左右两列逐行对齐。
+     EN 版:BETWEEN 与导语(I am an industrial product designer...)同行对齐 */
   .intro-heading,
   .intro-content {
     display: grid;
@@ -2202,7 +2195,7 @@ const personSchema = {
 
   .intro-heading h2 {
     max-width: 650px;
-    margin: 0 0 20px;
+    margin: 0;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 0.95;
     letter-spacing: -2px;
@@ -2240,6 +2233,12 @@ const personSchema = {
     font-size: 21px;
     line-height: 1.7;
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
+    grid-row: 2; /* 与左侧 h2(BETWEEN)同行,顶部对齐 */
+  }
+
+  /* 第二段("My work sits...")与下方身份段间距收紧 */
+  .intro-content .intro-lead + p {
+    margin-bottom: 0;
   }
 
   .intro-statement {
