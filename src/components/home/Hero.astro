@@ -115,6 +115,7 @@ const projectsPath = getLocalizedPath("/projects", language);
         } else {
           el.innerHTML = html;
           el.classList.remove("typing");
+          el.classList.add("typed");
           clearInterval(timer);
           resolve();
         }
@@ -418,7 +419,7 @@ const projectsPath = getLocalizedPath("/projects", language);
   }
   @keyframes barGrow {
     from {
-      clip-path: inset(100% 0 0 0);
+      clip-path: inset(0 0 100% 0);
     }
     to {
       clip-path: inset(0 0 0 0);
@@ -556,17 +557,13 @@ const projectsPath = getLocalizedPath("/projects", language);
     background: var(--accent);
     transform: scaleY(0);
     transform-origin: top;
+    transition: transform 0.45s var(--ease-out);
   }
-  .description.typing::before {
-    animation: descBarIn 0.45s var(--ease-out) forwards;
-  }
-  @keyframes descBarIn {
-    from {
-      transform: scaleY(0);
-    }
-    to {
-      transform: scaleY(1);
-    }
+  /* .typing = bar draws in while the typewriter types;
+     .typed   = keeps it drawn after typing completes */
+  .description.typing::before,
+  .description.typed::before {
+    transform: scaleY(1);
   }
 
   .button {
