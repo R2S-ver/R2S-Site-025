@@ -80,22 +80,8 @@ const personSchema = {
           <h2>
             {t.sections.about.introTitle}
           </h2>
-        </div>
 
-        <div class="intro-content">
-          <p class="intro-lead">
-            {t.sections.about.description}
-          </p>
-
-          <div class="intro-body">
-            <p>
-              {t.sections.about.introText}
-            </p>
-
-            <p>
-              {t.sections.about.identity.text}
-            </p>
-
+          <div class="intro-statement-wrap">
             <div class="intro-statement">
               <span>// PATH</span>
 
@@ -104,6 +90,20 @@ const personSchema = {
               </strong>
             </div>
           </div>
+        </div>
+
+        <div class="intro-content">
+          <p class="intro-lead">
+            {t.sections.about.description}
+          </p>
+
+          <p>
+            {t.sections.about.introText}
+          </p>
+
+          <p>
+            {t.sections.about.identity.text}
+          </p>
         </div>
       </div>
     </section>
@@ -2181,19 +2181,53 @@ const personSchema = {
   .intro-layout {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
-    gap: 90px;
+    grid-template-rows: auto auto auto;
+    column-gap: 90px;
+    row-gap: 20px;
   }
 
-  /* 普通双栏:左侧标题顶格,右侧段落自然流 ——
-     BETWEEN 与导语顶部天然对齐,段落间距即常规 25px */
+  /* 子网格:三行 = 导语 / 正文 / 身份段 */
+  .intro-heading,
+  .intro-content {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / -1;
+  }
+
+  .intro-heading {
+    position: relative;
+  }
+
+  /* h2 绝对定位:顶部与导语对齐,不参与行高分配,
+     右侧段落因此保持紧凑 */
   .intro-heading h2 {
     max-width: 650px;
-    margin: 0 0 20px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 0.95;
     letter-spacing: -2px;
     text-transform: uppercase;
     white-space: pre-line; /* 让 \n 换行生效 */
+  }
+
+  /* 声明卡:与身份段同行(第 3 行),高度完全跟随身份段,
+     内容上下居中 —— 分辨率变化时仍保持居中 */
+  .intro-statement-wrap {
+    grid-row: 3;
+    position: relative;
+  }
+  .intro-statement {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px 30px;
+    background: var(--accent);
+    color: #08080c;
   }
 
   .intro-marker {
@@ -2228,18 +2262,12 @@ const personSchema = {
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
   }
 
-  .intro-content .intro-body {
-    /* 普通块流容器,内部段落自然紧凑排列 */
+  /* 第二段与身份段间距收紧(行距 20px) */
+  .intro-content .intro-lead + p {
+    margin-bottom: 0;
   }
 
-  .intro-statement {
-    display: flex;
-    flex-direction: column;
-    margin-top: 25px;
-    padding: 25px 30px;
-    background: var(--accent);
-    color: #08080c;
-  }
+  /* .intro-statement 样式已上移至子网格区块(绝对定位 + 垂直居中) */
 
   .intro-statement span {
     margin-bottom: 10px;
@@ -3775,6 +3803,20 @@ const personSchema = {
     .intro-heading,
     .intro-content {
       display: block;
+    }
+
+    .intro-heading h2 {
+      position: static;
+      margin-bottom: 25px;
+    }
+
+    .intro-statement-wrap {
+      position: static;
+    }
+
+    .intro-statement {
+      position: static;
+      margin-top: 25px;
     }
 
     .process-station {
