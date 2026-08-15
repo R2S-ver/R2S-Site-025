@@ -219,6 +219,10 @@ const projectsPath = getLocalizedPath("/projects", language);
       await typeElement(line, line.dataset.original || "", 10);
       await new Promise((r) => setTimeout(r, 40));
     }
+    // Draw the button frame only after its text (the last line) is typed
+    document
+      .querySelector<HTMLElement>(".button.type-line")
+      ?.classList.add("frame-in");
   }
 
   typeTerminalSequence();
@@ -535,9 +539,34 @@ const projectsPath = getLocalizedPath("/projects", language);
     font-size: var(--text-scale-body);
     line-height: 1.8;
     color: var(--text-soft);
-    border-left: 3px solid var(--accent);
     padding-left: 20px;
     min-height: 3.6em;
+    position: relative;
+  }
+
+  /* Orange signal bar — draws in top→bottom when the typewriter
+     starts typing this block (.typing is added by the JS engine) */
+  .description::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  .description.typing::before {
+    animation: descBarIn 0.45s var(--ease-out) forwards;
+  }
+  @keyframes descBarIn {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
   }
 
   .button {
@@ -556,12 +585,16 @@ const projectsPath = getLocalizedPath("/projects", language);
       transform 0.2s var(--spring-snappy),
       border-color 0.35s var(--ease-out);
     opacity: 0;
-    animation:
-      btnTextIn 0.5s ease-out forwards,
-      btnBorderIn 0.3s ease-out forwards;
-    animation-delay: 0.7s, 1.1s;
+    animation: btnTextIn 0.5s ease-out forwards;
+    animation-delay: 0.7s;
     position: relative;
     overflow: hidden;
+  }
+
+  /* Frame draws in only after the typewriter finishes the button text
+     (JS adds .frame-in once the last line is typed) */
+  .button.frame-in {
+    border-color: var(--accent);
   }
 
   .button:active {
@@ -594,14 +627,6 @@ const projectsPath = getLocalizedPath("/projects", language);
     }
     to {
       opacity: 1;
-    }
-  }
-  @keyframes btnBorderIn {
-    from {
-      border-color: transparent;
-    }
-    to {
-      border-color: var(--accent);
     }
   }
   .button:hover {
@@ -653,7 +678,7 @@ const projectsPath = getLocalizedPath("/projects", language);
     z-index: 1;
     opacity: 0;
     animation: termPowerOn 0.5s ease-out forwards;
-    animation-delay: 0.05s;
+    animation-delay: 0.5s;
   }
   @keyframes termPowerOn {
     from {

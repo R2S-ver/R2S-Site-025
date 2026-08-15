@@ -66,6 +66,7 @@ const latestEntries = [...languageEntries]
 ---
 
 <Layout title={`RrSuika Studio`} description={t.meta.description}>
+  <div class="home-flow">
   <Hero />
 
   <FeaturedProjects projects={featuredEntries} totalCount={totalProjectLabCount} />
@@ -75,4 +76,5 @@ const latestEntries = [...languageEntries]
   <LatestUpdates entries={latestEntries} />
 
   <AboutPreview />
+  </div>
 </Layout>
