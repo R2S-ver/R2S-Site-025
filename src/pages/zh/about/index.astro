@@ -2431,6 +2431,10 @@ const personSchema = {
 
   .intro-content {
     max-width: 760px;
+
+    /* 与左侧 h2("设计")顶部对齐:
+       system-tag 一行(4xs≈10px)≈15px + h2 上外边距 25px ≈ 40px */
+    margin-top: 40px;
   }
 
   .intro-content p {
@@ -4062,6 +4066,10 @@ const personSchema = {
     .future-panel,
     .closing-grid {
       grid-template-columns: 1fr;
+    }
+
+    .intro-content {
+      margin-top: 0;
     }
 
     .process-station {
