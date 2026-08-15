@@ -2181,24 +2181,14 @@ const personSchema = {
   .intro-layout {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
-    grid-template-rows: auto auto auto auto;
-    column-gap: 90px;
-    row-gap: 20px;
+    gap: 90px;
   }
 
-  /* 子网格:左右两列逐行对齐 —— 右侧导语行再高,
-     第二行「标题 ↔ 正文」的顶部对齐也不受影响 */
-  .intro-heading,
-  .intro-content {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: 1 / -1;
-  }
-
+  /* 普通双栏:左侧标题顶格,右侧段落自然流 ——
+     TUSSEN 与导语顶部天然对齐,段落间距即常规 25px */
   .intro-heading h2 {
     max-width: 650px;
     margin: 0 0 20px;
-    grid-row: 2; /* 标签已移除,显式固定在第 2 行与正文对齐 */
     font-size: clamp(42px, 6vw, 80px);
     line-height: 0.95;
     letter-spacing: -2px;
@@ -2238,10 +2228,8 @@ const personSchema = {
     margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
   }
 
-  /* 正文+身份段+声明卡整体放入第 2 行,与左侧 h2 顶部对齐;
-     内部保持紧凑的自然文档流,不再被大标题高度拉开 */
   .intro-content .intro-body {
-    grid-row: 2;
+    /* 普通块流容器,内部段落自然紧凑排列 */
   }
 
   .intro-statement {
