@@ -244,7 +244,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 ### 6.1 主题契约
 
-- `data-theme` 属性挂在 `<html>` 上（`"dark"` | `"light"`）；`localStorage["r2s-theme"]` 持久化；切换入口 `window.__toggleTheme`（Layout 脚本）+ Navbar 按钮。
+- `data-theme` 属性挂在 `<html>` 上（`"dark"` | `"light"`）；`localStorage["rrsuika-theme"]` 持久化；切换入口 `window.__toggleTheme`（Layout 脚本）+ Navbar 按钮。
 - **首次访问默认 dark**（不跟随 `prefers-color-scheme`）；head 内联守卫脚本在任何绘制前设好 `data-theme`，配套 `html:not([data-theme]) body { visibility: hidden }` 防闪烁。
 - 暗色 token 定义在 `:root`（§1），亮色覆盖在 `:root[data-theme="light"]`（§2，只覆盖值不同的 token；排版/布局/圆角/缓动 token 两主题同值只定义一次）。
 
@@ -304,7 +304,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | **art 页（冻结）** | `art/index.astro` + `zh/art/index.astro` 各自独立实现：`import.meta.glob(eager)` 扫描 4 个 art 条目文件夹图片（排除 `cover.png`）、硬编码 4 分类（CATEGORIES）+ 按语言作品名（TITLE_MAP）、每行无缝跑马灯（悬停暂停、拖拽 1.5×、点击 lightbox、Esc/←/→/触摸滑动）。**两语言文件实现有差异**（en 用 opacity 动画，zh 用 display 切换） |
 | **about 页动画** | 两个 about 页（en 3977 行 / zh 4274 行，独立文件）：design-process 站台自动轮播（IntersectionObserver 激活，1.5s/步）、capability matrix canvas（8 个绘制函数：3D 环面/CMF 色块/示波器/波纹/DNA 螺旋/矿石传送带/像素网格/软件终端，4.2s 轮播，`define:vars` 注入翻译）、ANNEX 打字机彩蛋 |
 | **背景粒子** | Layout.astro 脚本（参数见 §6.3）；`prefers-reduced-motion` 时隐藏 |
-| **移动端提示** | `#mobile-notice`：sessionStorage `"r2s-mobile-notice"` 记忆关闭；桌面（≥769px）隐藏 |
+| **移动端提示** | `#mobile-notice`：sessionStorage `"rrsuika-mobile-notice"` 记忆关闭；桌面（≥769px）隐藏 |
 | **结构化数据** | Layout head：`WebSite`（每页）；about 页：`Person`（name "RrSuika Studio"、alternateName `["RrS"]`、sameAs GitHub `RrSuika` + pixiv、Rotterdam NL）；详情模板：`TechArticle`（含 `translationOfWork`，§3.2-6） |
 
 ---

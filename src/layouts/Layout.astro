@@ -95,7 +95,7 @@ const websiteSchema = {
     -->
     <script is:inline>
       (() => {
-        var key = "r2s-theme", stored;
+        var key = "rrsuika-theme", stored;
         try { stored = localStorage.getItem(key); } catch (_) { stored = null; }
         if (stored === "light" || stored === "dark") {
           document.documentElement.setAttribute("data-theme", stored);
@@ -545,7 +545,7 @@ const websiteSchema = {
     <!-- ── Theme toggle (init is in <head> to prevent flash) ── -->
     <script>
       (() => {
-        var KEY = "r2s-theme";
+        var KEY = "rrsuika-theme";
         window.__toggleTheme = function () {
           var cur = document.documentElement.getAttribute("data-theme");
           var next = cur === "light" ? "dark" : "light";
@@ -557,7 +557,7 @@ const websiteSchema = {
     <!-- ── Mobile notice dismiss: click × (session-scoped) ── -->
     <script>
       (() => {
-        var KEY = "r2s-mobile-notice";
+        var KEY = "rrsuika-mobile-notice";
         var notice = document.getElementById("mobile-notice");
         if (!notice) return;
         try {

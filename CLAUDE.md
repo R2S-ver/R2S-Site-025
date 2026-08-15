@@ -18,7 +18,7 @@ Manage it with `astro dev stop`, `astro dev status`, `astro dev logs`. Build wit
 
 - **`src/styles/global.css` is the single source of truth** for all design tokens (14 sections), imported once by `Layout.astro` frontmatter.
 - **Token fidelity policy**: every token value was copied 1:1 from the original pre-cleanup styles. When replacing literals, use a token **only if its value is identical in both themes**; otherwise leave the literal. Never invent new colors, never "harmonize" values, never recolor.
-- Theme contract: `data-theme` on `<html>` (dark default), `localStorage["r2s-theme"]`, toggle via `window.__toggleTheme`.
+- Theme contract: `data-theme` on `<html>` (dark default), `localStorage["rrsuika-theme"]`, toggle via `window.__toggleTheme`.
 - **⚠️ Hero terminal is temporarily hidden**: `global.css` §14 contains `.hero .terminal { display: none; }` with restore instructions. Deleting that block restores the terminal (element is intact in `Hero.astro`).
 - Background layers (§10): weakened particle canvas (`#neural-canvas`, script in Layout.astro — 140/70 particles, CONNECTION_DIST 140, shadowBlur 8, opacity 0.25 dark / 0.10 light) + hex grid + noise + scanlines (0.28 dark / 0.08 light) + vignette.
 - CJK: `html[lang="zh"]` headings get `letter-spacing: 0; line-height: 1.2` (§13); `.hero h1` is Latin and keeps its display tracking.
