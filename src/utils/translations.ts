@@ -571,7 +571,7 @@ export const translations = {
         eyebrow: "RrSuika STUDIO // 设计师 + 创客 + 画师",
         title: "关于我",
 
-        introTitle: "设计、工程与视觉艺术之间",
+        introTitle: "设计\n工程\n艺术",
         subtitle: "工业设计师 & 创客，现居鹿特丹，在技术思维与视觉创造力之间寻找交汇点。",
         description: "我的创作处于设计、工程与视觉艺术的交汇地",
         introText:
