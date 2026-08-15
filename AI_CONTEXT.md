@@ -15,7 +15,7 @@
 |---|---|
 | 定位 | RrSuika Studio 个人作品集网站：工业设计 × 嵌入式系统 × 创意制造（Industrial Design × Embedded Systems × Creative Making） |
 | 技术栈 | **Astro 7.1.6**（纯静态输出）、**zod 4**（内容 schema）、TypeScript（`astro/tsconfigs/strict`）、原生 CSS + 少量原生 JS。**无任何集成**：无 React/Vue/Svelte、无 MDX、无 Tailwind、无适配器 |
-| 站点 | https://rrsuika.pages.dev （Cloudflare Pages，push 到 `main` 自动部署） |
+| 站点 | https://rrsuika-studio.pages.dev （Cloudflare Pages，push 到 `main` 自动部署） |
 | 语言 | 英文为主（默认无前缀），中文为 `/zh` 前缀镜像。**手动 i18n**：不使用 Astro 内置 i18n routing（虽然 astro.config.mjs 里声明了 i18n 配置，实际路由全部手写，见 §3、§9） |
 | 设计方向 | 复古科幻 CRT 终端 / 技术手册 HUD 风（retro-futurism）：暗色默认 + 亮色"蓝图纸"（Soviet technical manual）主题 |
 | 阶段 | 生产运行中。架构稳定；art 页面**冻结**（用户决定）；首页 Hero 终端处于**临时隐藏实验**状态（§14，见 §10） |
@@ -311,7 +311,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 
 ## 8. 配置与部署
 
-- **`astro.config.mjs`**（15 行）：`site: "https://rrsuika.pages.dev"`；`i18n: { locales: ["en","zh"], defaultLocale: "en", routing: { prefixDefaultLocale: false } }`（**声明而已——实际路由全部手写**，Astro i18n routing 未被使用）；无 integrations、无 compressHTML 覆盖、无 redirects。
+- **`astro.config.mjs`**（15 行）：`site: "https://rrsuika-studio.pages.dev"`；`i18n: { locales: ["en","zh"], defaultLocale: "en", routing: { prefixDefaultLocale: false } }`（**声明而已——实际路由全部手写**，Astro i18n routing 未被使用）；无 integrations、无 compressHTML 覆盖、无 redirects。
 - **`package.json`**：scripts `dev`/`build`/`preview`/`astro`（均标准 Astro）；dependencies 仅 `astro ^7.1.6`、`zod ^4.4.3`；无 devDependencies；`engines: node >= 22.12.0`。
 - **`tsconfig.json`**：`extends "astro/tsconfigs/strict"`，exclude `dist`。
 - **开发**：`npm run dev`（localhost:4321）或根目录 `启动.bat`；按 AGENTS.md 约定，AI 应用 `astro dev --background` 启动、`astro dev stop/status/logs` 管理。

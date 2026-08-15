@@ -50,7 +50,7 @@ const svg = `<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
   <rect x="470" y="522" width="170" height="10" fill="#3ab8d8"/>
 
   <!-- URL -->
-  <text x="1090" y="532" text-anchor="end" font-family="Consolas, monospace" font-size="26" fill="rgba(232,148,58,0.85)">rrsuika.pages.dev</text>
+  <text x="1090" y="532" text-anchor="end" font-family="Consolas, monospace" font-size="26" fill="rgba(232,148,58,0.85)">rrsuika-studio.pages.dev</text>
 
   <!-- Chinese tagline -->
   <text x="110" y="560" font-family="Consolas, monospace" font-size="22" fill="rgba(255,255,255,0.38)">个人网站 // 工业设计 x 嵌入式系统 x 创意制造</text>

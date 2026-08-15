@@ -1,6 +1,6 @@
 # RrSuika Studio Portfolio — Project Conventions
 
-Personal portfolio (Astro 7, static, no integrations), deployed to Cloudflare Pages at https://rrsuika.pages.dev (auto-deploys on push to main).
+Personal portfolio (Astro 7, static, no integrations), deployed to Cloudflare Pages at https://rrsuika-studio.pages.dev (auto-deploys on push to main).
 
 > **For AI assistants: read `AI_CONTEXT.md` first** — the project's architecture & design memory (directory tree, routes, content schema, component responsibilities, design tokens, design decisions, tech debt, and a "where to change what" index). This file holds the hard rules; when the two disagree, the code wins and `AI_CONTEXT.md` must be updated.
 

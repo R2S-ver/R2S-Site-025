@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://rrsuika.pages.dev',
+  site: 'https://rrsuika-studio.pages.dev',
 
   i18n: {
     locales: ['en', 'zh', 'nl'],

@@ -19,4 +19,4 @@ Disallow: /art/
 Disallow: /zh/art/
 Disallow: /nl/art/
 
-Sitemap: https://rrsuika.pages.dev/sitemap.xml
+Sitemap: https://rrsuika-studio.pages.dev/sitemap.xml
