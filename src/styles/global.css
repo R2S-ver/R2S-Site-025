@@ -1028,53 +1028,8 @@ html[lang="nl"] body .hero h1 {
 }
 
 /* ── CRT power-on boot for cards (load-triggered, once) ──
-   Filter-free on purpose: animated filter layers caused a
-   stuck black screen on some GPUs. ── */
-.crt-boot .image-wrapper::after {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 3;
-
-  pointer-events: none;
-
-  background: linear-gradient(
-    to bottom,
-    transparent 46%,
-    rgba(255, 255, 255, 0.5) 50%,
-    transparent 54%
-  );
-
-  background-size: 100% 260%;
-
-  background-position: 50% -30%;
-
-  animation: crtBootLine 0.55s var(--ease-in-out) 1 both;
-
-  animation-delay: var(--boot-delay, 0ms);
-}
-
-@keyframes crtBootLine {
-  0% {
-    background-position: 50% -30%;
-    opacity: 0;
-  }
-  18% {
-    opacity: 1;
-  }
-  70% {
-    background-position: 50% 130%;
-    opacity: 1;
-  }
-  100% {
-    background-position: 50% 130%;
-    opacity: 0;
-  }
-}
-
+   White scanline stripe removed by user request — only the
+   subtle cover fade-zoom remains. ── */
 .crt-boot img.cover {
   animation: crtBootImg 0.55s var(--ease-out) 1 both;
   animation-delay: var(--boot-delay, 0ms);
@@ -1098,10 +1053,6 @@ html[lang="nl"] body .hero h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .crt-boot .image-wrapper::after {
-    display: none;
-  }
-
   .crt-boot img.cover {
     animation: none;
   }
