@@ -2098,6 +2098,10 @@ const personSchema = {
     color: var(--text-dim);
     font-size: var(--text-scale-4xs);
     letter-spacing: var(--tracking-tag);
+    /* 移出文档流,悬浮在 h2 上方,不参与对齐计算 */
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   /* =====================================================
@@ -2189,9 +2193,13 @@ const personSchema = {
     gap: 90px;
   }
 
+  .intro-heading {
+    position: relative;
+  }
+
   .intro-heading h2 {
     max-width: 650px;
-    margin: 25px 0 40px;
+    margin: 45px 0 40px;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 0.95;
     letter-spacing: -2px;
@@ -2228,6 +2236,15 @@ const personSchema = {
     color: var(--text-bright);
     font-size: 21px;
     line-height: 1.7;
+    /* 该段待在顶部区域(与左侧 system-tag 同层),
+       与下一段之间的间距由下一条规则控制 */
+    margin-bottom: 0;
+  }
+
+  /* 第二段("Mijn werk...")顶部
+     与左侧 h2("TUSSEN")顶部对齐:lead 高约 36px,45 - 36 = 9 */
+  .intro-content .intro-lead + p {
+    margin-top: 9px;
   }
 
   .intro-statement {
