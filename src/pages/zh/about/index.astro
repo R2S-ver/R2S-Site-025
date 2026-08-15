@@ -2314,10 +2314,6 @@ const personSchema = {
     color: var(--text-dim);
     font-size: var(--text-scale-4xs);
     letter-spacing: var(--tracking-tag);
-    /* 移出文档流,悬浮在 h2 上方,不参与对齐计算 */
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
   /* =====================================================
@@ -2406,16 +2402,23 @@ const personSchema = {
   .intro-layout {
     display: grid;
     grid-template-columns: 1fr 1.4fr;
-    gap: 90px;
+    grid-template-rows: auto auto auto auto;
+    column-gap: 90px;
+    row-gap: 20px;
   }
 
-  .intro-heading {
-    position: relative;
+  /* 子网格:左右两列逐行对齐 —— 右侧导语行再高,
+     第二行「标题 ↔ 正文」的顶部对齐也不受影响 */
+  .intro-heading,
+  .intro-content {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / -1;
   }
 
   .intro-heading h2 {
     max-width: 650px;
-    margin: 45px 0 40px;
+    margin: 0 0 20px;
     font-size: clamp(42px, 6vw, 80px);
     line-height: 1.35; /* 中文竖排,行距放宽 */
     letter-spacing: -2px;
@@ -2452,21 +2455,13 @@ const personSchema = {
     color: var(--text-bright);
     font-size: 21px;
     line-height: 1.7;
-    /* 该段待在顶部区域(与左侧 system-tag 同层),
-       与下一段之间的间距由下一条规则控制 */
-    margin-bottom: 0;
-  }
-
-  /* 第二段("从一个模糊的草图或概念开始...")顶部
-     与左侧 h2("设计")顶部对齐:lead 高约 36px,45 - 36 = 9 */
-  .intro-content .intro-lead + p {
-    margin-top: 9px;
+    margin-bottom: 0; /* 行间距由网格 row-gap 控制 */
   }
 
   .intro-statement {
     display: flex;
     flex-direction: column;
-    margin-top: 45px;
+    margin-top: 25px;
     padding: 25px 30px;
     background: var(--accent);
     color: #08080c;
@@ -4079,6 +4074,15 @@ const personSchema = {
     .future-panel,
     .closing-grid {
       grid-template-columns: 1fr;
+    }
+
+    .intro-layout {
+      grid-template-rows: none;
+    }
+
+    .intro-heading,
+    .intro-content {
+      display: block;
     }
 
     .process-station {
