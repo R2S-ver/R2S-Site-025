@@ -4,8 +4,11 @@
 > 接手任何新任务时：**先读本文件 → 再用快速索引（§11）定位文件 → 只读必要的源文件 → 动手。**
 > 与 `CLAUDE.md` 的分工：CLAUDE.md 是**规则与政策**（必须遵守的约束），本文件是**架构事实与原因**（"现在怎么组织的、为什么、去哪改"）。`AGENTS.md` 只讲开发服务器的工作方式。
 >
-> - 最后更新：2026-08-14 v1.1（技术债小修批次：ProjectCard 路由单一来源 / sharp 依赖声明 / zh-notes 翻译键 / 输入-取消跟踪；新增 §12 规则 12–13）
+> - 最后更新：2026-08-15 v1.3（图片优化批次：卡片/详情 webp、art 无损 webp（≥50% 尺寸）、ArtGallery 删除、共享 artImages）
 > - 维护规则见 §12：代码若与本文件冲突，**以代码为准**，并更新本文件。
+>
+> **⚠️ v1.2 全量校正（旧段落中未逐行改写的“双语/仅 zh”表述，一律以下面为准）：**
+> 站点现在是 **en（无前缀）/ zh（`/zh`）/ nl（`/nl`）三语**；`src/content/entries` 每个文件夹为 `en.md + cn.md + nl.md + 图片`；`src/pages` 有完整的 zh 与 nl 静态镜像；两个动态详情路由分别是 en 与“所有非 en 语言”。`translations.ts` 为 `{en, zh, nl}`。`package.json` 新增 `npm run check`（依赖 `@astrojs/check` + `typescript` devDeps）。`Layout` 的 prop 已改为 `alternateHrefs`（`undefined`=自动假设全部语言；空数组=显式无译文；`null`=省略 hreflang）。404 页的导航语言切换指向各语言首页。`ArtGallery.astro` 已删除，两个详情模板不再有 art 分支；`gallery` schema 字段暂时保留但当前无消费者。art 页面改为视觉冻结：允许代码优化，但视觉不得变化；`npm run optimize-art` 生成 `public/art-optimized/` 无损 webp（每张输出必须 ≥ 原文件 50%，否则保留原图），共享发现逻辑在 `src/utils/artImages.ts`。卡片与详情封面通过 `astro:assets` 输出 webp。
 
 ---
 

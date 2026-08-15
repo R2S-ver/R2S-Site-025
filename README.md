@@ -3,7 +3,7 @@
 The personal portfolio of **RrSuika Studio** — industrial design × embedded systems × creative making.
 Live at **[rrsuika-studio.pages.dev](https://rrsuika-studio.pages.dev)** (Cloudflare Pages).
 
-> 中文简介：这是 RrSuika Studio 的个人作品集网站，展示工业设计、嵌入式系统与创意制造作品，全站支持中英双语（中文位于 `/zh` 前缀）。技术栈为 Astro 7 纯静态构建 + 原生 CSS/JS，内容以 Markdown 内容集合管理，推送 `main` 分支即自动部署。
+> 中文简介：这是 RrSuika Studio 的个人作品集网站，展示工业设计、嵌入式系统与创意制造作品，全站支持英、中、荷三语（中文位于 `/zh`，荷兰语位于 `/nl`）。技术栈为 Astro 7 纯静态构建 + 原生 CSS/JS，内容以 Markdown 内容集合管理，推送 `main` 分支即自动部署。
 
 ## What's inside
 
@@ -16,7 +16,7 @@ Live at **[rrsuika-studio.pages.dev](https://rrsuika-studio.pages.dev)** (Cloudf
 | Notes    | `/notes`   | Electronics self-study notes                   |
 | About    | `/about`   | Profile, design process, capability matrix     |
 
-Every page exists in English and Chinese (`/zh/...`).
+Every page exists in English, Chinese (`/zh/...`) and Dutch (`/nl/...`).
 
 ## Tech stack
 
@@ -29,8 +29,8 @@ Every page exists in English and Chinese (`/zh/...`).
 
 ```text
 src/
-├── content/entries/     # All site content: one folder per entry (en.md + cn.md + images)
-├── pages/               # Routes: static pages, zh mirrors, 2 dynamic detail routes, sitemap, 404
+├── content/entries/     # All site content: one folder per entry (en.md + cn.md + nl.md + images)
+├── pages/               # Routes: static pages, zh/nl mirrors, 2 dynamic detail routes, sitemap, 404
 ├── components/          # Reusable UI (Navbar, Footer, ProjectCard, ProjectDetail, home sections…)
 ├── styles/global.css    # The single design-token source of truth
 ├── utils/               # routes / i18n / translations / images helpers
@@ -41,7 +41,7 @@ scripts/og-card-gen.mjs  # Regenerates public/og-card.png (npm run og-card)
 
 ## Adding content
 
-Each piece of content is a folder in `src/content/entries/` containing `en.md`, `cn.md` and its images.
+Each piece of content is a folder in `src/content/entries/` containing `en.md`, `cn.md`, `nl.md` and its images.
 The URL slug is the folder name — **no code changes are needed for a new entry**.
 
 > For AI collaborators: read [`AI_CONTEXT.md`](AI_CONTEXT.md) first — it is the project's architecture
@@ -53,7 +53,9 @@ The URL slug is the folder name — **no code changes are needed for a new entry
 ```bash
 npm install     # Node >= 22.12
 npm run dev     # http://localhost:4321
-npm run build   # static output to dist/
+npm run build         # static output to dist/
+npm run check         # TypeScript / Astro diagnostics
+npm run optimize-art  # regenerate art-optimized lossless webp assets (art only)
 ```
 
 ## Deployment

@@ -31,7 +31,7 @@ const topTags = filterTags
   .map((t) => [t, notes.filter((e) => (e.data.tags || []).includes(t)).length] as const);
 ---
 
-<Layout title={`${t.sections.notes.title} | RrSuika Studio`} description={t.meta.description}>
+<Layout title={`${t.sections.notes.title} | RrSuika Studio`} description={t.sections.notes.description}>
   <main class="notes-page">
     <header class="notes-header">
       <h1>{t.sections.notes.title}</h1>

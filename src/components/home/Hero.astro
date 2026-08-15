@@ -42,8 +42,12 @@ const projectsPath = getLocalizedPath("/projects", language);
 
     <p class="description type-line">
       {t.hero.description.line1}
-      <br />
-      {t.hero.description.line2}
+      {t.hero.description.line2 && (
+        <>
+          <br />
+          {t.hero.description.line2}
+        </>
+      )}
     </p>
 
     <a href={projectsPath} class="button type-line">

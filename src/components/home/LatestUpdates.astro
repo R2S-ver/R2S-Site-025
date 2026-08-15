@@ -1,9 +1,10 @@
 ---
-import { getLanguageFromPath } from "../../utils/i18n";
+import { getLanguageFromPath, languageDateLocales } from "../../utils/i18n";
+import type { CollectionEntry } from "astro:content";
 import { getTranslations } from "../../utils/translations";
 import { buildEntryUrl } from "../../utils/routes";
 
-const { entries = [] } = Astro.props;
+const { entries = [] as CollectionEntry<"entries">[] } = Astro.props as { entries?: CollectionEntry<"entries">[] };
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
@@ -19,7 +20,7 @@ const t = getTranslations(language);
       {
         entries.map((entry, index) => {
           const date = entry.data.date.toLocaleDateString(
-            language === "zh" ? "zh-CN" : "en-US",
+            languageDateLocales[language],
             {
               year: "numeric",
               month: "short",

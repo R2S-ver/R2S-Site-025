@@ -2,16 +2,13 @@
 import Layout from "../../layouts/Layout.astro";
 import { getLanguageFromPath } from "../../utils/i18n";
 import { getTranslations } from "../../utils/translations";
+import { getArtImages } from "../../utils/artImages";
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);
 
 // Auto-discover all images in art content entry folders
 // Drop new images into any of these folders → auto appears on the page
-const allImages = import.meta.glob(
-  "/src/content/entries/{illustrations,product-posters,fashion-design,food-art}/*.{png,jpg,jpeg,webp}",
-  { eager: true, import: "default" },
-);
 
 interface ArtImage {
   src: string;
@@ -64,29 +61,21 @@ function titleFromFilename(folder: string, filename: string): string {
   return name.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-const categories: Category[] = CATEGORIES.map((cat) => {
-  const images: ArtImage[] = [];
-
-  for (const [path, src] of Object.entries(allImages)) {
-    if (path.includes(`/entries/${cat.folder}/`) && !path.endsWith("cover.png")) {
-      const filename = path.replace(/^.*[\\/]/, "");
-      // import.meta.glob returns ImageMetadata objects, extract .src URL
-      const url = typeof src === "string" ? src : (src as any).src;
-      images.push({
-        src: url,
-        title: titleFromFilename(cat.folder, filename),
-        folder: cat.folder,
-      });
-    }
-  }
-
-  return { ...cat, images };
-});
+const categories: Category[] = CATEGORIES.map((cat) => ({
+  ...cat,
+  images: getArtImages()
+    .filter((image) => image.folder === cat.folder)
+    .map((image) => ({
+      src: image.src,
+      title: titleFromFilename(cat.folder, image.filename),
+      folder: image.folder,
+    })),
+}));
 
 const hasContent = categories.some((c) => c.images.length > 0);
 ---
 
-<Layout title={`${t.sections.art.title} | RrSuika Studio`} description={t.meta.description}>
+<Layout title={`${t.sections.art.title} | RrSuika Studio`} description={t.sections.art.description}>
   <main class="art-page">
     <section class="art-hero">
       <p class="hero-tag">{t.explore.art.header}</p>
@@ -176,7 +165,6 @@ const hasContent = categories.some((c) => c.images.length > 0);
     dragStartX: number;
     dragStartScroll: number;
     direction: number;     // 1 = right, -1 = left
-    animId: number;
   }
 
   const states: RowState[] = [];
@@ -194,7 +182,6 @@ const hasContent = categories.some((c) => c.images.length > 0);
       dragStartX: 0,
       dragStartScroll: 0,
       direction: dir,
-      animId: 0,
     };
 
     track.style.transform = `translateX(${-state.position}px)`;

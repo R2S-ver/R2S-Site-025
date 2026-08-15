@@ -1,9 +1,10 @@
 ---
 import ProjectCard from "../ProjectCard.astro";
+import type { CollectionEntry } from "astro:content";
 import { getLanguageFromPath } from "../../utils/i18n";
 import { getTranslations } from "../../utils/translations";
 
-const { projects = [], totalCount = 0 } = Astro.props;
+const { projects = [] as CollectionEntry<"entries">[], totalCount = 0 } = Astro.props as { projects?: CollectionEntry<"entries">[]; totalCount?: number };
 
 const language = getLanguageFromPath(Astro.url.pathname);
 const t = getTranslations(language);

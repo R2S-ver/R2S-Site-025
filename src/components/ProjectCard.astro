@@ -1,6 +1,7 @@
 ---
-import { getProjectImageUrl } from "../utils/images";
-import { getLanguageFromPath } from "../utils/i18n";
+import { getImage } from "astro:assets";
+import { getProjectImageMeta } from "../utils/images";
+import { getLanguageFromPath, languageDateLocales } from "../utils/i18n";
 import { buildEntryUrl } from "../utils/routes";
 import { getTranslations } from "../utils/translations";
 
@@ -17,12 +18,27 @@ const t = getTranslations(language);
 // URL 只使用项目 slug
 const slug = project.id.split("/")[0];
 
-const image = project.data.cover
-  ? getProjectImageUrl(slug, project.data.cover)
+const coverMeta = project.data.cover
+  ? getProjectImageMeta(slug, project.data.cover)
   : null;
 
+const optimizedCover =
+  coverMeta && typeof coverMeta !== "string"
+    ? await getImage({
+        src: coverMeta,
+        width: 1200,
+        format: "webp",
+        quality: 90,
+      })
+    : null;
+
+const image =
+  optimizedCover?.src ?? (typeof coverMeta === "string" ? coverMeta : null);
+const imageWidth = optimizedCover?.attributes.width as number | undefined;
+const imageHeight = optimizedCover?.attributes.height as number | undefined;
+
 const date = project.data.date.toLocaleDateString(
-  language === "zh" ? "zh-CN" : "en-US",
+  languageDateLocales[language],
   {
     year: "numeric",
     month: "short",
@@ -63,7 +79,7 @@ const type = project.data.type.toUpperCase();
           )
         }
 
-        <img class="cover" src={image} alt={project.data.title} loading="lazy" decoding="async" />
+        <img class="cover" src={image} alt={project.data.title} width={imageWidth} height={imageHeight} loading="lazy" decoding="async" />
       </div>
     )
   }

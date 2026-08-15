@@ -430,8 +430,7 @@ body {
 :root[data-theme] .skill-tree,
 :root[data-theme] .research-terminal,
 :root[data-theme] .future-panel,
-:root[data-theme] .footer,
-:root[data-theme] .nav {
+:root[data-theme] .footer {
   transition:
     background 0.35s var(--ease-out),
     border-color 0.35s var(--ease-out),
@@ -464,16 +463,6 @@ img {
   display: block;
 }
 
-.container {
-  width: min(1400px, 90%);
-
-  margin: auto;
-}
-
-.mono {
-  font-family: var(--font-mono);
-}
-
 .data-tag {
   font-family: var(--font-mono);
 
@@ -501,9 +490,7 @@ main {
 /* ── Staggered card entrance ── */
 .card,
 .explore-card,
-.art-card,
 .log,
-.masonry-item,
 .frame {
   animation: cardIn 0.55s var(--spring-gentle) both;
 }
@@ -528,20 +515,6 @@ main {
 .logs > *:nth-child(3)  { animation-delay: 0.19s; }
 .logs > *:nth-child(4)  { animation-delay: 0.26s; }
 .logs > *:nth-child(5)  { animation-delay: 0.33s; }
-
-.art-grid > *:nth-child(1) { animation-delay: 0.05s; }
-.art-grid > *:nth-child(2) { animation-delay: 0.15s; }
-.art-grid > *:nth-child(3) { animation-delay: 0.25s; }
-.art-grid > *:nth-child(4) { animation-delay: 0.35s; }
-
-.masonry > *:nth-child(1)  { animation-delay: 0.03s; }
-.masonry > *:nth-child(2)  { animation-delay: 0.06s; }
-.masonry > *:nth-child(3)  { animation-delay: 0.09s; }
-.masonry > *:nth-child(4)  { animation-delay: 0.12s; }
-.masonry > *:nth-child(5)  { animation-delay: 0.15s; }
-.masonry > *:nth-child(6)  { animation-delay: 0.18s; }
-.masonry > *:nth-child(7)  { animation-delay: 0.21s; }
-.masonry > *:nth-child(8)  { animation-delay: 0.24s; }
 
 .explore-grid > *:nth-child(1) { animation-delay: 0.05s; }
 .explore-grid > *:nth-child(2) { animation-delay: 0.15s; }
@@ -789,11 +762,9 @@ body::after {
 
 /* Terminal — remove dark borders in light mode */
 :root[data-theme="light"] .terminal { border-color: transparent; }
-:root[data-theme="light"] .terminal-line { color: var(--text-soft); }
 
 /* Hero extra text */
 :root[data-theme="light"] .hero .cassette { color: var(--text-soft); }
-:root[data-theme="light"] .hero .hero-desc { color: var(--text-soft); }
 
 /* Footer + barcode */
 :root[data-theme="light"] .footer { background: var(--paper); }
@@ -815,11 +786,7 @@ body::after {
 }
 
 /* About page cards */
-:root[data-theme="light"] .about-section,
-:root[data-theme="light"] .dossier,
-:root[data-theme="light"] .capability-matrix,
-:root[data-theme="light"] .knowledge-log,
-:root[data-theme="light"] .current-research {
+:root[data-theme="light"] .dossier {
   background: var(--paper);
   box-shadow: var(--shadow-paper);
 }
@@ -827,26 +794,10 @@ body::after {
 /* Decorative numbers */
 :root[data-theme="light"] .number { color: rgba(0, 0, 0, 0.12) !important; }
 
-/* Tag filter area */
-:root[data-theme="light"] .tag-filter,
-:root[data-theme="light"] .tag-filter span,
-:root[data-theme="light"] .tag-filter button { color: var(--text-dim); }
-
 /* Page section headers */
 :root[data-theme="light"] section header h1 { color: var(--text-bright); }
 :root[data-theme="light"] section header p { color: var(--text-tertiary); }
 
-/* Note cards */
-:root[data-theme="light"] .note-card h2,
-:root[data-theme="light"] .note-card h3 { color: var(--text-bright); }
-:root[data-theme="light"] .note-card .description { color: var(--text-dim); }
-:root[data-theme="light"] .note-card .tags span { color: var(--text-dim); }
-
-/* Art gallery — frozen: kept verbatim */
-:root[data-theme="light"] .masonry-item { border-color: rgba(0, 0, 0, 0.1); }
-:root[data-theme="light"] .masonry-item .caption {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
-}
 :root[data-theme="light"] .lightbox-bg { background: rgba(240, 235, 225, 0.96); }
 :root[data-theme="light"] .lightbox-body { color: #1a1a1a; }
 

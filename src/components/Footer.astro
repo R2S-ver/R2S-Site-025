@@ -193,35 +193,6 @@ const aboutPath = getLocalizedPath("/about", language);
     font-weight: bold;
   }
 
-  /* ── REC indicator ── */
-  .rec-indicator {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: var(--text-scale-4xs);
-    letter-spacing: var(--tracking-label);
-    color: rgba(224, 64, 64, 0.7);
-    font-weight: bold;
-  }
-
-  .rec-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--stripe-red);
-    box-shadow: 0 0 6px var(--stripe-red);
-    animation: recPulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes recPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  :root[data-theme="light"] .rec-indicator {
-    color: rgba(192, 48, 48, 0.6);
-  }
-
   .status span {
     color: var(--terminal-green);
 

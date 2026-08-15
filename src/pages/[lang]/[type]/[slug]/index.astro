@@ -2,11 +2,11 @@
 import { getCollection, render } from "astro:content";
 import Layout from "../../../../layouts/Layout.astro";
 import ProjectDetail from "../../../../components/ProjectDetail.astro";
-import ArtGallery from "../../../../components/ArtGallery.astro";
 import {
   findTranslation,
   getLocalizedPath,
   languageCodes,
+  type Language,
 } from "../../../../utils/i18n";
 import { getProjectImage } from "../../../../utils/images";
 
@@ -65,6 +65,9 @@ const coverImage =
       ? String(coverRaw.src)
       : null;
 
+const coverImageUrl =
+  coverImage && Astro.site ? new URL(coverImage, Astro.site).href : null;
+
 const alternateHrefs = (translations as { data: { lang: "en" | "zh" | "nl" } }[]).map(
   (tr) => ({
     lang: languageCodes[tr.data.lang],
@@ -85,9 +88,15 @@ function resolveCoverUrl(entryId: string, cover?: string): string | undefined {
     | string
     | { src: unknown }
     | null;
-  if (typeof raw === "string") return raw;
-  if (raw && "src" in raw) return String(raw.src);
-  return undefined;
+  const url =
+    typeof raw === "string"
+      ? raw
+      : raw && "src" in raw
+        ? String(raw.src)
+        : null;
+  if (!url) return undefined;
+  // Schema.org expects an absolute image URL, not a root-relative path.
+  return Astro.site ? new URL(url, Astro.site).href : url;
 }
 
 // 结构化数据 — 详情页 TechArticle 实体
@@ -97,7 +106,7 @@ const articleSchema = {
   "@type": "TechArticle",
   headline: project.data.title,
   description: project.data.description ?? undefined,
-  image: coverImage ?? undefined,
+  image: coverImageUrl ?? undefined,
   datePublished: project.data.date.toISOString(),
   // 无独立修改日期数据，回退为发布日期
   dateModified: project.data.date.toISOString(),
@@ -106,7 +115,7 @@ const articleSchema = {
   mainEntityOfPage: Astro.site
     ? new URL(Astro.url.pathname, Astro.site).href
     : undefined,
-  translationOfWork: (translations as { id: string; data: any }[]).map(
+  translationOfWork: (translations as { id: string; data: { lang: Language; title: string; description?: string; cover?: string; date: Date } }[]).map(
     (tr) => ({
       "@type": "TechArticle",
       headline: tr.data.title,
@@ -139,14 +148,10 @@ const articleSchema = {
     set:html={JSON.stringify(articleSchema)}
   />
 
-  {project.data.type === "art" ? (
-    <ArtGallery project={project} projectId={projectId} />
-  ) : (
-    <ProjectDetail
-      project={project}
-      projectId={projectId}
-      Content={Content}
-      translation={translation}
-    />
-  )}
+  <ProjectDetail
+    project={project}
+    projectId={projectId}
+    Content={Content}
+    translation={translation}
+  />
 </Layout>

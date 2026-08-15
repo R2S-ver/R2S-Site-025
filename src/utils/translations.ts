@@ -14,7 +14,6 @@ export const translations = {
       art: "ART",
       notes: "NOTES",
       about: "ABOUT",
-      language: "中文",
     },
 
     common: {
@@ -49,6 +48,7 @@ export const translations = {
       description: {
         line1:
           "Bridge the gap between TECH and AESTHETIC by pairing artistic intuition with a research-driven mindset.",
+        line2: "",
       },
       button: "ACCESS PROJECT DATABASE",
     },
@@ -828,7 +828,7 @@ export const translations = {
       lab: "LAB",
       art: "ART",
       notes: "NOTITIES",
-      about: "OVER MIJ",
+      about: "ABOUT ME",
     },
 
     common: {
@@ -863,6 +863,7 @@ export const translations = {
       description: {
         line1:
           "Overbrug de kloof tussen TECH en AESTHETIEK door artistieke intuïtie te combineren met een onderzoeksgerichte aanpak.",
+        line2: "",
       },
       button: "TOEGANG PROJECTDATABASE",
     },
@@ -937,7 +938,7 @@ export const translations = {
       github: "GitHub",
       email: "E-mail",
       pixiv: "pixiv",
-      about: "Over mij",
+      about: "About ME",
       copyright: "ALLE KERNDATAPAKKETTEN GEÏNTEGREERD",
     },
 
@@ -962,7 +963,7 @@ export const translations = {
         pageTag: "PERSONEELSDOSSIER // PROFIELMODULE",
         pageStatus: "● SYSTEEM_ACTIEF",
         eyebrow: "RrSuika STUDIO // ONTWERPER + MAKER + ARTIST",
-        title: "Over mij",
+        title: "About ME",
         introTitle: "TUSSEN\nMAKEN\nDESIGN\nKUNST",
         subtitle: "Industrieel ontwerper & maker in Rotterdam, met een brug tussen technisch denken en visuele creativiteit.",
         description:

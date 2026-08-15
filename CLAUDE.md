@@ -23,23 +23,23 @@ Manage it with `astro dev stop`, `astro dev status`, `astro dev logs`. Build wit
 - Background layers (§10): weakened particle canvas (`#neural-canvas`, script in Layout.astro — 140/70 particles, CONNECTION_DIST 140, shadowBlur 8, opacity 0.25 dark / 0.10 light) + hex grid + noise + scanlines (0.28 dark / 0.08 light) + vignette.
 - CJK: `html[lang="zh"]` headings get `letter-spacing: 0; line-height: 1.2` (§13); `.hero h1` is Latin and keeps its display tracking.
 - Scrollbar is intentionally fully hidden (original behavior, kept by user preference).
-- Fonts: Google Fonts JetBrains Mono 400/700/800/900. `--font-mono`/`--font-body` include CJK fallbacks.
+- Fonts: Google Fonts JetBrains Mono 400/700/800/900, Saira Condensed, VT323; self-hosted Smiley Sans Oblique (得意黑) subsets in `public/fonts/dyh`. `--font-mono`/`--font-body` include CJK fallbacks.
 - Old-palette literals (`#ff5f1f`, brand dots `#ff3333/#ffd400/#00b0ff`, `rgba(255,95,31,…)`, light greens `#00703c/#145a28`) are deliberate — the user chose to keep the original look. Do not recolor them.
 
 ## Architecture conventions
 
 - **`src/utils/routes.ts` is the single source for entry URLs** (`typeToRoute`, `buildEntryUrl`). Note detail routes use singular `note` (`/note/{slug}`), while the listing page is `/notes`. Never create per-component route maps — that bug produced 404s.
 - **`src/utils/translations.ts` is the single translation source** (nav/common/hero/featured/explore/latest/aboutPreview/footer/sections/meta). Never add inline translation dictionaries in components.
-- **i18n is manual** (no Astro i18n routing): `/zh` prefix detected via `getLanguageFromPath`; every en page needs a zh mirror file. Use `getLocalizedPath`/`findTranslation` from `src/utils/i18n.ts`.
-- **Content**: single collection `entries` (glob loader, `src/content.config.ts`); URL slug = entry folder name; en/cn paired by `translationKey`. `collaboration` field drives the TEAM badge in ProjectCard.
+- **i18n is manual** (no Astro i18n routing): `/zh` and `/nl` prefixes detected via `getLanguageFromPath`; every en page needs zh and nl mirror files. Use `getLocalizedPath`/`findTranslation` from `src/utils/i18n.ts`.
+- **Content**: single collection `entries` (glob loader, `src/content.config.ts`); URL slug = entry folder name; en/cn/nl paired by `translationKey`. `collaboration` field drives the TEAM badge in ProjectCard.
 - **Home page**: featured projects use a hardcoded `featuredKeys` list (user preference); SYS.LOG excludes `type === "art"` entries (art has no detail pages).
-- **Art pages are FROZEN (user decision)**: no structural or CSS changes to `src/pages/art/index.astro`, `src/pages/zh/art/index.astro`, `src/components/ArtGallery.astro`, or the `gallery` schema field. Only SEO props in frontmatter are allowed there.
+- **Art pages are VISUAL-FROZEN**: code may be refactored or optimized, but rendered appearance must not change. Art images are pre-optimized with `npm run optimize-art` (lossless webp only when output is >= 50% of the original size; otherwise the original is kept). `src/utils/artImages.ts` is the shared image source for all three `/art` pages.
 
 ## SEO conventions
 
-- `Layout` Props: `title` (append `| RrSuika Studio` for pages), `description` (falls back to `t.meta.description`), `ogImage` (absolute path string), `alternateHref` (`undefined` = assume page exists in the other language; `null` = omit hreflang), `noIndex`.
+- `Layout` Props: `title` (append `| RrSuika Studio` for pages), `description` (falls back to `t.meta.description`), `ogImage` (absolute path string), `alternateHrefs` (`undefined` = auto-assume all other languages; an array = explicit alternates, empty array = none; `null` = omit hreflang), `noIndex`.
 - Structured data (JSON-LD, `is:inline`): `WebSite` in Layout head; `Person` on both About pages (name RrSuika Studio, alternateName RrS, sameAs GitHub/pixiv); `TechArticle` on detail templates (full ISO-8601 dates — schema.org requires timezone info; `translationOfWork` links the paired article).
-- `sitemap.xml.ts` endpoint excludes art entries (no detail pages). `public/robots.txt` allows all crawlers except AI-training bots, which are disallowed from `/art/` and `/zh/art/` (Googlebot unaffected).
+- `sitemap.xml.ts` endpoint excludes art entries (no detail pages). `public/robots.txt` allows all crawlers except AI-training bots, which are disallowed from `/art/`, `/zh/art/` and `/nl/art/` (Googlebot unaffected).
 - Site URL is configured in `astro.config.mjs` — canonical/hreflang/OG depend on it.
 
 ## Repository hygiene

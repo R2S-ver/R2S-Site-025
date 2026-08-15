@@ -35,10 +35,11 @@ const isZh = language === "zh";
 const t = getTranslations(language);
 
 // Art pages are frozen — exclude them from global heading font changes.
-const isArtRoute =
-  Astro.url.pathname === "/art" ||
-  Astro.url.pathname.startsWith("/zh/art") ||
-  Astro.url.pathname.startsWith("/nl/art");
+const isArtRoute = ["/art", "/zh/art", "/nl/art"].some(
+  (route) =>
+    Astro.url.pathname === route ||
+    Astro.url.pathname.startsWith(`${route}/`),
+);
 
 const metaDescription = description ?? t.meta.description;
 
@@ -47,7 +48,7 @@ const allLanguages: Language[] = ["en", "zh", "nl"];
 const alternates: { lang: string; href: string }[] =
   alternateHrefs === null
     ? []
-    : alternateHrefs && alternateHrefs.length > 0
+    : alternateHrefs !== undefined
       ? alternateHrefs
       : allLanguages
           .filter((l) => l !== language)
@@ -252,13 +253,11 @@ const websiteSchema = {
       (() => {
         const canvas = document.getElementById(
           "neural-canvas",
-        ) as HTMLCanvasElement | null;
+        ) as HTMLCanvasElement;
 
-        if (!canvas) return;
+        const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-        const ctx = canvas.getContext("2d");
-
-        if (!ctx) return;
+        if (!canvas || !ctx) return;
 
         let particles: any[] = [];
 
@@ -546,7 +545,7 @@ const websiteSchema = {
     <script>
       (() => {
         var KEY = "rrsuika-theme";
-        window.__toggleTheme = function () {
+        (window as typeof window & { __toggleTheme?: () => void }).__toggleTheme = function () {
           var cur = document.documentElement.getAttribute("data-theme");
           var next = cur === "light" ? "dark" : "light";
           document.documentElement.setAttribute("data-theme", next);
@@ -558,7 +557,7 @@ const websiteSchema = {
     <script>
       (() => {
         var KEY = "rrsuika-mobile-notice";
-        var notice = document.getElementById("mobile-notice");
+        const notice = document.getElementById("mobile-notice");
         if (!notice) return;
         try {
           if (sessionStorage.getItem(KEY) === "dismissed") {
@@ -572,9 +571,9 @@ const websiteSchema = {
           if (dismissed) return;
           dismissed = true;
           // 淡出动画结束后再移除
-          notice.classList.add("notice-leave");
+          notice?.classList.add("notice-leave");
           setTimeout(() => {
-            notice.hidden = true;
+            if (notice) notice.hidden = true;
           }, 450);
           try { sessionStorage.setItem(KEY, "dismissed"); } catch (_) {}
         }

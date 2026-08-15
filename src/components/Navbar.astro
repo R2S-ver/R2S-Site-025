@@ -58,7 +58,12 @@ if (pathWithoutLanguage.length >= 2) {
 }
 
 const langTargets = (["nl", "en", "zh"] as const).map((lang) => {
-  const targetPath = getLocalizedPath(Astro.url.pathname, lang);
+  // On the 404 page there is no per-language mirror; switch to that
+  // language home instead of linking to /zh/404/ etc.
+  const targetPath =
+    pathSegments[0] === "404"
+      ? getLocalizedPath("/", lang)
+      : getLocalizedPath(Astro.url.pathname, lang);
 
   let available = true;
 
