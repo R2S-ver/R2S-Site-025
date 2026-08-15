@@ -1,6 +1,6 @@
-# R2S Studio Portfolio — Project Conventions
+# RrSuika Studio Portfolio — Project Conventions
 
-Personal portfolio (Astro 7, static, no integrations), deployed to Cloudflare Pages at https://r2s-site-025.pages.dev (auto-deploys on push to main).
+Personal portfolio (Astro 7, static, no integrations), deployed to Cloudflare Pages at https://rrsuika.pages.dev (auto-deploys on push to main).
 
 > **For AI assistants: read `AI_CONTEXT.md` first** — the project's architecture & design memory (directory tree, routes, content schema, component responsibilities, design tokens, design decisions, tech debt, and a "where to change what" index). This file holds the hard rules; when the two disagree, the code wins and `AI_CONTEXT.md` must be updated.
 
@@ -37,8 +37,8 @@ Manage it with `astro dev stop`, `astro dev status`, `astro dev logs`. Build wit
 
 ## SEO conventions
 
-- `Layout` Props: `title` (append `| R2S Studio` for pages), `description` (falls back to `t.meta.description`), `ogImage` (absolute path string), `alternateHref` (`undefined` = assume page exists in the other language; `null` = omit hreflang), `noIndex`.
-- Structured data (JSON-LD, `is:inline`): `WebSite` in Layout head; `Person` on both About pages (name R2S Studio, alternateName R2S/RrSuika, sameAs GitHub/pixiv); `TechArticle` on detail templates (full ISO-8601 dates — schema.org requires timezone info; `translationOfWork` links the paired article).
+- `Layout` Props: `title` (append `| RrSuika Studio` for pages), `description` (falls back to `t.meta.description`), `ogImage` (absolute path string), `alternateHref` (`undefined` = assume page exists in the other language; `null` = omit hreflang), `noIndex`.
+- Structured data (JSON-LD, `is:inline`): `WebSite` in Layout head; `Person` on both About pages (name RrSuika Studio, alternateName RrS, sameAs GitHub/pixiv); `TechArticle` on detail templates (full ISO-8601 dates — schema.org requires timezone info; `translationOfWork` links the paired article).
 - `sitemap.xml.ts` endpoint excludes art entries (no detail pages). `public/robots.txt` allows all crawlers except AI-training bots, which are disallowed from `/art/` and `/zh/art/` (Googlebot unaffected).
 - Site URL is configured in `astro.config.mjs` — canonical/hreflang/OG depend on it.
 

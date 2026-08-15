@@ -19,4 +19,4 @@ Disallow: /art/
 Disallow: /zh/art/
 Disallow: /nl/art/
 
-Sitemap: https://r2s-site-025.pages.dev/sitemap.xml
+Sitemap: https://rrsuika.pages.dev/sitemap.xml

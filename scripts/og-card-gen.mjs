@@ -36,10 +36,10 @@ const svg = `<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
   </g>
 
   <!-- Data tag -->
-  <text x="110" y="168" font-family="Consolas, monospace" font-size="24" letter-spacing="6" fill="#e8943a">R2S_STUDIO // PORTFOLIO_DATABASE</text>
+  <text x="110" y="168" font-family="Consolas, monospace" font-size="24" letter-spacing="6" fill="#e8943a">RrSuika_STUDIO // PORTFOLIO_DATABASE</text>
 
   <!-- Title -->
-  <text x="105" y="348" font-family="Consolas, monospace" font-weight="bold" font-size="158" letter-spacing="-3" fill="#e8e6e0">R2S STUDIO</text>
+  <text x="105" y="348" font-family="Consolas, monospace" font-weight="bold" font-size="158" letter-spacing="-3" fill="#e8e6e0">RrSuika STUDIO</text>
 
   <!-- Tagline — sized to stay inside the right bracket -->
   <text x="110" y="408" font-family="Consolas, monospace" font-size="26" letter-spacing="2" fill="#8a8880">INDUSTRIAL DESIGN x EMBEDDED SYSTEMS x CREATIVE MAKING</text>
@@ -50,7 +50,7 @@ const svg = `<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
   <rect x="470" y="522" width="170" height="10" fill="#3ab8d8"/>
 
   <!-- URL -->
-  <text x="1090" y="532" text-anchor="end" font-family="Consolas, monospace" font-size="26" fill="rgba(232,148,58,0.85)">r2s-site-025.pages.dev</text>
+  <text x="1090" y="532" text-anchor="end" font-family="Consolas, monospace" font-size="26" fill="rgba(232,148,58,0.85)">rrsuika.pages.dev</text>
 
   <!-- Chinese tagline -->
   <text x="110" y="560" font-family="Consolas, monospace" font-size="22" fill="rgba(255,255,255,0.38)">个人网站 // 工业设计 x 嵌入式系统 x 创意制造</text>

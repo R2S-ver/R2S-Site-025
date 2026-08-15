@@ -1,4 +1,4 @@
-# AI_CONTEXT.md — R2S Studio Portfolio 项目上下文（AI 专用）
+# AI_CONTEXT.md — RrSuika Studio Portfolio 项目上下文（AI 专用）
 
 > **本文件是给未来 AI 助手的项目级长期记忆（Architecture & Design Memory）。**
 > 接手任何新任务时：**先读本文件 → 再用快速索引（§11）定位文件 → 只读必要的源文件 → 动手。**
@@ -13,14 +13,14 @@
 
 | 项 | 内容 |
 |---|---|
-| 定位 | R2S Studio 个人作品集网站：工业设计 × 嵌入式系统 × 创意制造（Industrial Design × Embedded Systems × Creative Making） |
+| 定位 | RrSuika Studio 个人作品集网站：工业设计 × 嵌入式系统 × 创意制造（Industrial Design × Embedded Systems × Creative Making） |
 | 技术栈 | **Astro 7.1.6**（纯静态输出）、**zod 4**（内容 schema）、TypeScript（`astro/tsconfigs/strict`）、原生 CSS + 少量原生 JS。**无任何集成**：无 React/Vue/Svelte、无 MDX、无 Tailwind、无适配器 |
-| 站点 | https://r2s-site-025.pages.dev （Cloudflare Pages，push 到 `main` 自动部署） |
+| 站点 | https://rrsuika.pages.dev （Cloudflare Pages，push 到 `main` 自动部署） |
 | 语言 | 英文为主（默认无前缀），中文为 `/zh` 前缀镜像。**手动 i18n**：不使用 Astro 内置 i18n routing（虽然 astro.config.mjs 里声明了 i18n 配置，实际路由全部手写，见 §3、§9） |
 | 设计方向 | 复古科幻 CRT 终端 / 技术手册 HUD 风（retro-futurism）：暗色默认 + 亮色"蓝图纸"（Soviet technical manual）主题 |
 | 阶段 | 生产运行中。架构稳定；art 页面**冻结**（用户决定）；首页 Hero 终端处于**临时隐藏实验**状态（§14，见 §10） |
 
-**GitHub**：远程仓库 `R2S-Site-025`（账号 R2S-ver；本地文件夹名为 MyPortfolio），主分支 `main`，工作树干净即代表生产状态。
+**GitHub**：远程仓库 `RrS-Site`（账号 RrSuika；本地文件夹名为 MyPortfolio），主分支 `main`，工作树干净即代表生产状态。
 
 ---
 
@@ -195,13 +195,13 @@ Props（都在 `src/layouts/Layout.astro` 顶部 interface）：
 
 | Prop | 语义 |
 |---|---|
-| `title?` | `<title>`/og:title，默认 `"R2S Studio"` |
+| `title?` | `<title>`/og:title，默认 `"RrSuika Studio"` |
 | `description?` | 缺省回退 `t.meta.description`（按语言） |
 | `ogImage?` | string 或 null；缺省回退 `/og-card.png` |
 | `alternateHref?` | **`undefined` = 假定对方语言页面存在**，自动用 `getLocalizedPath` 推导 hreflang；**`null` = 不输出 hreflang**（页面无译文时，详情页无译文时传 null） |
 | `noIndex?` | 输出 `robots noindex`（404 页用） |
 
-Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/viewport/color-scheme/theme-color×2、Google Fonts JetBrains Mono 400/700/800/900、favicon、canonical、hreflang+x-default、og:*/twitter:*、**JSON-LD WebSite** `{name:"R2S Studio", url, inLanguage:["en","zh"]}`）；body 结构（skip-link、`#mobile-notice` 移动端提示、`#neural-canvas` 粒子画布、`<Navbar/>` + `<main#main-content/>`(slot) + `<Footer/>`、`<ScrollMeter/>`、`#crt-overlay` + `#tube-vignette` 背景层、粒子/主题切换/mobile-notice 三个脚本）。`global.css` 在此以 frontmatter import 引入（唯一引入点）。
+Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/viewport/color-scheme/theme-color×2、Google Fonts JetBrains Mono 400/700/800/900、favicon、canonical、hreflang+x-default、og:*/twitter:*、**JSON-LD WebSite** `{name:"RrSuika Studio", url, inLanguage:["en","zh"]}`）；body 结构（skip-link、`#mobile-notice` 移动端提示、`#neural-canvas` 粒子画布、`<Navbar/>` + `<main#main-content/>`(slot) + `<Footer/>`、`<ScrollMeter/>`、`#crt-overlay` + `#tube-vignette` 背景层、粒子/主题切换/mobile-notice 三个脚本）。`global.css` 在此以 frontmatter import 引入（唯一引入点）。
 
 ### 5.2 组件清单（共 11 个）与复用指引
 
@@ -210,7 +210,7 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | 组件 | 职责 | 备注 |
 |---|---|---|
 | `Navbar.astro` | sticky 顶栏：品牌三色点、6 个导航链接（`t.nav.*`，href 用 `getLocalizedPath`）、**语言切换=镜像链接**（详情页先查译文是否存在，无则拦截弹 toast，见 §7.1）、主题切换按钮（调 `window.__toggleTheme`）、`#clock` 时钟、警告条纹 | **无汉堡菜单、无当前页高亮（无 aria-current）**；≤1000px 变纵向堆叠 |
-| `Footer.astro` | 页脚：三色条纹+状态行、身份区块、链接（GitHub `R2S-ver`、email `ranrsuika@gmail.com`、pixiv `users/71884225`、QQ、Discord）、条形码、版权 | 硬编码 `ROTTERDAM // NL`、`2026.V5.5` |
+| `Footer.astro` | 页脚：三色条纹+状态行、身份区块、链接（GitHub `RrSuika`、email `ranrsuika@gmail.com`、pixiv `users/71884225`、QQ、Discord）、条形码、版权 | 硬编码 `ROTTERDAM // NL`、`2026.V5.5` |
 | `ScrollMeter.astro` | 右缘 LED 滚动进度条（10 段）+ 回顶/回底按钮 + 轨道拖拽滚动 | rAF 节流、`aria-hidden` 计量表、≤768px 隐藏 |
 
 **列表/详情复用：**
@@ -305,13 +305,13 @@ Layout 负责：head 全套（主题守卫内联脚本→防闪烁、charset/vie
 | **about 页动画** | 两个 about 页（en 3977 行 / zh 4274 行，独立文件）：design-process 站台自动轮播（IntersectionObserver 激活，1.5s/步）、capability matrix canvas（8 个绘制函数：3D 环面/CMF 色块/示波器/波纹/DNA 螺旋/矿石传送带/像素网格/软件终端，4.2s 轮播，`define:vars` 注入翻译）、ANNEX 打字机彩蛋 |
 | **背景粒子** | Layout.astro 脚本（参数见 §6.3）；`prefers-reduced-motion` 时隐藏 |
 | **移动端提示** | `#mobile-notice`：sessionStorage `"r2s-mobile-notice"` 记忆关闭；桌面（≥769px）隐藏 |
-| **结构化数据** | Layout head：`WebSite`（每页）；about 页：`Person`（name "R2S Studio"、alternateName `["R2S","RrSuika"]`、sameAs GitHub `R2S-ver` + pixiv、Rotterdam NL）；详情模板：`TechArticle`（含 `translationOfWork`，§3.2-6） |
+| **结构化数据** | Layout head：`WebSite`（每页）；about 页：`Person`（name "RrSuika Studio"、alternateName `["RrS"]`、sameAs GitHub `RrSuika` + pixiv、Rotterdam NL）；详情模板：`TechArticle`（含 `translationOfWork`，§3.2-6） |
 
 ---
 
 ## 8. 配置与部署
 
-- **`astro.config.mjs`**（15 行）：`site: "https://r2s-site-025.pages.dev"`；`i18n: { locales: ["en","zh"], defaultLocale: "en", routing: { prefixDefaultLocale: false } }`（**声明而已——实际路由全部手写**，Astro i18n routing 未被使用）；无 integrations、无 compressHTML 覆盖、无 redirects。
+- **`astro.config.mjs`**（15 行）：`site: "https://rrsuika.pages.dev"`；`i18n: { locales: ["en","zh"], defaultLocale: "en", routing: { prefixDefaultLocale: false } }`（**声明而已——实际路由全部手写**，Astro i18n routing 未被使用）；无 integrations、无 compressHTML 覆盖、无 redirects。
 - **`package.json`**：scripts `dev`/`build`/`preview`/`astro`（均标准 Astro）；dependencies 仅 `astro ^7.1.6`、`zod ^4.4.3`；无 devDependencies；`engines: node >= 22.12.0`。
 - **`tsconfig.json`**：`extends "astro/tsconfigs/strict"`，exclude `dist`。
 - **开发**：`npm run dev`（localhost:4321）或根目录 `启动.bat`；按 AGENTS.md 约定，AI 应用 `astro dev --background` 启动、`astro dev stop/status/logs` 管理。

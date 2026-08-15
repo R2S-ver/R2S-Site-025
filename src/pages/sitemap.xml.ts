@@ -8,7 +8,7 @@ import { getCollection } from "astro:content";
 export const GET: APIRoute = async ({ site }) => {
   const entries = await getCollection("entries");
 
-  const base = (site?.href ?? "https://r2s-site-025.pages.dev").replace(/\/$/, "");
+  const base = (site?.href ?? "https://rrsuika.pages.dev").replace(/\/$/, "");
 
   const staticPaths = ["", "/projects", "/lab", "/notes", "/about", "/art"];
 
