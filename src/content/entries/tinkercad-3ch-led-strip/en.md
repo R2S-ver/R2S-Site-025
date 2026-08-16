@@ -1,7 +1,7 @@
 ---
 title: Tinkercad 3-Channel LED Strip Control
 date: 2026-07-25
-description: Virtual 3-channel LED strip controller with push buttons and potentiometer RGB control.
+description: Virtual 3-channel LED strip controller with push-button channel selection and potentiometer RGB control.
 
 type: lab
 category: Embedded System
@@ -39,7 +39,7 @@ The circuit controls three independent NeoPixel strips. Three push buttons let y
 # Controls
 
 - **3 push buttons** — Select active LED strip (1, 2, or 3). Pressing a button switches focus to that strip and updates the status LED accordingly.
-- **3 potentiometers** — R, G, B values mapped from 0-1023 (analog read) down to 0-255 for NeoPixel output.
+- **3 potentiometers** — R, G, B values mapped from 0–1023 (analog read) down to 0–255 for NeoPixel output.
 - **1 potentiometer** — Master brightness for the active strip. Applied as a scaling factor after the RGB values are set.
 - **Status RGB LED** — Glows red, green, or blue to indicate which channel is selected. Simple but effective — no need to look at the serial monitor to know what you're editing.
 
@@ -72,5 +72,5 @@ The Tinkercad simulation confirmed the approach works before I spent a cent on h
 
 - Three independent LED strips, each maintaining its own state in memory. Switch away from a strip and its color stays put.
 - Button-based channel selection with clean debouncing (Tinkercad's simulated buttons are cleaner than real ones, admittedly).
-- Real-time RGB + brightness control via four potentiometers. The analog-to-digital mapping from 0-1023 to 0-255 is a simple division, but it works well enough for a simulation.
+- Real-time RGB + brightness control via four potentiometers. The analog-to-digital mapping from 0–1023 to 0–255 is a simple division, but it works well enough for a simulation.
 - Status indicator LED gives clear visual feedback on which channel is active. Small detail, but it makes the interface feel deliberate rather than guesswork.

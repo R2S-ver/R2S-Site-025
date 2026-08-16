@@ -27,11 +27,11 @@ translationKey: esp32-wifi-led-brightness-control
 
 # Overzicht
 
-Het idee hier was simpel: een LED bedienen vanaf mijn telefoon. Geen Bluetooth, geen app; gewoon een webpagina die door de ESP32 zelf wordt geserveerd en bereikbaar is vanaf alles op mijn WiFi thuis. Ik zou een schuifregelaar in de browser krijgen en de LED zou in realtime reageren. Het bleek een leuke kleine oefening in het combineren van WiFi, HTTP en PWM; drie dingen die in vrijwel elk IoT-project terugkomen.
+Het idee was simpel: een LED aansturen vanaf mijn telefoon. Geen Bluetooth, geen app; gewoon een webpagina die door de ESP32 zelf wordt geserveerd en bereikbaar is vanaf elk apparaat op mijn thuis-wifi. Ik zou een schuifregelaar in de browser krijgen en de LED zou in realtime reageren. Het bleek een leuke kleine oefening in het combineren van WiFi, HTTP en PWM; drie dingen die in vrijwel elk IoT-project terugkomen.
 
 # Systeemarchitectuur
 
-De ESP32 fungeert zowel als WiFi-client als als webserver.
+De ESP32 is tegelijk WiFi-client en webserver.
 
 # Hardware
 
@@ -39,7 +39,7 @@ De ESP32 fungeert zowel als WiFi-client als als webserver.
 - Ingebouwde LED (GPIO 2)
 - USB-kabel
 
-Begonnen met de ingebouwde LED voor de eenvoud. Geen breadboard, geen externe componenten; alleen het ontwikkelbord en een USB-kabel. De LED op het bord zit op GPIO 2, wat handig is omdat die al is aangesloten en je niet hoeft na te denken over stroombegrenzingsweerstanden.
+Begonnen met de ingebouwde LED, voor het gemak. Geen breadboard, geen externe componenten; alleen het ontwikkelbord en een USB-kabel. De LED op het bord zit op GPIO 2, wat handig is omdat die al is aangesloten en je niet hoeft na te denken over stroombegrenzingsweerstanden.
 
 # Software
 
@@ -52,7 +52,7 @@ Bibliotheken:
 #include <WebServer.h>
 ```
 
-Beide bibliotheken worden meegeleverd met de ESP32 Arduino Core, dus er is niets extra's te installeren. `WiFi.h` verzorgt de verbinding en `WebServer.h` geeft je een lichtgewicht HTTP-server; perfect voor dit soort dingen.
+Beide bibliotheken worden meegeleverd met de ESP32 Arduino Core, dus je hoeft niets extra te installeren. `WiFi.h` verzorgt de verbinding en `WebServer.h` geeft je een lichtgewicht HTTP-server; perfect voor dit soort dingen.
 
 # Implementatie
 
@@ -66,7 +66,7 @@ Dit is wat ik het leukst vind aan de ESP32: je draait een webserver op in een ha
 ## PWM-helderheidsregeling
 
 De helderheid gebruikt PWM met een 8-bits resolutie (0–255 komt overeen met 0%–100%). <br>
-De webschuifregelaar stuurt een HTTP-verzoek om de dutycycle te wijzigen:
+De schuifregelaar op de webpagina stuurt een HTTP-verzoek om de dutycycle te wijzigen:
 
 Browser → /set?value=brightness → PWM-uitgang van de ESP32
 
@@ -83,7 +83,7 @@ Ik koos voor 8-bits PWM (0–255) omdat dat mooi aansluit op het bereik van `led
 
 De ESP32 maakt verbinding, serveert de interface, ontvangt HTTP-helderheidswaarden en stuurt de LED aan via PWM. De hele keten (hardware, netwerk, interface, fysieke uitvoer) werkt zoals verwacht en vormt een basis voor meer interactieve IoT-projecten.
 
-Dit is een van die bouwprojecten waar de verhouding tussen opbrengst en inspanning erg bevredigend is. Met ongeveer 160 regels code krijg je een werkend, webgestuurd licht. Hetzelfde patroon (WiFi + webserver + PWM) breidt zich vanzelf uit naar zaken als motortoerentalregeling, servopositionering of het aansturen van een LED-strip via een MOSFET.
+Dit is een van die projecten waar de verhouding tussen inspanning en opbrengst erg bevredigend is. Met ongeveer 160 regels code krijg je een werkend, webgestuurd licht. Hetzelfde patroon (WiFi + webserver + PWM) leent zich net zo goed voor zaken als motortoerentalregeling, servopositionering of het aansturen van een LED-strip via een MOSFET.
 
 # Volledige code
 

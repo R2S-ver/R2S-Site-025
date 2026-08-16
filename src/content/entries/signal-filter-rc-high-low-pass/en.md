@@ -36,7 +36,7 @@ Capacitive reactance: **Xc = 1/(2πfC)**. Higher frequency → lower impedance. 
 - **At high frequencies**: the capacitor is effectively a short (low impedance).
 - **Cutoff frequency fc**: when |Xc| = R, f = 1/(2πRC), output power drops to half (-3dB).
 
-fc = 1/(2πRC) — probably the most-recurring formula in my notebook. I've calculated it for debounce circuits, audio filters, ADC front-ends... it shows up everywhere.
+fc = 1/(2πRC) — probably the most-used formula in my notebook. I've calculated it for debounce circuits, audio filters, ADC front-ends... it shows up everywhere.
 
 ## RC Low-Pass Filter
 
@@ -97,7 +97,7 @@ Capacitor in series, resistor to ground. High frequencies sail through the capac
 - **AC coupling / DC blocking**: strip the DC offset from a sensor signal, keep only the AC variation. Ubiquitous in audio and sensor circuits.
 - **Audio inter-stage coupling**: a capacitor between stages isolates their different DC operating points so they don't mess with each other.
 - **PIR sensor signal extraction**: human body movement causes AC infrared changes. A high-pass filters out the slow ambient temperature drift, leaving only the useful motion signal.
-- **ECG / bio-potential signals**: electrode half-cell potentials create DC offsets of tens to hundreds of mV. High-pass removes it so you can safely amplify the actual heartbeat waveform.
+- **ECG / bio-potential signals**: electrode half-cell potentials create DC offsets of tens to hundreds of mV. A high-pass removes the offset so you can safely amplify the actual heartbeat waveform.
 - **Audio treble extraction**: in crossovers, the high-pass sends high frequencies to the tweeters.
 
 ### Design Notes

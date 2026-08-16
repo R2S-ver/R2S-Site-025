@@ -67,7 +67,7 @@ This distinction matters more than people realize:
 
 ## Trip Characteristics
 
-Breakers protect against overload and short circuits, but not all breakers are the same. The common curve types — **B, C, D, K, Z, MA** — differ in how many times the rated current they'll let through before tripping on a magnetic fault. Equipment with high inrush (motors, welders, compressors) can nuisance-trip a B-curve breaker that's technically "correctly" sized, which is how people end up doing dumb things to bypass protection.
+Breakers protect against overload and short circuits, but not all breakers are the same. The common curve types — **B, C, D, K, Z, MA** — differ in how many times the rated current they'll allow through before tripping on a magnetic fault. Equipment with high inrush (motors, welders, compressors) can nuisance-trip a B-curve breaker that's technically "correctly" sized, which is how people end up doing dumb things to bypass protection.
 
 ![Trip Characteristics](./3.png)
 
@@ -138,7 +138,7 @@ I had power strips plugged into other power strips. Each junction adds contact r
 
 ### 5. Voltage Dips & EMI
 
-The compressor and angle grinder were on the same circuit as my computer and monitors. Every time a motor started, the voltage would sag and sensitive electronics would see the spike. Over time, that's how you kill power supplies. **Fix:** Physically separated circuits — heavy machinery on one group, sensitive electronics on another.
+The compressor and angle grinder were on the same circuit as my computer and monitors. Every time a motor started, the voltage would sag and the sensitive electronics would see an EMI spike. Over time, that's how you kill power supplies. **Fix:** Physically separated circuits — heavy machinery on one group, sensitive electronics on another.
 
 ![Travel Adapter Issues](./11.png)
 
@@ -165,7 +165,7 @@ This sounds silly but it matters: I put up actual labels. "Do not start more tha
 
 # Conclusion
 
-Nine risk factors, some of which had been sitting there for months while I worked around them. The ungrounded welder was the scariest — that one could have actually hurt someone. The daisy-chained power strips were probably the most likely to cause a real fire.
+Nine risk factors, some of which had been sitting there for months while I worked around them. The ungrounded welder was the scariest — that one could have actually hurt someone. The daisy-chained power strips were the most likely to cause a real fire.
 
 The core insight was that my setup was never designed — it had just accumulated. Another power strip here, an extension cord there, until the topology was a mess of serial connections where every link was a liability. Moving to a star topology with physically separated circuits isn't just tidier — it means a fault in one zone doesn't cascade into the others.
 

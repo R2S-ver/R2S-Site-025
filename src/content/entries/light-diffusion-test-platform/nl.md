@@ -36,9 +36,9 @@ Vier optische eigenschappen, elk direct relevant voor productontwerpbeslissingen
 
 | Eigenschap              | Wat het je vertelt                                  | Waarom het ertoe doet voor ontwerp                        |
 | -------------------------- | --------------------------------------------------- | -------------------------------------------------------- |
-| **Transmissie**         | Hoeveel licht er door het materiaal heen komt       | Helderheid van van achteren belichte displays, zichtbaarheid van LED-indicatoren |
+| **Transmissie**         | Hoeveel licht er door het materiaal heen komt       | Helderheid van displays die van achteren belicht worden, zichtbaarheid van LED-indicatoren |
 | **Diffusie**            | Hoe gelijkmatig het licht verstrooit na het passeren | Hotspots elimineren, uniformiteit van belichte oppervlakken |
-| **Reflectie**           | Hoe het materiaaloppervlak invallend licht weerkaatst | Keuze van oppervlakteafwerking, beheersing van verblinding |
+| **Reflectie**           | Hoe het materiaaloppervlak invallend licht weerkaatst | Keuze van oppervlakteafwerking, tegengaan van verblinding |
 | **Luminantieverdeling** | Helderheidsvariatie over het belichte oppervlak     | Visueel comfort, prestaties van lichtgeleiders            |
 
 Naast de meetdoelen had ik een handvol praktische eisen die net zo belangrijk bleken als de optische:
@@ -47,7 +47,7 @@ Naast de meetdoelen had ik een handvol praktische eisen die net zo belangrijk bl
 - <strong style="color:var(--accent)">Instelbare helderheid</strong>: materialen zien er bij 10% helderheid anders uit dan bij 100%. De lichtbron moet dat bereik kunnen dekken.
 - <strong style="color:var(--accent)">Beheersing van omgevingslicht</strong>: optische metingen in een zonverlichte kamer zijn alleen maar ruis. De testomgeving moet externe interferentie minimaliseren.
 - <strong style="color:var(--accent)">Snel samples wisselen</strong>: als het verwisselen van materiaal vijf minuten kost, ga ik niet genoeg vergelijkingen uitvoeren om iets nuttigs te leren.
-- <strong style="color:var(--accent)">Visuele output</strong>: ik moet de resultaten kunnen zien, niet alleen getallen loggen. Zij-aan-zij visuele vergelijking is de helft van het doel.
+- <strong style="color:var(--accent)">Visuele output</strong>: ik moet de resultaten kunnen zien, niet alleen getallen loggen. Zij-aan-zij visuele vergelijking is de helft van waar het om gaat.
 
 # Ontwerp & bouw
 
@@ -66,7 +66,7 @@ De opstelling is een verticaal meetstatief: lichtbron onderaan, verstelbaar samp
 
 - <strong style="color:var(--accent)">Lichtbron</strong>: LED-strip met PWM-helderheidsregeling. Gaat van nauwelijks gloeiend tot volledige output, en ik kan exacte niveaus reproduceerbaar instellen.
 - <strong style="color:var(--accent)">Sampleplatform</strong>: hergebruikte laboratoriumheftafel. De hoogteverstelling laat me de afstand tussen de lichtbron en het materiaal precies bepalen, wat ik de "diffusiespleet" noem. Deze variabele bleek verrassend belangrijk.
-- <strong style="color:var(--accent)">Frame</strong>: lasergesneden structuurpanelen, matzwart gespoten. De zwarte afwerking is geen cosmetica: hij absorbeert strooilicht en doodt interne reflecties die de metingen anders zouden vervuilen.
+- <strong style="color:var(--accent)">Frame</strong>: lasergesneden structuurpanelen, matzwart gespoten. De zwarte afwerking is geen cosmetica: hij absorbeert strooilicht en smoort interne reflecties die de metingen anders zouden vervuilen.
 - <strong style="color:var(--accent)">Besturingssysteem</strong>: een Arduino met een eenvoudige PWM-routine. Niets bijzonders, maar het geeft me reproduceerbare helderheidsstappen, zodat ik dagen later naar dezelfde instellingen kan terugkeren en dezelfde output krijg.
 - <strong style="color:var(--accent)">Voedingsleiding</strong>: zuurstofvrij koperdraad, minimale doorsnede van 0.5mm². Geschikt voor 2A met marge. Deze specificatie werd later belangrijk (zie het iteratiegedeelte).
 
@@ -140,7 +140,7 @@ Het hele doel van het bouwen van een testopstelling in plaats van dingen gewoon 
 
 # Drie versies om het goed te krijgen
 
-Het platform ontstond niet in één keer af. Ik heb het drie keer gebouwd, en elke versie loste iets op wat de vorige fout deed.
+Het platform ontstond niet in één keer. Ik heb het drie keer gebouwd, en elke versie loste iets op wat de vorige fout deed.
 
 ![Iteratievergelijking](./01-iteration-comparison.png)
 
@@ -169,7 +169,7 @@ Ik verving de losse LED's door een uniforme LED-strip en gebruikte koperfolietap
 
 Dit is de versie die is gebleven:
 
-- <span style="color:var(--terminal-green)">**Upgrade:**</span> De kopertape eruit gesloopt en vervangen door zuurstofvrij koperdraad (min 0.5mm²). Netjes geschikt voor 2A met marge over. Minder prettig om mee te werken dan tape, maar gemak doet er niet toe als je testopstelling afbrandt.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> De kopertape eruit gesloopt en vervangen door zuurstofvrij koperdraad (min 0.5mm²). Netjes geschikt voor 2A met marge. Minder prettig om mee te werken dan tape, maar gemak doet er niet toe als je testopstelling afbrandt.
 - <span style="color:var(--terminal-green)">**Upgrade:**</span> Een PWM-controller op basis van Arduino toegevoegd voor helderheidsregeling over het volledige bereik. Nu kan ik testen op 10%, 50%, 100% of alles daartussenin, en elke keer dezelfde meting krijgen.
 - <span style="color:var(--terminal-green)">**Upgrade:**</span> Het binnenframe matzwart geschilderd. Dit klinkt triviaal, maar de verbetering in meetconsistentie was dramatisch. Omgevingslicht en interne reflecties hadden stilletjes elke meting vervuild die ik in V1 en V2 deed.
 

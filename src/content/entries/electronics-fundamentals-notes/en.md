@@ -61,11 +61,11 @@ Inside copper wire, free electrons fill the entire metal's crystal lattice, form
 
 This was a real "aha moment" for me — electrons barely move, but the field travels at light speed. What we call "electricity" is really field propagation.
 
-### The Essence of Voltage: Spatial Accumulation of Electric Field Force
+### The Essence of Voltage: the Electric Field's Invisible Push
 
-In physics, voltage is **electrical potential difference**. A battery uses chemical energy to forcibly separate positive and negative charges, creating an **electric field** in space. Electrons moving through this field have work done on them by the field force. Voltage is that work, per unit charge.
+In physics, voltage is **electrical potential difference**. A battery uses chemical energy to forcibly separate positive and negative charges, creating an **electric field** in space. As electrons move through this field, the field does work on them. Voltage is that work, per unit charge.
 
-So voltage isn't some mysterious gas pressure — it's the **"invisible push" of the electric field on charges, accumulated over a spatial distance**.
+So voltage isn't some mysterious gas pressure — it's the **"invisible push" the electric field exerts on charges, adding up over distance**.
 
 ## Kirchhoff's Laws
 
@@ -114,7 +114,7 @@ Probably the first resistor circuit everyone builds: LED + series resistor. With
 
 ### Voltage Divider
 
-In a series circuit, voltage drop across each resistor is proportional to its resistance (bigger R = more voltage share).
+In a series circuit, voltage drop across each resistor is proportional to its resistance (bigger R = larger share of the voltage).
 
 **Practical calculation — sizing a series resistor for an LED:**
 LED operates at 3V, draws 13.5mA (0.0135A), using a 5V supply.
@@ -159,13 +159,13 @@ Inductors store energy in a magnetic field when current flows through them. It's
 ![Rectifier Bridge with Inductor 1](./24.png)
 ![Rectifier Bridge with Inductor 2](./25.png)
 
-In power supply circuits, inductors and capacitors work together as LC filters. After the bridge rectifier converts AC to pulsating DC, the inductor suppresses ripple current and the capacitor smooths the voltage. The resulting DC is much cleaner than capacitor-alone filtering.
+In power supply circuits, inductors and capacitors work together as LC filters. After the bridge rectifier converts AC to pulsating DC, the inductor suppresses ripple current and the capacitor smooths the voltage. The resulting DC is much cleaner than filtering with a capacitor alone.
 
 ## Diode
 
 ![Diode Overview](./30.png)
 
-Diodes only allow current flow in one direction — anode to cathode. They're the foundation of rectification (AC→DC), reverse-polarity protection, and all kinds of signal processing. Forward voltage drop: ~0.7V for silicon diodes, ~0.2-0.4V for Schottky diodes.
+Diodes only let current flow in one direction — anode to cathode. They're the foundation of rectification (AC→DC), reverse-polarity protection, and all kinds of signal processing. Forward voltage drop: ~0.7V for silicon diodes, ~0.2-0.4V for Schottky diodes.
 
 ### Practical Case: Rectifier Bridge
 

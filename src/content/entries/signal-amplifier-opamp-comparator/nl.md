@@ -107,7 +107,7 @@ De **virtuele aarde** is vooral belangrijk in de inverterende configuratie. Omda
 - **Versterkings-bandbreedteproduct**: de LM358 haalt slechts ~1MHz. Prima voor thermische, optische en langzame signalen; niet voor hoogfrequente zaken.
 - **Biasstroompad**: de inverterende ingang heeft via een weerstand een DC-pad naar aarde nodig. De ingangsbiasstroom moet ergens heen; zonder pad stort het "virtueel open" in en drift de uitgang.
 - **Ontkoppeling**: een condensator van 0.1μF op de voedingspinnen van de op-amp naar aarde. Sla dit nooit over.
-- **Comparatorhysterese**: wanneer de ingang in de buurt van de drempel zweeft, oscilleert een kale comparator wild. Voeg positieve terugkoppeling toe (grote weerstand van de uitgang naar de (+) ingang) om een hystereseraam te creëren. Schoon schakelgedrag. Verplicht voor elk productiecircuit.
+- **Comparatorhysterese**: wanneer de ingang in de buurt van de drempel zweeft, oscilleert een kale comparator wild. Voeg positieve terugkoppeling toe (grote weerstand van de uitgang naar de (+) ingang) om een hysteresisvenster te creëren. Schoon schakelgedrag. Verplicht voor elk productiecircuit.
 
 Een **comparator** is fundamenteel anders dan een op-amp: hij streeft geen lineariteit na, hij neemt direct binaire beslissingen. V+ > V- → uitgang hoog (of door een externe weerstand naar hoog getrokken), V+ < V- → uitgang laag. Slechts twee uitkomsten: ja of nee.
 

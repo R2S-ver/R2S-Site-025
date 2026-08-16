@@ -26,7 +26,7 @@ translationKey: isolation-gpio-driver-mosfet-bjt-relay-optocoupler
 
 ![MOSFET Switch](./01-mosfet-switch.png)
 
-- MOS = the electronic switch between your MCU and high-power loads.
+- MOSFET = the electronic switch between your MCU and high-power loads.
 - **Gate controls, Drain carries the load, Source goes to reference (usually GND for NMOS).**
 - GPIO doesn't power the load — it only controls the Gate.
 - **NMOS + low-side switch + PWM** is the most common driver topology in smart hardware. Master this first.
@@ -94,7 +94,7 @@ PWM doesn't reduce voltage — it switches between full-on and full-off at high 
 - LED dimming: >200Hz avoids visible flicker. Arduino defaults of 490Hz/980Hz are fine
 - Motor control: typically several kHz to 20kHz
 - Too low → visible flicker or audible whine
-- Too high → switching losses increase (MOS spends more time in the transition region)
+- Too high → switching losses increase (the MOSFET spends more time in the transition region)
 
 ## 5. Why You Need a Freewheeling Diode
 
@@ -143,7 +143,7 @@ When I look at any product's power stage, I ask five questions:
 
 1. Where does power enter?
 2. Which parts are the high-power loads?
-3. Who drives them (MOSFET/relay)?
+3. What drives them (MOSFET/relay)?
 4. How does the MCU control them (GPIO/PWM)?
 5. What protection is in place (freewheeling diode, TVS, fuse, optocoupler)?
 
@@ -154,7 +154,7 @@ Common MOSFET-driven products: LED lights, RGB strips, fans, motors, water pumps
 - **Always pick logic-level NMOS**: standard MOSFETs often need ~10V Gate drive to fully turn on and hit their rated R_DS(on). A 3.3V GPIO simply can't do it. **Logic-level MOSFETs** (like IRLZ44N — the "L" means Logic) achieve very low R_DS(on) at 3.3V or 5V. For 3.3V systems, verify this in the datasheet — check R_DS(on) at YOUR actual Gate voltage, not the headline number at V_GS = 10V.
 
 - **Gate resistor is not optional**
-  - **Gate series 10-100Ω**: the Gate looks like a capacitor. When GPIO switches, it has to charge/discharge that capacitance, and the instantaneous current can be surprisingly high. The series resistor limits this current to protect the GPIO pin and suppresses parasitic oscillation.
+  - **Gate series 10–100Ω**: the Gate looks like a capacitor. When GPIO switches, it has to charge/discharge that capacitance, and the instantaneous current can be surprisingly high. The series resistor limits this current to protect the GPIO pin and suppresses parasitic oscillation.
   - **Gate-Source pull-down 10kΩ**: at power-up or when GPIO is high-impedance (input mode), the Gate can float. A floating Gate can partially turn on the MOSFET — high resistance, massive power dissipation, silicon death. The pull-down keeps the Gate firmly at 0V when not actively driven. Never skip this in production.
 
 - **Inductive loads MUST have a freewheeling diode**.

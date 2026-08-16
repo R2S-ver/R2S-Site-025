@@ -27,29 +27,21 @@ const aboutPath = getLocalizedPath("/about", language);
         </div>
       </div>
 
-      <div class="description">
-        <p>
-          {t.aboutPreview.description.line1}
-        </p>
-
-        <p>
-          {t.aboutPreview.description.line2}
-        </p>
-      </div>
+      <a class="access" href={aboutPath}>
+        {t.aboutPreview.access}
+      </a>
     </div>
 
     <div class="footer">
-      <span>
-        {t.aboutPreview.location}
-      </span>
+      <div class="meta">
+        <span>
+          {t.aboutPreview.location}
+        </span>
 
-      <span>
-        {t.aboutPreview.field}
-      </span>
-
-      <a href={aboutPath}>
-        {t.aboutPreview.access}
-      </a>
+        <span>
+          {t.aboutPreview.field}
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -98,17 +90,31 @@ const aboutPath = getLocalizedPath("/about", language);
   .content {
     display: flex;
 
-    gap: 80px;
-
-    padding: 50px;
+    justify-content: space-between;
 
     align-items: center;
+
+    gap: 40px;
+
+    padding: 50px;
   }
 
-  .id-block {
-    min-width: 300px;
+  .access {
+    color: var(--terminal-green);
 
-    border-right: 1px solid var(--border);
+    font-size: clamp(19px, 4.5vw, var(--text-scale-article-h2));
+
+    font-weight: 900;
+
+    letter-spacing: var(--tracking-tight);
+
+    white-space: nowrap;
+
+    text-align: right;
+
+    transition:
+      color 0.2s var(--ease-out),
+      transform 0.2s var(--spring-snappy);
   }
 
   .label {
@@ -141,30 +147,14 @@ const aboutPath = getLocalizedPath("/about", language);
     font-weight: bold;
   }
 
-  .description {
-    max-width: 600px;
-  }
-
-  .description p {
-    color: #c8c8c8;
-
-    font-size: var(--text-scale-sm);
-
-    line-height: 1.9;
-
-    margin-bottom: 20px;
-  }
-
-  .description strong {
-    color: var(--text-bright);
-  }
-
   .footer {
     display: flex;
 
     justify-content: space-between;
 
     align-items: center;
+
+    gap: 20px;
 
     padding: 20px 25px;
 
@@ -175,21 +165,19 @@ const aboutPath = getLocalizedPath("/about", language);
     color: #9a9a9a;
   }
 
-  .footer a {
-    color: var(--terminal-green);
+  .footer .meta {
+    display: flex;
 
-    font-weight: bold;
+    flex-wrap: wrap;
 
-    transition:
-      color 0.2s var(--ease-out),
-      transform 0.2s var(--spring-snappy);
+    gap: 8px 24px;
   }
 
-  .footer a:hover {
+  .access:hover {
     color: var(--accent);
   }
 
-  .footer a:active {
+  .access:active {
     transform: scale(0.93);
     transition: transform 0.08s var(--spring-snappy);
   }
@@ -198,21 +186,15 @@ const aboutPath = getLocalizedPath("/about", language);
     .content {
       flex-direction: column;
 
-      gap: 30px;
+      align-items: flex-start;
+
+      gap: 25px;
 
       padding: 35px;
-
-      align-items: flex-start;
     }
 
-    .id-block {
-      border-right: none;
-
-      border-bottom: 1px solid var(--border);
-
-      padding-bottom: 25px;
-
-      width: 100%;
+    .access {
+      align-self: flex-end;
     }
 
     .footer {
@@ -234,9 +216,8 @@ const aboutPath = getLocalizedPath("/about", language);
   }
   :root[data-theme="light"] .about-preview .header { color: #333; }
   :root[data-theme="light"] .about-preview h2 { color: var(--text-bright); }
-  :root[data-theme="light"] .about-preview .description p { color: #404040; }
   :root[data-theme="light"] .about-preview .label { color: var(--text-dim); }
   :root[data-theme="light"] .about-preview .status { color: #00703c; }
-  :root[data-theme="light"] .about-preview .footer a { color: #00703c; }
+  :root[data-theme="light"] .about-preview .access { color: #00703c; }
   :root[data-theme="light"] .about-preview .footer { color: var(--text-soft); }
 </style>

@@ -1,5 +1,5 @@
 ---
-title: ESP32 + RGBWW FCOB LED Color Wheel Control
+title: ESP32 + RGBWW FCOB LED Colour Wheel Control
 date: 2026-07-31
 description: WiFi-controlled RGBWW LED strip with web colour wheel picker and RGB-to-RGBW conversion.
 

@@ -31,11 +31,11 @@ translationKey: studio-electrical-optimization
 
 # Overzicht
 
-Toen ik in dezelfde ruimte als mijn computers begon te lassen, wist ik dat ik om problemen vroeg. De verlichting flikkerde wanneer de compressor aansloeg. Stekkerdozen waren op manieren doorgelust die ik liever niet beschrijf. En ergens achter in mijn hoofd wist ik dat de opstelling problemen had; ik was er alleen nog niet voor gaan zitten om uit te zoeken wat die precies waren.
+Toen ik in dezelfde ruimte als mijn computers begon te lassen, wist ik dat ik om problemen vroeg. De verlichting flikkerde wanneer de compressor aansloeg. Stekkerdozen waren doorgelust op manieren die ik liever niet beschrijf. En ergens achter in mijn hoofd wist ik dat de opstelling problemen had; ik was er alleen nog niet voor gaan zitten om uit te zoeken wat die precies waren.
 
-Dit project is het resultaat van dat eindelijk te doen. Ik bracht elk stopcontact, elk apparaat en elke verlengkabel in mijn werkplaats in kaart, en wat ik aantrof was niet fraai: negen duidelijke veiligheidsrisico's, van een ongeaard lasapparaat tot een brandgevaar dat ik maandenlang gemakshalve had genegeerd.
+Dit project is het resultaat van dat eindelijk eens te doen. Ik bracht elk stopcontact, elk apparaat en elke verlengkabel in mijn werkplaats in kaart, en wat ik aantrof was niet fraai: negen duidelijke veiligheidsrisico's, van een ongeaard lasapparaat tot een brandgevaar dat ik maandenlang gemakshalve had genegeerd.
 
-Ik zit in **Nederland**, dus alles hier is gebaseerd op **NEN 1010**; de Nederlandse implementatie van de Europese installatievoorschriften. Als je in een ander land zit, verschillen je spanningsnormen en kaststructuren, maar de principes rond topologie, circuitscheiding en overstroombeveiliging zijn universeel.
+Ik zit in **Nederland**, dus alles hier is gebaseerd op **NEN 1010**; de Nederlandse implementatie van de Europese installatievoorschriften. Als je in een ander land zit, verschillen je spanningsnormen en de opbouw van je groepenkast, maar de principes rond topologie, circuitscheiding en overstroombeveiliging zijn universeel.
 
 # Wat ik wilde bereiken
 
@@ -75,7 +75,7 @@ Automaten beschermen tegen overbelasting en kortsluiting, maar niet alle automat
 
 ## Kabeldoorsnede
 
-De doorsnede van een kabel is niet zomaar een getal op de mantel; die bepaalt hoeveel stroom de kabel veilig kan voeren. Zaken die je marge verkleinen:
+De doorsnede van een kabel is niet zomaar een getal op de mantel; die bepaalt hoeveel stroom de kabel veilig kan voeren. Dingen die je marge aantasten:
 
 ![Massieve vs. soepele draad](./5.png)
 ![Draadvergelijking](./6.png)
@@ -101,7 +101,7 @@ Vochtige of natte ruimtes maken alles gevaarlijker. De checklist voor zulke plek
 
 Hier zaten de meeste van mijn problemen:
 
-- **Gelijktijdig gebruik:** Meerdere hongerige apparaten op één 10A/16A-groep
+- **Gelijktijdig gebruik:** Meerdere stroomvreters op één 10A/16A-groep
 - **Langdurige zware belasting:** Kabels die uur na uur opwarmen
 - **Doorlussen:** Stekkerdoos in stekkerdoos in stekkerdoos; elke verbinding voegt weerstand en warmte toe. Zo ontstaan branden.
 - **Slechte contacten:** Losse stekkers en versleten stopcontacten betekenen verbindingen met hoge weerstand
@@ -128,13 +128,13 @@ Het lasapparaat trekt 20–30A bij het opstarten; meer dan waar de bestaande gro
 
 ### 3. Uitschakelkarakteristieken
 
-Bij apparatuur met hoge aanloopstromen zal een standaard B-curve-automaat onnodig trippen. Je hebt een C- of D-curve nodig; dezelfde nominale waarde, maar de magnetische uitschakeldrempel ligt hoger, waardoor die inschakelstromen worden verdragen zonder in te leveren op overbelastingsbeveiliging.
+Bij apparatuur met hoge inschakelstromen zal een standaard B-curve-automaat onnodig trippen. Je hebt een C- of D-curve nodig; dezelfde nominale waarde, maar de magnetische uitschakeldrempel ligt hoger, waardoor die inschakelstromen worden verdragen zonder in te leveren op overbelastingsbeveiliging.
 
 ![Risico van doorlussen](./10.png)
 
 ### 4. Doorlussen elimineren
 
-Ik had stekkerdozen in andere stekkerdozen gestoken. Elk koppelpunt voegt contactweerstand toe, genereert warmte en vergroot de kans dat er iets bezwijkt onder belasting. Het is een boomtopologie waarin elke tak een potentiële brand is. **Oplossing:** Overgestapt op een stertopologie; één hoogwaardige 16A-stekkerdoos als centraal verdeelpunt, waar alles vanaf straalt in plaats van door elkaar heen te lussen.
+Ik had stekkerdozen in andere stekkerdozen gestoken. Elk koppelpunt voegt contactweerstand toe, genereert warmte en vergroot de kans dat er iets bezwijkt onder belasting. Het is een boomtopologie waarin elke tak een potentiële brand is. **Oplossing:** Overgestapt op een stertopologie; één hoogwaardige 16A-stekkerdoos als centraal verdeelpunt, waar alles op aansluit in plaats van door elkaar heen te lussen.
 
 ### 5. Spanningsdips en EMI
 
@@ -165,24 +165,24 @@ Dit klinkt misschien flauw, maar het maakt uit: ik heb echte labels opgehangen. 
 
 # Conclusie
 
-Negen risicofactoren, waarvan sommige er al maanden zaten terwijl ik eromheen werkte. Het ongeaarde lasapparaat was het engst; dat had daadwerkelijk iemand kunnen verwonden. De doorgeluste stekkerdozen hadden nog de grootste kans om een echte brand te veroorzaken.
+Negen risicofactoren, waarvan sommige er al maanden in zaten terwijl ik eromheen werkte. Het ongeaarde lasapparaat was het engst; dat had daadwerkelijk iemand kunnen verwonden. De doorgeluste stekkerdozen hadden nog de grootste kans om een echte brand te veroorzaken.
 
 Het kerninzicht was dat mijn opstelling nooit ontworpen was; die was gewoon opgehoopt. Hier nog een stekkerdoos, daar een verlengsnoer, totdat de topologie een warboel van seriële verbindingen was waarin elke schakel een risico vormde. Overstappen op een stertopologie met fysiek gescheiden groepen is niet alleen netter; het betekent dat een fout in de ene zone niet overslaat naar de andere.
 
-# Het echt uitvoeren
+# Van analyse naar uitvoering
 
 ![Nieuwe werkzone](./16.png)
 
 Ik heb het fysieke werk ook echt uitgevoerd, niet alleen de analyse:
 
-- **Office Zone:** Computers, monitoren en netwerkapparatuur; alles op één eigen groep, fysiek gescheiden van het lawaaiige spul. Geen schermflikker meer wanneer een motor start.
+- **Office Zone:** Computers, monitoren en netwerkapparatuur; alles op één eigen groep, fysiek gescheiden van het lawaaiige spul. Geen flikkerende schermen meer wanneer een motor start.
 - **Work Zone:** Lasapparaat, compressor, slijpers en ander industrieel gereedschap verplaatst naar een aparte ruimte op aparte groepen. Zware belastingen zitten waar ze horen en het brandrisico door overbelaste groepen is flink gedaald.
 
 # Reflectie
 
 Eerlijk gezegd: hiervoor wist ik genoeg over elektrische veiligheid om gevaarlijk te zijn. Ik begreep automaten en aarding in theorie, maar ik had nooit daadwerkelijk elke verbinding in mijn eigen werkruimte nagelopen en gevraagd "wat gebeurt er als dit faalt?"
 
-Die oefening (de topologie tekenen, de circuits nalopen, echt controleren wat waar in zat) veranderde mijn verhouding tot de ruimte. Je ontwikkelt een gezonde vorm van paranoia. Je begint de opgerolde verlengkabel op te merken, de warme stekker, de adapter die er niet helemaal goed in zit. Dat bewustzijn gaat niet meer weg, en eerlijk gezegd hoeft dat ook niet.
+Die oefening (de topologie tekenen, de circuits nalopen, echt controleren wat waar in zat) veranderde hoe ik naar die ruimte kijk. Je ontwikkelt een gezonde vorm van paranoia. Je begint de opgerolde verlengkabel op te merken, de warme stekker, de adapter die er niet helemaal goed in zit. Dat bewustzijn gaat niet meer weg, en eerlijk gezegd hoeft dat ook niet.
 
 # Referenties
 

@@ -53,7 +53,7 @@ Zet een schakelaar om en de lamp brandt meteen. Dus de elektronen moeten met lic
 
 ### "Slakkentempo"-elektronen versus "lichtsnelheid"-energie
 
-In koperdraad vullen vrije elektronen het hele kristalrooster van het metaal; samen vormen ze wat een **"elektronenzee"** wordt genoemd, ze zijn al overal in de draad.
+In koperdraad vullen vrije elektronen het hele kristalrooster van het metaal; samen vormen ze de zogenoemde **"elektronenzee"**; ze zijn al overal in de draad.
 
 - **Driftsnelheid**: leg een spanning aan, het elektrische veld duwt elektronen vooruit. Maar ze botsen voortdurend met het rooster van koperatomen, waardoor hun netto voorwaartse snelheid ongelooflijk laag is; doorgaans slechts **enkele micrometers tot millimeters per seconde**. Langzamer dan een slak.
 
@@ -63,7 +63,7 @@ Dit was voor mij een echt "aha-moment"; elektronen bewegen nauwelijks, maar het 
 
 ### De essentie van spanning: ruimtelijke accumulatie van elektrische veldkracht
 
-In de natuurkunde is spanning een **elektrisch potentiaalverschil**. Een batterij gebruikt chemische energie om positieve en negatieve ladingen geforceerd van elkaar te scheiden, waardoor er een **elektrisch veld** in de ruimte ontstaat. Op elektronen die door dit veld bewegen, verricht de veldkracht arbeid. Spanning is die arbeid, per eenheid lading.
+In de natuurkunde is spanning een **elektrisch potentiaalverschil**. Een batterij gebruikt chemische energie om positieve en negatieve ladingen uit elkaar te halen, waardoor er een **elektrisch veld** in de ruimte ontstaat. Op elektronen die door dit veld bewegen, verricht de veldkracht arbeid. Spanning is die arbeid, per eenheid lading.
 
 Spanning is dus geen mysterieuze gasdruk; het is de **"onzichtbare duw" van het elektrische veld op ladingen, opgebouwd over een ruimtelijke afstand**.
 

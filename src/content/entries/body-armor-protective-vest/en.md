@@ -1,9 +1,9 @@
 ---
-title: DIY Modular BulletProof Vest
+title: DIY Modular Bulletproof Vest
 
 date: 2026-04-15
 
-description: Self-made modular protective vest as a deep dive into how tactical gear is actually made. From research, material sourcing to final prototype.
+description: Self-made modular protective vest as a deep dive into how tactical gear is actually made, from research and material sourcing through to the final prototype.
 
 type: projects
 
@@ -20,8 +20,8 @@ tags:
 
 tools:
   - Home Sewing Machine
-  - Nylon ropes
-  - Aviation snips
+  - Nylon Rope
+  - Aviation Snips
   - Measuring & Marking Tools
 
 featured: true
@@ -35,7 +35,7 @@ translationKey: body-armor-protective-vest
 
 Before this project, I'd looked at plate carriers and tactical vests the way most people do — as finished products that just exist. But I had no idea how they were actually put together. What makes one vest cost $200 and another $2,000? How do you sew through half a dozen layers of nylon and Kevlar on anything less than a factory line? What decisions sit behind the placement of every stitch?
 
-So I decided to build one myself. Not a costume piece or an airsoft replica — a real, functional carrier that had to work as a layered protective system. Out of pure curiosity, I wanted to to understand the engineering that goes into soft armor, from the material stack-up to the sewing techniques that hold everything together under load.
+So I decided to build one myself. Not a costume piece or an airsoft replica — a real, functional carrier that had to work as a layered protective system. Out of pure curiosity, I wanted to understand the engineering that goes into soft armor, from the material stack-up to the sewing techniques that hold everything together under load.
 
 # What I Set Out to Build
 

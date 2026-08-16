@@ -60,15 +60,15 @@ Weerstand in serie, condensator naar aarde. Lage frequenties gaan door de weerst
 
 ### Waar ik laagdoorlaatfilters echt gebruik
 
-- **Anti-aliasing vóór de ADC**: alles boven de Nyquistfrequentie (fs/2) moet vóór het samplen worden geëlimineerd, anders vouwt het als aliasing terug. Plaats een RC-laagdoorlaat direct op de ADC-ingangspin.
+- **Anti-aliasing vóór de ADC**: alles boven de Nyquistfrequentie (fs/2) moet vóór het samplen worden geëlimineerd, anders vouwt het terug als aliasing. Plaats een RC-laagdoorlaat direct op de ADC-ingangspin.
 - **Onderdrukking van voedingsrimpel**: schakelruis van DC/DC; gebruik een RC- (of LC-) laagdoorlaat om die omlaag te krijgen.
 - **Hardware-knopdebounce**: 10kΩ + 100nF, fc ≈ 159Hz. Mechanisch contactstuiteren ligt in het kHz-bereik; meer dan een orde van grootte verschil, dus de filtering is zeer effectief. Ik combineer meestal hardware- en software-debounce.
 - **PWM naar analoge spanning**: stuur een PWM-blokgolf door een laagdoorlaat met fc ver onder de PWM-frequentie en je krijgt een gladde gelijkspanning, evenredig met de dutycycle. Een simpele DAC.
-- **Audio-baswinning**: in crossovers en toonregelaars pikt de laagdoorlaat de lage frequenties eruit voor het baspad.
+- **Baspad in audio**: in crossovers en toonregelaars pikt de laagdoorlaat de lage frequenties eruit voor de bas.
 
 ### Ontwerpaantekeningen
 
-- De ingangsimpedantie van de volgende trap moet >> R zijn, anders verschuift de delerverhouding en driftt je kantelfrequentie. Is de volgende trap laagohmig, buffer die dan.
+- De ingangsimpedantie van de volgende trap moet >> R zijn, anders verschuift de delerverhouding en verloopt je kantelfrequentie. Is de volgende trap laagohmig, buffer die dan.
 - Een enkele RC-trap geeft slechts -20dB/decade. Heb je een steilere afval nodig? Cascadeer trappen (met een buffer ertussen) of ga actief.
 - In het signaalpad doet het condensatortype ertoe. C0G/NP0 of filmcondensatoren hebben de voorkeur. X7R-keramiek heeft piëzo-elektrische effecten en niet-lineariteit; die introduceren vervorming.
 
@@ -96,9 +96,9 @@ Condensator in serie, weerstand naar aarde. Hoge frequenties zeilen door de cond
 
 - **AC-koppeling / DC-blokkering**: strip de DC-offset van een sensorsignaal en behoud alleen de AC-variatie. Alomtegenwoordig in audio- en sensorcircuits.
 - **Audiokoppeling tussen trappen**: een condensator tussen trappen isoleert hun verschillende DC-werkpunten, zodat ze elkaar niet verstoren.
-- **Signaalwinning bij PIR-sensoren**: beweging van een menselijk lichaam veroorzaakt AC-infraroodveranderingen. Een hoogdoorlaat filtert de langzame drift van de omgevingstemperatuur weg, zodat alleen het bruikbare bewegingssignaal overblijft.
+- **PIR-sensoren**: beweging van een menselijk lichaam veroorzaakt AC-veranderingen in het infraroodsignaal. Een hoogdoorlaat filtert de langzame drift van de omgevingstemperatuur weg, zodat alleen het bruikbare bewegingssignaal overblijft.
 - **ECG / biopotentialen**: halfcelpotentialen van elektroden veroorzaken DC-offsets van tientallen tot honderden mV. De hoogdoorlaat verwijdert die, zodat je de echte hartslag-golfvorm veilig kunt versterken.
-- **Audio-hoogwinning**: in crossovers stuurt de hoogdoorlaat de hoge frequenties naar de tweeters.
+- **Hoogpad in audio**: in crossovers stuurt de hoogdoorlaat de hoge frequenties naar de tweeters.
 
 ### Ontwerpaantekeningen
 

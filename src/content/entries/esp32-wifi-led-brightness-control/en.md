@@ -81,7 +81,7 @@ I went with 8-bit PWM (0–255) because it matches the `ledcWrite` range cleanly
 
 # Result
 
-The ESP32 connects, serves the interface, receives HTTP brightness values, and drives the LED via PWM. The whole chain—hardware, network, interface, physical output—works as expected and provides a base for more interactive IoT projects.
+The ESP32 connects, serves the interface, receives HTTP brightness values, and drives the LED via PWM. The whole chain — hardware, network, interface, physical output — works as expected, and it's a solid base for more interactive IoT projects.
 
 This is one of those builds where the payoff-to-effort ratio is really satisfying. In about 160 lines of code you get a working web-controlled light. The same pattern — WiFi + web server + PWM — extends naturally to things like motor speed control, servo positioning, or driving an LED strip through a MOSFET.
 

@@ -159,7 +159,7 @@ Let me repeat those three questions — they really work:
 - LM7805 (linear): 9V input → 7805 → output to Arduino. Run for 5 minutes, touch the chip — noticeably hot. ~55.6% efficiency.
 - LM2596 module (Buck): adjusted to 5V output, same load. Barely warm. ~92.6% efficiency.
 
-Conclusion: portable battery-powered products must prioritize switching supplies.
+Conclusion: portable, battery-powered products should default to switching supplies.
 
 ### Teardown: Tracing Power in an Old Phone Charger
 
@@ -214,7 +214,7 @@ Even 1–2W of real loss will spike junction temperature without adequate coolin
 - Applications: phone chargers, router power supplies, small appliances, LED drivers.
 
 **Forward**
-- Steps up from flyback, 100W+. Better efficiency, but more complex.
+- A step up from flyback, 100W+. Better efficiency, but more complex.
 
 **Push-Pull**
 - Higher power still. Common in automotive inverters, high-power DC/DC converters.

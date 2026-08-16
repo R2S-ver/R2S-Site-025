@@ -40,9 +40,9 @@ The simplest possible wiring: GPIO — Button — GND. Pressed = GPIO pulled to 
 
 This is why you need a pull resistor: it gives the GPIO a known default state.
 
-## A Beginner Mistake
+## A Beginner's Mistake
 
-Someone might think: `5V → GPIO → Button → GND`. When not pressed, GPIO sits at HIGH. Looks fine. But the moment you press the button — 5V shorts straight to ground through the GPIO's internal protection diodes (or the IO transistors). The path resistance is near zero, current spikes massively. At best you fry the IO pin. At worst, the whole chip.
+Someone might think: `5V → GPIO → Button → GND`. When not pressed, GPIO sits at HIGH. Looks fine. But the moment you press the button — 5V shorts straight to ground through the GPIO's internal protection diodes (or the IO transistors). The path resistance is near zero, so the current spikes massively. At best you fry the IO pin. At worst, the whole chip.
 
 Never do this.
 
@@ -102,7 +102,7 @@ Common pull resistor values: 4.7kΩ, 10kΩ, 22kΩ, 47kΩ.
 
 Whether to pull up or down depends on the system. An active-high enable signal (EN) that should default to inactive → use pull-down. An active-low reset (RST#) that should default to inactive → use pull-up. For motor control, a floating pin could get noise-triggered to HIGH and spin the motor by accident — a pull-down locking the default to LOW is critical there.
 
-Resistors also come in strong vs weak pull. Internal MCU pull resistors are typically weak (high value, 20kΩ~50kΩ). Lower resistance = stronger pull, better noise immunity — external noise needs more energy to flip a strongly-pulled pin. But lower resistance also means more power. It's a fair trade-off.
+Resistors also come in strong and weak pulls. Internal MCU pull resistors are typically weak (high value, 20kΩ~50kΩ). Lower resistance = stronger pull, better noise immunity — external noise needs more energy to flip a strongly-pulled pin. But lower resistance also means more power. It's a fair trade-off.
 
 ## Why Buttons Bounce
 
@@ -219,4 +219,4 @@ ESD protection: buttons are direct human-touch paths. Always add a TVS or dedica
 
 ### Multi-Button and GPIO Optimization
 
-Single-button design only works for a few buttons. When you have many, the industry uses matrix scanning (row/column) or ADC resistor-ladder (a chain of resistors dividing voltage, one ADC pin reads different voltages for different buttons) to dramatically save GPIO pins.
+One button per GPIO only works for a few buttons. When you have many, the industry uses matrix scanning (row/column) or an ADC resistor-ladder (a chain of resistors dividing voltage; one ADC pin reads different voltages for different buttons) to dramatically save GPIO pins.

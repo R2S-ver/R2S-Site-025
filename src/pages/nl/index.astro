@@ -39,13 +39,15 @@ FEATURED PROJECTS
 */
 
 const featuredKeys = [
-  "light-diffusion-test-platform",
   "body-armor-protective-vest",
-  "studio-electrical-optimization",
+  "zoem-bike-cargo-box",
+  "light-diffusion-test-platform",
 ];
 
-const featuredEntries = languageEntries
-  .filter((entry) => featuredKeys.includes(entry.data.translationKey));
+// Card order follows the curated featuredKeys order.
+const featuredEntries = featuredKeys
+  .map((key) => languageEntries.find((entry) => entry.data.translationKey === key))
+  .filter((entry) => entry !== undefined);
 
 const totalProjectLabCount = languageEntries
   .filter((entry) => entry.data.type === "projects" || entry.data.type === "lab")
@@ -73,8 +75,8 @@ const latestEntries = [...languageEntries]
 
   <ExploreLinks />
 
-  <LatestUpdates entries={latestEntries} />
-
   <AboutPreview />
+
+  <LatestUpdates entries={latestEntries} />
   </div>
 </Layout>

@@ -82,7 +82,7 @@ De keerzijde: het trekt krom als de behuizing te koud is, het loopt vast als de 
 
 ## Het filament dat ik gebruikte
 
-De ABS waarmee ik testte was gesponsord door een vriend. Het had een hele tijd op kamertemperatuur gelegen, wat het vochtgehalte waarschijnlijk geen goed heeft gedaan. Voor elke testprint droogde ik het **65°C gedurende 8 uur** om het weer in een redelijke staat te krijgen. Ik noem dit omdat de conditie van het filament ertoe doet: als je worstelt met ABS en je spoel niet recent hebt gedroogd, begin dan daar voordat je iets anders verandert.
+De ABS waarmee ik testte was gesponsord door een vriend. Het had een hele tijd op kamertemperatuur gelegen, wat het vochtgehalte waarschijnlijk geen goed heeft gedaan. Voor elke testprint droogde ik het **8 uur lang op 65 °C** om het weer in een redelijke staat te krijgen. Ik noem dit omdat de conditie van het filament ertoe doet: als je worstelt met ABS en je spoel niet recent hebt gedroogd, begin dan daar voordat je iets anders verandert.
 
 # Testopstelling
 
@@ -152,7 +152,7 @@ Instellingen:
 
 Meteen vanaf het begin leerde ik mijn eerste les: een verwarmingsapparaat van 750W en handmatige beheersing gaan niet samen. De behuizingstemperatuur schommelde tussen **36.7°C en 61°C**: een verschil van 24 graden, in feite een achtbaan voor een materiaal dat zo graag krimpt als ABS. De print mislukte na ongeveer 40 minuten.
 
-Het echte probleem was de plaatsing van mijn sensor. Ik had de temperatuursonde dicht bij de bovenkant van de behuizing geplakt, gescheiden van het eigenlijke printvolume door een laag karton. De meting waarop ik me richtte was dus lager dan de werkelijke temperatuur bij het bed. Het gebied rond de nozzle was vrijwel zeker heter, waardoor we in **heat creep**-gebied terechtkwamen: het filament werd al zacht voordat het de smeltzone bereikte, het extruder-tandwiel verloor grip en alles kwam tot stilstand.
+Het echte probleem was de plaatsing van mijn sensor. Ik had de temperatuursonde dicht bij de bovenkant van de behuizing geplakt, gescheiden van het eigenlijke printvolume door een laag karton. De meting waarop ik me richtte was dus lager dan de werkelijke temperatuur bij het bed. Het gebied rond de nozzle was vrijwel zeker heter, waardoor ik in **heat creep**-gebied terechtkwam: het filament werd al zacht voordat het de smeltzone bereikte, het extruder-tandwiel verloor grip en alles kwam tot stilstand.
 
 Wat ik hieruit meenam: de sweet spot voor de behuizing leek op **50–55°C** te liggen. En met handmatige verwarmingsbeheersing zou ik die nooit vasthouden. Ik had een thermostaatgestuurd stopcontact nodig, de sensor midden in het printvolume en een smalle hysteresisband (misschien 5°C) om die grote overshoots te voorkomen.
 
@@ -258,7 +258,7 @@ Na zes mislukkingen concludeerde ik dat de behuizing zelf eerst verbeterd moest 
 
 ![Isolatie-upgrade](./ABS-3D-Printing-Guide-8.png)
 
-Ik bekleedde de behuizing met **10 mm met aluminium gecoate schuimisolatie**: alle vier de zijden en de bovenkant, en ik dichtte de naden af. Het idee was eenvoudig: warmteverlies vertragen, temperatuurschommelingen afvlakken en de thermische tijdconstante verhogen, zodat de behuizing niet elke keer wild schommelt wanneer de verwarming aanslaat.
+Ik bekleedde de behuizing met **10 mm met aluminium gecoat schuim** als isolatie: alle vier de zijden en de bovenkant, en ik dichtte de naden af. Het idee was eenvoudig: warmteverlies vertragen, temperatuurschommelingen afvlakken en de thermische tijdconstante verhogen, zodat de behuizing niet elke keer wild schommelt wanneer de verwarming aanslaat.
 
 ## 2. Automatische temperatuurbeheersing
 
@@ -269,7 +269,7 @@ Ik voegde een thermostaatgestuurd stopcontact toe met een eenvoudige aan/uit-log
 - Verwarming AAN onder 48°C
 - Verwarming UIT boven 51°C
 
-Er is nog steeds wat thermische traagheid: nadat de verwarming uitschakelt, kruipt de temperatuur nog 2–3°C omhoog voordat hij daalt, maar vergeleken met turen naar een thermometer en een schakelaar omzetten was dit een enorme verbetering.
+Er is nog steeds wat thermische traagheid: nadat de verwarming uitgaat, kruipt de temperatuur nog 2–3°C omhoog voordat hij daalt, maar vergeleken met turen naar een thermometer en een schakelaar omzetten was dit een enorme verbetering.
 
 ## Vergelijking passieve koeling
 
@@ -339,7 +339,7 @@ Instellingen:
 - Brim en tochtschild: Ingeschakeld
 - Materiaalprofiel: Generiek ABS
 
-Dit is waar het echte faalmechanisme voor mij begon te kloppen.
+Dit is waar het echte faalmechanisme voor mij op zijn plaats viel.
 
 ### Wat ik denk dat er gebeurde
 
@@ -560,7 +560,7 @@ De grote les over methodologie: drie dingen tegelijk veranderen brengt je missch
 
 ## 10. Zelfreflectie
 
-Dit project veranderde hoe ik over 3D-printen denk. ABS is niet zomaar PLA in de „hard mode": het is een compleet ander beest dat zwakke plekken in je opstelling blootlegt die makkelijkere materialen je laten negeren.
+Dit project veranderde hoe ik over 3D-printen denk. ABS is niet zomaar PLA in „hard mode": het is een compleet ander beest dat zwakke plekken in je opstelling blootlegt die makkelijkere materialen je laten negeren.
 
 Ik begon hieraan denkend dat het over slicer-instellingen en temperaturen ging. Ik kwam eruit met het besef dat het om systeemintegratie gaat: hoe het materiaal, de behuizing, de extrudermechanica en de meetinstrumenten allemaal op elkaar inwerken. Een mislukking is niet zomaar een verpeste print: het is een diagnostisch signaal. Kromtrekking vertelt je iets over thermische gradiënten. Schuren vertelt je iets over de weerstand in het toevoerpad. Elke mislukte test bakende verder af wat er echt toe deed.
 
@@ -593,7 +593,7 @@ Waar ik naar zou overstappen:
 
 - Gehard stalen extruder-tandwiel
 
-Het standaardtandwiel werkt prima voor PLA en PETG, maar onder de omstandigheden met hogere weerstand die ABS creëert, is de grip niet altijd voldoende. Ik overwoog een volledig metalen messing tandwiel, maar de hogere thermische geleiding zou meer warmte het filamentpad in duwen: waarschijnlijk niet wat je wilt wanneer heat creep al op je lijst met problemen staat.
+Het standaardtandwiel werkt prima voor PLA en PETG, maar onder de hogere weerstand die ABS veroorzaakt, is de grip niet altijd voldoende. Ik overwoog een volledig metalen messing tandwiel, maar de hogere thermische geleiding zou meer warmte het filamentpad in duwen: waarschijnlijk niet wat je wilt wanneer heat creep al op je lijst met problemen staat.
 
 ### Printomgeving
 

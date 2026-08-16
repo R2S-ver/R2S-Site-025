@@ -28,7 +28,10 @@ const personSchema = {
 };
 ---
 
-<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.sections.about.description}>
+<Layout
+  title={`${t.sections.about.title} | RrSuika Studio`}
+  description={t.sections.about.description}
+>
   <script
     type="application/ld+json"
     is:inline
@@ -122,34 +125,50 @@ const personSchema = {
               {t.sections.about.dossier.operator}
             </div>
 
-            <h2>RrSuika Studio</h2>
+            <h2>R Wang</h2>
 
             <p>
               {t.sections.about.dossier.role}
             </p>
+
+            <div class="identity-rows">
+              <div class="mini-row">
+                <span class="data-label">
+                  {t.sections.about.dossier.locationLabel}
+                </span>
+
+                <div class="mini-value">
+                  {t.sections.about.dossier.location}
+                </div>
+              </div>
+
+              <div class="mini-row">
+                <span class="data-label">
+                  {t.sections.about.dossier.fieldLabel}
+                </span>
+
+                <div class="mini-value">
+                  {t.sections.about.dossier.field}
+                </div>
+              </div>
+
+              <div class="mini-row">
+                <span class="data-label">
+                  {t.sections.about.dossier.interestsLabel}
+                </span>
+
+                <div class="chips">
+                  {
+                    t.sections.about.dossier.interests.map((interest) => (
+                      <span class="chip">{interest}</span>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="dossier-data">
-            <div class="data-row">
-              <span class="data-label">
-                {t.sections.about.dossier.locationLabel}
-              </span>
-
-              <span>
-                {t.sections.about.dossier.location}
-              </span>
-            </div>
-
-            <div class="data-row">
-              <span class="data-label">
-                {t.sections.about.dossier.fieldLabel}
-              </span>
-
-              <span>
-                {t.sections.about.dossier.field}
-              </span>
-            </div>
-
             <div class="data-row">
               <span class="data-label">
                 {t.sections.about.dossier.focusLabel}
@@ -158,6 +177,77 @@ const personSchema = {
               <span>
                 {t.sections.about.dossier.focus}
               </span>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.skillsLabel}
+              </span>
+
+              <div class="chips">
+                {
+                  t.sections.about.dossier.skills.map((skill) => (
+                    <span class="chip">{skill}</span>
+                  ))
+                }
+              </div>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.softwareLabel}
+              </span>
+
+              <div class="software">
+                <img
+                  class="soft-icon pol-dark"
+                  src="/icons/photoshop.png"
+                  width="73"
+                  height="41"
+                  alt="Photoshop"
+                  title="Photoshop"
+                />
+                <img
+                  class="soft-icon pol-dark"
+                  src="/icons/solidworks.png"
+                  width="39"
+                  height="39"
+                  alt="SolidWorks"
+                  title="SolidWorks"
+                />
+                <img
+                  class="soft-icon pol-light"
+                  src="/icons/clip-studio-paint.png"
+                  width="39"
+                  height="39"
+                  alt="Clip Studio Paint"
+                  title="Clip Studio Paint"
+                />
+                <img
+                  class="soft-icon pol-light"
+                  src="/icons/keyshot.png"
+                  width="42"
+                  height="41"
+                  alt="KeyShot"
+                  title="KeyShot"
+                />
+                <img
+                  class="soft-icon pol-mid"
+                  src="/icons/blender.png"
+                  width="88"
+                  height="50"
+                  alt="Blender"
+                  title="Blender"
+                />
+                <img
+                  class="soft-icon pol-dark"
+                  src="/icons/davinci-resolve.png"
+                  width="42"
+                  height="44"
+                  alt="DaVinci Resolve"
+                  title="DaVinci Resolve"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -473,7 +563,7 @@ const personSchema = {
             <div class="display-footer">
               <span> AUTO SEQUENCE </span>
 
-              <span> SELECT OTHER MODULE → </span>
+              <span> SELECT ANOTHER MODULE → </span>
             </div>
           </div>
         </div>
@@ -619,7 +709,7 @@ const personSchema = {
 
             <strong> PROTOTYPING </strong>
 
-            <small> From digital geometry to physical object </small>
+            <small> From digital geometry to a physical object </small>
           </div>
         </div>
 
@@ -911,16 +1001,18 @@ const personSchema = {
         </div>
 
         <div class="annex-grid">
-          {t.sections.about.annex.styles.map((style) => (
-            <article class="annex-entry">
-              <div class="annex-entry-head">
-                <span class="annex-code">{style.code}</span>
-                <span class="annex-era">{style.era}</span>
-              </div>
-              <p>{style.body}</p>
-              <div class="annex-refs">&gt; REF: {style.refs}</div>
-            </article>
-          ))}
+          {
+            t.sections.about.annex.styles.map((style) => (
+              <article class="annex-entry">
+                <div class="annex-entry-head">
+                  <span class="annex-code">{style.code}</span>
+                  <span class="annex-era">{style.era}</span>
+                </div>
+                <p>{style.body}</p>
+                <div class="annex-refs">&gt; REF: {style.refs}</div>
+              </article>
+            ))
+          }
         </div>
 
         <div class="annex-works">
@@ -929,12 +1021,14 @@ const personSchema = {
           </div>
 
           <ul class="annex-works-list">
-            {t.sections.about.annex.works.map((work) => (
-              <li>
-                <span class="annex-work-title">{work.title}</span>
-                <span class="annex-work-note">— {work.note}</span>
-              </li>
-            ))}
+            {
+              t.sections.about.annex.works.map((work) => (
+                <li>
+                  <span class="annex-work-title">{work.title}</span>
+                  <span class="annex-work-note">— {work.note}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -942,7 +1036,8 @@ const personSchema = {
   </main>
 </Layout>
 
-<script is:inline
+<script
+  is:inline
   define:vars={{
     industrial: {
       title: t.sections.about.capabilities.industrial.title,
@@ -1407,7 +1502,8 @@ const personSchema = {
     const mx = mouseX * W;
     const my = mouseY * H;
     const t = time;
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
 
     ctx.fillStyle = isLight ? "#e8e3da" : "#070a08";
     ctx.fillRect(0, 0, W, H);
@@ -1415,46 +1511,81 @@ const personSchema = {
     // Grid
     ctx.strokeStyle = isLight ? "rgba(0,0,0,0.06)" : "rgba(30,60,45,0.25)";
     ctx.lineWidth = 0.4;
-    for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+    for (let x = 0; x < W; x += 24) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = 0; y < H; y += 24) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
 
-    const amp = H * 0.10;
+    const amp = H * 0.1;
 
     const channels = [
-      { baseY: H * 0.22, color: isLight ? "rgba(0,120,60,0.9)" : "rgba(100,220,160,0.85)", type: "square",   freq: 4.5, label: "CH1 — SQUARE" },
-      { baseY: H * 0.50, color: isLight ? "rgba(30,80,140,0.85)" : "rgba(160,200,230,0.8)",  type: "sine",     freq: 3.0, label: "CH2 — SINE"   },
-      { baseY: H * 0.78, color: isLight ? "rgba(120,40,100,0.8)" : "rgba(200,160,220,0.75)", type: "triangle", freq: 5.5, label: "CH3 — TRI"    },
+      {
+        baseY: H * 0.22,
+        color: isLight ? "rgba(0,120,60,0.9)" : "rgba(100,220,160,0.85)",
+        type: "square",
+        freq: 4.5,
+        label: "CH1 — SQUARE",
+      },
+      {
+        baseY: H * 0.5,
+        color: isLight ? "rgba(30,80,140,0.85)" : "rgba(160,200,230,0.8)",
+        type: "sine",
+        freq: 3.0,
+        label: "CH2 — SINE",
+      },
+      {
+        baseY: H * 0.78,
+        color: isLight ? "rgba(120,40,100,0.8)" : "rgba(200,160,220,0.75)",
+        type: "triangle",
+        freq: 5.5,
+        label: "CH3 — TRI",
+      },
     ];
 
     // Dividers
-    channels.forEach(ch => {
+    channels.forEach((ch) => {
       ctx.strokeStyle = isLight ? "rgba(0,0,0,0.08)" : "rgba(60,100,80,0.25)";
       ctx.lineWidth = 0.5;
-      ctx.beginPath(); ctx.moveTo(0, ch.baseY); ctx.lineTo(W, ch.baseY); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, ch.baseY);
+      ctx.lineTo(W, ch.baseY);
+      ctx.stroke();
     });
 
     function waveVal(ch, prog) {
       const arg = prog * Math.PI * 2 * ch.freq + t * 1.67;
-      if (ch.type === "square")   return Math.sin(arg) >= 0 ? 1 : -1;
-      if (ch.type === "sine")     return Math.sin(arg);
-      if (ch.type === "triangle") { const ph = ((arg / (Math.PI * 2)) % 1 + 1) % 1; return ph < 0.5 ? 4 * ph - 1 : 3 - 4 * ph; }
+      if (ch.type === "square") return Math.sin(arg) >= 0 ? 1 : -1;
+      if (ch.type === "sine") return Math.sin(arg);
+      if (ch.type === "triangle") {
+        const ph = (((arg / (Math.PI * 2)) % 1) + 1) % 1;
+        return ph < 0.5 ? 4 * ph - 1 : 3 - 4 * ph;
+      }
       return 0;
     }
 
     // Draw
-    channels.forEach(ch => {
+    channels.forEach((ch) => {
       ctx.strokeStyle = ch.color;
       ctx.lineWidth = 1.2;
       ctx.beginPath();
       for (let px = 0; px < W; px += 1.5) {
         const wy = ch.baseY - waveVal(ch, px / W) * amp;
-        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+        if (px === 0) ctx.moveTo(px, wy);
+        else ctx.lineTo(px, wy);
       }
       ctx.stroke();
     });
 
     // Labels
-    channels.forEach(ch => {
+    channels.forEach((ch) => {
       ctx.fillStyle = ch.color.replace(/[\d.]+\)$/, "0.5)");
       ctx.font = "8px monospace";
       ctx.textAlign = "left";
@@ -1462,11 +1593,15 @@ const personSchema = {
     });
 
     // Mouse highlight
-    let nearest = -1, nearestDist = Infinity;
+    let nearest = -1,
+      nearestDist = Infinity;
     channels.forEach((ch, i) => {
       const wy = ch.baseY - waveVal(ch, mx / W) * amp;
       const d = Math.abs(my - wy);
-      if (d < nearestDist && d < 40) { nearestDist = d; nearest = i; }
+      if (d < nearestDist && d < 40) {
+        nearestDist = d;
+        nearest = i;
+      }
     });
 
     if (nearest >= 0) {
@@ -1478,7 +1613,8 @@ const personSchema = {
       ctx.beginPath();
       for (let px = 0; px < W; px += 1.5) {
         const wy = ch.baseY - waveVal(ch, px / W) * amp;
-        if (px === 0) ctx.moveTo(px, wy); else ctx.lineTo(px, wy);
+        if (px === 0) ctx.moveTo(px, wy);
+        else ctx.lineTo(px, wy);
       }
       ctx.stroke();
       ctx.shadowBlur = 0;
@@ -1490,7 +1626,8 @@ const personSchema = {
     ctx.fillText("TRIG:AUTO · 1V/div", W - 8, H * 0.06);
   }
   function drawEmbedded() {
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     for (let i = 0; i < 18; i++) {
       ctx.beginPath();
       const y = H * 0.18 + i * H * 0.035;
@@ -1503,7 +1640,11 @@ const personSchema = {
         else ctx.lineTo(x, yy);
       }
       ctx.strokeStyle =
-        i === 9 ? "#e8a040" : (isLight ? `rgba(80,80,80,${0.06 + i * 0.004})` : `rgba(220,220,220,${0.08 + i * 0.005})`);
+        i === 9
+          ? "#e8a040"
+          : isLight
+            ? `rgba(80,80,80,${0.06 + i * 0.004})`
+            : `rgba(220,220,220,${0.08 + i * 0.005})`;
       ctx.stroke();
     }
   }
@@ -1512,7 +1653,8 @@ const personSchema = {
   DRAW: Fabrication — Refined Conveyor
   ====================================================== */
   function drawFabrication() {
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     const beltH = 22;
     const gap = 30;
     const beltCount = 3;
@@ -1539,17 +1681,30 @@ const personSchema = {
       ctx.fillRect(0, by, W, beltH);
 
       // ── Belt edge lines ──
-      ctx.strokeStyle = isLight ? "rgba(150,140,130,0.25)" : "rgba(180,190,180,0.15)";
+      ctx.strokeStyle = isLight
+        ? "rgba(150,140,130,0.25)"
+        : "rgba(180,190,180,0.15)";
       ctx.lineWidth = 0.5;
-      ctx.beginPath(); ctx.moveTo(0, by); ctx.lineTo(W, by); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0, by + beltH); ctx.lineTo(W, by + beltH); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, by);
+      ctx.lineTo(W, by);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, by + beltH);
+      ctx.lineTo(W, by + beltH);
+      ctx.stroke();
 
       // ── Moving tread marks (slow) ──
       const treadW = 5;
       const treadGap = 16;
-      const shift = ((time * speed * dir * 0.6) % (treadW + treadGap) + (treadW + treadGap)) % (treadW + treadGap);
+      const shift =
+        (((time * speed * dir * 0.6) % (treadW + treadGap)) +
+          (treadW + treadGap)) %
+        (treadW + treadGap);
       for (let tx = -treadW + shift; tx < W + treadW; tx += treadW + treadGap) {
-        ctx.fillStyle = isLight ? "rgba(140,130,120,0.18)" : "rgba(100,110,100,0.18)";
+        ctx.fillStyle = isLight
+          ? "rgba(140,130,120,0.18)"
+          : "rgba(100,110,100,0.18)";
         ctx.fillRect(tx, by + 1, treadW, beltH - 2);
       }
 
@@ -1570,19 +1725,24 @@ const personSchema = {
 
         let oreType, oreSize, oreColors;
         if (rarity < 0.599) {
-          oreType = "coal"; oreSize = 11;
+          oreType = "coal";
+          oreSize = 11;
           oreColors = ["#6a6a72", "#3a3a42"];
         } else if (rarity < 0.899) {
-          oreType = "iron"; oreSize = 10;
+          oreType = "iron";
+          oreSize = 10;
           oreColors = ["#d09070", "#8a4030"];
         } else if (rarity < 0.989) {
-          oreType = "gold"; oreSize = 12;
+          oreType = "gold";
+          oreSize = 12;
           oreColors = ["#f5d060", "#c08820"];
         } else if (rarity < 0.999) {
-          oreType = "diamond"; oreSize = 10;
+          oreType = "diamond";
+          oreSize = 10;
           oreColors = ["#e8f4ff", "#a0c8f0"];
         } else {
-          oreType = "prismatic"; oreSize = 9;
+          oreType = "prismatic";
+          oreSize = 9;
           oreColors = ["#ffffff", "#e0d0ff"];
         }
 
@@ -1597,13 +1757,21 @@ const personSchema = {
           halo.addColorStop(0.5, `rgba(180,200,255,${0.2 * sparkle})`);
           halo.addColorStop(1, "rgba(0,0,0,0)");
           ctx.fillStyle = halo;
-          ctx.beginPath(); ctx.arc(0, 0, oreSize * 2.2, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(0, 0, oreSize * 2.2, 0, Math.PI * 2);
+          ctx.fill();
           // Rainbow facets
           for (let f = 0; f < 6; f++) {
             const fa = (f / 6) * Math.PI * 2 + time * 0.8;
             ctx.fillStyle = `hsla(${(f * 60 + time * 40) % 360},70%,75%,${0.12 * sparkle})`;
             ctx.beginPath();
-            ctx.arc(Math.cos(fa) * oreSize * 0.45, Math.sin(fa) * oreSize * 0.45, oreSize * 0.4, 0, Math.PI * 2);
+            ctx.arc(
+              Math.cos(fa) * oreSize * 0.45,
+              Math.sin(fa) * oreSize * 0.45,
+              oreSize * 0.4,
+              0,
+              Math.PI * 2,
+            );
             ctx.fill();
           }
         }
@@ -1618,76 +1786,140 @@ const personSchema = {
         if (oreType === "coal") {
           // Coal chunk: irregular rocky blob
           const s = oreSize;
-          ctx.moveTo(-s*0.6, s*0.5); ctx.lineTo(-s, s*0.1); ctx.lineTo(-s*0.8, -s*0.4);
-          ctx.lineTo(-s*0.3, -s*0.7); ctx.lineTo(s*0.2, -s*0.8); ctx.lineTo(s*0.7, -s*0.3);
-          ctx.lineTo(s*0.9, s*0.2); ctx.lineTo(s*0.4, s*0.6); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.moveTo(-s * 0.6, s * 0.5);
+          ctx.lineTo(-s, s * 0.1);
+          ctx.lineTo(-s * 0.8, -s * 0.4);
+          ctx.lineTo(-s * 0.3, -s * 0.7);
+          ctx.lineTo(s * 0.2, -s * 0.8);
+          ctx.lineTo(s * 0.7, -s * 0.3);
+          ctx.lineTo(s * 0.9, s * 0.2);
+          ctx.lineTo(s * 0.4, s * 0.6);
+          ctx.lineTo(-s * 0.1, s * 0.7);
           ctx.closePath();
         } else if (oreType === "iron") {
           // Raw iron ore: jagged crystalline
           const s = oreSize;
-          ctx.moveTo(-s*0.3, s*0.6); ctx.lineTo(-s*0.8, s*0.2); ctx.lineTo(-s, -s*0.3);
-          ctx.lineTo(-s*0.5, -s*0.6); ctx.lineTo(s*0.1, -s*0.8); ctx.lineTo(s*0.6, -s*0.4);
-          ctx.lineTo(s*0.9, s*0.1); ctx.lineTo(s*0.4, s*0.5); ctx.lineTo(-s*0.1, s*0.7);
+          ctx.moveTo(-s * 0.3, s * 0.6);
+          ctx.lineTo(-s * 0.8, s * 0.2);
+          ctx.lineTo(-s, -s * 0.3);
+          ctx.lineTo(-s * 0.5, -s * 0.6);
+          ctx.lineTo(s * 0.1, -s * 0.8);
+          ctx.lineTo(s * 0.6, -s * 0.4);
+          ctx.lineTo(s * 0.9, s * 0.1);
+          ctx.lineTo(s * 0.4, s * 0.5);
+          ctx.lineTo(-s * 0.1, s * 0.7);
           ctx.closePath();
         } else if (oreType === "gold") {
           // Gold ingot: rounded trapezoid bar
           const s = oreSize;
-          ctx.moveTo(-s*0.75, s*0.3); ctx.lineTo(-s*0.85, -s*0.15); ctx.lineTo(-s*0.65, -s*0.4);
-          ctx.lineTo(s*0.65, -s*0.4); ctx.lineTo(s*0.85, -s*0.15); ctx.lineTo(s*0.75, s*0.3);
-          ctx.lineTo(-s*0.75, s*0.3);
+          ctx.moveTo(-s * 0.75, s * 0.3);
+          ctx.lineTo(-s * 0.85, -s * 0.15);
+          ctx.lineTo(-s * 0.65, -s * 0.4);
+          ctx.lineTo(s * 0.65, -s * 0.4);
+          ctx.lineTo(s * 0.85, -s * 0.15);
+          ctx.lineTo(s * 0.75, s * 0.3);
+          ctx.lineTo(-s * 0.75, s * 0.3);
           ctx.closePath();
         } else if (oreType === "diamond") {
           // Diamond gem shape
           const s = oreSize;
-          ctx.moveTo(0, -s); ctx.lineTo(s*0.4, -s*0.15); ctx.lineTo(s*0.7, s*0.1);
-          ctx.lineTo(s*0.3, s*0.15); ctx.lineTo(0, s*0.7); ctx.lineTo(-s*0.3, s*0.15);
-          ctx.lineTo(-s*0.7, s*0.1); ctx.lineTo(-s*0.4, -s*0.15);
+          ctx.moveTo(0, -s);
+          ctx.lineTo(s * 0.4, -s * 0.15);
+          ctx.lineTo(s * 0.7, s * 0.1);
+          ctx.lineTo(s * 0.3, s * 0.15);
+          ctx.lineTo(0, s * 0.7);
+          ctx.lineTo(-s * 0.3, s * 0.15);
+          ctx.lineTo(-s * 0.7, s * 0.1);
+          ctx.lineTo(-s * 0.4, -s * 0.15);
           ctx.closePath();
         } else {
           // Prismatic shard: sharp crystal spike
           const s = oreSize;
-          ctx.moveTo(0, -s); ctx.lineTo(s*0.25, -s*0.2); ctx.lineTo(s*0.9, s*0.05);
-          ctx.lineTo(s*0.3, s*0.25); ctx.lineTo(s*0.6, s*0.8); ctx.lineTo(0, s*0.45);
-          ctx.lineTo(-s*0.6, s*0.8); ctx.lineTo(-s*0.3, s*0.25);
-          ctx.lineTo(-s*0.9, s*0.05); ctx.lineTo(-s*0.25, -s*0.2);
+          ctx.moveTo(0, -s);
+          ctx.lineTo(s * 0.25, -s * 0.2);
+          ctx.lineTo(s * 0.9, s * 0.05);
+          ctx.lineTo(s * 0.3, s * 0.25);
+          ctx.lineTo(s * 0.6, s * 0.8);
+          ctx.lineTo(0, s * 0.45);
+          ctx.lineTo(-s * 0.6, s * 0.8);
+          ctx.lineTo(-s * 0.3, s * 0.25);
+          ctx.lineTo(-s * 0.9, s * 0.05);
+          ctx.lineTo(-s * 0.25, -s * 0.2);
           ctx.closePath();
         }
         ctx.fill();
         ctx.restore();
         // Body
-        const g = ctx.createLinearGradient(-oreSize, -oreSize, oreSize, oreSize);
+        const g = ctx.createLinearGradient(
+          -oreSize,
+          -oreSize,
+          oreSize,
+          oreSize,
+        );
         g.addColorStop(0, oreColors[0]);
         g.addColorStop(1, oreColors[1]);
         ctx.fillStyle = g;
         // Stroke varies by type
-        if (oreType === "gold") { ctx.strokeStyle = "rgba(255,220,100,0.5)"; ctx.lineWidth = 1; }
-        else if (oreType === "diamond") { ctx.strokeStyle = "rgba(200,220,255,0.55)"; ctx.lineWidth = 0.7; }
-        else if (oreType === "prismatic") { ctx.strokeStyle = "rgba(255,200,255,0.55)"; ctx.lineWidth = 0.7; }
-        else { ctx.strokeStyle = "rgba(255,255,255,0.12)"; ctx.lineWidth = 0.5; }
+        if (oreType === "gold") {
+          ctx.strokeStyle = "rgba(255,220,100,0.5)";
+          ctx.lineWidth = 1;
+        } else if (oreType === "diamond") {
+          ctx.strokeStyle = "rgba(200,220,255,0.55)";
+          ctx.lineWidth = 0.7;
+        } else if (oreType === "prismatic") {
+          ctx.strokeStyle = "rgba(255,200,255,0.55)";
+          ctx.lineWidth = 0.7;
+        } else {
+          ctx.strokeStyle = "rgba(255,255,255,0.12)";
+          ctx.lineWidth = 0.5;
+        }
         ctx.stroke();
         ctx.fill();
 
         // ── Specular ──
         if (oreType === "diamond") {
           ctx.fillStyle = "rgba(255,255,255,0.7)";
-          ctx.beginPath(); ctx.arc(0, -oreSize*0.4, oreSize*0.15, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(0, -oreSize * 0.4, oreSize * 0.15, 0, Math.PI * 2);
+          ctx.fill();
         } else if (oreType === "prismatic") {
           ctx.fillStyle = "rgba(255,255,255,0.8)";
-          ctx.beginPath(); ctx.arc(0, -oreSize*0.3, oreSize*0.13, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(0, -oreSize * 0.3, oreSize * 0.13, 0, Math.PI * 2);
+          ctx.fill();
           // Extra rainbow sparkle
           for (let rf = 0; rf < 3; rf++) {
             const ra = (rf / 3) * Math.PI * 2 + time * 1.2;
             ctx.fillStyle = `hsla(${(rf * 120 + time * 60) % 360},80%,70%,0.6)`;
             ctx.beginPath();
-            ctx.arc(Math.cos(ra) * oreSize*0.35, Math.sin(ra) * oreSize*0.35, oreSize*0.12, 0, Math.PI*2);
+            ctx.arc(
+              Math.cos(ra) * oreSize * 0.35,
+              Math.sin(ra) * oreSize * 0.35,
+              oreSize * 0.12,
+              0,
+              Math.PI * 2,
+            );
             ctx.fill();
           }
         } else if (oreType === "gold") {
           ctx.fillStyle = "rgba(255,255,220,0.5)";
-          ctx.beginPath(); ctx.arc(-oreSize*0.15, -oreSize*0.2, oreSize*0.18, 0, Math.PI*2); ctx.fill();
+          ctx.beginPath();
+          ctx.arc(
+            -oreSize * 0.15,
+            -oreSize * 0.2,
+            oreSize * 0.18,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
           // Second bar highlight
           ctx.fillStyle = "rgba(255,255,255,0.2)";
-          ctx.fillRect(-oreSize*0.5, -oreSize*0.35, oreSize, oreSize*0.12);
+          ctx.fillRect(
+            -oreSize * 0.5,
+            -oreSize * 0.35,
+            oreSize,
+            oreSize * 0.12,
+          );
         }
 
         ctx.restore();
@@ -1760,7 +1992,8 @@ const personSchema = {
   function drawSoftware() {
     ctx.font = "10px monospace";
     ctx.textAlign = "left";
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     const lines = [
       "> init_rrsuika();",
       "> load_design_system();",
@@ -1772,7 +2005,12 @@ const personSchema = {
     ];
     lines.forEach((line, i) => {
       const alpha = 0.15 + 0.1 * Math.sin(time * 2 - i);
-      ctx.fillStyle = i === 6 ? "#e8a040" : (isLight ? `rgba(60,60,60,${alpha + 0.25})` : `rgba(220,220,220,${alpha})`);
+      ctx.fillStyle =
+        i === 6
+          ? "#e8a040"
+          : isLight
+            ? `rgba(60,60,60,${alpha + 0.25})`
+            : `rgba(220,220,220,${alpha})`;
       ctx.fillText(line, W * 0.2, H * 0.22 + i * 25);
     });
     ctx.strokeStyle = "rgba(232,160,64,0.35)";
@@ -1789,12 +2027,13 @@ const personSchema = {
   DRAW: Teaching — Double DNA Helix
   ====================================================== */
   function drawTeaching() {
-    const cx = W / 2, cy = H / 2;
-    const helixR = Math.min(W, H) * 0.18;   // width of the helix
-    const helixH = H * 0.64;                // total height
+    const cx = W / 2,
+      cy = H / 2;
+    const helixR = Math.min(W, H) * 0.18; // width of the helix
+    const helixH = H * 0.64; // total height
     const turns = 5;
     const steps = 400;
-    const phaseShift = time * 0.5;          // slow vertical wave
+    const phaseShift = time * 0.5; // slow vertical wave
 
     // Strand 1: x = R * cos(θ), y = vertical position, strand1 displaced to left
     // Strand 2: x = R * cos(θ + π), displaced to right
@@ -1853,7 +2092,8 @@ const personSchema = {
   function drawCapability() {
     if (!ctx || !canvasVisible) return; // 不可见时直接退出
     ctx.clearRect(0, 0, W, H);
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const isLight =
+      document.documentElement.getAttribute("data-theme") === "light";
     ctx.fillStyle = isLight ? "#e8e3da" : "#09090b";
     ctx.fillRect(0, 0, W, H);
     if (!isLight) drawGrid();
@@ -1986,8 +2226,12 @@ const personSchema = {
   const annexPanel = document.getElementById("style-annex-panel");
   const enterKey = document.querySelector(".enter-key");
 
-  // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
-  function typeAnnexBlock(el: HTMLElement, original: string, speed: number): Promise<void> {
+  // 打字机引擎 ; 逐字符输出，结束后恢复原始 HTML 结构
+  function typeAnnexBlock(
+    el: HTMLElement,
+    original: string,
+    speed: number,
+  ): Promise<void> {
     return new Promise<void>((resolve) => {
       const temp = document.createElement("div");
       temp.innerHTML = original;
@@ -2031,9 +2275,9 @@ const personSchema = {
       if (!annexTyped) {
         annexTyped = true;
         const blocks = annexPanel.querySelectorAll<HTMLElement>(
-          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
+          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li",
         );
-        // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
+        // 先同步清空所有区块，再显示面板;避免先闪现全文再打字
         blocks.forEach((el) => {
           el.dataset.annexOriginal = el.innerHTML;
           el.innerHTML = "";
@@ -2043,7 +2287,11 @@ const personSchema = {
         annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         (async () => {
           for (const el of blocks) {
-            await typeAnnexBlock(el, el.dataset.annexOriginal || "", annexSpeed(el));
+            await typeAnnexBlock(
+              el,
+              el.dataset.annexOriginal || "",
+              annexSpeed(el),
+            );
           }
         })();
       } else {
@@ -2174,7 +2422,7 @@ const personSchema = {
     gap: 90px;
   }
 
-  /* 普通双栏:左侧标题顶格,右侧段落自然流 ——
+  /* 普通双栏:左侧标题顶格,右侧段落自然流 ;
      BETWEEN 与导语顶部天然对齐,段落间距即常规 25px */
   .intro-heading h2 {
     max-width: 650px;
@@ -2266,7 +2514,7 @@ const personSchema = {
   }
 
   .identity {
-    padding: 55px;
+    padding: 40px;
     border-right: 1px solid var(--border);
   }
 
@@ -2290,8 +2538,33 @@ const personSchema = {
     font-weight: bold;
   }
 
+  .identity-rows {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .mini-row {
+    margin-bottom: 16px;
+  }
+
+  .mini-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .mini-row .data-label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .mini-value {
+    color: #bbb;
+    font-size: var(--text-scale-2xs);
+    line-height: 1.6;
+  }
+
   .dossier-data {
-    padding: 35px 45px;
+    padding: 28px 45px;
   }
 
   .data-row {
@@ -2312,6 +2585,47 @@ const personSchema = {
   .data-label {
     color: #666;
     letter-spacing: var(--tracking-label);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    color: var(--text-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-micro);
+  }
+
+  .software {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .soft-icon {
+    display: block;
+    height: 26px;
+    width: auto;
+  }
+
+  .pol-dark {
+    filter: invert(0.9);
+  }
+
+  :root[data-theme="light"] .pol-dark {
+    filter: none;
+  }
+
+  :root[data-theme="light"] .pol-light {
+    filter: brightness(0.3);
   }
 
   /* =====================================================
@@ -3642,14 +3956,31 @@ const personSchema = {
   LIGHT MODE
   ====================================================== */
 
-  :root[data-theme="light"] .subtitle { color: var(--text-soft); }
-  :root[data-theme="light"] .hero-index { color: #888; }
-  :root[data-theme="light"] .hero-meta { color: var(--text-dim); border-bottom-color: rgba(0,0,0,0.12); }
-  :root[data-theme="light"] h1 { color: #111; }
-  :root[data-theme="light"] .intro-heading h2 { color: #111; }
-  :root[data-theme="light"] .process-heading h2 { color: #111; }
-  :root[data-theme="light"] .philosophy-main h2 { color: #111; }
-  :root[data-theme="light"] .journey-header h2 { color: #111; }
+  :root[data-theme="light"] .subtitle {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .hero-index {
+    color: #888;
+  }
+  :root[data-theme="light"] .hero-meta {
+    color: var(--text-dim);
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+  }
+  :root[data-theme="light"] h1 {
+    color: #111;
+  }
+  :root[data-theme="light"] .intro-heading h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .process-heading h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .philosophy-main h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .journey-header h2 {
+    color: #111;
+  }
 
   /* Cards → light background */
   :root[data-theme="light"] .dossier {
@@ -3669,21 +4000,42 @@ const personSchema = {
     color: var(--text-bright);
   }
   :root[data-theme="light"] .cap-button.active {
-    background: linear-gradient(135deg, rgba(232,160,64,0.12), rgba(232,160,64,0.03));
+    background: linear-gradient(
+      135deg,
+      rgba(232, 160, 64, 0.12),
+      rgba(232, 160, 64, 0.03)
+    );
     color: var(--text-bright);
     box-shadow: inset 3px 0 0 var(--accent);
   }
-  :root[data-theme="light"] .cap-button span { color: #888; }
-  :root[data-theme="light"] .cap-button.active span { color: var(--accent); }
+  :root[data-theme="light"] .cap-button span {
+    color: #888;
+  }
+  :root[data-theme="light"] .cap-button.active span {
+    color: var(--accent);
+  }
   :root[data-theme="light"] .skill-tree {
     background: var(--paper);
     box-shadow: var(--shadow-paper);
   }
-  :root[data-theme="light"] .skill-node-dot { background: var(--paper); box-shadow: 0 0 0 5px var(--paper); }
-  :root[data-theme="light"] .skill-node:hover .skill-node-dot { box-shadow: 0 0 0 5px var(--paper), 0 0 18px rgba(232,160,64,0.45); }
-  :root[data-theme="light"] .skill-node-content strong { color: #333; }
-  :root[data-theme="light"] .skill-node-content small { color: #777; }
-  :root[data-theme="light"] .skill-tree-label { color: #999; }
+  :root[data-theme="light"] .skill-node-dot {
+    background: var(--paper);
+    box-shadow: 0 0 0 5px var(--paper);
+  }
+  :root[data-theme="light"] .skill-node:hover .skill-node-dot {
+    box-shadow:
+      0 0 0 5px var(--paper),
+      0 0 18px rgba(232, 160, 64, 0.45);
+  }
+  :root[data-theme="light"] .skill-node-content strong {
+    color: #333;
+  }
+  :root[data-theme="light"] .skill-node-content small {
+    color: #777;
+  }
+  :root[data-theme="light"] .skill-tree-label {
+    color: #999;
+  }
   :root[data-theme="light"] .research-terminal {
     background: var(--paper);
     box-shadow: var(--shadow-paper);
@@ -3694,33 +4046,85 @@ const personSchema = {
   }
 
   /* Text → dark */
-  :root[data-theme="light"] .intro-content p { color: var(--text-soft); }
-  :root[data-theme="light"] .intro-content .intro-lead { color: var(--text-bright); }
-  :root[data-theme="light"] .philosophy-copy p { color: var(--text-soft); }
-  :root[data-theme="light"] .philosophy-copy .lead { color: var(--text-bright); }
-  :root[data-theme="light"] .journey-copy p { color: var(--text-soft); }
-  :root[data-theme="light"] .journey-copy .lead { color: var(--text-bright); }
-  :root[data-theme="light"] .future-text p { color: var(--text-soft); }
-  :root[data-theme="light"] .future-text .lead { color: var(--text-bright); }
-  :root[data-theme="light"] .closing-section p { color: #333; }
-  :root[data-theme="light"] .data-row { color: var(--text-soft); }
-  :root[data-theme="light"] .identity h2 { color: #111; }
-  :root[data-theme="light"] .research-column strong { color: var(--text-bright); }
-  :root[data-theme="light"] .research-column p { color: var(--text-dim); }
-  :root[data-theme="light"] .station-content h3 { color: var(--text-bright); }
-  :root[data-theme="light"] .station-content p { color: var(--text-dim); }
-  :root[data-theme="light"] .display-body h3 { color: #111; }
-  :root[data-theme="light"] .display-body p { color: var(--text-dim); }
-  :root[data-theme="light"] .process-header p { color: var(--text-dim); }
-  :root[data-theme="light"] .dossier-header { color: #c07820; }
+  :root[data-theme="light"] .intro-content p {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .intro-content .intro-lead {
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .philosophy-copy p {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .philosophy-copy .lead {
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .journey-copy p {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .journey-copy .lead {
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .future-text p {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .future-text .lead {
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .closing-section p {
+    color: #333;
+  }
+  :root[data-theme="light"] .data-row {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .mini-value {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .identity h2 {
+    color: #111;
+  }
+  :root[data-theme="light"] .research-column strong {
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .research-column p {
+    color: var(--text-dim);
+  }
+  :root[data-theme="light"] .station-content h3 {
+    color: var(--text-bright);
+  }
+  :root[data-theme="light"] .station-content p {
+    color: var(--text-dim);
+  }
+  :root[data-theme="light"] .display-body h3 {
+    color: #111;
+  }
+  :root[data-theme="light"] .display-body p {
+    color: var(--text-dim);
+  }
+  :root[data-theme="light"] .process-header p {
+    color: var(--text-dim);
+  }
+  :root[data-theme="light"] .dossier-header {
+    color: #c07820;
+  }
   :root[data-theme="light"] .display-header,
-  :root[data-theme="light"] .display-footer { color: #888; }
-  :root[data-theme="light"] .console-top { color: #888; }
+  :root[data-theme="light"] .display-footer {
+    color: #888;
+  }
+  :root[data-theme="light"] .console-top {
+    color: #888;
+  }
 
   /* Borders / misc in light mode */
-  :root[data-theme="light"] .station-light { background: var(--paper); }
-  :root[data-theme="light"] .display-visual { background: var(--paper); }
-  :root[data-theme="light"] .intro-marker span { color: var(--text-dim); border-color: var(--border-strong); }
+  :root[data-theme="light"] .station-light {
+    background: var(--paper);
+  }
+  :root[data-theme="light"] .display-visual {
+    background: var(--paper);
+  }
+  :root[data-theme="light"] .intro-marker span {
+    color: var(--text-dim);
+    border-color: var(--border-strong);
+  }
 
   :root[data-theme="light"] .enter-key {
     background: linear-gradient(180deg, #f0ebe0, var(--paper));
@@ -3737,7 +4141,9 @@ const personSchema = {
   :root[data-theme="light"] .enter-key::after {
     border-color: var(--border-divider);
   }
-  :root[data-theme="light"] .closing-status { color: #00703c; }
+  :root[data-theme="light"] .closing-status {
+    color: #00703c;
+  }
 
   /* =====================================================
   RESPONSIVE

@@ -28,10 +28,10 @@ translationKey: power-supply-ldo-buck-boost
 Voordat ik enig ander deel van het schema aanraak, stel ik mezelf drie vragen:
 
 1. Wat is het spanningsverschil tussen in- en uitgang? Is dat meer dan 3V en komt de stroom boven 0.3A, dan overweeg ik niet eens een LDO; meteen naar Buck.
-2. Is het systeem ruisgevoelig? Draadloze modules en precisie-analoge schakelingen neigen naar LDO's, of op zijn minst extra filtering na een switcher.
+2. Is het systeem ruisgevoelig? Draadloze modules en analoge precisieschakelingen neigen naar LDO's, of op zijn minst extra filtering na een switcher.
 3. Hoe zit het met ruimte en thermiek? Een volledig afgesloten, kleine behuizing betekent dat ik voor schakelend ga; warmte hoopt zich in een klein kastje snel op.
 
-Deze drie vragen hebben me veel herstelwerk bespaard.
+Deze drie vragen hebben me veel herwerk bespaard.
 
 ## Vermogensarchitectuur: het is een energiedistributiesysteem
 
@@ -60,7 +60,7 @@ Binnen één product bestaan er dus vaak 5V-, 3.3V-, 1.8V- en andere rails naast
 Wat ik heb geleerd:
 - Elke trap in het vermogenspad heeft verliezen; beoordeel de efficiëntie trap voor trap, niet alleen die van de laatste.
 - Plan je spanningsrails zorgvuldig. Gevoelige schakelingen hebben mogelijk extra filtering op hun voeding nodig.
-- Beveiligingscomponenten (zekering, omgekeerde polariteit) zien er eenvoudig uit, maar bepalen de ondergrens van de veiligheid van je product. Bespaar hier nooit op.
+- Beveiligingscomponenten (zekering, omgekeerde polariteit) zien er eenvoudig uit, maar ze leggen de ondergrens van de veiligheid van je product vast. Bespaar hier nooit op.
 
 ## 2. LDO-lineaire regelaars: schoon en simpel, maar ze worden heet
 
@@ -181,7 +181,7 @@ Belangrijkste component: de optocoupler overbrugt de barrière tussen hoog- en l
 
 ## FAQ
 
-### Waarom moet de beveiligingsprint met de batterij zijn geïntegreerd?
+### Waarom moet de beveiligingsprint in de batterij zitten?
 De beveiligingsprint moet de celspanning en -stroom direct en zonder vertraging kunnen bewaken; doorgaans wordt hij met nikkelstrips rechtstreeks op de celpolen puntgelast. Als hij met draden en connectoren ertussen op de hoofdprint zit, tasten weerstand en losse verbindingen de betrouwbaarheid van de beveiliging ernstig aan.
 
 ### Kan ik een beveiligde batterij rechtstreeks met een TP4056 opladen?
@@ -234,7 +234,7 @@ Voeg voor gevoelige schakelingen een LDO of een π-filter (C-L-C) na de Buck toe
 
 **DC-ingang → Buck → LDO → Belasting**
 
-1. **De Buck verzorgt de "efficiënte grove omlaagconversie"**
+1. **De Buck verzorgt de "efficiënte, grove step-down"**
    - De Buck neemt het grote spanningsverschil (bijv. 12V→5.5V) voor zijn rekening met 90%+ efficiëntie en produceert heel weinig warmte.
    - Converteert omlaag tot net boven de uiteindelijke LDO-uitgang (doorgaans 0.3–0.5V hoofdruimte).
 

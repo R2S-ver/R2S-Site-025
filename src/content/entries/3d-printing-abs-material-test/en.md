@@ -544,7 +544,7 @@ I considered swapping the stock gear for a brass one, but I'm not convinced that
 
 A hardened steel gear seems like the safer bet. Better bite, less thermal conductivity, and it won't wear down the same way.
 
-## 9. Future Work
+## Future Work
 
 Stuff I'd like to test when I get around to it:
 
@@ -558,7 +558,7 @@ Stuff I'd like to test when I get around to it:
 
 The big lesson on methodology: changing three things at once might get you to a solution faster, but you won't know _which_ thing fixed it. Next round I want to be more disciplined about isolating variables.
 
-## 10. Self Reflection
+## Self Reflection
 
 This project changed how I think about 3D printing. ABS isn't just "hard mode" PLA — it's a completely different animal that exposes weaknesses in your setup that easier materials let you ignore.
 
@@ -570,7 +570,7 @@ The early tests were messy — I was changing multiple variables, getting frustr
 
 Overall, I'm glad I stuck with it. Going from "ABS is impossible on this printer" to having a repeatable process is genuinely satisfying.
 
-## 11. Filament and Printer Setup
+## Filament and Printer Setup
 
 ### Printer
 
@@ -593,7 +593,7 @@ What I'd switch to:
 
 - Hardened steel extruder gear
 
-The stock gear works fine for PLA and PETG, but under the higher resistance conditions ABS creates, its grip isn't always enough. I considered a full-metal brass gear but the higher thermal conductivity might push more heat into the filament path — probably not what you want when heat creep is already on your list of problems.
+The stock gear works fine for PLA and PETG, but ABS creates higher feed resistance, and the gear's grip isn't always enough. I considered a full-metal brass gear but the higher thermal conductivity might push more heat into the filament path — probably not what you want when heat creep is already on your list of problems.
 
 ### Printing Environment
 
@@ -605,7 +605,7 @@ What I'd aim for: 45–50°C
 
 Higher than 55°C did help with warping resistance but brought heat creep and extrusion issues more often. Lower than 45°C and I'd start seeing corners lift. It's a narrow window, but once you find it, it's repeatable.
 
-## 12. References
+## References
 
 1. Bambu Lab Basic Maintenance  
    https://wiki.bambulab.com/en/a1/maintenance/basic-maintenance

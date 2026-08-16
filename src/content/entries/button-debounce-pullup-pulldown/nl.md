@@ -55,7 +55,7 @@ Doe dit nooit.
 - **Niet ingedrukt**: 5V laadt de GPIO-pin op via de 10kΩ-weerstand. De ingangsimpedantie van een GPIO ligt op megaohm-niveau (bijna een isolator), dus er loopt nauwelijks stroom. Over de weerstand valt bijna geen spanning, de pin staat stevig op hoog.
 - **Ingedrukt**: de GPIO wordt direct met aarde kortgesloten = laag. Stroom = 5V / 10kΩ = 0.5mA. Dat is weinig; veilig, efficiënt, en de pin wordt betrouwbaar naar 0V getrokken.
 
-Dit is "zwakke pull-up, sterke pull-down" in actie: de pull van de weerstand is zwak genoeg dat de directe kortsluiting van de knop naar aarde hem makkelijk overstemt, maar sterk genoeg om de pin hoog te houden als de knop open is.
+Dit is "zwakke pull-up, sterke pull-down" in actie: de weerstand trekt zwak genoeg om de directe kortsluiting van de knop naar aarde te laten winnen, maar sterk genoeg om de pin hoog te houden wanneer de knop open is.
 
 ## Pull-up versus pull-down
 
@@ -100,9 +100,9 @@ Veelgebruikte pull-weerstandswaarden: 4.7kΩ, 10kΩ, 22kΩ, 47kΩ.
 - Hogere weerstand → minder vermogen, maar gevoeliger voor ruis
 - 10kΩ is de sweet spot: 3.3V/10kΩ = 0.33mA, verwaarloosbaar vermogen, betrouwbare ruisimmuniteit. Niet voor niets de industriestandaard.
 
-Of je pull-up of pull-down gebruikt, hangt af van het systeem. Een actief-hoog enable-signaal (EN) dat standaard inactief moet zijn → gebruik pull-down. Een actief-laag reset-signaal (RST#) dat standaard inactief moet zijn → gebruik pull-up. Bij motoraansturing kan een zwevende pin door ruis naar hoog worden getriggerd en de motor per ongeluk laten draaien; een pull-down die de standaard op laag vergrendelt is daar cruciaal.
+Of je pull-up of pull-down gebruikt, hangt af van het systeem. Een actief-hoog enable-signaal (EN) dat standaard inactief moet zijn → gebruik pull-down. Een actief-laag reset-signaal (RST#) dat standaard inactief moet zijn → gebruik pull-up. Bij motoraansturing kan een zwevende pin door ruis naar hoog worden getriggerd en de motor per ongeluk laten draaien; een pull-down die het standaardniveau op laag vastzet is daar cruciaal.
 
-Pull-weerstanden bestaan ook in sterke en zwakke varianten. Interne pull-weerstanden van een MCU zijn doorgaans zwak (hoge waarde, 20kΩ~50kΩ). Lagere weerstand = sterkere pull, betere ruisimmuniteit; externe ruis heeft meer energie nodig om een sterk vastgehouden pin om te klappen. Maar een lagere weerstand betekent ook meer vermogen. Het is een eerlijke afweging.
+Pull-weerstanden bestaan ook in sterke en zwakke varianten. Interne pull-weerstanden van een MCU zijn doorgaans zwak (hoge waarde, 20kΩ~50kΩ). Lagere weerstand = sterkere pull, betere ruisimmuniteit; externe ruis heeft meer energie nodig om een sterk vastgehouden pin om te klappen. Maar een lagere weerstand betekent ook meer vermogen. Het is gewoon een afweging.
 
 ## Waarom knoppen stuiteren
 
@@ -135,7 +135,7 @@ GND
 - 100nF condensator: hardware-debounce, ruisfiltering
 - GPIO: toestandsdetectie
 
-## Wat industrieel ontwerpers moeten weten
+## Wat industriële ontwerpers moeten weten
 
 Mechanisch ontwerp: knopgrootte, slag, bedieningskracht, terugveersnelheid, montagetoleranties, slijtage op lange termijn.
 Omgevingsbetrouwbaarheid: water-/stofbestendigheid (IP-classificatie), ESD-bescherming, EMC-immuniteit.
@@ -168,7 +168,7 @@ Omgekeerd: bij pull-down laat een gebroken draad de GPIO op laag staan, "altijd 
 
 #### 3. Aarde als referentie is betrouwbaarder
 
-- Het groundvlak is de 0V-referentie voor het hele systeem; grootschalig, met ultralage impedantie, uitstekend in het absorberen en afschermen van ruis, veel beter dan de voedingsrail.
+- Het groundvlak is de 0V-referentie voor het hele systeem; het zit overal, met ultralage impedantie, en absorbeert en schermt ruis uitstekend af — veel beter dan de voedingsrail.
 - Statische elektriciteit of ruis van een vingeraanraking wordt veilig naar aarde afgevoerd in plaats van in de gevoelige voedingsrail geïnjecteerd.
 - Bij actief-laag signalering moet ruis het niveau boven VIH (~0.7 × VCC) duwen om geregistreerd te worden. De voedingsrail heeft ontkoppelcondensatoren die ruisinkoppeling bemoeilijken. De ruismarges bij actief-hoog zijn inherent slechter.
 
@@ -205,7 +205,7 @@ Dit raamwerk voorkomt dat lang indrukken opnieuw triggert en vormt de basis voor
 
 ### Polling versus interrupt
 
-Polling: de hoofdlus of een timer leest de GPIO periodiek uit. Simpel, maar vreet CPU-tijd en is slecht voor een laag verbruik.
+Polling: de hoofdlus of een timer leest de GPIO periodiek uit. Simpel, maar vreet CPU-tijd en niet geschikt voor een laag verbruik.
 Interrupt: knop op een interrupt-pin, flankgetriggerde ISR, start in de ISR een timer voor de debounce. Lager verbruik, snellere respons; essentieel voor apparaten op batterijen. Echte producten combineren vaak beide: de interrupt wekt het systeem, daarna verzorgt polling de debounce.
 
 ### Kwantitatief ontwerp van hardware-debounce
@@ -219,4 +219,4 @@ ESD-bescherming: knoppen zijn directe menselijke aanraakpaden. Voeg altijd een T
 
 ### Meerdere knoppen en GPIO-optimalisatie
 
-Een ontwerp met één knop werkt alleen voor een paar knoppen. Bij veel knoppen gebruikt de industrie matrixscanning (rij/kolom) of een ADC-weerstandsladder (een keten weerstanden die de spanning verdeelt; één ADC-pin leest verschillende spanningen voor verschillende knoppen) om drastisch GPIO-pinnen te besparen.
+Een ontwerp met één knop werkt alleen voor een paar knoppen. Bij veel knoppen gebruikt de industrie matrixscanning (rij/kolom) of een ADC-weerstandsladder (een keten weerstanden die de spanning verdeelt; één ADC-pin leest verschillende spanningen voor verschillende knoppen) om flink op GPIO-pinnen te besparen.

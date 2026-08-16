@@ -39,7 +39,7 @@ An **operational amplifier** is fundamentally a differential amplifier with extr
 
 ## Other Characteristics
 
-- **Output saturation** — the output can't exceed the supply rails: op-amp output is always bounded by the power rails, usually slightly below them. If the theoretical amplified value exceeds the supply, the output clips and you're no longer linear.
+- **Output saturation** — the output can't exceed the supply rails, and in practice it's always slightly below them. If the theoretical amplified value exceeds the supply, the output clips and you're no longer linear.
 - **Voltage follower** is the special case where Rf=0, Rg=∞, giving gain = 1. It doesn't amplify voltage — instead it transforms a weak, high-impedance sensor signal into a strong, low-impedance drive signal, buffering one stage from the next.
 
 ## Non-Inverting Amplifier
@@ -182,7 +182,7 @@ From (d), (h): Vout = (Vy - Vx)(R1 + R2 + R3) / R2
 
 The term (R1+R2+R3)/R2 is a constant that sets the amplification factor for the difference (Vy - Vx). This is the differential amplifier.
 
-### Current Detection (4-20mA)
+### Current Detection (4~20mA)
 ![Current Detection](./11-current-detection.png)
 
 Many controllers accept 0~20mA or 4~20mA current from instrumentation. The circuit converts this current to a voltage for the ADC.

@@ -29,7 +29,7 @@ translationKey: isolation-gpio-driver-mosfet-bjt-relay-optocoupler
 - MOS = de elektronische schakelaar tussen je MCU en hoogvermogenbelastingen.
 - **De Gate stuurt aan, de Drain draagt de belasting, de Source gaat naar de referentie (meestal GND bij NMOS).**
 - De GPIO voedt de belasting niet; die stuurt alleen de Gate aan.
-- **NMOS + low-side schakelaar + PWM** is de meest voorkomende drivertopologie in slimme hardware. Beheers deze eerst.
+- **NMOS + low-side schakelaar + PWM** is de meest voorkomende drivertopologie in slimme hardware. Beheers deze als eerste.
 
 # Wat een GPIO eigenlijk is
 
@@ -115,7 +115,7 @@ Zuiver resistieve belastingen zoals LED's hebben er meestal geen nodig, maar het
 | Hoogfrequente PWM    | Matig          | Uitstekend      |
 | Hoge stromen     | Matig          | Uitstekend      |
 
-BJT's zijn stroomgestuurd: je moet basistroom blijven toevoeren om ze aan te houden. MOSFETs zijn spanningsgestuurd: zodra de Gate-capaciteit is opgeladen, loopt er vrijwel geen stroom meer. In modern DC-vermogensschakelen winnen MOSFETs op alle fronten. BJT's komen nog voor in analoge schakelingen (versterking, lineaire regeling) en in enkele hoogspanningsniches, maar voor het aansturen van belastingen vanuit een MCU? Altijd een MOSFET.
+BJT's zijn stroomgestuurd: je moet basistroom blijven toevoeren om ze aan te houden. MOSFETs zijn spanningsgestuurd: zodra de Gate-capaciteit is opgeladen, loopt er vrijwel geen stroom meer. In moderne DC-vermogensschakelingen winnen MOSFETs op alle fronten. BJT's komen nog voor in analoge schakelingen (versterking, lineaire regeling) en in enkele hoogspanningsniches, maar voor het aansturen van belastingen vanuit een MCU? Altijd een MOSFET.
 
 ## 7. Relais versus MOSFET
 
@@ -128,7 +128,7 @@ BJT's zijn stroomgestuurd: je moet basistroom blijven toevoeren om ze aan te hou
 | Stil          | Hoorbare klik       |
 | Alleen DC         | Zowel AC als DC          |
 
-**Ik gebruik een relais wanneer**: ik 220V AC schakel, een echte fysieke scheiding nodig heb (nul lekstroom) of volledige galvanische isolatie nodig heb.
+**Ik gebruik een relais wanneer**: ik 220V AC schakel, een echte fysieke scheiding nodig heb (geen lekstroom) of volledige galvanische isolatie nodig heb.
 **Ik gebruik een MOSFET wanneer**: LED's, motoren, ventilatoren, producten op batterijen; DC-belastingen die snelheid, stilte en PWM-aansturing nodig hebben.
 
 ## 8. Optocoupler: wanneer je echte elektrische isolatie nodig hebt
@@ -159,7 +159,7 @@ Veelvoorkomende MOSFET-aangestuurde producten: LED-verlichting, RGB-strips, vent
 
 - **Inductieve belastingen MOETEN een vrijloopdiode hebben**.
 
-- **Gemeenschappelijke aarde**: de GND van de MCU en de GND van de voeding moeten direct met elkaar verbonden zijn. Zonder een gedeelde referentie heeft het Gate-stuursignaal geen retourpad en schakelt de MOSFET niet. Dit is de grootste beginnersvalkuil. Heb je isolatie tussen MCU en belasting nodig, gebruik dan een optocoupler; probeer de aardes niet zonder gescheiden te houden.
+- **Gemeenschappelijke aarde**: de GND van de MCU en de GND van de voeding moeten direct met elkaar verbonden zijn. Zonder een gedeelde referentie heeft het Gate-stuursignaal geen retourpad en schakelt de MOSFET niet. Dit is de grootste beginnersvalkuil. Heb je isolatie tussen MCU en belasting nodig, gebruik dan een optocoupler; probeer de aardingen niet zonder optocoupler gescheiden te houden.
 
 - **Checklist voor MOSFET-selectie**:
   - V_GS(th): Gate-drempelspanning (let op: dit is waar hij *begint* te geleiden, niet volledig aan)

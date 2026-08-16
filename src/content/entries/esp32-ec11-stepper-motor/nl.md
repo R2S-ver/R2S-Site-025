@@ -70,8 +70,8 @@ Hier promoveerde het vorige encoder + OLED-prototype naar echte motion control. 
 
 Ik wilde twee fundamenteel verschillende manieren om met de motor te werken, dus bouwde ik ze allebei:
 
-- **MANUAL-modus:** Draai aan de encoder en de motor volgt in discrete stappen. Elke klik van de EC11 beweegt de motor 20 stappen (instelbaar). Dit is directe positiebesturing: ideaal voor precies joggen en uitlijnwerk.
-- **AUTO-modus:** De encoder bestuurt geen positie meer: hij bestuurt de snelheid. Aan de knop draaien verandert de stapfrequentie van -5000 tot +5000 stappen/sec, waarbij elke encoderstap hem met 50 stappen/sec aanpast. De motor draait continu. Negatieve snelheid = omgekeerde richting. Deze modus is perfect om door een bewegingsbereik te vegen of snelheidslimieten te testen.
+- **MANUAL-modus:** Draai aan de encoder en de motor volgt in discrete stappen. Elke klik van de EC11 beweegt de motor 20 stappen (instelbaar). Dit is directe positiebesturing: ideaal voor nauwkeurig joggen en uitlijnwerk.
+- **AUTO-modus:** De encoder bestuurt geen positie meer: hij bestuurt de snelheid. Aan de knop draaien verandert de stapfrequentie van -5000 tot +5000 stappen/sec, waarbij elke encoderstap hem met 50 stappen/sec aanpast. De motor draait continu. Negatieve snelheid = omgekeerde richting. Deze modus is perfect om een bewegingsbereik te doorlopen of snelheidslimieten te testen.
 
 Door de drukknop van een van beide encoders in te drukken, wissel je tussen de modi. Bij het wisselen synchroniseert de firmware de doelpositie met de huidige positie, zodat er geen plotselinge sprong is: dat heb ik op de harde manier geleerd nadat de motor tijdens een vroege test tegen een eindstop knalde.
 
@@ -621,7 +621,7 @@ void loop() {
 
 # Resultaat
 
-Deze heeft me wat tegengestribbeld: stappenmotordrivers hebben een eigen karakter, maar uiteindelijk viel alles samen:
+Deze heeft me wat tegengestribbeld: stappenmotordrivers hebben een eigen karakter, maar uiteindelijk viel alles op zijn plek:
 
 - Beide EC11-encoders voeden de regellus zonder gemiste tellingen, en de moduswissellogica (met positiesynchronisatie bij de overgang) voorkomt dat de motor springt wanneer je tussen MANUAL en AUTO wisselt.
 - De dubbele OLED's tonen hoek, stapstand, snelheid en modus: het delen van de I2C-bus werkt prima bij deze verversingsfrequenties.

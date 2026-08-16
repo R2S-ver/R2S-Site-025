@@ -36,7 +36,7 @@ translationKey: esp32-inmp441-noise-monitor
 
 # Overzicht
 
-Ik wilde een manier om te zien hoe mijn werkplek eigenlijk klinkt: niet zomaar een getal, maar het volledige frequentiebeeld. Dus pakte ik een INMP441 I2S-microfoon, sloot die aan op een ESP32 en schreef ik zelf de FFT-pipeline. Het eindresultaat is een klein apparaatje dat op mijn bureau staat, audio in realtime binnenhaalt, een FFT van 512 punten draait en alles via WiFi naar een browserdashboard streamt. Het toont me het huidige dB-niveau, een staafdiagram van het 64-bins spectrum en een voortschrijdende geschiedenis van 30 minuten aan geluidsniveaus. Het is verrassend verslavend om naar te kijken: je krijgt echt een gevoel voor welke apparaten het luidst zijn in de kamer.
+Ik wilde een manier om te zien hoe mijn werkplek eigenlijk klinkt: niet zomaar een getal, maar het volledige frequentiebeeld. Dus pakte ik een INMP441 I2S-microfoon, sloot die aan op een ESP32 en schreef ik zelf de FFT-pipeline. Het eindresultaat is een klein apparaatje dat op mijn bureau staat, audio in realtime binnenhaalt, een FFT van 512 punten draait en alles via WiFi naar een browserdashboard streamt. Het toont me het huidige dB-niveau, een staafdiagram van het 64-bins spectrum en een voortschrijdende geschiedenis van 30 minuten geluidsniveaus. Het is verrassend verslavend om naar te kijken: je krijgt echt een gevoel voor welke apparaten het luidst zijn in de kamer.
 
 # Systeemarchitectuur
 
@@ -62,15 +62,15 @@ INMP441 → I2S → ESP32 → FFT → WebSocket → Browser Dashboard
 - **Realtime dB SPL**-meting met een statusindicator die wisselt tussen Quiet, Normal, Warning en Danger. Ik heb de drempelwaarden ingesteld op basis van wat in mijn kamer goed aanvoelde: jouw ervaring kan anders zijn.
 - **Frequentiespectrum met 64 bins**, getoond als geanimeerde balken, logaritmisch verdeeld van 20 Hz tot 20 kHz. De logaritmische verdeling is erg belangrijk omdat onze oren zo werken: lineaire bins zouden het grootste deel van het display verspillen aan hoge frequenties waar we niets om geven.
 - **Dominante frequentiedetectie**: vindt de luidste frequentie in elk frame. Handig om dingen te spotten zoals een koelkastcompressor die op een specifieke toon aanslaat.
-- **Geluidsgeschiedenis** met een voortschrijdende buffer van 30 minuten, één keer per seconde gesampled. De ESP32 houdt alle 1800 punten in het RAM en stuurt de meest recente 600 naar de browser, zodat de JSON niet absurd groot wordt.
-- **Kalibratie-offset** toegankelijk vanuit de webinterface: nuttig omdat de INMP441 niet in de fabriek is gekalibreerd voor absolute SPL. Ik stel hem op nul af tegenover een telefoonapp en noem dat goed genoeg.
+- **Geluidsgeschiedenis** met een voortschrijdende buffer van 30 minuten, één keer per seconde gesampled. De ESP32 houdt alle 1800 punten in het RAM-geheugen en stuurt de meest recente 600 naar de browser, zodat de JSON niet absurd groot wordt.
+- **Kalibratie-offset** toegankelijk vanuit de webinterface: nuttig omdat de INMP441 niet in de fabriek is gekalibreerd voor absolute SPL. Ik stel hem op nul met een telefoonapp en noem dat goed genoeg.
 
 # Webdashboard
 
 ![Webdashboard](./02-web-dashboard.png)
 ![Spectrumweergave](./03-spectrum.png)
 
-Het dashboard draait volledig in de browser met Chart.js. Geen backend-afhankelijkheden: de ESP32 serveert de HTML en een `/data` JSON-endpoint, en de JavaScript doet de rest. Het ververst elke seconde. Eén ding dat ik heb geleerd: schakel de Chart.js-animaties uit voor dit soort streaminggegevens, anders begint de browser na een paar minuten opnieuw tekenen te haperen.
+Het dashboard draait volledig in de browser met Chart.js. Geen backend-afhankelijkheden: de ESP32 serveert de HTML en een `/data` JSON-endpoint, en de JavaScript doet de rest. Het ververst elke seconde. Eén ding dat ik heb geleerd: schakel de Chart.js-animaties uit voor dit soort streaminggegevens, anders begint de browser na een paar minuten te haperen bij het opnieuw tekenen.
 
 # Codestructuur
 
@@ -664,4 +664,4 @@ const char webpage[] PROGMEM = R"WEBPAGE(
 
 De ESP32 handelt alles af in één lus: opnemen, FFT, HTTP serveren, zonder enige hapering. Ik verwachtte half dat de WiFi-stack en de I2S-DMA elkaar in de weg zouden zitten, maar de dual-corearchitectuur van de ESP32 houdt alles netjes, zelfs met de webserver op dezelfde core als de audiopipeline. Het dashboard ververst op 1 Hz en de grafieken blijven vloeiend. Niet slecht voor een microcontroller van $5 en een microfoon van $3.
 
-Het enige dat ik de volgende keer zou verbeteren: de ingebouwde L/R-pin van de INMP441 bindt hem aan alleen het linkerkanaal, wat prima is voor mono, maar als ik ooit stereo wil, heb ik een tweede microfoon op een aparte I2S-bus nodig. Voor nu doet het echter precies wat ik wilde: het zet getallen om in een beeld van hoe mijn kamer klinkt.
+Het enige dat ik de volgende keer zou verbeteren: de ingebouwde L/R-pin van de INMP441 zet hem vast op alleen het linkerkanaal, wat prima is voor mono, maar als ik ooit stereo wil, heb ik een tweede microfoon op een aparte I2S-bus nodig. Voor nu doet het echter precies wat ik wilde: het zet getallen om in een beeld van hoe mijn kamer klinkt.

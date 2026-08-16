@@ -1,7 +1,7 @@
 ---
 title: ESP32 + RGBWW FCOB LED-communicatie
 date: 2026-08-02
-description: "NeoPixelBus-communicatietest met een RGBWW FCOB LED-strip: kanaalwisseling en protocolverificatie."
+description: "Communicatietest met NeoPixelBus op een RGBWW FCOB LED-strip: kanaalwisseling en protocolverificatie."
 
 type: lab
 category: Embedded systemen
@@ -27,7 +27,7 @@ translationKey: esp32-rgbww-fcob-comm
 
 # Doel
 
-Voordat ik iets interessants met de FCOB-strip kon doen, moest ik eerst de basis bevestigen: dat de ESP32 ermee kon communiceren, dat de datalijn op de juiste pin zat en dat ik de volgorde van de kleurkanalen begreep. FCOB-strips verschillen iets van gewone adresseerbare leds; ze gebruiken een doorlopende fosforcoating in plaats van losse leds, wat een veel vloeiender en egaler licht geeft. Maar het communicatieprotocol is dezelfde one-wire interface in NeoPixel/WS2812-stijl, dus de softwarekant is bekend terrein.
+Voordat ik iets interessants met de FCOB-strip kon doen, moest ik eerst controleren of de basis klopte: dat de ESP32 ermee kon communiceren, dat de datalijn op de juiste pin zat en dat ik de volgorde van de kleurkanalen begreep. FCOB-strips verschillen iets van gewone adresseerbare leds; ze gebruiken een doorlopende fosforcoating in plaats van losse leds, wat een veel vloeiender en egaler licht geeft. Maar het communicatieprotocol is dezelfde one-wire interface in NeoPixel/WS2812-stijl, dus de softwarekant is bekend terrein.
 
 # Code
 
@@ -82,4 +82,4 @@ Ik had 150 leds hard gecodeerd als tijdelijke waarde; ik wist op dat moment nog 
 
 De FCOB LED-strip doorloopt achtereenvolgens rood, groen, blauw en warmwit. De communicatie tussen de ESP32 en de NeoPixel-strip is stabiel en alle vier de kleurkanalen (R, G, B, W) reageren correct.
 
-Bevredigend moment: de hele strip licht op in een strakke, egale kleur, zonder geflikker, zonder storingen. De op RMT gebaseerde methode op de ESP32 verwerkt de strakke timingvereisten van het WS2812-protocol zonder moeite. Nu de communicatie bevestigd was, kon ik verder met het bouwen van een echte kleurregelinterface.
+Bevredigend moment: de hele strip licht op in een strakke, egale kleur, zonder geflikker, zonder haperingen. De op RMT gebaseerde methode op de ESP32 verwerkt de strakke timingvereisten van het WS2812-protocol zonder moeite. Nu de communicatie bevestigd was, kon ik verder met het bouwen van een echte kleurregelinterface.

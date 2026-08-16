@@ -95,7 +95,7 @@ Het doel was niet om iets opvallends te bouwen: het ging erom te valideren dat d
 
 De browser maakt verbinding via WebSocket en toont beide encoderhoeken zonder waarneembare vertraging. De JavaScript-herverbindingslogica vangt WiFi-storingen netjes op: als de ESP32 van het netwerk verdwijnt, probeert de pagina elke 2 seconden stilletjes opnieuw tot hij terug is.
 
-Een kleine optimalisatie waar ik tevreden over ben: de Motor Task verstuurt alleen gegevens wanneer de hoek daadwerkelijk is veranderd, en hij begrenst zich tot een interval van minimaal 50ms. Zonder dat zou elke encodertik een WebSocket-frame afvuren en zou je de browser overspoelen bij snel draaien.
+Een kleine optimalisatie waar ik tevreden over ben: de Motor Task verstuurt alleen gegevens wanneer de hoek daadwerkelijk is veranderd, en hij houdt een minimuminterval van 50 ms aan. Zonder dat zou elke encodertik een WebSocket-frame afvuren en zou je de browser overspoelen bij snel draaien.
 
 # OLED-display
 
@@ -439,7 +439,7 @@ void loop() {
 Alles klopt:
 
 - Beide EC11-encoders volgen betrouwbaar met richtingsdetectie: geen gemiste tikken, zelfs niet wanneer ik ze snel ronddraai.
-- De SH1106-OLED ververst op 10 Hz zonder flikkering, en de gedeelde I2C-bus kan beide modules prima aan. De aanroep `display.begin(0x3C, true)` was de sleutel: door `true` voor de reset door te geven, was het probleem „OLED toont alleen een horizontale lijn" opgelost waar ik een uur lang mijn hoofd over brak.
+- De SH1106-OLED ververst op 10 Hz zonder flikkering, en de gedeelde I2C-bus kan beide modules prima aan. De aanroep `display.begin(0x3C, true)` was de sleutel: door `true` voor de reset door te geven, loste ik het probleem „OLED toont alleen een horizontale lijn" op waar ik een uur lang mijn hoofd over brak.
 - De WebSocket-server streamt hoekgegevens naar de browser met een verzendbeperking van 50ms. De heartbeat-pakketten houden de verbinding in leven, zelfs als er een tijdje niets verandert.
 - De FreeRTOS-taken op Core 1 verhongeren elkaar niet: de mutex-verwervingstijden zijn bij deze frequenties verwaarloosbaar.
 

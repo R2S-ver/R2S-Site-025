@@ -4,7 +4,7 @@ export const translations = {
   en: {
     meta: {
       description:
-        "RrSuika Studio — multidisciplinary maker portfolio: industrial design, embedded systems, electronics notes, and visual art.",
+        "RrSuika Studio — the portfolio of a multidisciplinary maker: industrial design, embedded systems, electronics notes and visual art.",
     },
 
     nav: {
@@ -26,8 +26,8 @@ export const translations = {
 
     language: {
       code: "TRANSLATION // UNAVAILABLE",
-      unavailable: "暂无中文版本",
-      description: "当前项目仅提供英文版本",
+      unavailable: "No Chinese version available",
+      description: "This project is currently only available in English",
     },
 
     card: {
@@ -47,7 +47,7 @@ export const translations = {
       cassette: "[ DESIGN_DATABASE // LOADED ]",
       description: {
         line1:
-          "Bridge the gap between TECH and AESTHETIC by pairing artistic intuition with a research-driven mindset.",
+          "Bridge the gap between TECH and AESTHETICS by pairing artistic intuition with a research-driven mindset.",
         line2: "",
       },
       button: "ACCESS PROJECT DATABASE",
@@ -98,12 +98,6 @@ export const translations = {
       header: "PERSONNEL_DOSSIER // PROFILE_MODULE",
       operator: "OPERATOR",
       status: "● ACTIVE DESIGNER // MAKER",
-      description: {
-        line1:
-          "A designer and maker exploring the connection between physical products, technology and art.",
-        line2:
-          "Focused on turning concepts into reality through industrial design, embedded systems and experimental prototyping.",
-      },
       location: "LOCATION: ROTTERDAM // NL",
       field: "FIELD: DESIGN + TECHNOLOGY",
       access: "ACCESS FULL DOSSIER >",
@@ -158,9 +152,9 @@ export const translations = {
         identity: {
           title: "DESIGNER // MAKER // ARTIST",
           text:
-            "Most comfortable somewhere between a designer and a maker; Care deeply about aesthetics, but also want to understand how things work, how they are made and how separate technologies can be combined into a complete object.",
+            "I'm most comfortable somewhere between a designer and a maker: I care deeply about aesthetics, but I also want to understand how things work, how they're made and how different technologies can be combined into a complete object.",
           second:
-            "Industrial design is my main professional direction, while illustration and visual creation remain an important part of who I am.",
+            "Industrial design is my main professional direction, while illustration and visual work remain an important part of who I am.",
         },
         dossier: {
           header: "PERSONNEL_DOSSIER // ABOUT_MODULE",
@@ -173,7 +167,28 @@ export const translations = {
           field: "AESTHETICS + DESIGN + TECHNOLOGY",
           focusLabel: "CURRENT_FOCUS",
           focus:
-            "Industrial design, embedded systems, electronics, prototyping, visual communication and experimental making.",
+            "Industrial design, embedded systems, electronics, prototyping, visual communication and experimental making",
+          skillsLabel: "SKILLS",
+          skills: [
+            "3D Modeling & Printing",
+            "Prototyping & Testing",
+            "Sketching & Drawing",
+            "Industrial / Product Design",
+            "CMF Design",
+            "Electronics & Embedded Systems",
+            "Illustration & Visual Design",
+            "AI-Assisted Workflow",
+          ],
+          interestsLabel: "INTERESTS",
+          interests: [
+            "Hiking",
+            "Cycling",
+            "Reading",
+            "Drawing",
+            "Electronics Engineering",
+            "Fabrication",
+          ],
+          softwareLabel: "SOFTWARE",
         },
         philosophy: {
           header: "PERSONAL_PROTOCOL // DESIGN_PHILOSOPHY",
@@ -185,7 +200,7 @@ export const translations = {
           mottoLabel: "PERSONAL_MOTTO",
           motto: "FAKE IT TILL YOU MAKE IT.",
           mottoText:
-            "Not pretending to already know everything, but being willing to step into unfamiliar territory, learn what is necessary and keep building until the idea becomes real.",
+            "It's not about pretending to know everything — it's about being willing to step into unfamiliar territory, learn what's needed and keep building until the idea becomes real.",
         },
         approach: {
           description: "",
@@ -248,7 +263,7 @@ export const translations = {
           mechanical: {
             title: "CMF Design",
             description:
-              "Color, Material and Surface Finish, covering glossy, matte, metallic, plastic, leather, textured and other common surface treatments.",
+              "Color, material and finish, covering glossy, matte, metallic, plastic, leather, textured and other common surface treatments.",
           },
           electronics: {
             title: "Electronics",
@@ -278,7 +293,7 @@ export const translations = {
           teaching: {
             title: "Teaching Art",
             description:
-              "I sometimes teach beginners how to draw. Teaching helps me organise knowledge into clearer systems while revisiting and strengthening my own understanding.",
+              "I sometimes teach beginners how to draw. Teaching helps me organise what I know into clearer systems, while revisiting and strengthening my own understanding.",
           },
         },
         journey: {
@@ -335,9 +350,9 @@ export const translations = {
           text:
             "I want industrial design to remain my main professional direction while continuing to develop as a maker and illustrator.",
           second:
-            "Become increasingly capable of taking an idea all the way from concept and visual development to electronics, software, mechanical structure, sourcing and a finished physical prototype in the long term.",
+            "In the long term, I want to become increasingly capable of taking an idea all the way from concept and visual development to electronics, software, mechanical structure, sourcing and a finished physical prototype.",
           third:
-            "At the same time, keep drawing and visual creation as a second identity rather than letting technical work replace it.",
+            "At the same time, I want to keep drawing and visual work as a second identity rather than let technical work replace it.",
         },
         closing:
           "The goal is simple: take ideas seriously enough to build them, and stay curious enough to keep making new ones...",
@@ -467,9 +482,9 @@ export const translations = {
       cassette: "[ 设计数据库 // 已加载 ]",
       description: {
         line1:
-          "通过将艺术直觉与研究驱动的思维相结合，在技术与美学之间建立连接",
+          "把艺术直觉和研究驱动的方法结合起来，在技术与美学之间建立连接",
         line2:
-          "我的目标是让视觉上的优雅始终建立在严谨的技术与切实可行的执行之上",
+          "视觉上的优雅，永远建立在严谨的技术与可落地的执行之上",
       },
       button: "访问项目数据库",
     },
@@ -479,7 +494,7 @@ export const translations = {
       title: "精选项目",
       description: "> 正在访问设计与工程记录...",
       total: "文件总数:",
-      active: "活动",
+      active: "活跃",
     },
 
     explore: {
@@ -518,13 +533,7 @@ export const translations = {
     aboutPreview: {
       header: "个人档案 // 资料模块",
       operator: "操作员",
-      status: "● 活跃设计师 //  创客",
-      description: {
-        line1:
-          "一名探索实体产品、技术与艺术之间联系的设计师",
-        line2:
-          "专注于通过工业设计、嵌入式系统与实验性原型，将概念转化为现实",
-      },
+      status: "● 活跃设计师 // 创客",
       location: "位置: 鹿特丹 // 荷兰",
       field: "领域: 设计 + 技术",
       access: "访问完整档案 >",
@@ -562,7 +571,7 @@ export const translations = {
       },
       notes: {
         title: "笔记",
-        description: "研究、学习与技术记录。",
+        description: "研究、学习与技术记录",
       },
 
       about: {
@@ -572,17 +581,17 @@ export const translations = {
         title: "关于我",
 
         introTitle: "设计\n工程\n艺术",
-        subtitle: "工业设计师 & 创客，现居鹿特丹，在技术思维与视觉创造力之间寻找交汇点。",
-        description: "我的创作处于设计、工程与视觉艺术的交汇地",
+        subtitle: "工业设计师 & 创客，现居鹿特丹，把技术思维和视觉创造力结合到一起。",
+        description: "我的创作处于设计、工程与视觉艺术之间",
         introText:
-          "从一个模糊的草图或概念开始，寻找参考、研究材料与结构、发展造型、建立 3D 模型、制作原型，并最终把它变成一个看得见、摸得着，同时真正能够工作的实体",
+          "我喜欢把一个想法从草图或概念一路推进：找参考、研究材料与结构、推敲造型、建 3D 模型、做原型，最终把它变成一个看得见、摸得着、真正能工作的东西",
 
         identity: {
           title: "DESIGNER // MAKER // ARTIST",
           text:
-            "注重美感，同时也希望理解一个东西是如何工作的、如何被制造出来，以及不同领域的技术如何被组合成一个完整的产品",
+            "在设计师与创客之间，我最自在：我很在意美感，但也想搞懂一个东西是怎么工作的、怎么被制造出来的，以及不同领域的技术如何被组合成一个完整的产品",
           second:
-            "工业及产品设计是我目前主要的职业方向，而插画、概念设计与视觉创作则是我一直保留下来的另一种身份",
+            "工业及产品设计是我目前主要的职业方向，而插画、概念设计与视觉创作，始终是我没有放下的另一重身份",
         },
 
         dossier: {
@@ -596,20 +605,41 @@ export const translations = {
           field: "美学 + 设计 + 技术",
           focusLabel: "当前方向",
           focus:
-            "工业产品设计、嵌入式系统、电子、电工基础、原型制作、视觉表达与实验性创作",
+            "工业产品设计、嵌入式系统、电子、电工基础、原型制作、视觉表达与动手实验",
+          skillsLabel: "技能",
+          skills: [
+            "3D 建模与打印",
+            "原型制作与测试",
+            "素描与绘画",
+            "工业及产品设计",
+            "CMF 设计",
+            "电子与嵌入式系统",
+            "插画与视觉设计",
+            "AI 辅助工作流",
+          ],
+          interestsLabel: "兴趣爱好",
+          interests: [
+            "徒步",
+            "骑行",
+            "阅读",
+            "绘画",
+            "电子电气工程",
+            "制造加工",
+          ],
+          softwareLabel: "软件",
         },
 
         philosophy: {
           header: "个人准则 // 设计理念",
           title: "站在巨人\n的肩膀上",
           text:
-            "设计从来不是闭门造车学习已经存在的知识，研究前人的作品，寻找优秀的参考，并把这些已经积累下来的知识与想法重新组合成自己的东西",
+            "设计从来不是闭门造车。我相信要向已经存在的东西学习：研究前人的作品、寻找优秀的参考，再把积累下来的知识与想法重新组合成自己的东西",
           second:
-            "我很享受把不同领域的知识连接起来的过程一个概念可以来自绘画与视觉设计，造型可以通过 CAD 实现，结构可以通过机械知识解决，最后再通过电子系统和制造技术让它真正运行起来",
+            "我很享受把不同领域的知识连接起来的过程：一个概念可以来自绘画与视觉设计，造型可以通过 CAD 实现，结构可以用机械知识解决，最后再靠电子系统和制造技术让它真正运行起来",
           mottoLabel: "个人信条",
           motto: "FAKE IT TILL YOU MAKE IT.",
           mottoText:
-            "我并不是什么都会，也不会一开始就知道该怎么做遇到不熟悉的东西，我更愿意先去了解、去学习，再一点点尝试可能会走弯路，也可能会失败，但只要还想把它做出来，就继续往下找答案、解决问题，直到最初的想法真的变成一个看得见、摸得着的东西正所谓“假装拥有，直到你的真的成功”",
+            "并不是我什么都懂、一开始就知道该怎么做。遇到不熟悉的东西，我更愿意先去了解、去学习，再一点点尝试。可能会走弯路，也可能会失败，但只要还想把它做出来，就继续找答案、解决问题，直到最初的想法真的变成一个看得见、摸得着的东西。正所谓“假装拥有，直到你真的成功”。",
         },
 
         approach: {
@@ -617,22 +647,22 @@ export const translations = {
           research: {
             title: "研究",
             description:
-              "寻找参考，研究材料、结构、机制与现有解决方案，在决定如何制作之前先理解问题与限制",
+              "寻找参考，研究材料、结构、机构与现有解决方案，在决定怎么做之前先弄清问题与限制",
           },
           concept: {
             title: "概念",
             description:
-              "通过草图、绘画、插画、视觉参考与概念设计，探索一个物体可能成为的样子",
+              "通过草图、绘画、插画、视觉参考与概念设计，探索一个物件可能成为的样子",
           },
           build: {
             title: "构建",
             description:
-              "尽早将想法转化为 CAD 模型、电子系统、3D 打印件与实体原型",
+              "尽早把想法变成 CAD 模型、电子系统、3D 打印件与实体原型",
           },
           refine: {
             title: "迭代",
             description:
-              "不断测试、修改与改进，让美学、功能、使用体验与可制造性逐渐形成统一",
+              "不断测试、修改、迭代，直到美学、功能、使用体验与可制造性开始彼此配合",
           },
         },
 
@@ -651,7 +681,7 @@ export const translations = {
           electronics: {
             title: "电子",
             description:
-              "电工基础、电子系统、Arduino、ESP32以及将电子元件整合进实体产品",
+              "电工基础、电子系统、Arduino、ESP32，以及把电子元件整合进实体产品",
           },
           embedded: {
             title: "嵌入式系统",
@@ -659,9 +689,9 @@ export const translations = {
               "探索微控制器、传感器、执行器与软件驱动的实体交互，并将 AI 辅助开发融入个人工作流",
           },
           fabrication: {
-            title: "制造与加工",
+            title: "制造加工",
             description:
-              "FDM 3D 打印、材料测试、激光切割、基础焊接与各种实体制作实践",
+              "FDM 3D 打印、材料测试、激光切割、基础焊接，以及各种动手制作",
           },
           visual: {
             title: "插画与视觉设计",
@@ -676,7 +706,7 @@ export const translations = {
           teaching: {
             title: "绘画教学",
             description:
-              "平时也会教新手画画; 教学能够帮助我快速整理理论体系，同时重新回顾并巩固自己已经掌握的知识"
+              "偶尔也会教新手画画。教学能帮我把会的东西整理成更清晰的体系，同时也让我重新回顾、巩固自己的理解"
           },
         },
 
@@ -690,13 +720,13 @@ export const translations = {
             technology: "下一阶段",
           },
           text:
-            "我的起点并不是工业设计我最开始接触的是硬件工程，但后来发现自己更希望进入一个能够同时容纳技术思维与视觉创造的领域",
+            "我的起点并不是工业设计。我最开始接触的是硬件工程，但后来发现自己更希望进入一个能同时容纳技术思维与视觉创造的领域",
           second:
-            "工业及产品设计最终成为了一个很自然的交汇点：造型、功能、材料、制造与视觉表达，都能够在同一个设计过程中发生",
+            "工业及产品设计最终成了一个很自然的交汇点：造型、功能、材料、制造与视觉表达，都在同一个设计过程里",
           third:
-            "而现在，我又在逐渐向技术方向靠近电子、嵌入式系统、机械结构、材料测试与制造，正在越来越多地进入我的学习与个人项目",
+            "而现在，我又在逐渐向技术方向靠近。电子、嵌入式系统、机械结构、材料测试与制造，在我的学习与个人项目里占的比重越来越大",
           fourth:
-            "我并不希望自己成为一个需要记住每一个元件参数的纯技术专家我更感兴趣的是理解不同技术之间如何协作，以及如何把它们组合成一个完整、可使用的产品",
+            "我并不想成为那种把每个元件参数都背下来的纯技术专家。我更感兴趣的是理解不同技术之间如何协作，以及怎么把它们组合成一个完整、可用的产品",
         },
 
         current: {
@@ -715,21 +745,21 @@ export const translations = {
               title: "插画 / 概念设计",
             },
             ai: {
-              title: "AI辅助工作流",
+              title: "AI 辅助工作流",
             },
           },
           design: "构成、平面设计、美学与视觉系统",
           technology: "电子、嵌入式系统、Arduino、ESP32 与电工基础",
-          making: "3D 打印、材料、加工制造与实体原型",
+          making: "3D 打印、材料、制造加工与实体原型",
           visual: "插画、角色绘画、概念设计与视觉表达",
-          ai: "AI 辅助编程和代码工作流，让 AI 负责实现层面的辅助，同时把审美、判断与方向仍然掌握在人手中",
+          ai: "AI 辅助编程和技术工作流，让 AI 负责实现层面的工作，而审美、判断与方向仍然由人来把握",
         },
 
         future: {
           header: "下一阶段 // 未来方向",
           text: "工业设计是主线任务，同时还有创客与插画师这两个支线",
           second:
-            "长期来看，我希望自己能够越来越完整地把一个想法从概念与视觉开发，一路做到电子、软件、机械结构、采购与制造，最终成为一个成熟的独立设计师",
+            "长期来看，我希望自己能越来越完整地把一个想法做到底;从概念与视觉开发，一路到电子、软件、机械结构、采购与制造，最终成为一个成熟的独立设计师",
           third:
             "与此同时，我也希望继续画画，让视觉创作成为自己的另一种身份，而不是让技术工作完全取代它",
         },
@@ -740,42 +770,42 @@ export const translations = {
           header: "风格谱系 // 设计起源档案",
           status: "档案状态：已解密 — 出于好奇",
           intro:
-            "我超爱复古未来主义！！当身边的一切都被极简和性冷淡风格处理时，人被量化，产品也失去了情感和个性。就像有人喜欢千禧年美学、有人着迷后室一样，我好奇的是从冷战时期一路到上世纪末的风格演变——那是一条可以追溯、不断变化的审美线索，随着当代社会与文化不断生长，令人着迷。",
+            "我超爱复古未来主义！！当身边的一切都被极简和性冷淡风格处理时，人被量化，产品也失去了情感和个性。就像有人喜欢千禧年美学、有人着迷后室一样，我好奇的是从冷战时期一路到上世纪末的风格演变;那是一条可以追溯、不断变化的审美线索，随着当代社会与文化不断生长，令人着迷。",
           styleIndex: "// STYLE_INDEX — 这个网站参考的设计语言",
           styles: [
             {
               code: "STYLE_01 // BAUHAUS_&_DE_STIJL",
               era: "1919 — 1933",
               body:
-                "三原色当作设计语法：导航栏里重叠的红黄蓝圆点、标题旁的三色竖条。是最早的现代主义设计语言，也是这个网站的视觉起点。",
+                "三原色当作设计语法：导航栏里重叠的红黄蓝圆点、标题旁的三色竖条。这是最早的现代主义设计语言，也是这个网站的视觉起点。",
               refs: "包豪斯德绍 · 蒙德里安构成 · 莫霍利-纳吉的字体实验",
             },
             {
               code: "STYLE_02 // SWISS_INTERNATIONAL",
               era: "1950s — 60s",
               body:
-                "系统化的网格、编号模块、大写微标签。文案写得像仪表铭牌——MODULE_01、ENTRY_001、DATA_UPLINK。",
+                "系统化的网格、编号模块、大写微标签。文案写得像仪表铭牌;MODULE_01、ENTRY_001、DATA_UPLINK。",
               refs: "约瑟夫·米勒-布罗克曼《平面设计中的网格系统》",
             },
             {
               code: "STYLE_03 // CASSETTE_FUTURISM",
               era: "1970s — 80s",
               body:
-                "绿色磷光、扫描线、磁带、条形码、开机终端。画面里隐藏起来的CRT扫描线质感，不知道你有没有注意到？",
+                "绿色磷光、扫描线、磁带、条形码、开机终端。画面里隐藏起来的 CRT 扫描线质感，不知道你有没有注意到？",
               refs: "《异形》(1979) · 《2001太空漫游》 · 苏联联盟号控制面板",
             },
             {
               code: "STYLE_04 // NASA_PUNK",
               era: "1960s",
               body:
-                "任务控制台式显示方式：经纬度坐标、LED 段式仪表、六边形网格、粒子网络。页面像仪器面板一样自我读数。",
+                "任务控制台的遥测数据：经纬度坐标、LED 段式仪表、六边形网格、粒子网络。页面读起来就像一块仪器面板。",
               refs: "阿波罗任务控制中心 · AGC 读数屏 · 明日方舟：孤星 UI",
             },
             {
               code: "STYLE_05 // CYBERPUNK_TERMINAL",
               era: "1980s — 90s",
               body:
-                "黑底绿字的系统日志、黑客终端氛围。意外混入的第五种语言，豪到我了",
+                "黑底绿字的系统日志、黑客终端氛围。意外混入的第五种语言，帅到我了",
               refs: "《银翼杀手》 · 《黑客帝国》",
             },
           ],
@@ -795,7 +825,7 @@ export const translations = {
             },
             {
               title: "辐射（Fallout）系列",
-              note: "原子朋克标杆——CRT 终端与废土乐观主义",
+              note: "原子朋克标杆;CRT 终端与废土乐观主义",
             },
             {
               title: "《异形》(1979) · 《2001太空漫游》",
@@ -803,7 +833,7 @@ export const translations = {
             },
             {
               title: "《银翼杀手》 · 《黑客帝国》",
-              note: "经典永不过时",
+              note: "暗色屏幕与绿色日志，从这里走进流行文化",
             },
           ],
         },
@@ -819,7 +849,7 @@ export const translations = {
   nl: {
     meta: {
       description:
-        "RrSuika Studio — multidisciplinair makerportfolio: industrieel ontwerp, embedded systems, elektronica-notities en visuele kunst.",
+        "RrSuika Studio — portfolio van een multidisciplinaire maker: industrieel ontwerp, embedded systems, notities over elektronica en visuele kunst.",
     },
 
     nav: {
@@ -841,7 +871,7 @@ export const translations = {
 
     language: {
       code: "TRANSLATION // UNAVAILABLE",
-      unavailable: "Deze pagina is nog niet beschikbaar in die taal",
+      unavailable: "Deze pagina is nog niet vertaald",
       description: "Bekijk de beschikbare taalversies",
     },
 
@@ -862,16 +892,16 @@ export const translations = {
       cassette: "[ DESIGN_DATABASE // GELADEN ]",
       description: {
         line1:
-          "Overbrug de kloof tussen TECH en AESTHETIEK door artistieke intuïtie te combineren met een onderzoeksgerichte aanpak.",
+          "De kloof tussen TECH en ESTHETIEK overbruggen door artistieke intuïtie te combineren met een onderzoeksgerichte aanpak.",
         line2: "",
       },
-      button: "TOEGANG PROJECTDATABASE",
+      button: "PROJECTDATABASE OPENEN",
     },
 
     featured: {
       tag: "PROJECT_DATABASE // FEATURED_ARCHIEF",
       title: "Geselecteerde projecten",
-      description: "> TOEGANG TOT ONTWERP- EN ENGINEERINGGEGEVENS...",
+      description: "> ONTWERP- EN ENGINEERINGGEGEVENS WORDEN GELADEN...",
       total: "TOTAAL_BESTANDEN:",
       active: "ACTIEF",
     },
@@ -904,7 +934,7 @@ export const translations = {
     },
 
     latest: {
-      header: "SYS.LOG // RECENTE_ACTIVITEITSTREAM",
+      header: "SYS.LOG // RECENTE_ACTIVITEITENSTROOM",
       type: "TYPE:",
       updated: "BIJGEWERKT",
     },
@@ -913,14 +943,8 @@ export const translations = {
       header: "PERSONEELSDOSSIER // PROFIELMODULE",
       operator: "OPERATOR",
       status: "● ACTIEVE ONTWERPER // MAKER",
-      description: {
-        line1:
-          "Een ontwerper en maker die de verbinding verkent tussen fysieke producten, technologie en kunst.",
-        line2:
-          "Gericht op het omzetten van concepten naar realiteit via industrieel ontwerp, embedded systems en experimenteel prototypen.",
-      },
       location: "LOCATIE: ROTTERDAM // NL",
-      field: "VELD: ONTWERP + TECHNOLOGIE",
+      field: "VAKGEBIED: ONTWERP + TECHNOLOGIE",
       access: "VOLLEDIG DOSSIER OPENEN >",
     },
 
@@ -953,7 +977,7 @@ export const translations = {
       },
       art: {
         title: "Art",
-        description: "Illustratie, visuele experimenten en kunstwerk.",
+        description: "Illustratie, visuele experimenten en kunstwerken.",
       },
       notes: {
         title: "Notities",
@@ -962,20 +986,20 @@ export const translations = {
       about: {
         pageTag: "PERSONEELSDOSSIER // PROFIELMODULE",
         pageStatus: "● SYSTEEM_ACTIEF",
-        eyebrow: "RrSuika STUDIO // ONTWERPER + MAKER + ARTIST",
+        eyebrow: "RrSuika STUDIO // ONTWERPER + MAKER + KUNSTENAAR",
         title: "About ME",
         introTitle: "TUSSEN\nMAKEN\nDESIGN\nKUNST",
-        subtitle: "Industrieel ontwerper & maker in Rotterdam, met een brug tussen technisch denken en visuele creativiteit.",
+        subtitle: "Industrieel ontwerper & maker in Rotterdam, op het snijvlak van technisch denken en visuele creativiteit.",
         description:
-          "Ik ben industrieel productontwerper en digitaal artiest, met een sterke interesse in dingen echt maken.",
+          "Ik ben industrieel productontwerper en digitaal kunstenaar, met een sterke interesse in het maken van echte dingen.",
         introText:
-          "Mijn werk bevindt zich ergens tussen design, engineering en visuele kunst. Ik neem graag een idee vanaf een schets of concept, zoek referenties, ontwikkel de vorm, bouw een prototype en maak er uiteindelijk iets fysieks en functioneels van.",
+          "Mijn werk zit ergens tussen design, engineering en visuele kunst. Ik werk graag een idee uit vanaf een schets of concept: referenties zoeken, de vorm ontwikkelen, een prototype bouwen en er uiteindelijk iets fysieks en functioneels van maken.",
         identity: {
           title: "DESIGNER // MAKER // ARTIST",
           text:
-            "Het meest op mijn plek tussen ontwerper en maker; ik geef veel om esthetiek, maar wil ook begrijpen hoe dingen werken, hoe ze gemaakt worden en hoe verschillende technologieën gecombineerd kunnen worden tot een compleet object.",
+            "Ik voel me het meest op mijn plek ergens tussen ontwerper en maker. Ik geef veel om esthetiek, maar wil ook begrijpen hoe dingen werken, hoe ze worden gemaakt en hoe verschillende technologieën gecombineerd kunnen worden tot een compleet object.",
           second:
-            "Industrieel ontwerp is mijn belangrijkste professionele richting, terwijl illustratie en visuele creatie een belangrijk deel van mij blijven.",
+            "Industrieel ontwerp is mijn belangrijkste professionele richting, terwijl illustratie en visueel werk een belangrijk deel van wie ik ben blijven.",
         },
         dossier: {
           header: "PERSONEELSDOSSIER // ABOUT_MODULE",
@@ -984,11 +1008,32 @@ export const translations = {
           status: "● ACTIEVE ONTWERPER // MAKER",
           locationLabel: "LOCATIE",
           location: "ROTTERDAM // NL",
-          fieldLabel: "VELD",
+          fieldLabel: "VAKGEBIED",
           field: "ESTHETIEK + ONTWERP + TECHNOLOGIE",
           focusLabel: "HUIDIGE_FOCUS",
           focus:
-            "Industrieel ontwerp, embedded systems, elektronica, prototypen, visuele communicatie en experimenteel maken.",
+            "Industrieel ontwerp, embedded systems, elektronica, prototypen, visuele communicatie en experimenteel bouwen",
+          skillsLabel: "VAARDIGHEDEN",
+          skills: [
+            "3D-modelleren & printen",
+            "Prototypen & testen",
+            "Schetsen & tekenen",
+            "Industrieel & productontwerp",
+            "CMF-design",
+            "Elektronica & embedded systems",
+            "Illustratie & visueel ontwerp",
+            "AI-ondersteunde workflow",
+          ],
+          interestsLabel: "INTERESSES",
+          interests: [
+            "Wandelen",
+            "Fietsen",
+            "Lezen",
+            "Tekenen",
+            "Elektrotechniek",
+            "Fabricage",
+          ],
+          softwareLabel: "SOFTWARE",
         },
         philosophy: {
           header: "PERSOONLIJK_PROTOCOL // ONTWERPFILOSOFIE",
@@ -996,18 +1041,18 @@ export const translations = {
           text:
             "Design ontstaat nooit in isolatie. Ik geloof in leren van wat al bestaat: referenties bestuderen, het werk van anderen begrijpen en die verzamelde ideeën combineren tot iets nieuws.",
           second:
-            "Ik geniet van het verbinden van kennis uit verschillende vakgebieden en het gebruiken daarvan om dingen te maken die ik vanuit één discipline alleen nooit had kunnen maken.",
+            "Ik geniet ervan om kennis uit verschillende vakgebieden te verbinden en daar dingen mee te maken die ik vanuit één discipline alleen nooit had kunnen maken.",
           mottoLabel: "PERSOONLIJK_MOTTO",
           motto: "FAKE IT TILL YOU MAKE IT.",
           mottoText:
-            "Niet doen alsof ik alles al weet, maar bereid zijn onbekend terrein te betreden, te leren wat nodig is en door te blijven bouwen totdat het idee echt wordt.",
+            "Niet doen alsof ik alles al weet, maar bereid zijn om onbekend terrein te betreden, te leren wat nodig is en door te blijven bouwen tot het idee werkelijkheid wordt.",
         },
         approach: {
           description: "",
           research: {
             title: "ONDERZOEK",
             description:
-              "Referenties, materialen, mechanismen en bestaande oplossingen bestuderen voordat wordt besloten hoe iets gemaakt moet worden.",
+              "Referenties, materialen, mechanismen en bestaande oplossingen bestuderen, en pas daarna beslissen hoe iets gemaakt moet worden.",
           },
           concept: {
             title: "CONCEPT",
@@ -1022,7 +1067,7 @@ export const translations = {
           refine: {
             title: "VERFIJNEN",
             description:
-              "Testen, aanpassen en itereren totdat esthetiek, functie, bruikbaarheid en maakbaarheid samen beginnen te werken.",
+              "Testen, aanpassen en itereren totdat esthetiek, functie, bruikbaarheid en maakbaarheid samenkomen.",
           },
         },
         workflow: {
@@ -1035,7 +1080,7 @@ export const translations = {
           design: {
             title: "02 // ONTWERP",
             description:
-              "Vormontwikkeling, CAD-modelleren, CMF-denken en technisch onderzoek.",
+              "Vormontwikkeling, CAD-modelleren, CMF-beslissingen en technisch onderzoek.",
           },
           prototype: {
             title: "03 // PROTOTYPE",
@@ -1063,7 +1108,7 @@ export const translations = {
           mechanical: {
             title: "CMF Design",
             description:
-              "Color, Material and Surface Finish: glanzend, mat, metallic, plastic, leer, texturen en andere veelvoorkomende oppervlaktebehandelingen.",
+              "Color, Material and Surface Finish: van glanzend en mat tot metallic, plastic, leer, texturen en andere veelvoorkomende oppervlaktebehandelingen.",
           },
           electronics: {
             title: "Elektronica",
@@ -1073,7 +1118,7 @@ export const translations = {
           embedded: {
             title: "Embedded Systems",
             description:
-              "Microcontrollers, sensoren, actuatoren en software-gestuurde fysieke interactie verkennen, met AI-ondersteunde ontwikkeling als onderdeel van de workflow.",
+              "Microcontrollers, sensoren, actuatoren en softwaregestuurde fysieke interactie verkennen, met AI-ondersteunde ontwikkeling als onderdeel van de workflow.",
           },
           fabrication: {
             title: "Fabricage",
@@ -1091,9 +1136,9 @@ export const translations = {
               "SolidWorks, KeyShot, Photoshop en Clip Studio Paint, met eerdere ervaring in Blender.",
           },
           teaching: {
-            title: "Tekenen lesgeven",
+            title: "Lesgeven in tekenen",
             description:
-              "Soms leer ik beginners tekenen. Lesgeven helpt me kennis in heldere systemen te ordenen, terwijl ik mijn eigen begrip herzie en versterk.",
+              "Soms leer ik beginners tekenen. Lesgeven helpt me om kennis in heldere systemen te ordenen, terwijl ik mijn eigen begrip herzie en versterk.",
           },
         },
         journey: {
@@ -1107,13 +1152,13 @@ export const translations = {
             technology: "VOLGENDE FASE",
           },
           text:
-            "Mijn pad begon niet bij industrieel ontwerp. Ik verkende eerst hardware-engineering, maar realiseerde me uiteindelijk dat ik een vakgebied wilde waar technisch denken en visuele creativiteit naast elkaar kunnen bestaan.",
+            "Mijn pad begon niet met industrieel ontwerp. Ik verdiepte me eerst in hardware-engineering, maar besefte uiteindelijk dat ik een vakgebied wilde waar technisch denken en visuele creativiteit samengaan.",
           second:
-            "Industrieel en productontwerp werd een natuurlijk midden: een discipline waarin vorm, functie, materialen, productie en visuele communicatie allemaal deel uitmaken van hetzelfde proces.",
+            "Industrieel en productontwerp werd een natuurlijk kruispunt: een discipline waarin vorm, functie, materialen, productie en visuele communicatie allemaal samenkomen in hetzelfde proces.",
           third:
-            "Vandaag beweeg ik langzaam weer richting de technische kant. Elektronica, embedded systems, mechanische eigenschappen, materiaaltesten en fabricage worden een steeds belangrijker deel van mijn leren en persoonlijke projecten.",
+            "Inmiddels beweeg ik langzaam weer richting de technische kant. Elektronica, embedded systems, mechanische eigenschappen, materiaaltesten en fabricage worden een steeds belangrijker deel van mijn leerproces en persoonlijke projecten.",
           fourth:
-            "Het doel is niet de specialist te worden die elke componentparameter uit het hoofd kent. Ik ben meer geïnteresseerd in hoe verschillende technologieën samenwerken en hoe ze onderdeel kunnen worden van een compleet, bruikbaar product.",
+            "Het doel is niet om de specialist te worden die elke componentparameter uit het hoofd kent. Ik ben meer geïnteresseerd in hoe verschillende technologieën samenwerken en hoe ze onderdeel kunnen worden van een compleet, bruikbaar product.",
         },
         current: {
           header: "HUIDIG_ONDERZOEK // 2026",
@@ -1143,31 +1188,31 @@ export const translations = {
           visual:
             "Illustratie, karaktertekenen, conceptdesign en visuele communicatie.",
           ai:
-            "AI-ondersteund coderen en technische workflows, met AI als implementatietool terwijl menselijk oordeel, smaak en richting centraal blijven.",
+            "AI-ondersteund coderen en technische workflows: AI als implementatietool, terwijl menselijk oordeel, smaak en richting centraal blijven staan.",
         },
         future: {
           header: "VOLGENDE_ITERATIE // TOEKOMSTRICHTING",
           text:
             "Ik wil dat industrieel ontwerp mijn belangrijkste professionele richting blijft, terwijl ik me blijf ontwikkelen als maker en illustrator.",
           second:
-            "Op lange termijn steeds beter in staat worden een idee helemaal te dragen: van concept en visuele ontwikkeling tot elektronica, software, mechanische structuur, inkoop en een afgewerkt fysiek prototype.",
+            "Op lange termijn steeds beter in staat zijn om een idee helemaal uit te werken: van concept en visuele ontwikkeling tot elektronica, software, mechanische structuur, inkoop en een afgewerkt fysiek prototype.",
           third:
-            "Tegelijk blijven tekenen en visueel creëren als tweede identiteit, in plaats van het te laten vervangen door technisch werk.",
+            "Tegelijk tekenen en visueel werk als tweede identiteit behouden, in plaats van het te laten vervangen door technisch werk.",
         },
         closing:
-          "Het doel is simpel: ideeën serieus genoeg nemen om ze te bouwen, en nieuwsgierig genoeg blijven om nieuwe te blijven maken...",
+          "Het doel is simpel: ideeën serieus genoeg nemen om ze ook echt te bouwen, en nieuwsgierig genoeg blijven om nieuwe te blijven maken...",
         annex: {
           header: "STYLE_GENEALOGIE // DESIGN_ORIGINS_RECORD",
           status: "RECORD_STATUS: UNCLASSIFIED — GEDEELD UIT NIEUWSGIERIGHEID",
           intro:
-            "Ik hou gewoon van retro-futurisme!! Wanneer alles om ons heen wordt platgeslagen tot minimalisme en koud, klinisch design, worden mensen gekwantificeerd en verliezen producten hun emotie en persoonlijkheid. Net als mensen die van Y2K houden of in de Backrooms worden gezogen, ben ik nieuwsgierig naar hoe stijl zich ontwikkelde vanaf de Koude Oorlog tot het einde van de vorige eeuw. Het is een traceerbare, constant muterende esthetiek die zich blijft hervormen met de maatschappij en cultuur eromheen. Dat fascineert me.",
+            "Ik ben gewoon gek op retro-futurisme!! Wanneer alles om ons heen wordt platgeslagen tot minimalisme en koud, klinisch design, worden mensen gereduceerd tot cijfers en verliezen producten hun emotie en persoonlijkheid. Net als mensen die van Y2K houden of de Backrooms in getrokken worden, ben ik nieuwsgierig naar hoe stijl zich ontwikkelde van de Koude Oorlog tot het einde van de vorige eeuw. Het is een traceerbare, voortdurend veranderende esthetiek die meebeweegt met de maatschappij en cultuur om zich heen. Dat fascineert me.",
           styleIndex: "// STYLE_INDEX — DE BELANGRIJKSTE DIALECTEN DIE DEZE SITE SPREEKT",
           styles: [
             {
               code: "STYLE_01 // BAUHAUS_&_DE_STIJL",
               era: "1919 — 1933",
               body:
-                "Primaire-kleurentrits als ontwerpgrammatica: de overlappende rode/gele/blauwe stippen in de navbar, de driekleurenbalken naast de kop. Geometrie als moreel kader.",
+                "De triade van primaire kleuren als ontwerpgrammatica: de overlappende rode/gele/blauwe stippen in de navbar, de driekleurige balken naast de kop. Geometrie als moreel kader.",
               refs: "Bauhaus Dessau · Mondriaan-composities · Moholy-Nagy typografie",
             },
             {
@@ -1188,14 +1233,14 @@ export const translations = {
               code: "STYLE_04 // NASA_PUNK",
               era: "Jaren 60",
               body:
-                "Mission-control telemetrie: lengte-/breedtegraad, LED-segmentmeters, hex-raster, partikelnetwerken. De pagina leest zichzelf als een instrumentenpaneel.",
+                "Mission-control telemetrie: breedte-/lengtegraadcoördinaten, LED-segmentmeters, hex-raster, deeltjesnetwerken. De pagina leest als een instrumentenpaneel.",
               refs: "Apollo Mission Control · AGC-uitlezingen · Arknights: Lone Trail UI",
             },
             {
               code: "STYLE_05 // CYBERPUNK_TERMINAL",
               era: "Jaren 80 — 90",
               body:
-                "Donker scherm + groene systeemlogs, de hacker-terminal sfeer. Het toevallige vijfde dialect — het kwam met het donkere thema en vertrok nooit meer.",
+                "Donker scherm + groene systeemlogs, de sfeer van een hackerterminal. Het toevallige vijfde dialect — het kwam met het donkere thema en ging nooit meer weg.",
               refs: "Blade Runner · The Matrix",
             },
           ],
@@ -1203,7 +1248,7 @@ export const translations = {
           works: [
             {
               title: "Arknights: Lone Trail",
-              note: "koude onderzoeksstations en lanceerbases, instrumentenpaneel-verhalen",
+              note: "koude onderzoeksstations en lanceerbases, storytelling via instrumentenpanelen",
             },
             {
               title: "Reverse: 1999",
@@ -1211,7 +1256,7 @@ export const translations = {
             },
             {
               title: "Atomic Heart",
-              note: "Sovjet-futurisme en machine-esthetiek in de eerste persoon",
+              note: "Sovjet-futurisme en machine-esthetiek in first person",
             },
             {
               title: "Fallout-serie",

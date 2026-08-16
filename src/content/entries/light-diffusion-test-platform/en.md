@@ -3,7 +3,7 @@ title: Light Diffusion Test Platform
 
 date: 2026-04-20
 
-description: Designed a desktop optical test platform to  measures light transmission, diffusion, reflection and luminance distribution under controlled conditions — turning subjective CMF decisions into something measurable.
+description: Designed a desktop optical test platform to measure light transmission, diffusion, reflection and luminance distribution under controlled conditions — turning subjective CMF decisions into something measurable.
 
 type: projects
 
@@ -75,7 +75,7 @@ The rig is a vertical measurement stand: light source at the bottom, adjustable 
 ### Key Components
 
 - <strong style="color:var(--accent)">Light source</strong>: LED strip with PWM brightness control. Goes from barely glowing to full output, and I can dial in exact levels repeatably.
-- <strong style="color:var(--accent)">Sample stage</strong>: Repurposed laboratory lift table. The height adjustment lets me precisely control the distance between the light source and the material — what I'm calling the "diffusion gap." This variable turned out to be surprisingly important.
+- <strong style="color:var(--accent)">Sample stage</strong>: Repurposed laboratory lift table. The height adjustment lets me precisely control the distance between the light source and the material — what I call the "diffusion gap." That gap turned out to be surprisingly important.
 - <strong style="color:var(--accent)">Frame</strong>: Laser-cut structural panels, spray-painted matte black. The black finish isn't cosmetic — it absorbs stray ambient light and kills internal reflections that would otherwise contaminate measurements.
 - <strong style="color:var(--accent)">Control system</strong>: Arduino running a simple PWM routine. Nothing fancy, but it gives me repeatable brightness steps so I can come back to the same settings days later and get the same output.
 - <strong style="color:var(--accent)">Power delivery</strong>: Oxygen-free copper wire, minimum 0.5mm² cross-section. Rated for 2A with headroom. This spec became important later (see the iteration section).
@@ -135,7 +135,7 @@ Each material went through multiple configurations — different thicknesses, di
 
 # Controllable Variables
 
-The whole point of building a test rig instead of just holding things up to a lamp was being able to change one thing at a time. Systematic A/B testing is only possible if you can lock every variable except the one you're studying.
+The whole point of building a test rig instead of just holding things up to a lamp was to change one thing at a time. Systematic A/B testing is only possible if you can lock every variable except the one you're studying.
 
 <div class="variables-grid">
 

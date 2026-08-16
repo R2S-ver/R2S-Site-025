@@ -1,5 +1,5 @@
 ---
-title: ESP32 seriële uitvoertest
+title: ESP32 seriële communicatietest
 date: 2026-07-20
 description: "Verificatie van de ESP32-microcontroller: een sketch uploaden en seriële communicatie via USB bevestigen."
 
@@ -41,7 +41,7 @@ void loop() {
 }
 ```
 
-Niets bijzonders hier; alleen de seriële poort initialiseren op 115200 baud en elke seconde een heartbeat printen. Als dit in de Serial Monitor verschijnt, weet ik dat het bord leeft, dat de USB-naar-UART-bridge werkt en dat de Arduino IDE er goed mee kan communiceren.
+Niets bijzonders: alleen de seriële poort initialiseren op 115200 baud en elke seconde een heartbeat printen. Als dit in de Serial Monitor verschijnt, weet ik dat het bord leeft, dat de USB-naar-UART-bridge werkt en dat de Arduino IDE er goed mee kan communiceren.
 
 # Teststappen
 

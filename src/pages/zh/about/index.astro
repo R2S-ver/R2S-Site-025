@@ -28,7 +28,10 @@ const personSchema = {
 };
 ---
 
-<Layout title={`${t.sections.about.title} | RrSuika Studio`} description={t.sections.about.description}>
+<Layout
+  title={`${t.sections.about.title} | RrSuika Studio`}
+  description={t.sections.about.description}
+>
   <script
     type="application/ld+json"
     is:inline
@@ -73,7 +76,7 @@ const personSchema = {
     ====================================================== -->
 
     <section class="intro-section">
-      <div class="section-label">// 01 — INTRODUCTION // IDENTITY</div>
+      <div class="section-label">// 01 — 自我介绍 // 身份</div>
 
       <div class="intro-layout">
         <div class="intro-heading">
@@ -115,7 +118,7 @@ const personSchema = {
     ====================================================== -->
 
     <section class="dossier-section">
-      <div class="section-label">// 02 — 人员档案</div>
+      <div class="section-label">// 02 — 个人档案</div>
 
       <div class="dossier">
         <div class="dossier-header">
@@ -134,34 +137,50 @@ const personSchema = {
               {t.sections.about.dossier.operator}
             </div>
 
-            <h2>RrSuika Studio</h2>
+            <h2>R Wang</h2>
 
             <p>
               {t.sections.about.dossier.role}
             </p>
+
+            <div class="identity-rows">
+              <div class="mini-row">
+                <span class="data-label">
+                  {t.sections.about.dossier.locationLabel}
+                </span>
+
+                <div class="mini-value">
+                  {t.sections.about.dossier.location}
+                </div>
+              </div>
+
+              <div class="mini-row">
+                <span class="data-label">
+                  {t.sections.about.dossier.fieldLabel}
+                </span>
+
+                <div class="mini-value">
+                  {t.sections.about.dossier.field}
+                </div>
+              </div>
+
+              <div class="mini-row">
+                <span class="data-label">
+                  {t.sections.about.dossier.interestsLabel}
+                </span>
+
+                <div class="chips">
+                  {
+                    t.sections.about.dossier.interests.map((interest) => (
+                      <span class="chip">{interest}</span>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="dossier-data">
-            <div class="data-row">
-              <span class="data-label">
-                {t.sections.about.dossier.locationLabel}
-              </span>
-
-              <span>
-                {t.sections.about.dossier.location}
-              </span>
-            </div>
-
-            <div class="data-row">
-              <span class="data-label">
-                {t.sections.about.dossier.fieldLabel}
-              </span>
-
-              <span>
-                {t.sections.about.dossier.field}
-              </span>
-            </div>
-
             <div class="data-row">
               <span class="data-label">
                 {t.sections.about.dossier.focusLabel}
@@ -170,6 +189,77 @@ const personSchema = {
               <span>
                 {t.sections.about.dossier.focus}
               </span>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.skillsLabel}
+              </span>
+
+              <div class="chips">
+                {
+                  t.sections.about.dossier.skills.map((skill) => (
+                    <span class="chip">{skill}</span>
+                  ))
+                }
+              </div>
+            </div>
+
+            <div class="data-row">
+              <span class="data-label">
+                {t.sections.about.dossier.softwareLabel}
+              </span>
+
+              <div class="software">
+                <img
+                  class="soft-icon pol-dark"
+                  src="/icons/photoshop.png"
+                  width="73"
+                  height="41"
+                  alt="Photoshop"
+                  title="Photoshop"
+                />
+                <img
+                  class="soft-icon pol-dark"
+                  src="/icons/solidworks.png"
+                  width="39"
+                  height="39"
+                  alt="SolidWorks"
+                  title="SolidWorks"
+                />
+                <img
+                  class="soft-icon pol-light"
+                  src="/icons/clip-studio-paint.png"
+                  width="39"
+                  height="39"
+                  alt="Clip Studio Paint"
+                  title="Clip Studio Paint"
+                />
+                <img
+                  class="soft-icon pol-light"
+                  src="/icons/keyshot.png"
+                  width="42"
+                  height="41"
+                  alt="KeyShot"
+                  title="KeyShot"
+                />
+                <img
+                  class="soft-icon pol-mid"
+                  src="/icons/blender.png"
+                  width="88"
+                  height="50"
+                  alt="Blender"
+                  title="Blender"
+                />
+                <img
+                  class="soft-icon pol-dark"
+                  src="/icons/davinci-resolve.png"
+                  width="42"
+                  height="44"
+                  alt="DaVinci Resolve"
+                  title="DaVinci Resolve"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -181,7 +271,7 @@ const personSchema = {
     ====================================================== -->
 
     <section class="philosophy-section">
-      <div class="section-label">// 03 — 个人协议</div>
+      <div class="section-label">// 03 — 个人准则</div>
 
       <div class="philosophy-layout">
         <div class="philosophy-main">
@@ -233,7 +323,7 @@ const personSchema = {
 
       <div class="process-header">
         <div class="process-heading">
-          <span class="system-tag"> 创意管道 </span>
+          <span class="system-tag"> 创意流水线 </span>
 
           <h2>
             创意
@@ -533,7 +623,7 @@ const personSchema = {
 
             <strong> 制作 </strong>
 
-            <small> 学习事物是如何制造的 </small>
+            <small> 学习东西是怎么造出来的 </small>
           </div>
         </div>
 
@@ -617,7 +707,7 @@ const personSchema = {
 
             <strong> CMF </strong>
 
-            <small> 颜色 · 材料 · 表面处理 · 表面 </small>
+            <small> 颜色 · 材料 · 表面处理 </small>
           </div>
         </div>
 
@@ -625,7 +715,7 @@ const personSchema = {
           <div class="skill-node-dot"></div>
 
           <div class="skill-node-content">
-            <span class="skill-index"> 04 / 物体 </span>
+            <span class="skill-index"> 04 / 物件 </span>
 
             <strong> 原型制作 </strong>
 
@@ -723,7 +813,7 @@ const personSchema = {
 
             <strong> 创意 → 实物 </strong>
 
-            <small> 将概念转化为有形之物 </small>
+            <small> 把概念变成看得见摸得着的东西 </small>
           </div>
         </div>
 
@@ -843,7 +933,7 @@ const personSchema = {
     ====================================================== -->
 
     <section class="future-section">
-      <div class="section-label">// 08 — 下一次迭代</div>
+      <div class="section-label">// 08 — 下一阶段</div>
 
       <div class="future-panel">
         <div class="future-heading">
@@ -879,11 +969,11 @@ const personSchema = {
 
       <div class="closing-grid">
         <div class="closing-copy">
-          <span class="closing-kicker"> // 最终协议 </span>
+          <span class="closing-kicker"> // 结语 </span>
 
           <!-- 个人理念表述 -->
           <p>
-            设计是一个不断迭代的过程，技术与艺术的结合是我一直追求的目标。我希望在未来的工作中，能够在设计、技术和艺术之间找到更多的交集，创造出既有美感又有实用性的作品。
+            设计是一个不断迭代的过程，把技术和艺术结合起来，是我一直想做的事。往后的工作里，希望能在设计、技术和艺术之间找到更多交集，做出既好看又实用的作品。
           </p>
         </div>
 
@@ -916,7 +1006,7 @@ const personSchema = {
         </div>
 
         <p class="annex-intro">
-          我超爱复古未来主义！！当身边的一切都被极简和性冷淡风格处理时，人被量化，产品也失去了情感和个性。就像有人喜欢千禧年美学、有人着迷后室一样，我好奇的是从冷战时期一路到上世纪末的风格演变——那是一条可以追溯、不断变化的审美线索，随着当代社会与文化不断生长，令人着迷。
+          我超爱复古未来主义！！当身边的一切都被极简和性冷淡风格处理时，人被量化，产品也失去了情感和个性。就像有人喜欢千禧年美学、有人着迷后室一样，我好奇的是从冷战时期一路到上世纪末的风格演变;那是一条可以追溯、不断变化的审美线索，随着当代社会与文化不断生长，令人着迷。
         </p>
 
         <div class="annex-style-index">
@@ -930,7 +1020,7 @@ const personSchema = {
               <span class="annex-era">1919 — 1933</span>
             </div>
             <p>
-              三原色当作设计语法：导航栏里重叠的红黄蓝圆点、标题旁的三色竖条。是最早的现代主义设计语言，也是这个网站的视觉起点。
+              把三原色当作设计语法：导航栏里重叠的红黄蓝圆点、标题旁的三色竖条。是最早的现代主义设计语言，也是这个网站的视觉起点。
             </p>
             <div class="annex-refs">
               &gt; REF: 包豪斯德绍 · 蒙德里安构成 · 莫霍利-纳吉的字体实验
@@ -943,7 +1033,7 @@ const personSchema = {
               <span class="annex-era">1950s — 60s</span>
             </div>
             <p>
-              系统化的网格、编号模块、大写微标签。文案写得像仪表铭牌——MODULE_01、ENTRY_001、DATA_UPLINK。
+              系统化的网格、编号模块、大写微标签。文案写得像仪表铭牌;MODULE_01、ENTRY_001、DATA_UPLINK。
             </p>
             <div class="annex-refs">
               &gt; REF: 约瑟夫·米勒-布罗克曼《平面设计中的网格系统》
@@ -971,7 +1061,7 @@ const personSchema = {
             </div>
             <p>
               任务控制台式显示方式：经纬度坐标、LED
-              段式仪表、六边形网格、粒子网络。页面像仪器面板一样自我读数。
+              段式仪表、六边形网格、粒子网络。页面像仪器面板一样，随时给自己读数。
             </p>
             <div class="annex-refs">
               &gt; REF: 阿波罗任务控制中心 · AGC 读数屏 · 明日方舟：孤星 UI
@@ -1015,7 +1105,7 @@ const personSchema = {
             <li>
               <span class="annex-work-title">辐射（Fallout）系列</span>
               <span class="annex-work-note"
-                >— 原子朋克标杆——CRT 终端与废土乐观主义</span
+                >— 原子朋克标杆;CRT 终端与废土乐观主义</span
               >
             </li>
             <li>
@@ -1035,7 +1125,8 @@ const personSchema = {
   </main>
 </Layout>
 
-<script is:inline
+<script
+  is:inline
   define:vars={{
     industrial: {
       title: t.sections.about.capabilities.industrial.title,
@@ -2214,8 +2305,12 @@ const personSchema = {
   const annexPanel = document.getElementById("style-annex-panel");
   const enterKey = document.querySelector(".enter-key");
 
-  // 打字机引擎 —— 逐字符输出，结束后恢复原始 HTML 结构
-  function typeAnnexBlock(el: HTMLElement, original: string, speed: number): Promise<void> {
+  // 打字机引擎 ; 逐字符输出，结束后恢复原始 HTML 结构
+  function typeAnnexBlock(
+    el: HTMLElement,
+    original: string,
+    speed: number,
+  ): Promise<void> {
     return new Promise<void>((resolve) => {
       const temp = document.createElement("div");
       temp.innerHTML = original;
@@ -2259,9 +2354,9 @@ const personSchema = {
       if (!annexTyped) {
         annexTyped = true;
         const blocks = annexPanel.querySelectorAll<HTMLElement>(
-          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li"
+          ".annex-intro, .annex-style-index, .annex-entry p, .annex-refs, .annex-works-list li",
         );
-        // 先同步清空所有区块，再显示面板——避免先闪现全文再打字
+        // 先同步清空所有区块，再显示面板;避免先闪现全文再打字
         blocks.forEach((el) => {
           el.dataset.annexOriginal = el.innerHTML;
           el.innerHTML = "";
@@ -2271,7 +2366,11 @@ const personSchema = {
         annexPanel.scrollIntoView({ behavior: "smooth", block: "start" });
         (async () => {
           for (const el of blocks) {
-            await typeAnnexBlock(el, el.dataset.annexOriginal || "", annexSpeed(el));
+            await typeAnnexBlock(
+              el,
+              el.dataset.annexOriginal || "",
+              annexSpeed(el),
+            );
           }
         })();
       } else {
@@ -2402,7 +2501,7 @@ const personSchema = {
     row-gap: 20px;
   }
 
-  /* 子网格:左右两列逐行对齐 —— 右侧导语行再高,
+  /* 子网格:左右两列逐行对齐 ; 右侧导语行再高,
      第二行「标题 ↔ 正文」的顶部对齐也不受影响 */
   .intro-heading,
   .intro-content {
@@ -2509,7 +2608,7 @@ const personSchema = {
   }
 
   .identity {
-    padding: 55px;
+    padding: 40px;
     border-right: 1px solid var(--border);
   }
 
@@ -2533,8 +2632,33 @@ const personSchema = {
     font-weight: bold;
   }
 
+  .identity-rows {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .mini-row {
+    margin-bottom: 16px;
+  }
+
+  .mini-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .mini-row .data-label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .mini-value {
+    color: #bbb;
+    font-size: var(--text-scale-2xs);
+    line-height: 1.6;
+  }
+
   .dossier-data {
-    padding: 35px 45px;
+    padding: 28px 45px;
   }
 
   .data-row {
@@ -2555,6 +2679,47 @@ const personSchema = {
   .data-label {
     color: #666;
     letter-spacing: var(--tracking-label);
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    color: var(--text-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-scale-3xs);
+    letter-spacing: var(--tracking-micro);
+  }
+
+  .software {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .soft-icon {
+    display: block;
+    height: 26px;
+    width: auto;
+  }
+
+  .pol-dark {
+    filter: invert(0.9);
+  }
+
+  :root[data-theme="light"] .pol-dark {
+    filter: none;
+  }
+
+  :root[data-theme="light"] .pol-light {
+    filter: brightness(0.3);
   }
 
   /* =====================================================
@@ -3996,6 +4161,9 @@ const personSchema = {
     color: #333;
   }
   :root[data-theme="light"] .data-row {
+    color: var(--text-soft);
+  }
+  :root[data-theme="light"] .mini-value {
     color: var(--text-soft);
   }
   :root[data-theme="light"] .identity h2 {
