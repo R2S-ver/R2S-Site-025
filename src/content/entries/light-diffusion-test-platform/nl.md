@@ -1,24 +1,34 @@
 ---
 title: Testplatform voor lichtdiffusie
+
 date: 2026-04-20
+
 description: Ontwierp een optisch desktop-testplatform om de optische en visuele eigenschappen van verschillende materialen systematisch te evalueren; zodat subjectieve CMF-beslissingen herhaalbare en meetbare vergelijkingen worden.
+
 type: projects
+
 category: CMF & Optisch Testen
+
 cover: 03-final-platform-3d.png
+
 tags:
   - Industrieel Ontwerp
   - CMF
   - Materiaaltesten
   - Lichtdiffusie
   - Optische Meting
+
 tools:
   - Arduino
   - LED-strip (PWM-gestuurd)
   - Laboratoriumheftafel
   - Precisie-stappenmotordriver
   - Zuurstofvrij koperdraad
+
 featured: true
+
 lang: nl
+
 translationKey: light-diffusion-test-platform
 ---
 
