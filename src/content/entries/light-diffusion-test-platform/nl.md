@@ -194,6 +194,6 @@ Naast de CMF-data heeft het bouwen van dit platform een paar principes erin gest
 - <strong style="color:var(--accent)">Isoleer één variabele tegelijk, anders ben je gewoon aan het gokken</strong>: de mogelijkheid om materiaal, dikte, afwerking of afstand onafhankelijk te veranderen is wat dit van "dingen voor een lamp houden" verandert in echt testen. Systematische vergelijking werkt alleen als je alles stil kunt houden behalve het ene ding dat je onderzoekt.
 - <strong style="color:var(--accent)">Gereedschap verdient zich terug over projecten heen</strong>: tijd steken in een goed testplatform voelt in het begin traag, maar elke toekomstige CMF-beslissing met doorschijnende materialen verwijst nu naar echte metingen in plaats van turen en hopen.
 
-## Toekomst verbeteringen
+## Toekomstverbeteringen
 
 - <strong style="color:var(--accent)">Vervang handmatige PWM-sturing door gekalibreerde digitale sturing</strong>: De huidige opstelling vertrouwt op een handmatig ingestelde PWM-controller, wat volstaat voor verkennend testen maar enige variatie in lichtintensiteit tussen metingen introduceert. Een microcontroller zou nauwkeurig gedefinieerde PWM-signalen kunnen genereren en herhaalbare intensiteitsinstellingen kunnen opslaan, waardoor het mogelijk wordt om identieke lichtomstandigheden te reproduceren tussen tests. Dit zou de betrouwbaarheid van de data verbeteren en vergelijkingen tussen materialen rigoureuzer maken.
