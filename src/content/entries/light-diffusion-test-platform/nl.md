@@ -2,7 +2,7 @@
 title: Testplatform voor lichtdiffusie
 date: 2026-04-20
 description: Ontwierp een optisch desktop-testplatform om de optische en visuele eigenschappen van verschillende materialen systematisch te evalueren; zodat subjectieve CMF-beslissingen herhaalbare en meetbare vergelijkingen worden.
-type: projectss
+type: projects
 category: CMF & Optisch Testen
 cover: 03-final-platform-3d.png
 tags:
