@@ -3,7 +3,7 @@ title: Light Diffusion Test Platform
 
 date: 2026-04-20
 
-description: Designed a desktop optical test platform to measure light transmission, diffusion, reflection and luminance distribution under controlled conditions — turning subjective CMF decisions into something measurable.
+description: Designed a desktop optical test platform to systematically evaluating the optical and visual properties of different materials; turning subjective CMF decisions into  repeatable and measurable comparisons.
 
 type: projects
 
@@ -32,15 +32,15 @@ lang: en
 translationKey: light-diffusion-test-platform
 ---
 
-# The Problem I Was Trying to Solve
+# The Problem
 
-Here's something that happens all the time in product design: you're picking a translucent material for a lamp shade, a diffuser panel, or a display cover, and you're basically making an educated guess. You hold the sample up to the light, squint a bit, maybe hold it next to another sample, and think "yeah, this one looks about right."
+Here's something that happens all the time in product design: you're picking a translucent material for a lamp shade, a diffuser panel, or a display cover, and trying to guess which material looks the best. Hold the sample up to the light, squint a bit, maybe hold it next to another sample, and "yeah, this one looks about right."
 
-The trouble is, two materials that look identical under room light can behave completely differently once they're backlit. Surface finish, thickness, pigment load, internal structure — they all affect how light moves through the material, and renderings can only get you so far. At some point you need to actually measure what's happening.
+The trouble is two materials that look identical under room light can behave completely differently once they're backlit. Surface finish, thickness, internal structure; they all affect how light moves through the material, and renderings can only get you so far. At a certain point, you have to see it with your own eyes.
 
-So I built a test rig. Not because I wanted to spend weeks on an apparatus, but because every CMF decision I made after that would be backed by data instead of intuition.
+So I built a test platform. Not because I wanted to spend weeks on an apparatus, but because every CMF decision I made after that would be backed by data instead of intuition.
 
-# What the Platform Measures
+# Measurable factors
 
 Four optical properties, each directly relevant to product design decisions:
 
@@ -53,9 +53,9 @@ Four optical properties, each directly relevant to product design decisions:
 
 Beyond the measurement goals, I had a handful of practical requirements that turned out to be just as important as the optical ones:
 
-- <strong style="color:var(--accent)">Repeatable positioning</strong>: If I can't place samples at consistent distances from the light source, none of the comparisons mean anything.
+- <strong style="color:var(--accent)">Repeatable positioning</strong>: If I can't place samples at consistent distances from the light source, the result will be meaningness.
 - <strong style="color:var(--accent)">Adjustable brightness</strong>: Materials look different at 10% brightness vs 100%. The light source needs to cover that range.
-- <strong style="color:var(--accent)">Ambient light control</strong>: Optical measurements in a sunlit room are just noise. The test environment has to minimize external interference.
+- <strong style="color:var(--accent)">Ambient light control</strong>: Optical measurements in a sunlit room are creating noise. The test environment has to minimize external interference.
 - <strong style="color:var(--accent)">Quick sample swapping</strong>: If changing materials takes five minutes, I won't run enough comparisons to learn anything useful.
 - <strong style="color:var(--accent)">Visual output</strong>: I need to see the results, not just log numbers. Side-by-side visual comparison is half the point.
 
@@ -65,7 +65,7 @@ Beyond the measurement goals, I had a handful of practical requirements that tur
 
 ## Platform Architecture
 
-The rig is a vertical measurement stand: light source at the bottom, adjustable sample stage in the middle, observation from above. The layout is basically a stripped-down optical bench — nothing I didn't need, nothing that gets in the way.
+The platform is a vertical measurement stand: light source at the bottom, adjustable sample stage in the middle, observation from above. The layout is basically a stripped-down optical bench; nothing I didn't need, nothing that gets in the way.
 
 <div class="side-by-side">
   <div><img src="./04-final-render.png" alt="Final Render" /><p>Final 3D Render</p></div>
@@ -74,11 +74,11 @@ The rig is a vertical measurement stand: light source at the bottom, adjustable 
 
 ### Key Components
 
-- <strong style="color:var(--accent)">Light source</strong>: LED strip with PWM brightness control. Goes from barely glowing to full output, and I can dial in exact levels repeatably.
-- <strong style="color:var(--accent)">Sample stage</strong>: Repurposed laboratory lift table. The height adjustment lets me precisely control the distance between the light source and the material — what I call the "diffusion gap." That gap turned out to be surprisingly important.
-- <strong style="color:var(--accent)">Frame</strong>: Laser-cut structural panels, spray-painted matte black. The black finish isn't cosmetic — it absorbs stray ambient light and kills internal reflections that would otherwise contaminate measurements.
-- <strong style="color:var(--accent)">Control system</strong>: Arduino running a simple PWM routine. Nothing fancy, but it gives me repeatable brightness steps so I can come back to the same settings days later and get the same output.
-- <strong style="color:var(--accent)">Power delivery</strong>: Oxygen-free copper wire, minimum 0.5mm² cross-section. Rated for 2A with headroom. This spec became important later (see the iteration section).
+- <strong style="color:var(--accent)">Light source</strong>: LED strip, goes from barely glowing to full output.
+- <strong style="color:var(--accent)">Lift stand</strong>: The height adjustment lets me precisely control the distance between the light source and the material.
+- <strong style="color:var(--accent)">Frame</strong>: Laser-cut structural panels, spray-painted matte black and absorbs stray ambient light and kills internal reflections.
+- <strong style="color:var(--accent)">PWM Module</strong>: Use PWM to control the LED strip’s flicker frequency to adjust its brightness.
+- <strong style="color:var(--accent)">Power delivery</strong>: Oxygen-free copper wire 0.5mm². Rated for 2A with headroom.
 
 ## Fabrication Process
 
@@ -121,7 +121,7 @@ The rig is a vertical measurement stand: light source at the bottom, adjustable 
 
 I tested a range of translucent and transparent materials that show up frequently in product enclosures, diffusers, and light guides:
 
-### Test Material Matrix
+### Test Materials
 
 | Material                    | Type                   | Key Characteristic                                                       |
 | --------------------------- | ---------------------- | ------------------------------------------------------------------------ |
@@ -135,22 +135,22 @@ Each material went through multiple configurations — different thicknesses, di
 
 # Controllable Variables
 
-The whole point of building a test rig instead of just holding things up to a lamp was to change one thing at a time. Systematic A/B testing is only possible if you can lock every variable except the one you're studying.
+The whole point of building this thing instead of just holding materials up to a lamp was to change one thing at a time. Systematic A/B testing is only possible if you can lock every variable except the one you're studying.
 
 <div class="variables-grid">
 
-- <strong style="color:var(--accent)">Light Intensity</strong> — PWM-controlled, from barely visible to full blast
-- <strong style="color:var(--accent)">Material Type</strong> — PLA, PETG, Acrylic, AB Epoxy, PC Diffuser
-- <strong style="color:var(--accent)">Material Color</strong> — Natural, white, and tinted variants of each
-- <strong style="color:var(--accent)">Material Thickness</strong> — Single layer, stacked layers, different sheet gauges
-- <strong style="color:var(--accent)">Surface Finish</strong> — Raw print, sanded (80–5000 grit), polished, textured
-- <strong style="color:var(--accent)">Diffusion Distance</strong> — The gap between light source and sample, adjusted via the lift table
+- <strong style="color:var(--accent)">Light Intensity</strong> : PWM-controlled, from barely visible to full blast
+- <strong style="color:var(--accent)">Material Type</strong> : PLA, PETG, Acrylic, AB Epoxy, PC Diffuser
+- <strong style="color:var(--accent)">Material Color</strong> : Natural, white, and tinted variants of PETG and acrylic
+- <strong style="color:var(--accent)">Material Thickness</strong> : Single layer, stacked layers, different sheet gauges
+- <strong style="color:var(--accent)">Surface Finish</strong> : Raw print, sanded (80–5000 grit), polished, textured
+- <strong style="color:var(--accent)">Diffusion Distance</strong> : The gap between light source and sample, adjusted via the lift table
 
 </div>
 
-# Three Versions to Get It Right
+# Design Iterations
 
-The platform didn't arrive fully formed. I built it three times, and each version fixed something the previous one got wrong.
+The platform didn't arrive fully formed. I did three iterations, and each version fixed something the previous one got wrong.
 
 ![Iteration Comparison](./01-iteration-comparison.png)
 
@@ -163,7 +163,7 @@ The platform didn't arrive fully formed. I built it three times, and each versio
 
 ### V1: Single LED — Manual Solder
 
-I started with individual LEDs hand-soldered to a perfboard. It was the obvious first approach, and it was wrong in exactly the ways you'd expect.
+I was planning of hand-soldering individual LEDs to the board. It was the obvious first approach, and it was wrong in exactly the ways you'd expect.
 
 - <span style="color:#e53935">**Issue:**</span> Hand-soldering twenty LEDs is tedious and inconsistent. Each joint has slightly different resistance, so each LED glows a tiny bit differently. For a test platform, "tiny bit differently" is fatal.
 - <span style="color:#e53935">**Issue:**</span> A single-point light source creates uneven illumination across the sample. If the light isn't uniform to begin with, you can't tell whether the diffusion pattern you're seeing is from the material or from the source.
@@ -179,13 +179,13 @@ I swapped the individual LEDs for a uniform LED strip and used copper foil tape 
 
 This is the one that stuck:
 
-- <span style="color:var(--terminal-green)">**Upgrade:**</span> Ripped out the copper tape and replaced it with oxygen-free copper wire (min 0.5mm²). Properly rated for 2A with margin to spare. Less convenient to work with than tape, but convenience doesn't matter if your test rig burns.
-- <span style="color:var(--terminal-green)">**Upgrade:**</span> Added an Arduino-based PWM controller for full-range brightness adjustment. Now I can test at 10%, 50%, 100%, or anywhere in between — and get the same reading every time.
-- <span style="color:var(--terminal-green)">**Upgrade:**</span> Painted the interior frame matte black. This sounds trivial, but the improvement in measurement consistency was dramatic. Ambient light and internal reflections had been silently contaminating every reading I took in V1 and V2.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> Replaced copper tape with oxygen-free copper wire 0.5mm². Properly rated for 2A with margin to spare.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> PWM controller for full-range brightness adjustment. Now I can test at anywhere in between; and get the same reading every time.
+- <span style="color:var(--terminal-green)">**Upgrade:**</span> Painted the interior frame matte black. Ambient light and internal reflections had been silently contaminating every reading.
 
 # What the Platform Delivers
 
-The finished rig gives me a reliable, repeatable environment for comparing how materials handle light:
+The finished design gives me a reliable, repeatable environment for comparing how materials handle light:
 
 - <strong style="color:var(--accent)">Side-by-side material comparison</strong> under identical lighting — no more "I think this one looks better"
 - <strong style="color:var(--accent)">Surface finish evaluation</strong> — how does sanding, polishing, or texturing change the way light moves through?
@@ -199,7 +199,8 @@ The finished rig gives me a reliable, repeatable environment for comparing how m
 
 Beyond the CMF data, building this platform drilled in a few principles that apply to pretty much any design-build project:
 
-- <strong style="color:var(--accent)">Current ratings aren't suggestions</strong>: The copper tape failure was a concrete reminder that prototyping materials need to be evaluated against their actual electrical loads. It doesn't matter how clean the build looks if the wiring is undersized. Safety specs aren't negotiable.
-- <strong style="color:var(--accent)">Your environment is part of your instrument</strong>: Optical measurements live and die by ambient light control. That matte black paint job — which took maybe twenty minutes — improved measurement consistency more than any other single change. Sometimes the simplest fix has the biggest impact.
+- <strong style="color:var(--accent)">Current ratings is important</strong>: The copper tape was a concrete reminder that prototyping materials need to be evaluated against their actual electrical loads. It doesn't matter how clean the build looks if the wiring is undersized. Safety specs aren't negotiable.
+- <strong style="color:var(--accent)">Your environment is part of your instrument</strong>: Optical measurements live and die by ambient light control. That matte black paint job; which took maybe twenty minutes; improved measurement consistency more than any other single change. Sometimes the simplest fix has the biggest impact.
 - <strong style="color:var(--accent)">Isolate one variable at a time or you're just guessing</strong>: The ability to change material, thickness, finish, or distance independently is what turns this from "holding things up to a lamp" into actual testing. Systematic comparison only works if you can hold everything steady except the one thing you're studying.
-- <strong style="color:var(--accent)">Tools pay for themselves across projects</strong>: Spending time on a proper test platform feels slow at first, but every future CMF decision involving translucent materials now references real measurements instead of squinting and hoping. That's a compounding return.
+- <strong style="color:var(--accent)">Tools pay for themselves across projects</strong>: Spending time on a proper test platform feels slow at first, but every future CMF decision involving translucent materials now references real measurements instead of squinting and hoping.
+- <strong style="color:var(--accent)">Replace manual PWM control with calibrated digital control</strong>: The current setup relies on a manually adjusted PWM controller, which is sufficient for exploratory testing but introduces some variation in light intensity between measurements. A microcontroller could generate precisely defined PWM signals and store repeatable intensity settings, making it possible to reproduce identical lighting conditions across tests. This would improve the reliability of the data and make comparisons between materials more rigorous.
