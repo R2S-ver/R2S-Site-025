@@ -53,7 +53,7 @@ Four optical properties, each directly relevant to product design decisions:
 
 Beyond the measurement goals, I had a handful of practical requirements that turned out to be just as important as the optical ones:
 
-- <strong style="color:var(--accent)">Repeatable positioning</strong>: If I can't place samples at consistent distances from the light source, the result will be meaningness.
+- <strong style="color:var(--accent)">Repeatable positioning</strong>: If I can't place samples at consistent distances from the light source, the result will be meaningless.
 - <strong style="color:var(--accent)">Adjustable brightness</strong>: Materials look different at 10% brightness vs 100%. The light source needs to cover that range.
 - <strong style="color:var(--accent)">Ambient light control</strong>: Optical measurements in a sunlit room are creating noise. The test environment has to minimize external interference.
 - <strong style="color:var(--accent)">Quick sample swapping</strong>: If changing materials takes five minutes, I won't run enough comparisons to learn anything useful.
@@ -163,7 +163,7 @@ The platform didn't arrive fully formed. I did three iterations, and each versio
 
 ### V1: Single LED — Manual Solder
 
-I was planning of hand-soldering individual LEDs to the board. It was the obvious first approach, and it was wrong in exactly the ways you'd expect.
+I was planning on hand-soldering individual LEDs to the board. It was the obvious first approach, and it was wrong in exactly the ways you'd expect.
 
 - <span style="color:#e53935">**Issue:**</span> Hand-soldering twenty LEDs is tedious and inconsistent. Each joint has slightly different resistance, so each LED glows a tiny bit differently. For a test platform, "tiny bit differently" is fatal.
 - <span style="color:#e53935">**Issue:**</span> A single-point light source creates uneven illumination across the sample. If the light isn't uniform to begin with, you can't tell whether the diffusion pattern you're seeing is from the material or from the source.
@@ -199,7 +199,7 @@ The finished design gives me a reliable, repeatable environment for comparing ho
 
 Beyond the CMF data, building this platform drilled in a few principles that apply to pretty much any design-build project:
 
-- <strong style="color:var(--accent)">Current ratings is important</strong>: The copper tape was a concrete reminder that prototyping materials need to be evaluated against their actual electrical loads. It doesn't matter how clean the build looks if the wiring is undersized. Safety specs aren't negotiable.
+- <strong style="color:var(--accent)">Current ratings are important</strong>: The copper tape was a concrete reminder that prototyping materials need to be evaluated against their actual electrical loads. It doesn't matter how clean the build looks if the wiring is undersized. Safety specs aren't negotiable.
 - <strong style="color:var(--accent)">Your environment is part of your instrument</strong>: Optical measurements live and die by ambient light control. That matte black paint job; which took maybe twenty minutes; improved measurement consistency more than any other single change. Sometimes the simplest fix has the biggest impact.
 - <strong style="color:var(--accent)">Isolate one variable at a time or you're just guessing</strong>: The ability to change material, thickness, finish, or distance independently is what turns this from "holding things up to a lamp" into actual testing. Systematic comparison only works if you can hold everything steady except the one thing you're studying.
 - <strong style="color:var(--accent)">Tools pay for themselves across projects</strong>: Spending time on a proper test platform feels slow at first, but every future CMF decision involving translucent materials now references real measurements instead of squinting and hoping.
