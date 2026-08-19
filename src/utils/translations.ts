@@ -47,8 +47,8 @@ export const translations = {
       cassette: "[ DESIGN_DATABASE // LOADED ]",
       description: {
         line1:
-          "Bridge the gap between TECH and AESTHETICS by pairing artistic intuition with a research-driven mindset.",
-        line2: "",
+          "Bridge the gap between TECH and AESTHETICS",
+        line2: "Pairing artistic intuition with a research-driven mindset",
       },
       button: "ACCESS PROJECT DATABASE",
     },
@@ -65,25 +65,25 @@ export const translations = {
       projects: {
         header: "MODULE_01 // WORKS",
         title: "PROJECTS",
-        description: "FABRICATION_ARCHIVE",
+        description: "WORKSPACE/DESIGN",
         access: "ACCESS_DATABASE >",
       },
       lab: {
         header: "MODULE_02 // EXPERIMENTS",
         title: "LAB",
-        description: "HARDWARE_AND_PROTOTYPE_LOG",
+        description: "TESTS/PROTOTYPING",
         access: "OPEN_MODULE >",
       },
       art: {
         header: "MODULE_03 // VISUAL",
         title: "ART",
-        description: "VISUAL_ASSET_MATRIX",
+        description: "VISUAL_ARTWORKS",
         access: "OPEN_ARCHIVE >",
       },
       notes: {
         header: "MODULE_04 // KNOWLEDGE",
         title: "NOTES",
-        description: "RESEARCH_DATABASE",
+        description: "STUDY_NOTES",
         access: "LOAD_DOCUMENTS >",
       },
     },
@@ -482,9 +482,9 @@ export const translations = {
       cassette: "[ 设计数据库 // 已加载 ]",
       description: {
         line1:
-          "把艺术直觉和研究驱动的方法结合起来，在技术与美学之间建立连接",
+          "结合主观审美和系统化思维，在技术与美学之间建立连接",
         line2:
-          "视觉上的优雅，永远建立在严谨的技术与可落地的执行之上",
+          "视觉上的优雅，建立在严谨的技术与可落地的执行之上",
       },
       button: "访问项目数据库",
     },
@@ -507,19 +507,19 @@ export const translations = {
       lab: {
         header: "模块_02 // 实验",
         title: "实验室",
-        description: "硬件与原型日志",
+        description: "测试与原型开发",
         access: "打开模块 >",
       },
       art: {
         header: "模块_03 // 视觉",
         title: "艺术",
-        description: "视觉资产矩阵",
+        description: "视觉艺术作品",
         access: "打开档案 >",
       },
       notes: {
         header: "模块_04 // 知识",
         title: "笔记",
-        description: "研究数据库",
+        description: "学习笔记记录",
         access: "加载文档 >",
       },
     },
@@ -892,15 +892,15 @@ export const translations = {
       cassette: "[ DESIGN_DATABASE // GELADEN ]",
       description: {
         line1:
-          "De kloof tussen TECH en ESTHETIEK overbruggen door artistieke intuïtie te combineren met een onderzoeksgerichte aanpak.",
-        line2: "",
+          "TECHNIEK en ESTHETISCH ontwerp verbinden door middel",
+        line2: "van artistieke intuïtie en een onderzoekende aanpak",
       },
       button: "PROJECTDATABASE OPENEN",
     },
 
     featured: {
       tag: "PROJECT_DATABASE // FEATURED_ARCHIEF",
-      title: "Geselecteerde projecten",
+      title: "Uitgelichte projecten",
       description: "> ONTWERP- EN ENGINEERINGGEGEVENS WORDEN GELADEN...",
       total: "TOTAAL_BESTANDEN:",
       active: "ACTIEF",
@@ -910,39 +910,39 @@ export const translations = {
       projects: {
         header: "MODULE_01 // WERKEN",
         title: "PROJECTEN",
-        description: "FABRICAGE_ARCHIEF",
+        description: "WORKSPACE/DESIGN",
         access: "DATABASE OPENEN >",
       },
       lab: {
         header: "MODULE_02 // EXPERIMENTEN",
         title: "LAB",
-        description: "HARDWARE_EN_PROTOTYPELOG",
+        description: "TESTS/PROTOTYPING",
         access: "MODULE OPENEN >",
       },
       art: {
         header: "MODULE_03 // VISUEEL",
         title: "ART",
-        description: "VISUELE_ASSET_MATRIX",
+        description: "VISUELE_KUNSTWERKEN",
         access: "ARCHIEF OPENEN >",
       },
       notes: {
         header: "MODULE_04 // KENNIS",
         title: "NOTITIES",
-        description: "ONDERZOEK_DATABASE",
+        description: "STUDIE/TECHNISCHE_NOTITIES",
         access: "DOCUMENTEN LADEN >",
       },
     },
 
     latest: {
-      header: "SYS.LOG // RECENTE_ACTIVITEITENSTROOM",
+      header: "SYS.LOG // RECENTE_ACTIVITEITEN",
       type: "TYPE:",
-      updated: "BIJGEWERKT",
+      updated: "UP-TO-DATE",
     },
 
     aboutPreview: {
       header: "PERSONEELSDOSSIER // PROFIELMODULE",
       operator: "OPERATOR",
-      status: "● ACTIEVE ONTWERPER // MAKER",
+      status: "● ACTIEVE ONTWERPER // MAKER // KUNSTENAAR",
       location: "LOCATIE: ROTTERDAM // NL",
       field: "VAKGEBIED: ONTWERP + TECHNOLOGIE",
       access: "VOLLEDIG DOSSIER OPENEN >",
