@@ -21,7 +21,7 @@ tags:
 tools:
   - Arduino
   - LED Strip (PWM Controlled)
-  - Laboratory Lift Table
+  - Laboratory Lift Stand
   - Precision Stepper Driver
   - Oxygen-Free Copper Wire
 
@@ -77,7 +77,7 @@ The platform is a vertical measurement stand: light source at the bottom, adjust
 - <strong style="color:var(--accent)">Light source</strong>: LED strip, goes from barely glowing to full output.
 - <strong style="color:var(--accent)">Lift stand</strong>: The height adjustment lets me precisely control the distance between the light source and the material.
 - <strong style="color:var(--accent)">Frame</strong>: Laser-cut structural panels, spray-painted matte black and absorbs stray ambient light and kills internal reflections.
-- <strong style="color:var(--accent)">PWM Module</strong>: Use PWM to control the LED strip’s flicker frequency to adjust its brightness.
+- <strong style="color:var(--accent)">PWM Module</strong>: Use PWM to control the LED strip’s dutycycle to adjust its brightness.
 - <strong style="color:var(--accent)">Power delivery</strong>: Oxygen-free copper wire 0.5mm². Rated for 2A with headroom.
 
 ## Fabrication Process
@@ -203,4 +203,7 @@ Beyond the CMF data, building this platform drilled in a few principles that app
 - <strong style="color:var(--accent)">Your environment is part of your instrument</strong>: Optical measurements live and die by ambient light control. That matte black paint job; which took maybe twenty minutes; improved measurement consistency more than any other single change. Sometimes the simplest fix has the biggest impact.
 - <strong style="color:var(--accent)">Isolate one variable at a time or you're just guessing</strong>: The ability to change material, thickness, finish, or distance independently is what turns this from "holding things up to a lamp" into actual testing. Systematic comparison only works if you can hold everything steady except the one thing you're studying.
 - <strong style="color:var(--accent)">Tools pay for themselves across projects</strong>: Spending time on a proper test platform feels slow at first, but every future CMF decision involving translucent materials now references real measurements instead of squinting and hoping.
+
+## Future improvements
+
 - <strong style="color:var(--accent)">Replace manual PWM control with calibrated digital control</strong>: The current setup relies on a manually adjusted PWM controller, which is sufficient for exploratory testing but introduces some variation in light intensity between measurements. A microcontroller could generate precisely defined PWM signals and store repeatable intensity settings, making it possible to reproduce identical lighting conditions across tests. This would improve the reliability of the data and make comparisons between materials more rigorous.

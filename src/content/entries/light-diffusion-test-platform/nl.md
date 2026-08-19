@@ -2,7 +2,7 @@
 title: Testplatform voor lichtdiffusie
 date: 2026-04-20
 description: Ontwierp een optisch desktop-testplatform om de optische en visuele eigenschappen van verschillende materialen systematisch te evalueren; zodat subjectieve CMF-beslissingen herhaalbare en meetbare vergelijkingen worden.
-type: projects
+type: projectss
 category: CMF & Optisch Testen
 cover: 03-final-platform-3d.png
 tags:
@@ -34,7 +34,7 @@ Dus bouwde ik een testopstelling. Niet omdat ik weken aan een apparaat wilde bes
 
 Vier optische eigenschappen, elk direct relevant voor productontwerpbeslissingen:
 
-| Eigenschap              | Wat is dat                                            | Invloed op ontwerp                                                                         |
+| Eigenschap              | Wat het je vertelt                                    | Invloed op ontwerp                                                                         |
 | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | **Transmissie**         | Hoeveel licht er door het materiaal heen komt         | Helderheid van displays die van achteren belicht worden, zichtbaarheid van LED-indicatoren |
 | **Diffusie**            | Hoe gelijkmatig het licht verstrooit na het passeren  | Hotspots elimineren, uniformiteit van belichte oppervlakken                                |
@@ -43,7 +43,7 @@ Vier optische eigenschappen, elk direct relevant voor productontwerpbeslissingen
 
 Naast de meetdoelen had ik een handvol praktische eisen die net zo belangrijk bleken als de optische:
 
-- <strong style="color:var(--accent)">Reproduceerbare positionering</strong>: als ik samples niet op consistente afstanden van de lichtbron kan plaatsen, zijn de resultaten niet waard.
+- <strong style="color:var(--accent)">Reproduceerbare positionering</strong>: als ik samples niet op consistente afstanden van de lichtbron kan plaatsen, zijn de resultaten betekenisloos.
 - <strong style="color:var(--accent)">Instelbare helderheid</strong>: materialen zien er bij 10% helderheid anders uit dan bij 100%. De lichtbron moet dat bereik kunnen dekken.
 - <strong style="color:var(--accent)">Beheersing van omgevingslicht</strong>: optische metingen in een zonverlichte kamer zijn alleen maar ruis. De testomgeving moet externe interferentie minimaliseren.
 - <strong style="color:var(--accent)">Snel samples wisselen</strong>: als het verwisselen van materiaal vijf minuten kost, ga ik niet genoeg vergelijkingen uitvoeren om iets nuttigs te leren.
@@ -67,7 +67,7 @@ De opstelling is een verticaal meetstatief: lichtbron onderaan, verstelbaar samp
 - <strong style="color:var(--accent)">Lichtbron</strong>: LED-strip, gaat van nauwelijks gloeiend tot volledige output.
 - <strong style="color:var(--accent)">Heftafel</strong>: met de hoogteverstelling kan ik de afstand tussen de lichtbron en het materiaal nauwkeurig regelen.
 - <strong style="color:var(--accent)">Frame</strong>: lasergesneden structuurpanelen, matzwart gespoten, absorbeert strooilicht en elimineert interne reflecties.
-- <strong style="color:var(--accent)">PWM Module</strong>: gebruik PWM om de flikkerfrequentie van de LED-strip te regelen en zo de helderheid aan te passen.
+- <strong style="color:var(--accent)">PWM Module</strong>: gebruik PWM om de dutycycle van de LED-strip te regelen en zo de helderheid aan te passen.
 - <strong style="color:var(--accent)">Voedingsleiding</strong>: zuurstofvrij koperdraad 0.5 mm². Geschikt voor 2 A met marge.
 
 ## Fabricageproces
@@ -138,7 +138,7 @@ Het hele doel van het bouwen van een testopstelling in plaats van dingen gewoon 
 
 </div>
 
-# Ontwerp iteraties
+# Ontwerpiteraties
 
 Het platform ontstond niet in één keer. Ik heb het drie keer gebouwd, en elke versie loste iets op wat de vorige fout deed.
 
@@ -153,7 +153,7 @@ Het platform ontstond niet in één keer. Ik heb het drie keer gebouwd, en elke 
 
 ### V1: enkele LED, handmatig solderen
 
-Ik was van plan om losse LED's met de hand op de printplaat te solderen. De eerste ontwerp ideeën.
+Ik was van plan om losse LED's met de hand op de printplaat te solderen. Het was de voor de hand liggende eerste aanpak.
 
 - <span style="color:#e53935">**Probleem:**</span> Twintig LED's met de hand solderen is saai en inconsistent. Elke verbinding heeft een iets andere weerstand, waardoor elke LED een klein beetje anders gloeit. Voor een testplatform is "een klein beetje anders" fataal.
 - <span style="color:#e53935">**Probleem:**</span> Een puntvormige lichtbron zorgt voor ongelijkmatige belichting over het sample. Als het licht van meet af aan niet uniform is, kun je niet zien of het diffusiepatroon dat je ziet van het materiaal komt of van de lichtbron.
@@ -193,4 +193,7 @@ Naast de CMF-data heeft het bouwen van dit platform een paar principes erin gest
 - <strong style="color:var(--accent)">Je omgeving is onderdeel van je instrument</strong>: optische metingen staan of vallen met de beheersing van omgevingslicht. Die matzwarte verflaag (die misschien twintig minuten kostte) verbeterde de meetconsistentie meer dan elke andere afzonderlijke wijziging. Soms heeft de simpelste oplossing de grootste impact.
 - <strong style="color:var(--accent)">Isoleer één variabele tegelijk, anders ben je gewoon aan het gokken</strong>: de mogelijkheid om materiaal, dikte, afwerking of afstand onafhankelijk te veranderen is wat dit van "dingen voor een lamp houden" verandert in echt testen. Systematische vergelijking werkt alleen als je alles stil kunt houden behalve het ene ding dat je onderzoekt.
 - <strong style="color:var(--accent)">Gereedschap verdient zich terug over projecten heen</strong>: tijd steken in een goed testplatform voelt in het begin traag, maar elke toekomstige CMF-beslissing met doorschijnende materialen verwijst nu naar echte metingen in plaats van turen en hopen.
+
+## Toekomst verbeteringen
+
 - <strong style="color:var(--accent)">Vervang handmatige PWM-sturing door gekalibreerde digitale sturing</strong>: De huidige opstelling vertrouwt op een handmatig ingestelde PWM-controller, wat volstaat voor verkennend testen maar enige variatie in lichtintensiteit tussen metingen introduceert. Een microcontroller zou nauwkeurig gedefinieerde PWM-signalen kunnen genereren en herhaalbare intensiteitsinstellingen kunnen opslaan, waardoor het mogelijk wordt om identieke lichtomstandigheden te reproduceren tussen tests. Dit zou de betrouwbaarheid van de data verbeteren en vergelijkingen tussen materialen rigoureuzer maken.
