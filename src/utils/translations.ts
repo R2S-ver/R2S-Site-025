@@ -116,7 +116,7 @@ export const translations = {
       uplink: "DATA_UPLINK",
       github: "GitHub",
       email: "Email",
-      pixiv: "pixiv",
+      pixiv: "Pixiv",
       about: "About",
       copyright: "ALL CORE DATA PACKETS INTEGRATED",
     },
@@ -551,7 +551,7 @@ export const translations = {
       uplink: "数据上行链路",
       github: "GitHub",
       email: "邮箱",
-      pixiv: "pixiv",
+      pixiv: "P站",
       about: "关于",
       copyright: "所有核心数据包已整合",
     },
@@ -633,13 +633,13 @@ export const translations = {
           header: "个人准则 // 设计理念",
           title: "站在巨人\n的肩膀上",
           text:
-            "设计从来不是闭门造车。我相信要向已经存在的东西学习：研究前人的作品、寻找优秀的参考，再把积累下来的知识与想法重新组合成自己的东西",
+            "设计从来不是闭门造车，重造轮子：研究前人的作品、寻找优秀的参考，敢于接受他人的看法和批判，再把积累下来的知识与想法重新组合成自己的东西",
           second:
             "我很享受把不同领域的知识连接起来的过程：一个概念可以来自绘画与视觉设计，造型可以通过 CAD 实现，结构可以用机械知识解决，最后再靠电子系统和制造技术让它真正运行起来",
           mottoLabel: "个人信条",
           motto: "FAKE IT TILL YOU MAKE IT.",
           mottoText:
-            "并不是我什么都懂、一开始就知道该怎么做。遇到不熟悉的东西，我更愿意先去了解、去学习，再一点点尝试。可能会走弯路，也可能会失败，但只要还想把它做出来，就继续找答案、解决问题，直到最初的想法真的变成一个看得见、摸得着的东西。正所谓“假装拥有，直到你真的成功”。",
+            "我不是什么都懂、也不一定知道该怎么开始。遇到不熟悉的东西时，我更愿意先去了解学习，再一点点尝试。可能会走弯路，也可能会失败，但只要还想把它做出来，就继续找答案、解决遇到的障碍，直到最初的想法真的变成一个看得见、摸得着的东西。好奇心和行动力，是最有价值的特质",
         },
 
         approach: {
@@ -791,7 +791,7 @@ export const translations = {
               code: "STYLE_03 // CASSETTE_FUTURISM",
               era: "1970s — 80s",
               body:
-                "绿色磷光、扫描线、磁带、条形码、开机终端。画面里隐藏起来的 CRT 扫描线质感，不知道你有没有注意到？",
+                "绿色磷光、扫描线、磁带、条形码、开机终端。画面里隐藏起来的 CRT 扫描线质感。",
               refs: "《异形》(1979) · 《2001太空漫游》 · 苏联联盟号控制面板",
             },
             {
@@ -805,7 +805,7 @@ export const translations = {
               code: "STYLE_05 // CYBERPUNK_TERMINAL",
               era: "1980s — 90s",
               body:
-                "黑底绿字的系统日志、黑客终端氛围。意外混入的第五种语言，帅到我了",
+                "黑底绿字的系统日志、黑客终端氛围。意外混入的第五种视觉语言，帅到我了",
               refs: "《银翼杀手》 · 《黑客帝国》",
             },
           ],
@@ -961,7 +961,7 @@ export const translations = {
       uplink: "DATA_UPLINK",
       github: "GitHub",
       email: "E-mail",
-      pixiv: "pixiv",
+      pixiv: "Pixiv",
       about: "About ME",
       copyright: "ALLE KERNDATAPAKKETTEN GEÏNTEGREERD",
     },
