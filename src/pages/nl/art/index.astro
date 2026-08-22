@@ -23,10 +23,22 @@ interface Category {
 }
 
 const CATEGORIES: { folder: string; titles: Record<string, string> }[] = [
-  { folder: "illustrations", titles: { en: "Illustrations", zh: "插画", nl: "Illustraties" } },
-  { folder: "product-posters", titles: { en: "Product Posters", zh: "产品海报", nl: "Productposters" } },
-  { folder: "fashion-design", titles: { en: "Fashion Design", zh: "服装设计", nl: "Modeontwerp" } },
-  { folder: "food-art", titles: { en: "Food Art", zh: "美食艺术", nl: "Food Art" } },
+  {
+    folder: "illustrations",
+    titles: { en: "Illustrations", zh: "插画", nl: "Illustraties" },
+  },
+  {
+    folder: "product-posters",
+    titles: { en: "Product Posters", zh: "产品海报", nl: "Productposters" },
+  },
+  {
+    folder: "fashion-design",
+    titles: { en: "Fashion Design", zh: "服装设计", nl: "Modeontwerp" },
+  },
+  {
+    folder: "food-art",
+    titles: { en: "Food Art", zh: "美食艺术", nl: "Food Art" },
+  },
 ];
 
 const TITLE_MAP: Record<string, Record<string, string>> = {
@@ -39,6 +51,7 @@ const TITLE_MAP: Record<string, Record<string, string>> = {
     "06-susuluo": "Sussurro",
     "07-mofazhumi": "Magic Piggy",
     "08-pepe": "Pepe",
+    "09-rossi": "Rossi",
   },
   "food-art": {
     "01-seven-color-yokan": "Seven-Color Yōkan",
@@ -55,7 +68,9 @@ function titleFromFilename(folder: string, filename: string): string {
   if (TITLE_MAP[folder]?.[key]) {
     return TITLE_MAP[folder][key];
   }
-  let name = filename.replace(/^.*[\\/]/, "").replace(/\.(png|jpe?g|webp)$/i, "");
+  let name = filename
+    .replace(/^.*[\\/]/, "")
+    .replace(/\.(png|jpe?g|webp)$/i, "");
   name = name.replace(/^\d+[-_]/, "");
   name = name.replace(/[-_]/g, " ");
   return name.replace(/\b\w/g, (c) => c.toUpperCase());
@@ -75,66 +90,90 @@ const categories: Category[] = CATEGORIES.map((cat) => ({
 const hasContent = categories.some((c) => c.images.length > 0);
 ---
 
-<Layout title={`${t.sections.art.title} | RrSuika Studio`} description={t.sections.art.description}>
+<Layout
+  title={`${t.sections.art.title} | RrSuika Studio`}
+  description={t.sections.art.description}
+>
   <main class="art-page">
     <section class="art-hero">
       <p class="hero-tag">{t.explore.art.header}</p>
       <h1>{t.sections.art.title}</h1>
       <p class="hero-sub">{t.sections.art.description}</p>
-      <p class="hero-hint">← scrollen → slepen &nbsp;|&nbsp; klik om te bekijken</p>
+      <p class="hero-hint">
+        ← scrollen → slepen &nbsp;|&nbsp; klik om te bekijken
+      </p>
     </section>
 
     {
       !hasContent && (
         <div class="empty">
-          <p>Plaats afbeeldingen in <code>src/content/entries/&#123;illustrations,product-posters,fashion-design,food-art&#125;/</code></p>
+          <p>
+            Plaats afbeeldingen in{" "}
+            <code>
+              src/content/entries/&#123;illustrations,product-posters,fashion-design,food-art&#125;/
+            </code>
+          </p>
           <p>Ze verschijnen hier automatisch.</p>
         </div>
       )
     }
 
     <div class="rows" id="art-rows">
-      {categories.filter((c) => c.images.length > 0).map((cat, rowIndex) => (
-        <section class="art-row" data-row={rowIndex}>
-          <div class="row-header">
-            <span class="row-idx">{(rowIndex + 1).toString().padStart(2, "0")}</span>
-            <h2>{cat.titles[language] || cat.titles.en}</h2>
-            <span class="row-count">{cat.images.length} werken</span>
-          </div>
+      {
+        categories
+          .filter((c) => c.images.length > 0)
+          .map((cat, rowIndex) => (
+            <section class="art-row" data-row={rowIndex}>
+              <div class="row-header">
+                <span class="row-idx">
+                  {(rowIndex + 1).toString().padStart(2, "0")}
+                </span>
+                <h2>{cat.titles[language] || cat.titles.en}</h2>
+                <span class="row-count">{cat.images.length} werken</span>
+              </div>
 
-          <div class="row-viewport" id={`row-${rowIndex}`}>
-            {(() => {
-              const unique = cat.images.length;
-              // Ensure enough copies to fill the viewport seamlessly
-              const copies = Math.max(3, Math.ceil(12 / unique));
-              const frames = Array.from({ length: copies }, () => cat.images).flat();
-              return (
-                <div class="row-track" data-track={rowIndex} data-copies={copies} data-unique={unique}>
-                  {frames.map((img, i) => (
+              <div class="row-viewport" id={`row-${rowIndex}`}>
+                {(() => {
+                  const unique = cat.images.length;
+                  // Ensure enough copies to fill the viewport seamlessly
+                  const copies = Math.max(3, Math.ceil(12 / unique));
+                  const frames = Array.from(
+                    { length: copies },
+                    () => cat.images,
+                  ).flat();
+                  return (
                     <div
-                      class="frame"
-                      data-row={rowIndex}
-                      data-idx={i % unique}
-                      data-src={img.src}
-                      data-title={img.title}
+                      class="row-track"
+                      data-track={rowIndex}
+                      data-copies={copies}
+                      data-unique={unique}
                     >
-                      <div class="frame-media">
-                        <img
-                          src={img.src}
-                          alt={img.title}
-                          loading={i < 8 ? "eager" : "lazy"}
-                          draggable="false"
-                        />
-                      </div>
-                      <span class="frame-caption">{img.title}</span>
+                      {frames.map((img, i) => (
+                        <div
+                          class="frame"
+                          data-row={rowIndex}
+                          data-idx={i % unique}
+                          data-src={img.src}
+                          data-title={img.title}
+                        >
+                          <div class="frame-media">
+                            <img
+                              src={img.src}
+                              alt={img.title}
+                              loading={i < 8 ? "eager" : "lazy"}
+                              draggable="false"
+                            />
+                          </div>
+                          <span class="frame-caption">{img.title}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              );
-            })()}
-          </div>
-        </section>
-      ))}
+                  );
+                })()}
+              </div>
+            </section>
+          ))
+      }
     </div>
 
     <!-- Lightbox -->
@@ -158,13 +197,13 @@ const hasContent = categories.some((c) => c.images.length > 0);
   interface RowState {
     el: HTMLElement;
     track: HTMLElement;
-    speed: number;         // pixels per frame
-    position: number;      // current scrollLeft
+    speed: number; // pixels per frame
+    position: number; // current scrollLeft
     isHovering: boolean;
     isDragging: boolean;
     dragStartX: number;
     dragStartScroll: number;
-    direction: number;     // 1 = right, -1 = left
+    direction: number; // 1 = right, -1 = left
   }
 
   const states: RowState[] = [];
@@ -188,7 +227,9 @@ const hasContent = categories.some((c) => c.images.length > 0);
     states.push(state);
 
     // ── Mouse / touch events ──
-    el.addEventListener("mouseenter", () => { state.isHovering = true; });
+    el.addEventListener("mouseenter", () => {
+      state.isHovering = true;
+    });
     el.addEventListener("mouseleave", () => {
       state.isHovering = false;
       state.isDragging = false;
@@ -231,7 +272,9 @@ const hasContent = categories.some((c) => c.images.length > 0);
       state.position = state.dragStartScroll + dx;
     });
 
-    el.addEventListener("touchend", () => { state.isDragging = false; });
+    el.addEventListener("touchend", () => {
+      state.isDragging = false;
+    });
   });
 
   // ── Animation loop ──
@@ -277,9 +320,7 @@ const hasContent = categories.some((c) => c.images.length > 0);
   let currentIdx = 0;
 
   function getRowFrames(row: number): HTMLElement[] {
-    return Array.from(allFrames).filter(
-      (f) => Number(f.dataset.row) === row,
-    );
+    return Array.from(allFrames).filter((f) => Number(f.dataset.row) === row);
   }
 
   function openLightbox(row: number, idx: number) {
@@ -311,7 +352,9 @@ const hasContent = categories.some((c) => c.images.length > 0);
   }
 
   function getUniqueCount(row: number): number {
-    const track = document.querySelector(`[data-track="${row}"]`) as HTMLElement;
+    const track = document.querySelector(
+      `[data-track="${row}"]`,
+    ) as HTMLElement;
     return Number(track?.dataset.unique) || getRowFrames(row).length / 2;
   }
 
@@ -367,8 +410,14 @@ const hasContent = categories.some((c) => c.images.length > 0);
 
   btnClose.addEventListener("click", closeLightbox);
   lbBg.addEventListener("click", closeLightbox);
-  btnPrev.addEventListener("click", (e) => { e.stopPropagation(); prevImage(); });
-  btnNext.addEventListener("click", (e) => { e.stopPropagation(); nextImage(); });
+  btnPrev.addEventListener("click", (e) => {
+    e.stopPropagation();
+    prevImage();
+  });
+  btnNext.addEventListener("click", (e) => {
+    e.stopPropagation();
+    nextImage();
+  });
 
   document.addEventListener("keydown", (e) => {
     if (!lightbox.classList.contains("active")) return;
@@ -439,7 +488,7 @@ const hasContent = categories.some((c) => c.images.length > 0);
   }
 
   .empty code {
-    background: rgba(255,255,255,0.06);
+    background: rgba(255, 255, 255, 0.06);
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -551,7 +600,11 @@ const hasContent = categories.some((c) => c.images.length > 0);
     left: 0;
     right: 0;
     padding: 24px 12px 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      transparent 100%
+    );
     border-radius: 0 0 6px 6px;
     overflow: hidden;
     color: #ccc;
@@ -617,7 +670,7 @@ const hasContent = categories.some((c) => c.images.length > 0);
     max-height: 82vh;
     object-fit: contain;
     border-radius: 4px;
-    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
     transition: opacity 0.25s var(--ease-out);
   }
   .lightbox-body img.crossfade {
@@ -625,7 +678,7 @@ const hasContent = categories.some((c) => c.images.length > 0);
   }
   .lightbox-body img {
     border-radius: 4px;
-    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
   }
 
   .lb-caption {
@@ -652,8 +705,13 @@ const hasContent = categories.some((c) => c.images.length > 0);
       transform 0.2s var(--spring-snappy);
   }
 
-  .lightbox-close:hover { color: #fff; transform: scale(1.15); }
-  .lightbox-close:active { transform: scale(0.9); }
+  .lightbox-close:hover {
+    color: #fff;
+    transform: scale(1.15);
+  }
+  .lightbox-close:active {
+    transform: scale(0.9);
+  }
 
   .lightbox-prev,
   .lightbox-next {
@@ -672,12 +730,26 @@ const hasContent = categories.some((c) => c.images.length > 0);
     user-select: none;
   }
 
-  .lightbox-prev { left: 10px; transform: translateY(-50%); }
-  .lightbox-next { right: 10px; transform: translateY(-50%); }
-  .lightbox-prev:hover { color: #fff; transform: translateY(-50%) translateX(-3px); }
-  .lightbox-next:hover { color: #fff; transform: translateY(-50%) translateX(3px); }
+  .lightbox-prev {
+    left: 10px;
+    transform: translateY(-50%);
+  }
+  .lightbox-next {
+    right: 10px;
+    transform: translateY(-50%);
+  }
+  .lightbox-prev:hover {
+    color: #fff;
+    transform: translateY(-50%) translateX(-3px);
+  }
+  .lightbox-next:hover {
+    color: #fff;
+    transform: translateY(-50%) translateX(3px);
+  }
   .lightbox-prev:active,
-  .lightbox-next:active { transform: translateY(-50%) scale(0.9); }
+  .lightbox-next:active {
+    transform: translateY(-50%) scale(0.9);
+  }
 
   /* ── Responsive ── */
   @media (max-width: 900px) {
