@@ -38,7 +38,9 @@ gallery:
   - file: 07-mofazhumi.png
     title: 魔法猪咪 Magic Piggy — Sept 2025
   - file: 08-pepe.png
-    title: Pepe — June 2026
+    title: 佩佩 Pepe — June 2026
+  - file: 09-rossi.png
+    title: 洛茜 Rossi — June 2026
 ---
 
 Digital character illustrations created over time.

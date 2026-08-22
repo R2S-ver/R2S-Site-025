@@ -39,6 +39,8 @@ gallery:
     title: 魔法猪咪 — 2025年9月
   - file: 08-pepe.png
     title: 佩佩 — 2026年6月
+  - file: 09-rossi.png
+    title: 洛茜 — 2026年7月
 ---
 
 数字角色插画创作。
